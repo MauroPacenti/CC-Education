@@ -13,8 +13,8 @@ The **CC-Education** project is designed to provide a user-friendly interface fo
 3. **Backoffice Dashboard**  
    A dashboard accessible only by company staff, providing tools to manage the lifecycle of both information and booking requests. The backoffice allows administrators to view, update, and process incoming requests from the information and booking forms.
 
-4. **Mailing System**
-  Every request notification is managed by **Java Mail Sender**, to confirm the operational status to users and to notice company staff.
+4. **Mailing System**  
+   Every request notification is managed by **Java Mail Sender**, to confirm the operational status to users and to notice company staff.
 
 ## Technologies Used:
 
