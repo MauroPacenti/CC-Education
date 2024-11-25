@@ -25,5 +25,5 @@ The **CC-Education** project is designed to provide a user-friendly interface fo
   The backend is developed using **Java Spring Boot**, a powerful framework for building production-grade, scalable web applications. Spring Boot offers features such as security, data access, and API development that streamline backend development.
 
 - **Database**:  
-  **MySQL** is used as the database management system (DBMS). It provides robust data storage, management, and security features to handle all application data, from user inputs to booking details.
+  **MariaDB** is used as the database management system (DBMS). It provides robust data storage, management, and security features to handle all application data, from user inputs to booking details.
 
