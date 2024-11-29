@@ -13,6 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 @Table(name = "journeys")
 public class Journey {
 	
