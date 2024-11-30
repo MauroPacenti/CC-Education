@@ -2,6 +2,7 @@ package com.novo.entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "journeys")
+@Table(name = "`journeys`")
 public class Journey {
 	
 	@Column(name = "id")
@@ -28,13 +29,14 @@ public class Journey {
 	private String annotations;
 	
 	@Column(name = "start_date")
-	private Date start_date;
+	private Date startDate;
 	
 	@Column(name = "end_date")
-	private Date end_date;
-	
+	private Date endDate;
+
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "journey_request_id", referencedColumnName = "id")
-	private Journey_request journey_request_id;
+	private JourneyRequest journeyRequest;
 
 }
