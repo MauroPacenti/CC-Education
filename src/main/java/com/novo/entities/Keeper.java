@@ -1,16 +1,14 @@
 package com.novo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "keepers")
+@Table(name = "`keepers`")
 public class Keeper {
 	
 	@Id
@@ -31,5 +29,9 @@ public class Keeper {
 	
 	@Column(name = "phone")
 	private String phone;
+
+	@JsonManagedReference
+	@OneToOne(mappedBy = "keeper")
+	private Group group;
 
 }
