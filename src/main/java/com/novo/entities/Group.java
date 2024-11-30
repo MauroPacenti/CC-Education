@@ -1,5 +1,6 @@
 package com.novo.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "groups")
+@Table(name = "`groups`")
 public class Group {
 	
 	@Column(name = "id")
@@ -25,8 +26,8 @@ public class Group {
 	@Column(name = "adults")
 	private int adults;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
-	private Keeper keeper_id;
-	
+	private Keeper keeper;
 }
