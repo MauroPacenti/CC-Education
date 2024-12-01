@@ -12,7 +12,6 @@ import lombok.Setter;
 public class Status {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Remove or comment this line if needed
     @Column(name = "id") // "id" column
     private int id;
 
