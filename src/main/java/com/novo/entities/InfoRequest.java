@@ -11,7 +11,6 @@ import lombok.Setter;
 public class InfoRequest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Remove or comment this line if needed
     @Column(name = "id") // "id" column
     private int id;
 
@@ -23,7 +22,8 @@ public class InfoRequest {
 
     @Column(name = "content", columnDefinition = "TEXT") // "content" column
     private String content;
-
+    
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;

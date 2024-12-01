@@ -12,7 +12,6 @@ import lombok.Setter;
 public class Status {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Remove or comment this line if needed
     @Column(name = "id") // "id" column
     private int id;
 
@@ -20,10 +19,12 @@ public class Status {
     private String name;
 
     // OneToMany relation with JourneyRequest
+    @JsonBackReference
     @OneToMany(mappedBy = "status")
     private List<JourneyRequest> journeyRequests;
 
     // OneToMany relation with InfoRequest
+    @JsonBackReference
     @OneToMany(mappedBy = "status")
     private List<InfoRequest> infoRequests;
 }
