@@ -29,7 +29,12 @@ public class JourneyRequest {
 
     @Column(name = "duration") // "duration" column
     private int duration;
-
+  
+    @JsonManagedReference
+    @OneToOne(mappedBy = "journeyRequest")
+    private Journey journey;
+  
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;

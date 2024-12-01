@@ -22,7 +22,8 @@ public class InfoRequest {
 
     @Column(name = "content", columnDefinition = "TEXT") // "content" column
     private String content;
-
+    
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;

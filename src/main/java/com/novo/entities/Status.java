@@ -19,10 +19,12 @@ public class Status {
     private String name;
 
     // OneToMany relation with JourneyRequest
+    @JsonBackReference
     @OneToMany(mappedBy = "status")
     private List<JourneyRequest> journeyRequests;
 
     // OneToMany relation with InfoRequest
+    @JsonBackReference
     @OneToMany(mappedBy = "status")
     private List<InfoRequest> infoRequests;
 }
