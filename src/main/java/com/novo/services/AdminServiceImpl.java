@@ -60,7 +60,7 @@ public class AdminServiceImpl implements AdminService {
     //Responsable to validate password changes
     @Override
     public boolean validatePassword(String password) {
-        // Regex pattern for validation (at least a number, a special char, an upper char and a lower char)
+        //Regex pattern for validation (at least a number, a special char, an upper char and a lower char)
         String regex = "(?=.*[0-9])(?=.*[!@#$%^&*.\\-_])(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9!@#$%^&*.\\-_]{12,}$";
         Pattern pattern = Pattern.compile(regex);
 
@@ -69,14 +69,13 @@ public class AdminServiceImpl implements AdminService {
 
     //Responsable to validate email changes
     @Override
-    public void validateEmail(String email) {
+    public boolean validateEmail(String email) {
+        //Regex pattern for email validation
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
         //It must email the new address with a code,
         //the code must be inserted to confirm the change
-    }
 
-    //Responsable to validate username changes
-    @Override
-    public boolean validateUsername(String username) {
-        return false;
+        return pattern.matcher(email).matches();
     }
 }

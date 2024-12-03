@@ -9,7 +9,6 @@ public interface AdminService {
     boolean securityCheck(String oldEmailCode, String newEmailCode);
     Admin getAdmin();
     boolean validatePassword(String password);
-    void validateEmail(String email);
-    boolean validateUsername(String username);
+    boolean validateEmail(String email);
 
 }
