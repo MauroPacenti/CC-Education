@@ -22,12 +22,13 @@ public class AdminServiceImpl implements AdminService {
         if(!newEmail.equals(oldEmail)){
             //save security codes into security_check and emails old and new adresses
             //securityActivation(newEmail, oldEmail);
+            adminRepo.save(temp);
         }
         else{
             //save security codes into security_check and emails admin address
             //securityActivation(oldEmail);
+            adminRepo.save(temp);
         }
-        adminRepo.save(temp);
     }
 
     @Override
@@ -38,9 +39,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean securityCheck(String oldEmailCode, String newEmailCode) {
+    public boolean securityCheck(String oldEmailCode) {
+        //Retrieves security code from security_check table and confronts it with the code given
         return false;
     }
+
+    @Override
+    public boolean securityCheck(String oldEmailCode, String newEmailCode) {
+        //Retrieves security codes from security_check table and confronts them with the codes given
+        return false;
+    }
+
 
     //Retrieves admin
     @Override
