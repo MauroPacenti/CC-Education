@@ -7,7 +7,7 @@ import com.novo.entities.Group;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 	
-	    // Esegue una query dove conta il numero di keepers all'interno dell'organizzazione
-		@Query("SELECT COUNT(DISTINCT o.keeper) FROM Organization o ")
+	    // Esegue una query dove conta il numero di keepers all'interno del gruppo
+		@Query("SELECT COUNT(DISTINCT g.keeper) FROM Group g ")
 		public int countByKeeper();
 }
