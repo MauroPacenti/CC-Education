@@ -1,5 +1,7 @@
 package com.novo.config;
 
+import com.novo.components.AdminAuthenticationProvider;
+import com.novo.repos.AdminRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SpringSecurity {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AdminRepository adminRepository;
 
     @Bean
     public static PasswordEncoder passwordEncoder(){
@@ -29,12 +31,13 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/*").permitAll()
+                        authorize.requestMatchers("/api/pub/**").permitAll()
+                                .requestMatchers("/api/auth/**").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login.html")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/personal.html", true)
+                                .defaultSuccessUrl("/api/pub/getAdmin", true)
                                 .failureHandler((request, response, exception) -> {
                                     // Imposta il codice di stato HTTP personalizzato
                                     response.setStatus(HttpServletResponse.SC_FORBIDDEN); // Cambia il codice secondo le tue necessità
@@ -51,8 +54,6 @@ public class SpringSecurity {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(new AdminAuthenticationProvider(adminRepository, passwordEncoder()));
     }
 }

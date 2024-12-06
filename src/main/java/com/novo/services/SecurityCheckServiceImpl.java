@@ -39,7 +39,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
             return sb.toString();
     }
 
-    //Saves security codes into database
+    //Saves security codes into database, the second one will be empty if not required
     @Override
     public void saveCodes(String oldEmailCode, String newEmailCode) {
         SecurityCheck securityCheck = new SecurityCheck();
@@ -56,20 +56,4 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
         securityCheckRepo.save(securityCheck);
     }
 
-    //Saves security codes into database, sets newEmailCode empty
-    @Override
-    public void saveCodes(String oldEmailCode) {
-        SecurityCheck securityCheck = new SecurityCheck();
-        if(securityCheckRepo.findById(1).isPresent()) {
-            securityCheck = securityCheckRepo.findById(1).get();
-            securityCheck.setOldEmailCode(oldEmailCode);
-            securityCheck.setNewEmailCode("");
-        }
-        else {
-            securityCheck.setId(1);
-            securityCheck.setOldEmailCode(oldEmailCode);
-            securityCheck.setNewEmailCode("");
-        }
-        securityCheckRepo.save(securityCheck);
-    }
 }

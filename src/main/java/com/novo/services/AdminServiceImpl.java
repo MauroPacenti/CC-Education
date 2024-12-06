@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepo;
+    @Autowired
+    private SecurityCheckServiceImpl securityCheckService;
 
 
     @Override
@@ -18,17 +20,7 @@ public class AdminServiceImpl implements AdminService {
         Admin temp = adminRepo.findById("temp").get();
         temp.setPassword(newPassword);
         temp.setEmail(newEmail);
-        String oldEmail = adminRepo.findById("admin").get().getEmail();
-        if(!newEmail.equals(oldEmail)){
-            //save security codes into security_check and emails old and new adresses
-            //securityActivation(newEmail, oldEmail);
-            adminRepo.save(temp);
-        }
-        else{
-            //save security codes into security_check and emails admin address
-            //securityActivation(oldEmail);
-            adminRepo.save(temp);
-        }
+        adminRepo.save(temp);
     }
 
     @Override
@@ -38,23 +30,15 @@ public class AdminServiceImpl implements AdminService {
         adminRepo.save(admin);
     }
 
-    @Override
-    public boolean securityCheck(String oldEmailCode) {
-        //Retrieves security code from security_check table and confronts it with the code given
-        return false;
-    }
-
-    @Override
-    public boolean securityCheck(String oldEmailCode, String newEmailCode) {
-        //Retrieves security codes from security_check table and confronts them with the codes given
-        return false;
-    }
-
-
     //Retrieves admin
     @Override
     public Admin getAdmin() {
         return adminRepo.findAll().get(0);
+    }
+
+    @Override
+    public Admin getTemp() {
+        return adminRepo.findAll().get(1);
     }
 
     //Responsable to validate password changes
