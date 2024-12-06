@@ -28,19 +28,54 @@ public class AdminController {
         return ResponseEntity.ok(admin);
     }
 
+    @PostMapping("/auth/saveChanges")
+    public ResponseEntity<String> saveChanges(@RequestParam String oldEmailCode, @RequestParam(required = false) String newEmailCode) {
+        //sets newEmail code to empty string if null
+        if(newEmailCode == null)
+            newEmailCode = "";
+        if(securityCheckService.codeSecurityCheck(oldEmailCode,newEmailCode)){
+            adminService.saveNewCredentials();
+            return ResponseEntity.ok("Verifica confermata");
+        }
+        else {
+            return ResponseEntity.badRequest().body("I codici non corrispondono");
+        }
+    }
+
     @PutMapping("/auth/saveTemp")
-    public ResponseEntity<Admin> saveTemp(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Admin> saveTemp(@RequestParam(required = false) String email, @RequestParam(required = false) String password) {
         try {
+            //turns null values to empty strings
+            if(email == null){
+                email = "";
+            }
+            if(password == null){
+                password = "";
+            }
+            //verifies which values are empty and decides how to fill temporary information
             if(email.isEmpty() && password.isEmpty()){
                 throw new Error("I campi sono entrambi vuoti");
             }
-            else if(email.isEmpty()) {
+            else if(email.isEmpty() || email.equals(adminService.getAdmin().getEmail())) {
+                //password validation
+                if(adminService.validatePassword(password)){
+                    throw new Error("La password non rispetta i criteri di sicurezza." +
+                            "\nSono necessari almeno:" +
+                            "\nuna lettera maiuscola;" +
+                            "\nuna lettera minuscola;" +
+                            "\nun numero;" +
+                            "\nun carattere speciale;");
+                }
                 adminService.saveTemporaryCredentials(passwordEncoder.encode(password), adminService.getAdmin().getEmail());
                 String code = securityCheckService.codeSecurityGeneration();
                 securityCheckService.saveCodes(code, "");
                 javaMailSenderService.sendVerificationMail(code, adminService.getAdmin().getEmail());
             }
             else if(password.isEmpty()) {
+                //email validation
+                if(adminService.validateEmail(email)){
+                    throw new Error("L'email non ha un formato idoneo.");
+                }
                 adminService.saveTemporaryCredentials(adminService.getAdmin().getPassword(), email);
                 String codeOld = securityCheckService.codeSecurityGeneration();
                 String codeNew = securityCheckService.codeSecurityGeneration();
@@ -49,6 +84,19 @@ public class AdminController {
                 javaMailSenderService.sendVerificationMail(codeNew, email);
             }
             else {
+                //password validation
+                if(adminService.validatePassword(password)){
+                    throw new Error("La password non rispetta i criteri di sicurezza." +
+                            "\nSono necessari almeno:" +
+                            "\nuna lettera maiuscola;" +
+                            "\nuna lettera minuscola;" +
+                            "\nun numero;" +
+                            "\nun carattere speciale;");
+                }
+                //email validation
+                if(adminService.validateEmail(email)){
+                    throw new Error("L'email non ha un formato idoneo.");
+                }
                 adminService.saveTemporaryCredentials(passwordEncoder.encode(password), email);
                 String codeOld = securityCheckService.codeSecurityGeneration();
                 String codeNew = securityCheckService.codeSecurityGeneration();

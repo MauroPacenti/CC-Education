@@ -1,6 +1,5 @@
 package com.novo.services;
 
-import com.novo.entities.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,23 +9,24 @@ import org.springframework.stereotype.Service;
 public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     @Autowired
     private JavaMailSender mailSender;
-    @Autowired
-    private AdminService adminService;
 
+    //sends an email
     @Override
     public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("mauro.pacenti@edu.itspiemonte.it");
+        //server email address
+        message.setFrom("neotrinal@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
         mailSender.send(message);
     }
 
+    //sends verification email containing security code
     @Override
     public void sendVerificationMail(String code, String email) {
-        Admin admin = adminService.getAdmin();
         SimpleMailMessage message = new SimpleMailMessage();
+        //server email address
         message.setFrom("neotrinal@gmail.com");
         message.setTo(email);
         message.setSubject("codice di verifica");
