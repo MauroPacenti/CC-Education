@@ -1,6 +1,6 @@
 package com.novo.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
@@ -29,10 +29,10 @@ public class Journey {
 	private String annotations;
 	
 	@Column(name = "start_date")
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@Column(name = "end_date")
-	private Date endDate;
+	private LocalDate endDate;
 
 	@JsonBackReference
 	@OneToOne
