@@ -12,14 +12,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
     @Autowired
     SecurityCheckRepository securityCheckRepo;
 
-    //Retrieves security code from security_check table and confronts it with the code given
-    @Override
-    public boolean codeSecurityCheck(String oldEmailCode) {
-        return securityCheckRepo.findById(1).isPresent() &&
-                securityCheckRepo.findById(1).get().getOldEmailCode().equals(oldEmailCode);
-    }
-
-    //Retrieves security codes from security_check table and confronts them with the codes given
+    //retrieves security codes from security_check table and confronts them with the codes given
     @Override
     public boolean codeSecurityCheck(String oldEmailCode, String newEmailCode) {
         return securityCheckRepo.findById(1).isPresent() &&
@@ -27,7 +20,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
                 securityCheckRepo.findById(1).get().getNewEmailCode().equals(newEmailCode));
     }
 
-    //Generates security codes
+    //generates security codes
     @Override
     public String codeSecurityGeneration() {
             Random random = new Random();
@@ -39,7 +32,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
             return sb.toString();
     }
 
-    //Saves security codes into database
+    //saves security codes into database, the second one will be empty if not required
     @Override
     public void saveCodes(String oldEmailCode, String newEmailCode) {
         SecurityCheck securityCheck = new SecurityCheck();
@@ -56,20 +49,4 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
         securityCheckRepo.save(securityCheck);
     }
 
-    //Saves security codes into database, sets newEmailCode empty
-    @Override
-    public void saveCodes(String oldEmailCode) {
-        SecurityCheck securityCheck = new SecurityCheck();
-        if(securityCheckRepo.findById(1).isPresent()) {
-            securityCheck = securityCheckRepo.findById(1).get();
-            securityCheck.setOldEmailCode(oldEmailCode);
-            securityCheck.setNewEmailCode("");
-        }
-        else {
-            securityCheck.setId(1);
-            securityCheck.setOldEmailCode(oldEmailCode);
-            securityCheck.setNewEmailCode("");
-        }
-        securityCheckRepo.save(securityCheck);
-    }
 }
