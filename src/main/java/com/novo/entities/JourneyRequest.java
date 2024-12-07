@@ -1,7 +1,8 @@
 package com.novo.entities;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,11 +25,11 @@ public class JourneyRequest {
 
     @Column(name = "start_availability_date") // "start_availability_date" column 
     @Temporal(TemporalType.DATE)
-    private Date startAvailabilityDate;
+    private LocalDate startAvailabilityDate;
 
     @Column(name = "end_availability_date") // "end_availability_date" column
     @Temporal(TemporalType.DATE)
-    private Date endAvailabilityDate;
+    private LocalDate endAvailabilityDate;
 
     @Column(name = "duration") // "duration" column
     private int duration;
