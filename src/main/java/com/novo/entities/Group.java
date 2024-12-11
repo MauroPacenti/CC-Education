@@ -7,11 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "`groups`")
 public class Group {
@@ -30,4 +27,36 @@ public class Group {
 	@OneToOne
 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Keeper keeper;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getMinors() {
+		return minors;
+	}
+
+	public void setMinors(int minors) {
+		this.minors = minors;
+	}
+
+	public int getAdults() {
+		return adults;
+	}
+
+	public void setAdults(int adults) {
+		this.adults = adults;
+	}
+
+	public Keeper getKeeper() {
+		return keeper;
+	}
+
+	public void setKeeper(Keeper keeper) {
+		this.keeper = keeper;
+	}
 }
