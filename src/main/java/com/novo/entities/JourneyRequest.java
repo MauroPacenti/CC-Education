@@ -6,11 +6,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "journey_requests")
 public class JourneyRequest {
@@ -42,5 +38,61 @@ public class JourneyRequest {
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Keeper getKeeper() {
+        return keeper;
+    }
+
+    public void setKeeper(Keeper keeper) {
+        this.keeper = keeper;
+    }
+
+    public LocalDate getStartAvailabilityDate() {
+        return startAvailabilityDate;
+    }
+
+    public void setStartAvailabilityDate(LocalDate startAvailabilityDate) {
+        this.startAvailabilityDate = startAvailabilityDate;
+    }
+
+    public LocalDate getEndAvailabilityDate() {
+        return endAvailabilityDate;
+    }
+
+    public void setEndAvailabilityDate(LocalDate endAvailabilityDate) {
+        this.endAvailabilityDate = endAvailabilityDate;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
 	

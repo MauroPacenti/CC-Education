@@ -4,12 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
-@Getter
-@Setter
 @Table(name = "`security_check`")
 public class SecurityCheck {
     @Id
@@ -20,4 +17,28 @@ public class SecurityCheck {
 
     @Column(name = "new_email_code")
     private String newEmailCode;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOldEmailCode() {
+        return oldEmailCode;
+    }
+
+    public void setOldEmailCode(String oldEmailCode) {
+        this.oldEmailCode = oldEmailCode;
+    }
+
+    public String getNewEmailCode() {
+        return newEmailCode;
+    }
+
+    public void setNewEmailCode(String newEmailCode) {
+        this.newEmailCode = newEmailCode;
+    }
 }
