@@ -9,11 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
+
 @Entity
 @Table(name = "`journeys`")
 public class Journey {
@@ -38,5 +36,55 @@ public class Journey {
 	@OneToOne
 	@JoinColumn(name = "journey_request_id", referencedColumnName = "id")
 	private JourneyRequest journeyRequest;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAnnotations() {
+		return annotations;
+	}
+
+	public void setAnnotations(String annotations) {
+		this.annotations = annotations;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+	public JourneyRequest getJourneyRequest() {
+		return journeyRequest;
+	}
+
+	public void setJourneyRequest(JourneyRequest journeyRequest) {
+		this.journeyRequest = journeyRequest;
+	}
+	
+	
 
 }
