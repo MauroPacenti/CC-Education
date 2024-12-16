@@ -1,0 +1,14 @@
+:root {
+  --primario: #8eb486;
+  --primary-text-color: #000;
+  --secondary-text-color: var(--background);
+  --secondario-verde: #c6d8b9;
+  --secondario-fucsia: #e0017a;
+  --background: #fdf7f4;
+  --footer: #bda499;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--primary-text-color);
+}
