@@ -1,0 +1,72 @@
+.dashboard-home {
+  padding: 0 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+.dashboard-subtitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+.no-bookings {
+  margin-bottom: 2em;
+}
+
+.btn {
+  background-color: #5932ea;
+  color: white;
+  padding: 0.75em 1em;
+  border-radius: 2em;
+  text-align: center;
+  width: 13em;
+  margin-bottom: 2em;
+  font-weight: 600;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-bottom: 1em;
+  max-width: 25em;
+  align-self: center;
+  width: 100%;
+}
+
+.btn-container .btn-request {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  text-align: start;
+  text-wrap: balance;
+  border-radius: 1.75em;
+  width: min(50%, 200px);
+  padding-block: 1.25em;
+}
+
+.btn-container .btn-request span:not(.btn-text) {
+  font-size: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 110%;
+}
+
+.btn-icon {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.btn-text {
+  line-height: 115%;
+}
