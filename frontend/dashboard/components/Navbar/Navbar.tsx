@@ -74,7 +74,7 @@ const Navbar = () => {
             <ChevronRight className="chevron" />
           </NavLink>
           <NavLink to={"/dashboard/impostazioni"}>
-            <Settings />
+            <Settings className="icon setting" />
           </NavLink>
         </li>
       </ul>
