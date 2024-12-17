@@ -1,0 +1,84 @@
+.navbar-list .navbar-item {
+  padding: 1.25em 1.5em;
+  background-color: #ffff;
+}
+
+.navbar-list .navbar-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-list .navbar-item a span {
+  display: flex;
+}
+
+.navbar-item.active {
+  background-color: #5932ea;
+  color: #ffff;
+}
+
+.icon {
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+
+.navbar-item:last-of-type {
+  background-color: transparent;
+  position: absolute;
+  bottom: 5em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+}
+
+.navbar-item:last-of-type > a:first-of-type {
+  border-radius: 0.5em;
+  padding: 0.75em;
+  border: 2px solid #5932ea;
+  color: #5932ea;
+  width: min(200px, 300px);
+}
+
+.navbar-item:last-of-type > a:first-of-type:hover {
+  background-color: #5932ea;
+  color: white;
+}
+
+.navbar-item:last-of-type > a:last-of-type {
+  max-width: 52px;
+  max-height: 52px;
+  color: rgb(189, 189, 189);
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.navbar-item:last-of-type > a:last-of-type:hover {
+  background-color: rgb(189, 189, 189);
+  color: white;
+}
+
+@media screen and (min-width: 834px) {
+  .navbar-list .navbar-item {
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .navbar-list .navbar-item {
+    padding: 1em 0.75em;
+  }
+
+  .icon {
+    margin-right: 0.5em;
+    width: 1.35em;
+  }
+  .chevron {
+    width: 1em;
+    height: 1em;
+  }
+}

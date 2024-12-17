@@ -1,0 +1,9 @@
+body {
+  background-color: #fafbff;
+}
+
+@media screen and (min-width: 834px) {
+  #root {
+    display: flex;
+  }
+}

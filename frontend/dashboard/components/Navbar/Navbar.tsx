@@ -1,26 +1,92 @@
 import "./Navbar.css";
 import { NavLink } from "react-router";
+import {
+  Album,
+  CalendarDays,
+  ChevronRight,
+  LayoutDashboard,
+  LogOut,
+  NotebookPen,
+  Settings,
+} from "lucide-react";
+import NavbarLink from "../NavbarLink/NavbarLink";
+import { useState } from "react";
+
 const Navbar = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [activePage, setActivePage] = useState("Dashboard");
+
+  const handlePageChange = (page: string) => {
+    setActivePage(page);
+  };
+
+  const toggleActiveClass = () => {
+    setIsActive((prevState) => !prevState);
+  };
+
+  const removeActiveNav = () => {
+    setIsActive(false);
+  };
+
+  const navLinks = [
+    {
+      text: "Dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      text: "Prenotazioni",
+      icon: CalendarDays,
+    },
+    {
+      text: "Richieste Prenotazioni",
+      icon: Album,
+    },
+    {
+      text: "Richieste Informazioni",
+      icon: NotebookPen,
+    },
+  ];
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to={"/dashboard/"}>Dashboard</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/prenotazioni"}>Prenotazioni</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/richieste-prenotazioni"}>
-            Richieste Prenotazioni
+    <nav className="navbar">
+      <NavLink to="/dashboard/" className="logo" onClick={removeActiveNav}>
+        Logo
+      </NavLink>
+
+      <ul className={`navbar-list ${isActive ? "active" : ""}`}>
+        {navLinks.map((link) => (
+          <NavbarLink
+            key={link.text}
+            linkText={link.text}
+            currentPage={activePage}
+            removeActiveNav={removeActiveNav}
+            handlePageChange={handlePageChange}
+            Icon={link.icon}
+          />
+        ))}
+
+        <li className="navbar-item">
+          <NavLink to={"/login"}>
+            <span>
+              <LogOut className="icon" />
+              Logout
+            </span>
+            <ChevronRight className="chevron" />
           </NavLink>
-        </li>
-        <li>
-          <NavLink to={"/dashboard/richieste-informazioni"}>
-            Richieste Informazioni
+          <NavLink to={"/dashboard/impostazioni"}>
+            <Settings />
           </NavLink>
         </li>
       </ul>
+
+      <div
+        className={`hamburger ${isActive ? "active" : ""}`}
+        onClick={toggleActiveClass}
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
     </nav>
   );
 };
