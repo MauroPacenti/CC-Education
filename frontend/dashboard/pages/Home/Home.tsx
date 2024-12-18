@@ -59,9 +59,13 @@ const Home = () => {
           {/* TODO: Aggiungere la lista delle prenotazioni con componente BookingItem*/}
 
           {bookings.length > 0 ? (
-            <ul className="bookings">
+            <div className="bookings">
               {bookings.map((booking) => (
-                <li key={booking.id} className="booking-item">
+                <NavLink
+                  to={`/dashboard/prenotazioni/${booking.id}`}
+                  key={booking.id}
+                  className="booking-item"
+                >
                   <p className="booking-time">
                     {booking.startHour} - {booking.endHour}
                   </p>
@@ -71,9 +75,9 @@ const Home = () => {
                     {booking.participants.minor} minori -{" "}
                     {booking.participants.adult} adulti | {booking.group}
                   </p>
-                </li>
+                </NavLink>
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="no-bookings">Non ci sono prenotazioni oggi</p>
           )}
