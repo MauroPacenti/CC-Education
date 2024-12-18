@@ -1,5 +1,6 @@
 main {
   margin-top: 1.5em;
+  padding: 0 2em;
 }
 
 @media screen and (min-width: 834px) {

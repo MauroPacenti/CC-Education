@@ -1,13 +1,6 @@
 .dashboard-home {
-  padding: 0 2em;
   display: flex;
   flex-direction: column;
-}
-
-.dashboard-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.25em;
 }
 
 .dashboard-bookings {

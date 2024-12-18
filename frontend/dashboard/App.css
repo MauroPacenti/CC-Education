@@ -7,6 +7,12 @@ body {
   background-color: #fafbff;
 }
 
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25em;
+}
+
 @media screen and (min-width: 834px) {
   #root {
     display: flex;
