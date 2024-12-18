@@ -5,19 +5,78 @@
 }
 
 .dashboard-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25em;
+}
+
+.dashboard-bookings {
+  margin-bottom: 2em;
+}
+
+.dashboard-subtitle {
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5em;
 }
 
-.dashboard-subtitle {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 0.5em;
+.dashboard-subtitle:nth-of-type(2) {
+  margin-bottom: 1em;
 }
 
 .no-bookings {
   margin-bottom: 2em;
+}
+
+.bookings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+.booking-item {
+  background-color: #f1f3f4;
+  padding: 0.75em 1.5em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.booking-item:hover {
+  background-color: #ebebeb;
+}
+
+.booking-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #5932ea;
+  width: 0.65em;
+  height: 100%;
+}
+
+.booking-item:nth-of-type(3n + 2)::before {
+  background-color: #00b383;
+}
+
+.booking-item:nth-of-type(3n + 3)::before {
+  background-color: #0095ff;
+}
+
+.booking-title {
+  font-weight: 600;
+}
+
+.booking-time,
+.booking-participants {
+  font-size: 0.85rem;
+}
+
+.booking-participants {
+  color: gray;
 }
 
 .btn {
@@ -26,17 +85,18 @@
   padding: 0.75em 1em;
   border-radius: 2em;
   text-align: center;
-  width: 13em;
-  margin-bottom: 2em;
+  width: 12.5em;
   font-weight: 600;
+}
+
+.btn:first-of-type:not(.btn-container .btn) {
+  font-size: 0.85rem;
 }
 
 .btn-container {
   display: flex;
   justify-content: center;
   gap: 1em;
-  margin-bottom: 1em;
-  max-width: 25em;
   align-self: center;
   width: 100%;
 }
@@ -49,7 +109,7 @@
   text-align: start;
   text-wrap: balance;
   border-radius: 1.75em;
-  width: min(50%, 200px);
+  width: 9em;
   padding-block: 1.25em;
 }
 
@@ -57,9 +117,9 @@
   font-size: 3rem;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  line-height: 110%;
+  line-height: 100%;
 }
 
 .btn-icon {
@@ -69,4 +129,20 @@
 
 .btn-text {
   line-height: 115%;
+  font-size: 0.85rem;
+}
+
+.btn-icon {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.btn:hover {
+  background-color: #3d1abd;
+}
+
+@media screen and (min-width: 834px) {
+  .btn-container {
+    justify-content: flex-start;
+  }
 }
