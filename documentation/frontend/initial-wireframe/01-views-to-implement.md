@@ -2,7 +2,8 @@
 
 ## Overview
 
-This document describes the architecture of the main views that will be implemented in the portal. The planned structure includes fundamental pages for user navigation and access to core functionalities.
+This document describes the architecture of the main views that will be implemented in the portal.
+The planned structure includes fundamental pages for user navigation and access to core functionalities.
 
 ## Views to Implement
 
