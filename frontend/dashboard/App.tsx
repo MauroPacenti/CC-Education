@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Prenotazioni from "./pages/Prenotazioni/Prenotazioni";
 import RichiestePrenotazione from "./pages/RichiestePrenotazione/RichiestePrenotazione";
 import RichiesteInformazioni from "./pages/RichiesteInformazioni/RichiesteInformazioni";
+import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazione";
 
 import "./App.css";
 
@@ -14,6 +15,10 @@ function App() {
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<Home />} />
           <Route path="prenotazioni" element={<Prenotazioni />} />
+          <Route
+            path="prenotazioni/:idPrenotazione"
+            element={<DettagliPrenotazione />}
+          />
           <Route
             path="richieste-prenotazioni"
             element={<RichiestePrenotazione />}
