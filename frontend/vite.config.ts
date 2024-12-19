@@ -33,8 +33,5 @@ export default defineConfig({
         secure: false,
       },
     },
-    headers: {
-      "Content-Type": "application/javascript",
-    },
   },
 });
