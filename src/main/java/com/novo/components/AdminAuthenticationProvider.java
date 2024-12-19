@@ -23,11 +23,17 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        // Password from the login form
+        //password from the login form
         String password = authentication.getCredentials().toString();
+        //username from the login form
+        String username = authentication.getName();
+
+        if(username.equals("temp")){
+            throw new BadCredentialsException("Username non valido");
+        }
 
         //fetch admin from the database
-        Admin admin = adminRepository.findById("admin")
+        Admin admin = adminRepository.findById(username)
                 .orElseThrow(() -> new BadCredentialsException("Errore durante il recupero dell'amministratore"));
 
         //validate password
