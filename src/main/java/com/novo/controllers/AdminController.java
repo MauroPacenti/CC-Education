@@ -42,6 +42,14 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/pub/resetPassword")
+    public ResponseEntity<String> resetPassword(@RequestParam String email) {
+        if(adminService.getAdmin().getPassword().equals(email)){
+
+        };
+        return ResponseEntity.ok("Operazione effettuata");
+    }
+
     @PutMapping("/auth/saveTemp")
     public ResponseEntity<Admin> saveTemp(@RequestParam(required = false) String email, @RequestParam(required = false) String password) {
         try {

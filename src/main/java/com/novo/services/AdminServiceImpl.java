@@ -31,6 +31,11 @@ public class AdminServiceImpl implements AdminService {
         adminRepo.save(admin);
     }
 
+    @Override
+    public void resetPassword() {
+
+    }
+
     //retrieves admin
     @Override
     public Admin getAdmin() {
