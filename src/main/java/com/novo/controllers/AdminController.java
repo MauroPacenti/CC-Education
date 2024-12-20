@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 @RestController
 @RequestMapping("/api")
 public class AdminController {
@@ -19,7 +21,6 @@ public class AdminController {
     private SecurityCheckService securityCheckService;
     @Autowired
     private JavaMailSenderService javaMailSenderService;
-
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping("/auth/getAdmin")
@@ -44,9 +45,15 @@ public class AdminController {
 
     @PostMapping("/pub/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestParam String email) {
-        if(adminService.getAdmin().getPassword().equals(email)){
-
-        };
+        String newPassword = adminService.generatePassword();
+        try{
+            adminService.resetPassword(email, passwordEncoder.encode(newPassword));
+            javaMailSenderService.sendMail(email, "password reset", newPassword);
+        } catch (Exception e){
+            javaMailSenderService.sendMail(adminService.getAdmin().getEmail(),
+                    "tentativo reset password",
+                    "Salve, questa email di sistema segnala che qualcuno sta tentando di resettare la password del tuo applicativo.");
+        }
         return ResponseEntity.ok("Operazione effettuata");
     }
 

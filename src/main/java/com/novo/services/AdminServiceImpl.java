@@ -1,5 +1,6 @@
 package com.novo.services;
 
+import com.github.curiousoddman.rgxgen.RgxGen;
 import com.novo.entities.Admin;
 import com.novo.repos.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void resetPassword() {
-
+    public void resetPassword(String email, String newPassword) {
+        Admin admin = adminRepo.findById("admin").get();
+        if(admin.getEmail().equals(email)) {
+            admin.setPassword(newPassword);
+            adminRepo.save(admin);
+        }
+        else {
+            throw new RuntimeException("Invalid email");
+        }
     }
 
     //retrieves admin
@@ -48,11 +56,30 @@ public class AdminServiceImpl implements AdminService {
         return adminRepo.findAll().get(1);
     }
 
+    @Override
+    public String generatePassword() {
+        //password pattern
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{12,}$";
+        // Create an instance of RgxGen with the regex
+        RgxGen rgxGen = RgxGen.parse(regex);
+
+        // Generate a random password based on the regex
+        String newPassword = "";
+        do{
+            newPassword = rgxGen.generate();
+            newPassword = newPassword.substring(0,12);
+        } while (validatePassword(newPassword));
+
+        //returns a random string that matches the regex
+        return newPassword;
+    }
+
     //responsable to validate password changes
     @Override
     public boolean validatePassword(String password) {
         //Regex pattern for validation (at least a number, a special char, an upper char and a lower char)
-        String regex = "(?=.*[0-9])(?=.*[!@#$%^&*.\\-_])(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9!@#$%^&*.\\-_]{12,}$";
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{12,}$";
+                //"(?=.*[0-9])(?=.*[!@#$%^&*.\\-_])(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9!@#$%^&*.\\-_]{12,}$";
         Pattern pattern = Pattern.compile(regex);
         return !pattern.matcher(password).matches();
     }
