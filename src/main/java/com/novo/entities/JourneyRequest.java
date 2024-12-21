@@ -31,10 +31,6 @@ public class JourneyRequest {
     private int duration;
   
     @JsonManagedReference
-    @OneToOne(mappedBy = "journeyRequest")
-    private Journey journey;
-  
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;
@@ -77,14 +73,6 @@ public class JourneyRequest {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
     }
 
     public Status getStatus() {

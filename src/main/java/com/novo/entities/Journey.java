@@ -32,10 +32,9 @@ public class Journey {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 
-	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name = "journey_request_id", referencedColumnName = "id")
-	private JourneyRequest journeyRequest;
+	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
+	private Keeper keeper;
 
 	public int getId() {
 		return id;
@@ -77,14 +76,11 @@ public class Journey {
 		this.endDate = endDate;
 	}
 
-	public JourneyRequest getJourneyRequest() {
-		return journeyRequest;
+	public Keeper getKeeper() {
+		return keeper;
 	}
 
-	public void setJourneyRequest(JourneyRequest journeyRequest) {
-		this.journeyRequest = journeyRequest;
+	public void setKeeper(Keeper keeper) {
+		this.keeper = keeper;
 	}
-	
-	
-
 }
