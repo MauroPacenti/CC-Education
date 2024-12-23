@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 @Table(name = "journey_requests")
 public class JourneyRequest {
@@ -29,10 +28,6 @@ public class JourneyRequest {
 
     @Column(name = "duration") // "duration" column
     private int duration;
-  
-    @JsonManagedReference
-    @OneToOne(mappedBy = "journeyRequest")
-    private Journey journey;
   
     @JsonManagedReference
     @ManyToOne
@@ -77,14 +72,6 @@ public class JourneyRequest {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
     }
 
     public Status getStatus() {
