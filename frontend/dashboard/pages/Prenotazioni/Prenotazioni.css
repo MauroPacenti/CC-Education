@@ -1,3 +1,24 @@
 .sx-react-calendar-wrapper {
   height: 80vh;
 }
+
+.add-event-button {
+  background-color: #5932ea;
+  color: #fff;
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+}
+
+#calendarEvent-remove {
+  background-color: red;
+  color: #fff;
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+  z-index: 100;
+}
+
+.calendarEvent-item {
+  color: #000;
+  padding: 0.75em 1em;
+  width: 30em;
+}

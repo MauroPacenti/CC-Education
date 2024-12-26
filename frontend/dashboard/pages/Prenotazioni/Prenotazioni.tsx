@@ -14,8 +14,34 @@ import { createEventModalPlugin } from "@schedule-x/event-modal";
 import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
 
 import { useEffect, useState } from "react";
+
+import AddEventModal from "../../components/AddEventModal/AddEventModal";
+import { Booking } from "../../models/event.model";
+import { NavLink } from "react-router";
+
 const Prenotazioni = () => {
   const [eventsService] = useState(() => createEventsServicePlugin());
+
+  // Add Event modal
+  const [isActiveModal, setIsActiveModal] = useState(false);
+  // event
+  const [events, setEvents] = useState<Booking[]>([
+    {
+      id: 1,
+      title: "Prenotazione 1",
+      start: "2025-01-01 10:00",
+      end: "2025-01-01 12:00",
+      description: "Gruppo 1",
+    },
+  ]);
+  const toggleActiveModal = () =>
+    setIsActiveModal((isActiveModal) => !isActiveModal);
+
+  const addEventOnCalendar = (newEvent: Booking) => {
+    setEvents((events) => [...events, newEvent]);
+    eventsService.add({ ...newEvent, id: Date.now() });
+    toggleActiveModal();
+  };
 
   const modalService = createEventModalPlugin();
 
@@ -39,14 +65,7 @@ const Prenotazioni = () => {
       createViewMonthGrid(),
       createViewMonthAgenda(),
     ],
-    events: [
-      {
-        id: "1",
-        title: "Event 1",
-        start: "2025-01-01 10:00",
-        end: "2025-01-01 12:00",
-      },
-    ],
+    events: events,
     plugins: [
       eventsService,
       createScrollControllerPlugin({
@@ -60,7 +79,6 @@ const Prenotazioni = () => {
   useEffect(() => {
     // get all events
     eventsService.getAll();
-    console.log(eventsService.getAll());
     return () => {
       console.log(eventsService.getAll());
     };
@@ -68,14 +86,31 @@ const Prenotazioni = () => {
 
   return (
     <div className="dashboard-calendar">
+      {isActiveModal && (
+        <AddEventModal
+          toggleActiveModal={toggleActiveModal}
+          addEventOnCalendar={addEventOnCalendar}
+        ></AddEventModal>
+      )}
       <h1>Prenotazioni</h1>
       <ScheduleXCalendar
         calendarApp={calendar}
         customComponents={{
           eventModal: ({ calendarEvent }) => (
             <div>
-              <p>Component {calendarEvent.id}</p>
+              <NavLink
+                to={`/dashboard/prenotazioni/${calendarEvent.id}`}
+                key={calendarEvent.id}
+                className="calendarEvent-item"
+              >
+                <p className="calendarEvent-time">
+                  {calendarEvent.start} - {calendarEvent.end}
+                </p>
+                <h4 className="calendarEvent-title">{calendarEvent.title}</h4>
+              </NavLink>
+
               <button
+                id="calendarEvent-remove"
                 onClick={() => {
                   eventsService.remove(calendarEvent.id);
                   modalService.close();
@@ -88,17 +123,7 @@ const Prenotazioni = () => {
         }}
       />
 
-      <button
-        onClick={() => {
-          if (eventsService.getAll().some((e) => e.id === "2")) return;
-          eventsService.add({
-            id: "2",
-            title: "test",
-            start: "2025-01-01 12:00",
-            end: "2025-01-01 14:00",
-          });
-        }}
-      >
+      <button className="add-event-button" onClick={toggleActiveModal}>
         Aggiungi
       </button>
     </div>

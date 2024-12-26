@@ -1,0 +1,46 @@
+.add-event-modal {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(61, 60, 60, 0.429);
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backdrop-filter: blur(2px);
+}
+
+.addEventForm {
+  background-color: #f0f0f0;
+  width: 70%;
+  height: 70%;
+
+  display: flex;
+  flex-direction: column;
+  border-radius: 1em;
+
+  padding: 1.5em;
+  gap: 1em;
+}
+
+.addEventForm > * {
+  display: flex;
+  flex-direction: column;
+}
+.addEventForm h3 {
+  font-size: 1.5em;
+}
+.addEventForm button {
+  background-color: #5932ea;
+  color: #fff;
+  padding: 1em;
+  border-radius: 0.75em;
+  margin-top: auto;
+}
+.addEventForm input,
+.addEventForm select {
+  border-radius: 0.75em;
+  padding: 0.75em;
+  background-color: #fff;
+}
