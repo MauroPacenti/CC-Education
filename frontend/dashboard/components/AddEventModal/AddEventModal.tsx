@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AddEventModal.css";
 import { Booking } from "../../models/event.model";
+import Modal from "../Modal/Modal";
 
 interface Props {
   toggleActiveModal: () => void;
@@ -30,7 +31,7 @@ const AddEventModal = ({ toggleActiveModal, addEventOnCalendar }: Props) => {
   };
 
   return (
-    <div className="add-event-modal" onClick={toggleActiveModal}>
+    <Modal toggleActiveModal={toggleActiveModal}>
       <form
         className="addEventForm"
         onClick={(e) => e.stopPropagation()}
@@ -120,7 +121,7 @@ const AddEventModal = ({ toggleActiveModal, addEventOnCalendar }: Props) => {
           Aggiungi Prenotazione
         </button>
       </form>
-    </div>
+    </Modal>
   );
 };
 

@@ -1,16 +1,3 @@
-.add-event-modal {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(61, 60, 60, 0.429);
-  z-index: 100;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  backdrop-filter: blur(2px);
-}
-
 .addEventForm {
   background-color: #f0f0f0;
   width: 70%;
