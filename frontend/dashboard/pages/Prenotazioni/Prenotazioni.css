@@ -2,6 +2,16 @@
   height: 80vh;
 }
 
+.dashboard-calendar-title {
+  font-size: 2em;
+}
+.dashboard-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 .add-event-button {
   background-color: #5932ea;
   color: #fff;

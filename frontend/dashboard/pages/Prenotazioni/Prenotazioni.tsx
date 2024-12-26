@@ -9,21 +9,20 @@ import { createEventsServicePlugin } from "@schedule-x/events-service";
 
 import "@schedule-x/theme-default/dist/index.css";
 
-import { createScrollControllerPlugin } from "@schedule-x/scroll-controller";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
-import { createDragAndDropPlugin } from "@schedule-x/drag-and-drop";
 
 import { useEffect, useState } from "react";
 
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
 import { Booking } from "../../models/event.model";
-import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
 const Prenotazioni = () => {
+  const navigate = useNavigate();
   const [eventsService] = useState(() => createEventsServicePlugin());
-
   // Add Event modal
   const [isActiveModal, setIsActiveModal] = useState(false);
+
   // event
   const [events, setEvents] = useState<Booking[]>([
     {
@@ -34,16 +33,14 @@ const Prenotazioni = () => {
       description: "Gruppo 1",
     },
   ]);
-  const toggleActiveModal = () =>
+  const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
   const addEventOnCalendar = (newEvent: Booking) => {
     setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
-    toggleActiveModal();
+    toggleAddEventModal();
   };
-
-  const modalService = createEventModalPlugin();
 
   const calendar = useCalendarApp({
     dayBoundaries: {
@@ -54,26 +51,14 @@ const Prenotazioni = () => {
       gridHeight: 586,
     },
     callbacks: {
-      onEventUpdate(updatedEvent) {
-        console.log("onEventUpdate", updatedEvent);
+      onDoubleClickEvent(event) {
+        navigate(`/dashboard/prenotazioni/${event.id}`);
       },
     },
 
-    views: [
-      // createViewDay(),
-      createViewWeek(),
-      createViewMonthGrid(),
-      createViewMonthAgenda(),
-    ],
+    views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: events,
-    plugins: [
-      eventsService,
-      createScrollControllerPlugin({
-        initialScroll: "07:50",
-      }),
-      modalService,
-      createDragAndDropPlugin(),
-    ],
+    plugins: [eventsService, createEventModalPlugin()],
   });
 
   useEffect(() => {
@@ -82,50 +67,23 @@ const Prenotazioni = () => {
     return () => {
       console.log(eventsService.getAll());
     };
-  }, [eventsService]);
+  }, [eventsService, events]);
 
   return (
     <div className="dashboard-calendar">
       {isActiveModal && (
         <AddEventModal
-          toggleActiveModal={toggleActiveModal}
+          toggleActiveModal={toggleAddEventModal}
           addEventOnCalendar={addEventOnCalendar}
         ></AddEventModal>
       )}
-      <h1>Prenotazioni</h1>
-      <ScheduleXCalendar
-        calendarApp={calendar}
-        customComponents={{
-          eventModal: ({ calendarEvent }) => (
-            <div>
-              <NavLink
-                to={`/dashboard/prenotazioni/${calendarEvent.id}`}
-                key={calendarEvent.id}
-                className="calendarEvent-item"
-              >
-                <p className="calendarEvent-time">
-                  {calendarEvent.start} - {calendarEvent.end}
-                </p>
-                <h4 className="calendarEvent-title">{calendarEvent.title}</h4>
-              </NavLink>
-
-              <button
-                id="calendarEvent-remove"
-                onClick={() => {
-                  eventsService.remove(calendarEvent.id);
-                  modalService.close();
-                }}
-              >
-                Rimovi
-              </button>
-            </div>
-          ),
-        }}
-      />
-
-      <button className="add-event-button" onClick={toggleActiveModal}>
-        Aggiungi
-      </button>
+      <div className="dashboard-calendar-header">
+        <h1 className="dashboard-calendar-title">Prenotazioni</h1>
+        <button className="add-event-button" onClick={toggleAddEventModal}>
+          Aggiungi Prenotazione
+        </button>
+      </div>
+      <ScheduleXCalendar calendarApp={calendar} />
     </div>
   );
 };
