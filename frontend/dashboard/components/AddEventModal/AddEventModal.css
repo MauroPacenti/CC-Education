@@ -1,7 +1,7 @@
 .addEventForm {
   background-color: #f0f0f0;
   width: 70%;
-  height: 70%;
+  max-height: min-content;
 
   display: flex;
   flex-direction: column;
@@ -25,9 +25,21 @@
   border-radius: 0.75em;
   margin-top: auto;
 }
+
+.addEventForm button:disabled {
+  background-color: #ccc;
+  color: #999;
+}
+
 .addEventForm input,
 .addEventForm select {
   border-radius: 0.75em;
   padding: 0.75em;
   background-color: #fff;
+}
+
+.addEventForm input:user-invalid,
+.addEventForm select:user-invalid,
+.addEventForm textarea:user-invalid {
+  border: 2px solid red;
 }

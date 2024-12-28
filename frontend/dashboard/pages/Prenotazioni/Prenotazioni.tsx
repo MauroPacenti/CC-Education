@@ -14,7 +14,6 @@ import { createEventModalPlugin } from "@schedule-x/event-modal";
 import { useEffect, useState } from "react";
 
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
-import { Booking } from "../../models/event.model";
 import { useNavigate } from "react-router";
 
 const Prenotazioni = () => {
@@ -24,7 +23,7 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-  const [events, setEvents] = useState<Booking[]>([
+  const [events, setEvents] = useState([
     {
       id: 1,
       title: "Prenotazione 1",
@@ -36,7 +35,7 @@ const Prenotazioni = () => {
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
-  const addEventOnCalendar = (newEvent: Booking) => {
+  const addEventOnCalendar = (newEvent) => {
     setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
     toggleAddEventModal();
