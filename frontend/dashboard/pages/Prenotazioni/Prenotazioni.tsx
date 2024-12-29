@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
 import { useNavigate } from "react-router";
+import { CalendarBooking } from "../../models/CalendarBooking.model";
 
 const Prenotazioni = () => {
   const navigate = useNavigate();
@@ -23,19 +24,20 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-  const [events, setEvents] = useState([
+  const [events, setEvents] = useState<CalendarBooking[]>([
     {
-      id: 1,
+      id: "1",
       title: "Prenotazione 1",
       start: "2025-01-01 10:00",
       end: "2025-01-01 12:00",
       description: "Gruppo 1",
+      people: ["Adulti: 2", "Bambini: 3"],
     },
   ]);
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
-  const addEventOnCalendar = (newEvent) => {
+  const addEventOnCalendar = (newEvent: CalendarBooking) => {
     setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
     toggleAddEventModal();
