@@ -1,4 +1,4 @@
-export interface Booking {
+export default interface Booking {
   keeper: {
     firstName: string;
     lastName: string;
