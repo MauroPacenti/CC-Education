@@ -1,11 +1,11 @@
 import "./AddEventModal.css";
-import type Booking from "../../models/Booking.model";
 import Modal from "../Modal/Modal";
 import FormSteps from "./FormSteps/FormSteps";
+import { CalendarBooking } from "../../models/CalendarBooking.model";
 
 interface Props {
   toggleActiveModal: () => void;
-  addEventOnCalendar: (booking: Booking) => void;
+  addEventOnCalendar: (booking: CalendarBooking) => void;
 }
 
 const AddEventModal = ({ toggleActiveModal, addEventOnCalendar }: Props) => {

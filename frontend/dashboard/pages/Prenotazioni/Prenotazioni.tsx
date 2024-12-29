@@ -38,12 +38,15 @@ const Prenotazioni = () => {
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
   const addEventOnCalendar = (newEvent: CalendarBooking) => {
+    console.log(newEvent);
     setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
+    eventsService.getAll();
     toggleAddEventModal();
   };
 
   const calendar = useCalendarApp({
+    locale: "it-IT",
     dayBoundaries: {
       start: "06:00",
       end: "21:00",
@@ -65,9 +68,6 @@ const Prenotazioni = () => {
   useEffect(() => {
     // get all events
     eventsService.getAll();
-    return () => {
-      console.log(eventsService.getAll());
-    };
   }, [eventsService, events]);
 
   return (

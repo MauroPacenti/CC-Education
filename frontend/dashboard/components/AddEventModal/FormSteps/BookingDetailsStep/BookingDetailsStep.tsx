@@ -17,7 +17,9 @@ const BookingDetailsStep = ({
       ...prev,
       bookingDetails: {
         ...prev.bookingDetails,
-        [field]: `${prev.bookingDetails[field].split(" ")[0]} ${time}:00`,
+        [field]: `${prev.bookingDetails[field].split(" ")[0]} ${
+          time.length === 2 ? "" : "0"
+        }${time}:00`,
       },
     }));
   };
