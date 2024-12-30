@@ -1,0 +1,23 @@
+.error-message {
+  color: red;
+  font-size: 0.8em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.buttons button.back {
+  background-color: #f0f0f0;
+  color: #5932ea;
+  border: 2px solid #5932ea;
+  padding: 0.85em 1em;
+}
+
+.required {
+  color: #9c9c9c;
+  font-size: 0.8em;
+}
