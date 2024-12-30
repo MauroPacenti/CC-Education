@@ -71,6 +71,8 @@ const BookingDetailsStep = ({
         <input
           type="date"
           id="start"
+          min={new Date().toISOString().split("T")[0]}
+          value={formData.bookingDetails.start.split(" ")[0]}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -91,7 +93,16 @@ const BookingDetailsStep = ({
           >
             <option value="">Ora inizio</option>
             {Array.from({ length: 12 }, (_, index) => (
-              <option key={index} value={index + 8}>
+              <option
+                onClick={() => console.log(new Date().getHours())}
+                selected={
+                  formData.bookingDetails.start.split(" ")[1] ===
+                  `${index + 8}:00`
+                }
+                key={index}
+                value={index + 8}
+                disabled={+new Date().getHours() >= index + 8}
+              >
                 {index + 8}:00
               </option>
             ))}
@@ -104,6 +115,8 @@ const BookingDetailsStep = ({
         <input
           type="date"
           id="end"
+          min={new Date().toISOString().split("T")[0]}
+          value={formData.bookingDetails.end.split(" ")[0]}
           onChange={(e) =>
             setFormData((prev) => ({
               ...prev,
@@ -122,7 +135,20 @@ const BookingDetailsStep = ({
           <select onChange={(e) => handleTimeSelection(e.target.value, "end")}>
             <option value="">Ora fine</option>
             {Array.from({ length: 12 }, (_, index) => (
-              <option key={index} value={index + 8}>
+              <option
+                key={index}
+                value={index + 8}
+                selected={
+                  formData.bookingDetails.end.split(" ")[1] ===
+                  `${index + 8}:00`
+                }
+                disabled={
+                  formData.bookingDetails.start.split(" ")[0] ===
+                    formData.bookingDetails.end.split(" ")[0] &&
+                  +formData.bookingDetails.start.split(" ")[1].split(":")[0] >=
+                    index + 8
+                }
+              >
                 {index + 8}:00
               </option>
             ))}
@@ -149,27 +175,32 @@ const BookingDetailsStep = ({
         ></textarea>
       </div>
 
-      <button
-        type="button"
-        onClick={() =>
-          formData.organization.isOrganization ? handleSteps(2) : handleSteps(1)
-        }
-      >
-        Indietro
-      </button>
-      <button
-        type="submit"
-        className="next"
-        onClick={() => console.log(formData)}
-        disabled={
-          !formData.bookingDetails.start ||
-          !formData.bookingDetails.end ||
-          (formData.bookingDetails.minors === 0 &&
-            formData.bookingDetails.adults === 0)
-        }
-      >
-        Aggiungi Prenotazione
-      </button>
+      <div className="buttons">
+        <button
+          type="button"
+          className="back"
+          onClick={() =>
+            formData.organization.isOrganization
+              ? handleSteps(2)
+              : handleSteps(1)
+          }
+        >
+          Indietro
+        </button>
+        <button
+          type="submit"
+          className="next"
+          onClick={() => console.log(formData)}
+          disabled={
+            !formData.bookingDetails.start ||
+            !formData.bookingDetails.end ||
+            (formData.bookingDetails.minors === 0 &&
+              formData.bookingDetails.adults === 0)
+          }
+        >
+          Aggiungi Prenotazione
+        </button>
+      </div>
     </>
   );
 };

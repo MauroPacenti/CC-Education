@@ -1,3 +1,5 @@
+import "./FormSteps.css";
+
 import { useState } from "react";
 import KeeperStep from "./KeeperStep/KeeperStep";
 import OrganizationStep from "./OrganizationStep/OrganizationStep";

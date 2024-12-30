@@ -1,5 +1,10 @@
+import { useState } from "react";
 import type Booking from "../../../../models/Booking.model";
 import "./OrganizationStep.css";
+import {
+  verifyEmail,
+  verifyPhoneNumber,
+} from "../../../../utils/verifyFormInputs";
 
 interface OrganizationStepProps {
   formData: Booking;
@@ -12,6 +17,8 @@ const OrganizationStep = ({
   setFormData,
   handleSteps,
 }: OrganizationStepProps) => {
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPhoneNumValid, setIsPhoneNumValid] = useState(true);
   return (
     <>
       <div className="organization-name-input">
@@ -75,7 +82,9 @@ const OrganizationStep = ({
       </div>
 
       <div className="organization-email-input">
-        <label htmlFor="organizationEmail">Email organizzazione</label>
+        <label htmlFor="organizationEmail">
+          Email organizzazione <span className="required">(obligatorio)</span>
+        </label>
         <input
           type="email"
           id="organizationEmail"
@@ -90,12 +99,25 @@ const OrganizationStep = ({
               },
             }))
           }
+          onBlur={(e) => {
+            if (!verifyEmail(e.target.value)) {
+              setIsEmailValid(false);
+              return;
+            }
+            setIsEmailValid(true);
+          }}
           placeholder="Inserisci email organizzazione"
         />
+        {!isEmailValid && (
+          <span className="error-message">Email non valida</span>
+        )}
       </div>
 
       <div className="organization-phone-input">
-        <label htmlFor="organizationPhone">Telefono organizzazione</label>
+        <label htmlFor="organizationPhone">
+          Telefono organizzazione{" "}
+          <span className="required">(obligatorio)</span>
+        </label>
         <input
           type="tel"
           id="organizationPhone"
@@ -110,38 +132,50 @@ const OrganizationStep = ({
               },
             }))
           }
+          onBlur={(e) => {
+            if (!verifyPhoneNumber(e.target.value)) {
+              setIsPhoneNumValid(false);
+              return;
+            }
+            setIsPhoneNumValid(true);
+          }}
           placeholder="Inserisci telefono organizzazione"
         />
+        {!isPhoneNumValid && formData.organization.phone && (
+          <span className="error-message">Telefono non valido</span>
+        )}
       </div>
 
-      <button type="button" onClick={() => handleSteps(1)}>
-        Indietro
-      </button>
+      <div className="buttons">
+        <button type="button" className="back" onClick={() => handleSteps(1)}>
+          Indietro
+        </button>
 
-      <button
-        type="button"
-        className="next"
-        disabled={
-          !formData.organization.name ||
-          !formData.organization.type ||
-          !formData.organization.address ||
-          !formData.organization.email ||
-          !formData.organization.phone
-        }
-        onClick={() => {
-          if (
-            formData.organization.name &&
-            formData.organization.type &&
-            formData.organization.address &&
-            formData.organization.email &&
-            formData.organization.phone
-          ) {
-            handleSteps(3);
+        <button
+          type="button"
+          className="next"
+          disabled={
+            !formData.organization.name ||
+            !formData.organization.type ||
+            !formData.organization.address ||
+            !verifyEmail(formData.organization.email) ||
+            !verifyPhoneNumber(formData.organization.phone)
           }
-        }}
-      >
-        Avanti
-      </button>
+          onClick={() => {
+            if (
+              formData.organization.name &&
+              formData.organization.type &&
+              formData.organization.address &&
+              formData.organization.email &&
+              formData.organization.phone
+            ) {
+              handleSteps(3);
+            }
+          }}
+        >
+          Avanti
+        </button>
+      </div>
     </>
   );
 };

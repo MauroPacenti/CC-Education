@@ -1,5 +1,11 @@
+import { useState } from "react";
 import type Booking from "../../../../models/Booking.model";
 import "./KeeperStep.css";
+import {
+  verifyCodiceFiscale,
+  verifyEmail,
+  verifyPhoneNumber,
+} from "../../../../utils/verifyFormInputs";
 
 interface KeeperStepProps {
   formData: Booking;
@@ -12,6 +18,10 @@ const KeeperStep = ({
   setFormData,
   handleSteps,
 }: KeeperStepProps) => {
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPhoneNumValid, setIsPhoneNumValid] = useState(true);
+  const [isCodiceFiscaleValid, setIsCodiceFiscaleValid] = useState(true);
+
   return (
     <>
       <div className="firstName-input">
@@ -69,33 +79,54 @@ const KeeperStep = ({
               },
             }))
           }
+          onBlur={(e) => {
+            if (!verifyCodiceFiscale(e.target.value)) {
+              setIsCodiceFiscaleValid(false);
+              return;
+            }
+            setIsCodiceFiscaleValid(true);
+          }}
           placeholder="Inserisci codice fiscale"
         />
+        {!isCodiceFiscaleValid && (
+          <span className="error-message">Codice fiscale non valido</span>
+        )}
       </div>
       <div className="email-input">
         <label htmlFor="email">
-          Email <span>(obbligatorio)</span>
+          Email <span className="required">(obbligatorio)</span>
         </label>
         <input
           type="email"
           id="email"
           required
           value={formData.keeper.email}
-          onChange={(e) =>
+          onChange={(e) => {
             setFormData((prev) => ({
               ...prev,
               keeper: {
                 ...prev.keeper,
                 email: e.target.value,
               },
-            }))
-          }
+            }));
+          }}
+          onBlur={(e) => {
+            if (!verifyEmail(e.target.value)) {
+              // add error message
+              setIsEmailValid(false);
+              return;
+            }
+            setIsEmailValid(true);
+          }}
           placeholder="Inserisci email"
         />
+        {!isEmailValid && (
+          <span className="error-message">Email non valida</span>
+        )}
       </div>
       <div>
         <label htmlFor="phone">
-          Telefono <span>(opzionale)</span>
+          Telefono <span className="required">(opzionale)</span>
         </label>
         <input
           type="tel"
@@ -110,8 +141,18 @@ const KeeperStep = ({
               },
             }))
           }
+          onBlur={(e) => {
+            if (!verifyPhoneNumber(e.target.value)) {
+              setIsPhoneNumValid(false);
+              return;
+            }
+            setIsPhoneNumValid(true);
+          }}
           placeholder="Inserisci telefono"
         />
+        {!isPhoneNumValid && formData.keeper.phone && (
+          <span className="error-message">Numero di telefono non valido</span>
+        )}
       </div>
 
       <div>
@@ -120,6 +161,7 @@ const KeeperStep = ({
           <input
             type="radio"
             name="organization"
+            value="yes"
             required
             {...(formData.organization.isOrganization === true && {
               checked: true,
@@ -141,6 +183,7 @@ const KeeperStep = ({
           <input
             type="radio"
             name="organization"
+            value="no"
             {...(formData.organization.isOrganization === false && {
               checked: true,
             })}
@@ -160,30 +203,28 @@ const KeeperStep = ({
         </div>
       </div>
 
-      <button
-        type="button"
-        className="next"
-        onClick={() =>
-          formData.organization.isOrganization
-            ? formData.keeper.phone &&
-              formData.keeper.codiceFiscale &&
-              formData.keeper.email &&
-              formData.keeper.lastName &&
-              formData.keeper.firstName
+      <div className="buttons">
+        <button
+          type="button"
+          className="next"
+          onClick={() =>
+            formData.organization.isOrganization === true
               ? handleSteps(2)
-              : null
-            : handleSteps(3)
-        }
-        disabled={
-          !formData.keeper.firstName ||
-          !formData.keeper.lastName ||
-          !formData.keeper.email ||
-          !formData.keeper.codiceFiscale ||
-          formData.organization.isOrganization === null
-        }
-      >
-        Avanti
-      </button>
+              : handleSteps(3)
+          }
+          disabled={
+            !formData.keeper.firstName ||
+            !formData.keeper.lastName ||
+            !verifyEmail(formData.keeper.email) ||
+            !formData.keeper.codiceFiscale ||
+            (formData.keeper.phone &&
+              !verifyPhoneNumber(formData.keeper.phone)) ||
+            formData.organization.isOrganization === null
+          }
+        >
+          Avanti
+        </button>
+      </div>
     </>
   );
 };
