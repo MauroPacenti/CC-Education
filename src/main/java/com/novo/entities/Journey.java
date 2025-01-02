@@ -80,5 +80,4 @@ public class Journey {
 	public void setKeeper(Keeper keeper) {
 		this.keeper = keeper;
 	}
-
 }
