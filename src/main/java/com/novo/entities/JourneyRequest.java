@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 @Table(name = "journey_requests")
 public class JourneyRequest {
