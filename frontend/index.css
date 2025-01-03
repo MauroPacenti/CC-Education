@@ -1,1 +1,296 @@
+@import "/global.css";
 /* Style per la pagina Home */
+@font-face {
+    font-family: 'Neue Machina';
+    src: url('frontend\fonts\Neue Machina - Free for Personal Use\NeueMachina-Regular.otf');
+}
+
+h1, h2 {
+    font-family: 'Poppins', sans-serif;
+}
+
+@media screen and (max-width: 393px) {
+    nav {
+        width: 100%;
+        height: 88px;
+        background-color: grey;
+    }
+
+    nav li {
+        display: inline;
+    }
+
+    header {
+        position: relative;
+        width: 100%;
+        height: 619px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 5%;
+        color: white;
+    }
+    
+    header .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url('img/cascina-caccia.jpg');
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(2px) brightness(0.6);
+        z-index: 0; /* Porta il background dietro */
+    }
+    
+    header h1, header h2, header p, header button {
+        z-index: 1;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    header h2 {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        font-weight: bold;
+    }
+
+    header p {
+        margin-bottom: 5rem;
+        font-size: bold;
+        font-family: 'Neue Machina', sans-serif;
+    }
+
+    header button {
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 1rem;
+        width: 144px;
+        height: 42px;
+        border-radius: 15px;
+        background-color: var(--secondario-fucsia);
+    }
+
+    header .contact-us {
+        background-color: var(--background);
+        color: var(--secondario-fucsia);
+        border: 3px solid var(--secondario-fucsia);
+    }
+
+    header .contact-us:active {
+        background-color: var(--secondario-fucsia);
+        color: white;
+    }
+
+    header .book:active {
+        border: 3px solid var(--secondario-fucsia);
+        background-color: white;
+        color: var(--secondario-fucsia)
+    }
+
+    main {
+        padding: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Neue Machina';
+    }
+
+    main > h2 {
+        font-size: 24pt;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        align-self: flex-start;
+    }
+
+    main > button {
+        background-color: var(--secondario-fucsia);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        width: 245px;
+        height: 44px;
+        margin: 2rem;
+        border-radius: 15px;
+    }
+
+    main > button:active {
+        border: 3px solid var(--secondario-fucsia);
+        background-color: white;
+        color: var(--secondario-fucsia)
+    }
+
+    main > p:nth-of-type(2) {
+        margin-bottom: 2rem;
+    }
+
+    #carosello {
+        width: 100%;
+        height: 307px;
+        background-color: lightgreen;
+        margin-bottom: 2rem;
+    }
+
+    .valori {
+        margin-bottom: 2rem;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;  
+        justify-content: space-around;   
+        text-align: center;   
+    }
+
+    .icona {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: var(--primario);
+
+    }
+
+    .stop {
+        background-image: url('img/icon-stop.png');
+        background-size: 40%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .balance {
+        background-image: url('img/icona-bilancia.png');
+        background-size: 40%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .new-generation {
+        background-image: url('img/icona-new-generation.png');
+        background-size: 40%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+
+    .richiedi-informazioni {
+        width: 100%;
+        height: fit-content;
+        border-radius: 15px;
+        background-color: var(--secondario-verde);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8%;
+        gap: 20px;
+    }
+
+    .richiedi-informazioni > h2 {
+        font-weight: bold;
+        font-size: 20pt;
+        text-align: center;
+    }
+
+    .richiedi-informazioni p {
+        text-align: center;
+    }
+
+    .richiedi-informazioni input {
+        border: 1px solid var(--primario);
+        width: 100%;
+        padding: 12px;
+        border-radius: 15px;
+        height: 44px;
+    }
+
+    .richiedi-informazioni input:focus {
+        border: 3px solid var(--primario);
+        outline: none;
+    }
+
+    .richiedi-informazioni textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 15px;
+        border: 1px solid var(--primario);
+    }
+
+    .richiedi-informazioni textarea:focus {
+        border: 3px solid var(--primario);
+        outline: none;
+    }
+
+    .richiedi-informazioni button {
+        background-color: var(--secondario-fucsia);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        width: 100px;
+        height: 40px;
+        border-radius: 15px;
+    }
+
+    .richiedi-informazioni .canc {
+        background-color: var(--background);
+        color: var(--secondario-fucsia);
+        border: 3px solid var(--secondario-fucsia);
+    }
+
+    .richiedi-informazioni .canc:active {
+        background-color: var(--secondario-fucsia);
+        color: white;
+    }
+
+    .richiedi-informazioni .send:active {
+        border: 3px solid var(--secondario-fucsia);
+        background-color: white;
+        color: var(--secondario-fucsia);
+    }
+
+    .buttons-richiedi-info {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end; 
+        gap: 10px; 
+    }
+    
+
+    footer {
+        background-color: var(--footer);
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Neue Machina', sans-serif;
+    }
+
+    footer ul li {
+        text-align: center;
+    }
+
+    footer .icons-social {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    footer .icons-social .social {
+        width: 5%;
+    }
+
+    footer p {
+        text-align: center;
+    }
+
+    footer iframe {
+        width: 75%;
+        height: 180px;
+        border-radius: 15px;
+    }
+}
+
