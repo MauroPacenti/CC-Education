@@ -21,3 +21,48 @@
   color: #9c9c9c;
   font-size: 0.8em;
 }
+
+.addEventForm {
+  background-color: #f0f0f0;
+  width: 70%;
+  max-height: min-content;
+
+  display: flex;
+  flex-direction: column;
+  border-radius: 1em;
+  padding: 1.5em;
+  gap: 1em;
+}
+
+.addEventForm > * {
+  display: flex;
+  flex-direction: column;
+}
+.addEventForm h3 {
+  font-size: 1.5em;
+}
+.addEventForm button {
+  background-color: #5932ea;
+  color: #fff;
+  padding: 1em;
+  border-radius: 0.75em;
+  margin-top: auto;
+}
+
+.addEventForm button:disabled {
+  background-color: #ccc;
+  color: #999;
+}
+
+.addEventForm input,
+.addEventForm select {
+  border-radius: 0.75em;
+  padding: 0.75em;
+  background-color: #fff;
+}
+
+.addEventForm input:user-invalid,
+.addEventForm select:user-invalid,
+.addEventForm textarea:user-invalid {
+  border: 2px solid red;
+}

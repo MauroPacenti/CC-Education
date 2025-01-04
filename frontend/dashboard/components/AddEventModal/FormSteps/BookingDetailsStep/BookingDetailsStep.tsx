@@ -91,7 +91,7 @@ const BookingDetailsStep = ({
           <select
             onChange={(e) => handleTimeSelection(e.target.value, "start")}
           >
-            <option value="">Ora inizio</option>
+            <option>Ora inizio</option>
             {Array.from({ length: 12 }, (_, index) => (
               <option
                 onClick={() => console.log(new Date().getHours())}
@@ -101,7 +101,11 @@ const BookingDetailsStep = ({
                 }
                 key={index}
                 value={index + 8}
-                disabled={+new Date().getHours() >= index + 8}
+                disabled={
+                  +new Date().getHours() >= index + 8 &&
+                  formData.bookingDetails.start.split(" ")[0] ===
+                    new Date().toISOString().split("T")[0]
+                }
               >
                 {index + 8}:00
               </option>
@@ -115,7 +119,7 @@ const BookingDetailsStep = ({
         <input
           type="date"
           id="end"
-          min={new Date().toISOString().split("T")[0]}
+          min={formData.bookingDetails.start.split(" ")[0]}
           value={formData.bookingDetails.end.split(" ")[0]}
           onChange={(e) =>
             setFormData((prev) => ({
