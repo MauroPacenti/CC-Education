@@ -34,6 +34,7 @@
   position: absolute;
   bottom: 5em;
   width: 100%;
+  left: 0;
   display: flex;
   justify-content: center;
   gap: 2em;
@@ -44,7 +45,7 @@
   padding: 0.75em;
   border: 2px solid #5932ea;
   color: #5932ea;
-  width: min(200px, 300px);
+  width: min(180px, 300px);
 }
 
 .navbar-item:last-of-type > a:first-of-type:hover {
@@ -61,6 +62,10 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+}
+
+.navbar-item:last-of-type > a:last-of-type .icon {
+  margin: 0;
 }
 
 .navbar-item:last-of-type > a:last-of-type:hover {

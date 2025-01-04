@@ -1,7 +1,7 @@
 import "./Navbar.css";
 import { NavLink } from "react-router";
 import {
-  Album,
+  BookMarked,
   CalendarDays,
   ChevronRight,
   LayoutDashboard,
@@ -39,7 +39,7 @@ const Navbar = () => {
     },
     {
       text: "Richieste Prenotazioni",
-      icon: Album,
+      icon: BookMarked,
     },
     {
       text: "Richieste Informazioni",
@@ -74,7 +74,7 @@ const Navbar = () => {
             <ChevronRight className="chevron" />
           </NavLink>
           <NavLink to={"/dashboard/impostazioni"}>
-            <Settings />
+            <Settings className="icon setting" />
           </NavLink>
         </li>
       </ul>

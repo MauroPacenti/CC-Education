@@ -1,0 +1,12 @@
+main {
+  margin-top: 1.5em;
+  padding: 0 2em;
+}
+
+@media screen and (min-width: 834px) {
+  main {
+    margin-top: 6.5em;
+    margin-left: calc(300px + 3em);
+    width: calc(100% - 300px - 6em);
+  }
+}

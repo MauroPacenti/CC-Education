@@ -10,6 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@schedule-x/calendar": "^2.11.0",
+    "@schedule-x/calendar-controls": "^2.11.0",
+    "@schedule-x/drag-and-drop": "^2.11.0",
+    "@schedule-x/event-modal": "^2.11.0",
+    "@schedule-x/events-service": "^2.11.0",
+    "@schedule-x/react": "^2.11.0",
+    "@schedule-x/scroll-controller": "^2.11.0",
+    "@schedule-x/theme-default": "^2.11.0",
     "@vitejs/plugin-legacy": "^6.0.0",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
