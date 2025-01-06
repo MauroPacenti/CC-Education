@@ -16,9 +16,22 @@ public class KeeperServiceImpl implements KeeperService {
     @Override
     public List<Keeper> filteredKeepers(String text) {
         List<Keeper> allKeepers = keeperRepo.findAll();
-        return new ArrayList<>(allKeepers.stream()
-                .filter(keeper -> keeper.search(text))
+        List<Keeper> filteredKeepers = new ArrayList<Keeper>(allKeepers.stream()
+                .filter(keeper -> {
+                    if(text != null && !text.isEmpty()) {
+                        return keeper.search(text);
+                    }
+                    else {
+                        return true;
+                    }
+                })
                 .toList());
+        return filteredKeepers;
+    }
+
+    @Override
+    public Optional<Keeper> getKeeper(int id) {
+        return keeperRepo.findById(id);
     }
 
     @Override
@@ -29,11 +42,16 @@ public class KeeperServiceImpl implements KeeperService {
     @Override
     public void updateKeeper(int keeperId, Keeper keeper) {
         Keeper edited=keeperRepo.findById(keeperId).get();
-        edited.setFirstName(keeper.getFirstName());
-        edited.setLastName(keeper.getLastName());
-        edited.setEmail(keeper.getEmail());
-        edited.setCf(keeper.getCf());
-        edited.setPhone(keeper.getPhone());
+        if(!keeper.getFirstName().isEmpty())
+            edited.setFirstName(keeper.getFirstName());
+        if(!keeper.getLastName().isEmpty())
+            edited.setLastName(keeper.getLastName());
+        if(!keeper.getEmail().isEmpty())
+            edited.setEmail(keeper.getEmail());
+        if(!keeper.getCf().isEmpty())
+            edited.setCf(keeper.getCf());
+        if(!keeper.getPhone().isEmpty())
+            edited.setPhone(keeper.getPhone());
         keeperRepo.save(edited);
     }
 
