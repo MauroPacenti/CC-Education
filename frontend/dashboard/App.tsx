@@ -7,6 +7,7 @@ import RichiesteInformazioni from "./pages/RichiesteInformazioni/RichiesteInform
 import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazione";
 
 import "./App.css";
+import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route
             path="richieste-informazioni"
             element={<RichiesteInformazioni />}
+          />
+          <Route
+            path="richieste-informazioni/:idRichiestaInformazione"
+            element={<DettagliRichiestaInformazione />}
           />
           <Route path="*" element={<h1>NotFount</h1>} />
         </Route>
