@@ -31,6 +31,11 @@ public class SpringSecurity {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/error").permitAll()
+                                .requestMatchers("/swagger-ui.html").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers("/swagger-resources/**").permitAll()
+                                .requestMatchers("/webjars/**").permitAll()
                                 .requestMatchers("/api/pub/**").permitAll()
                                 .requestMatchers("/api/auth/**").authenticated()
                 ).formLogin(
