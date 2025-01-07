@@ -49,15 +49,6 @@ const RichiesteInformazioni = () => {
     // fetchInfoRequest();
   }, []);
 
-  if (infoRequest.length === 0) {
-    return (
-      <div>
-        <h2>Richieste Informazioni</h2>
-        <p>Non ci sono richieste di informazioni</p>
-      </div>
-    );
-  }
-
   const handleRead = async (id: number) => {
     setInfoRequest((prev) =>
       prev.map((request) =>
@@ -79,6 +70,15 @@ const RichiesteInformazioni = () => {
       console.error("Error updating info request:", error);
     }
   };
+
+  if (infoRequest.length === 0) {
+    return (
+      <div>
+        <h2>Richieste Informazioni</h2>
+        <p>Non ci sono richieste di informazioni</p>
+      </div>
+    );
+  }
 
   return (
     <div>

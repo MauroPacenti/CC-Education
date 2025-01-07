@@ -31,8 +31,6 @@ const ShowDeleteModal = ({ toggleDeleteModal }: Props) => {
       console.error("Error deleting information request:", error);
       setError("Error deleting information request");
     }
-
-    console.log("Richiesta eliminata");
   };
 
   if (error) {

@@ -89,7 +89,10 @@ const DettagliRichiestaInformazione = () => {
   return (
     <div>
       {showReplyModal && (
-        <ShowReplyModal toggleReplyModal={toggleReplyModal}></ShowReplyModal>
+        <ShowReplyModal
+          toggleReplyModal={toggleReplyModal}
+          email={requestInformationDetails?.email}
+        ></ShowReplyModal>
       )}
       {showDeleteModal && (
         <ShowDeleteModal toggleDeleteModal={toggleDeleteModal} />
