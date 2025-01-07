@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface InfoRequestService {
     List<InfoRequest> getInfoRequests();
     Optional<InfoRequest> getInfoRequest(int infoRequestId);
-    void addJourneyRequest(InfoRequest infoRequest);
+    void addInfoRequest(InfoRequest infoRequest);
     void deleteInfoRequest(int infoRequestId);
     void updateInfoRequest(int infoRequestId, int status);
 }
