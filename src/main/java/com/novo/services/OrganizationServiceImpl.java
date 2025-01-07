@@ -41,19 +41,31 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Organization update(int id, String name, String type, String address, String phone, String email, int keeperId) {
-        Organization existingOrganization = organizationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
-        
-        Keeper keeper = keeperRepository.findById(keeperId)
-                .orElseThrow(() -> new RuntimeException("Keeper not found with id: " + keeperId));
+    public Organization update(Organization updatedOrganization) {
+        Organization existingOrganization = organizationRepository.findById(updatedOrganization.getId())
+                .orElseThrow(() -> new RuntimeException("Organization not found with id: " + updatedOrganization.getId()));
 
-        existingOrganization.setName(name);
-        existingOrganization.setType(type);
-        existingOrganization.setAddress(address);
-        existingOrganization.setPhone(phone);
-        existingOrganization.setEmail(email);
-        existingOrganization.setKeeper(keeper);
+        if (updatedOrganization.getName() != null) {
+            existingOrganization.setName(updatedOrganization.getName());
+        }
+        if (updatedOrganization.getType() != null) {
+            existingOrganization.setType(updatedOrganization.getType());
+        }
+        if (updatedOrganization.getAddress() != null) {
+            existingOrganization.setAddress(updatedOrganization.getAddress());
+        }
+        if (updatedOrganization.getPhone() != null) {
+            existingOrganization.setPhone(updatedOrganization.getPhone());
+        }
+        if (updatedOrganization.getEmail() != null) {
+            existingOrganization.setEmail(updatedOrganization.getEmail());
+        }
+        if (updatedOrganization.getKeeper() != null) {
+            Keeper keeper = keeperRepository.findById(updatedOrganization.getKeeper().getId())
+                    .orElseThrow(() -> new RuntimeException("Keeper not found with id: " + updatedOrganization.getKeeper().getId()));
+            existingOrganization.setKeeper(keeper);
+        }
+
         return organizationRepository.save(existingOrganization);
     }
 
