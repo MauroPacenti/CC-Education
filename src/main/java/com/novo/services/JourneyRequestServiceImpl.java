@@ -30,8 +30,14 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
     }
 
     @Override
-    public void deleteJourneyRequest(int journeyRequestId) {
-        journeyRequestRepo.deleteById(journeyRequestId);
+    public boolean deleteJourneyRequest(int journeyRequestId) {
+        try {
+            journeyRequestRepo.deleteById(journeyRequestId);
+        return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @Override
