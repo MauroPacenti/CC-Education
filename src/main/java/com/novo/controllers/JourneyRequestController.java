@@ -5,9 +5,7 @@ import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +25,7 @@ public class JourneyRequestController {
     }
 
     // Creates a new JourneyRequest
-    @GetMapping("/api/pub/createJourneyRequest")
+    @PostMapping("/api/pub/createJourneyRequest")
     public JourneyRequest createJourneyRequest(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
                                                @RequestParam int duration,
@@ -43,7 +41,7 @@ public class JourneyRequestController {
     }
 
     // Updates existing JourneyRequest
-    @GetMapping("/api/pub/updateJourneyRequest")
+    @PutMapping("/api/pub/updateJourneyRequest")
     public JourneyRequest updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
                                                @RequestParam(required = false) int duration,
@@ -60,7 +58,7 @@ public class JourneyRequestController {
     }
 
     // Deletes existing JourneyRequest
-    @GetMapping("/api/pub/deleteJourneyRequest")
+    @DeleteMapping("/api/pub/deleteJourneyRequest")
     public boolean deleteJourneyRequest(@RequestParam int journeyRequestId) {
         return journeyRequestService.deleteJourneyRequest(journeyRequestId);
     }

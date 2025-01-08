@@ -26,18 +26,24 @@ public class InfoRequestServiceImpl implements InfoRequestService {
     }
 
     @Override
-    public void addJourneyRequest(InfoRequest infoRequest) {
+    public void addInfoRequest(InfoRequest infoRequest) {
+        infoRequest.setStatus(statusRepo.getStatus(1));
         infoRequestRepo.save(infoRequest);
     }
 
     @Override
-    public void deleteInfoRequest(int infoRequestId) {
-        infoRequestRepo.deleteById(infoRequestId);
+    public boolean deleteInfoRequest(int infoRequestId) {
+        try {
+            infoRequestRepo.deleteById(infoRequestId);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
     @Override
     public void updateInfoRequest(int infoRequestId, int statusId) {
-
         InfoRequest edited = infoRequestRepo.findById(infoRequestId).get();
                 edited.setStatus(statusRepo.getStatus(statusId));
                 infoRequestRepo.save(edited);
