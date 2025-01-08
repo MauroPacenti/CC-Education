@@ -2,6 +2,8 @@ package com.novo.services;
 
 import com.novo.entities.InfoRequest;
 import com.novo.repos.InfoRequestRepository;
+import com.novo.repos.StatusRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
