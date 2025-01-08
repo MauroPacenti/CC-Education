@@ -1,7 +1,6 @@
 package com.novo.services;
 
 import com.novo.entities.JourneyRequest;
-import com.novo.entities.Keeper;
 import com.novo.repos.JourneyRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

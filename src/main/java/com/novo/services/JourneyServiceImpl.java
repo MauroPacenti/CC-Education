@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import com.novo.entities.Journey;
 import com.novo.entities.Keeper;
 import com.novo.repos.JourneyRepository;
+import com.novo.repos.KeeperRepository;
 
 @Service
 public class JourneyServiceImpl implements JourneyService {
 
 	@Autowired
 	private JourneyRepository journeyRepo;
+	
+	@Autowired
+	private KeeperRepository keeperRepo;
 	
 	@Override
 	public List<Journey> findALL() {
@@ -24,8 +28,7 @@ public class JourneyServiceImpl implements JourneyService {
 	
 	// Returns journey filters
 	@Override
-	public List<Journey> filteredJourney(String title, LocalDate startDate, LocalDate endDate)
-	{
+	public List<Journey> filteredJourney(String title, LocalDate startDate, LocalDate endDate){
 	    return journeyRepo.findAll()
 			.stream()
 			.filter(j -> {
@@ -56,7 +59,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Saves Journey by requested parameters
     @Override
-    public Journey save(String title, String annotations, LocalDate startDate, LocalDate endDate, Keeper keeper) {
+    public Journey save(String title, String annotations, LocalDate startDate, LocalDate endDate, int keeperId) {
     	
     	if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
@@ -64,6 +67,10 @@ public class JourneyServiceImpl implements JourneyService {
         if (startDate == null || endDate == null || startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("Invalid date range: Start date must be before or equal to end date");
         }
+        
+        Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
+    	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
+    	);
         
     	Journey journey = new Journey();
     	journey.setTitle(title);
@@ -77,11 +84,15 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Updates existing Journey by requested parameters
     @Override
-    public Journey update(int journeyId, String title, String annotations, LocalDate startDate, LocalDate endDate, Keeper keeper) {
+    public Journey update(int journeyId, String title, String annotations, LocalDate startDate, LocalDate endDate, int keeperId) {
     	
     	Journey journey = journeyRepo.findById(journeyId).orElseThrow(() -> 
         	new IllegalArgumentException("Journey with ID " + journeyId + " not found.")
         );
+    	
+    	Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
+	        new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
+    	);
 
     	if(title != null && !title.isEmpty()) {
     		journey.setTitle(title);

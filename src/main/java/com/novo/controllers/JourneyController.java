@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.novo.entities.Journey;
-import com.novo.entities.Keeper;
 import com.novo.services.JourneyService;
 
 @RestController
@@ -31,34 +33,34 @@ public class JourneyController {
 	}
 	
 	// Creates a new Journey
-	@GetMapping("/api/pub/createJourney")
+	@PostMapping("/api/pub/createJourney")
 	public Journey createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate ,
 	        @RequestParam(required = false) String annotations,
-	        @RequestParam Keeper keeper) {
+	        @RequestParam int keeperId) {
 	   
-	    Journey savedJourney = journeyService.save(title, annotations, startDate, endDate, keeper);
+	    Journey savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
 	    
 	    return savedJourney;
 	}
 	
 	// Updates existing Journey
-	@GetMapping("/api/pub/updateJourney")
+	@PutMapping("/api/pub/updateJourney")
 	public Journey updateJourney(@RequestParam(required = false) String title,
 		    @RequestParam int journeyId,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate ,
 	        @RequestParam(required = false) String annotations,
-	        @RequestParam Keeper keeper) {
+	        @RequestParam int keeperId) {
 	   
-	    Journey updatedJourney = journeyService.update(journeyId, title, annotations, startDate, endDate, keeper);
+	    Journey updatedJourney = journeyService.update(journeyId, title, annotations, startDate, endDate, keeperId);
 	    
 	    return updatedJourney;
 	}
 	
 	// Deletes existing Journey
-	@GetMapping("/api/pub/deleteJourney")
+	@DeleteMapping("/api/pub/deleteJourney")
 	public boolean deleteJourney(@RequestParam int journeyId) {
 	   boolean deletedJourney = journeyService.delete(journeyId);
 	    
