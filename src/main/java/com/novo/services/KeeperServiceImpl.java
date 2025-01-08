@@ -12,7 +12,7 @@ public class KeeperServiceImpl implements KeeperService {
     @Autowired
     private KeeperRepository keeperRepo;
 
-    //returns a list of keeper depending on search text
+    // Returns a list of keeper depending on search text
     @Override
     public List<Keeper> filteredKeepers(String text) {
         List<Keeper> allKeepers = keeperRepo.findAll();

@@ -10,7 +10,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     @Autowired
     private JavaMailSender mailSender;
 
-    //sends an email
+    // Sends an email
     @Override
     public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -22,7 +22,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
         mailSender.send(message);
     }
 
-    //sends verification email containing security code
+    // Sends verification email containing security code
     @Override
     public void sendVerificationMail(String code, String email) {
         SimpleMailMessage message = new SimpleMailMessage();
