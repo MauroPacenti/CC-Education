@@ -32,8 +32,14 @@ public class InfoRequestServiceImpl implements InfoRequestService {
     }
 
     @Override
-    public void deleteInfoRequest(int infoRequestId) {
-        infoRequestRepo.deleteById(infoRequestId);
+    public boolean deleteInfoRequest(int infoRequestId) {
+        try {
+            infoRequestRepo.deleteById(infoRequestId);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
     @Override

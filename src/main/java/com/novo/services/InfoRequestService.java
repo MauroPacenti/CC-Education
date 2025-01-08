@@ -10,6 +10,6 @@ public interface InfoRequestService {
     List<InfoRequest> getInfoRequests();
     Optional<InfoRequest> getInfoRequest(int infoRequestId);
     void addInfoRequest(InfoRequest infoRequest);
-    void deleteInfoRequest(int infoRequestId);
+    boolean deleteInfoRequest(int infoRequestId);
     void updateInfoRequest(int infoRequestId, int status);
 }

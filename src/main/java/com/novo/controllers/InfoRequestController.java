@@ -4,9 +4,7 @@ import com.novo.entities.InfoRequest;
 import com.novo.services.InfoRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +22,7 @@ public class InfoRequestController {
     }
 
     // Creates a new InfoRequest
-    @GetMapping("/api/pub/createInfoRequest")
+    @PostMapping("/api/pub/createInfoRequest")
     public InfoRequest createInfoRequest(@RequestParam String email,
                                          @RequestParam String title,
                                          @RequestParam String content) {
@@ -38,21 +36,17 @@ public class InfoRequestController {
     }
 
     // Updates existing InfoRequest
-    @GetMapping("/api/pub/updateInfoRequest")
+    @PutMapping("/api/pub/updateInfoRequest")
     public InfoRequest updateInfoRequest(@RequestParam int infoRequestId,
-                                         @RequestParam(required = false) int statusIdD) {
+                                         @RequestParam int statusId) {
 
         InfoRequest updatedInfoRequest = new InfoRequest();
-        updatedInfoRequest.setStartAvailabilityDate(startAvailabilityDate);
-        updatedInfoRequest.setEndAvailabilityDate(endAvailabilityDate);
-        updatedInfoRequest.setDuration(duration);
-        updatedInfoRequest.setKeeper(keeperService.getKeeper(keeperId).get());
-        infoRequestService.updateInfoRequest(infoRequestId, updatedInfoRequest);
+        infoRequestService.updateInfoRequest(infoRequestId, statusId);
         return updatedInfoRequest;
     }
 
     // Deletes existing InfoRequest
-    @GetMapping("/api/pub/deleteInfoRequest")
+    @DeleteMapping("/api/pub/deleteInfoRequest")
     public boolean deleteInfoRequest(@RequestParam int infoRequestId) {
         return infoRequestService.deleteInfoRequest(infoRequestId);
     }
