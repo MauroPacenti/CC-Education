@@ -50,7 +50,7 @@
   transition: left 0.7s ease-in-out;
   background-color: #ffffff;
   height: calc(100vh - 92px);
-  z-index: 1;
+  z-index: 5;
 }
 
 .navbar-list.active {
