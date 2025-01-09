@@ -8,6 +8,7 @@ import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazi
 
 import "./App.css";
 import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
+import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
           <Route
             path="richieste-prenotazioni"
             element={<RichiestePrenotazione />}
+          />
+          <Route
+            path="richieste-prenotazioni/:idRichiestaPrenotazione"
+            element={<DettagliRichiestaPrenotazione />}
           />
           <Route
             path="richieste-informazioni"
