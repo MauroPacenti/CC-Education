@@ -91,14 +91,17 @@ const section3 = document.querySelector('#page3');
 const icon1 = document.querySelector('#icon1');
 const icon2 = document.querySelector('#icon2');
 const icon3 = document.querySelector('#icon3');
-const i1 = document.querySelector('#i1');
-const i2 = document.querySelector('#i2');
+const i1 = document.querySelector('#icon1 img');
+const i2 = document.querySelector('#icon2 img');
 const title = document.querySelector('.form-title');
+const done1 = document.querySelector('#done1');
+const done2 = document.querySelector('#done2');
+
 
 btnNext.forEach((btn) => {
   btn.addEventListener('click', () => {
     if(currentPage === 0){
-
+      
       if(title !== null){
         title.textContent = 'Dati Organizzazione';
       }
@@ -106,7 +109,9 @@ btnNext.forEach((btn) => {
       section2?.classList.add('active');
       icon1?.classList.replace('active', 'done');
       icon2?.classList.add('active');
-      i1?.classList.replace('bxs-user', 'bx-check');
+      i1?.classList.add('hide');
+      done1?.classList.remove('hide');
+      
       currentPage++;
     }
     else if(currentPage === 1){
@@ -118,7 +123,8 @@ btnNext.forEach((btn) => {
       section3?.classList.add('active');
       icon2?.classList.replace('active', 'done');
       icon3?.classList.add('active');
-      i2?.classList.replace('bxs-group', 'bx-check');
+      i2?.classList.add('hide');
+      done2?.classList.remove('hide');
       currentPage++;
     }
   });
@@ -135,7 +141,8 @@ btnPrev.forEach((btn) => {
       section2?.classList.add('active');
       icon3?.classList.remove('active');
       icon2?.classList.replace('done', 'active');
-      i2?.classList.replace('bx-check', 'bxs-group');
+      i2?.classList.remove('hide');
+      done2?.classList.add('hide');
       currentPage--;
     }
     else if(currentPage === 1){
@@ -147,7 +154,8 @@ btnPrev.forEach((btn) => {
       section1?.classList.add('active');
       icon2?.classList.remove('active');
       icon1?.classList.replace('done', 'active');
-      i1?.classList.replace('bx-check', 'bxs-user');
+      i1?.classList.remove('hide');
+      done1?.classList.add('hide');
       currentPage--;
     }
   });
