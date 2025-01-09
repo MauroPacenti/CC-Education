@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface Props {
   toggleReplyModal: () => void;
-  email: string;
+  email?: string;
 }
 
 const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {

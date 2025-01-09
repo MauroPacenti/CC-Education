@@ -19,14 +19,7 @@ const DettagliRichiestaInformazione = () => {
   const navigate = useNavigate();
 
   const [requestInformationDetails, setRequestInformationDetails] =
-    useState<RequestInformation>({
-      id: 1,
-      date: "2021-09-01",
-      name: "Mario Rossi",
-      email: "H9u3o@example.com",
-      title: "Richiesta informazioni",
-      message: "Mi servirebbero maggiori informazioni sul corso di inglese",
-    });
+    useState<RequestInformation>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,7 +31,7 @@ const DettagliRichiestaInformazione = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `/api/richieste-informazioni/${idRichiestaInformazione}`
+          `/api/pub/getAllInfoRequest/${idRichiestaInformazione}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,28 +46,35 @@ const DettagliRichiestaInformazione = () => {
     };
 
     if (idRichiestaInformazione) {
-      // fetchBookingDetails();
+      fetchBookingDetails();
     }
   }, [idRichiestaInformazione]);
 
-  // if (isLoading) {
-  //   return <div>Caricamento...</div>;
-  // }
+  if (isLoading) {
+    return (
+      <div>
+        <button onClick={() => navigate(-1)} className="back-button">
+          <MoveLeft />
+        </button>
+        <div>Caricamento...</div>
+      </div>
+    );
+  }
 
-  // if (error) {
-  //   return (
-  //     <div>
-  //       <button onClick={() => navigate(-1)} className="back-button">
-  //         <MoveLeft />
-  //       </button>
+  if (error) {
+    return (
+      <div>
+        <button onClick={() => navigate(-1)} className="back-button">
+          <MoveLeft />
+        </button>
 
-  //       <div>
-  //         Si è verificato un errore durante il recupero dei dettagli della
-  //         richiesta d'informazione: {error}
-  //       </div>
-  //     </div>
-  //   );
-  // }
+        <div>
+          Si è verificato un errore durante il recupero dei dettagli della
+          richiesta d'informazione: {error}
+        </div>
+      </div>
+    );
+  }
 
   const toggleReplyModal = () => {
     // Open modal
