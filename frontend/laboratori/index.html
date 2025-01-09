@@ -4,25 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laboratori</title>
+    <link rel="stylesheet" href="../global.css">
     <script type="module" src="./laboratori.ts"></script>
   </head>
   <body>
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/laboratori/">Laboratori</a>
-        </li>
-        <li>
-          <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
-        </li>
-        <li>
-          <a href="/dashboard/">Dashboard</a>
-        </li>
-      </ul>
+    <nav class="nav-container">
+      <div class="logo-container">
+        <img src="/img/logo.png" alt="logo liberamente">
+      </div>
+
+      <div class="menu-container">
+
+        <div class="menu-btn">
+          <a href="#" class="menu-icon">
+            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu">
+            <img id="icon-close" class="hide" src="../img/icon-close.svg" alt="icon close">
+          </a>
+        </div>
+
+        <ul class="menu">
+          <li class="menu-item">
+            <a href="/">Home</a>
+          </li>
+          <li class="menu-item active">
+            <a href="/laboratori/">Laboratori</a>
+          </li>
+          <li class="menu-item">
+            <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
+          </li>
+          <li class="menu-item">
+            <a href="/dashboard/">Dashboard</a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <h1>Laboratori</h1>
+
+    <!-- Javascipt per gestire la navbar -->
+    <script src="../global.ts"></script>
   </body>
 </html>

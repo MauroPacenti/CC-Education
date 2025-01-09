@@ -6,10 +6,7 @@
     <title>Richiedi Prenotazione</title>
 
     <!-- Fav Icon -->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-    <!-- Box Icon -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
   </head>
   <body>
     <nav class="nav-container">
@@ -18,9 +15,14 @@
       </div>
 
       <div class="menu-container">
-        <a href="#" class="menu-icon">
-          <i class='bx bx-menu'></i>
-        </a>
+
+        <div class="menu-btn">
+          <a href="#" class="menu-icon">
+            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu">
+            <img id="icon-close" class="hide" src="../img/icon-close.svg" alt="icon close">
+          </a>
+        </div>
+
         <ul class="menu">
           <li class="menu-item">
             <a href="/">Home</a>
@@ -28,7 +30,7 @@
           <li class="menu-item">
             <a href="/laboratori/">Laboratori</a>
           </li>
-          <li class="menu-item">
+          <li class="menu-item active">
             <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
           </li>
           <li class="menu-item">
@@ -49,15 +51,18 @@
         <div class="content-box">
           <div class="progress-bar">
             <div class="icon-container active" id="icon1">
-              <i class='bx bxs-user' id="i1"></i>
+              <img src="../img/icon-user.svg" alt="icon user" class="icon">
+              <img src="../img/icon-done.svg" alt="icon done" id="done1" class="icon-done hide">
             </div>
             <div class="line-break"></div>
             <div class="icon-container" id="icon2">
-              <i class='bx bxs-group' id="i2"></i>
+              <img src="../img/icon-organization.svg" alt="icon organization" class="icon">
+              <img src="../img/icon-done.svg" alt="icon done" id="done2" class="icon-done hide">
             </div>
             <div class="line-break"></div>
             <div class="icon-container" id="icon3">
-              <i class='bx bxs-calendar'></i>
+              <img src="../img/icon-calendar.svg" alt="icon date" class="icon">
+              <img src="../img/icon-done.svg" alt="icon done" id="done3" class="icon-done hide">
             </div>
           </div>
           <h2 class="form-title">Dati Accompagnatore</h2>
@@ -156,7 +161,7 @@
             <label for="info">Ulteriori Informazioni</label>
             <textarea name="info" id="info" placeholder="Inserisci ulteriori informazioni"></textarea>
   
-            <div class="btn-container">
+            <div id="btn-last" class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
               <button type="submit" class="btn btn-submit">Invia</button>
             </div>
