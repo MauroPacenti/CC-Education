@@ -8,7 +8,6 @@ interface InfoRequest {
   name: string;
   title: string;
   message: string;
-  read: boolean;
 }
 
 const RichiesteInformazioni = () => {
@@ -19,7 +18,6 @@ const RichiesteInformazioni = () => {
       name: "Mario Rossi",
       title: "Richiesta informazioni",
       message: "Mi servirebbero maggiori informazioni sul corso di inglese",
-      read: false,
     },
     {
       id: 2,
@@ -27,7 +25,6 @@ const RichiesteInformazioni = () => {
       name: "Luca Verdi",
       title: "Richiesta informazioni",
       message: "Vorrei sapere i costi del corso di spagnolo",
-      read: true,
     },
   ]);
 
@@ -49,28 +46,6 @@ const RichiesteInformazioni = () => {
     // fetchInfoRequest();
   }, []);
 
-  const handleRead = async (id: number) => {
-    setInfoRequest((prev) =>
-      prev.map((request) =>
-        request.id === id ? { ...request, read: !request.read } : request
-      )
-    );
-    console.log("Richiesta informazioni letta");
-
-    try {
-      const response = await fetch(`/api/richieste-informazioni/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({ read: true }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-    } catch (error) {
-      console.error("Error updating info request:", error);
-    }
-  };
-
   if (infoRequest.length === 0) {
     return (
       <div>
@@ -90,9 +65,7 @@ const RichiesteInformazioni = () => {
             key={request.id}
             to={`/dashboard/richieste-informazioni/${request.id}`}
             className="info-card"
-            onClick={() => handleRead(request.id)}
           >
-            {!request.read && <span className="new">Nuova</span>}
             <div className="info-header">
               <h3>{request.name}</h3>
               <p>{request.date}</p>

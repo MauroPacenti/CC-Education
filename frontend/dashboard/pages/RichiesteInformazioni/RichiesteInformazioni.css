@@ -14,14 +14,6 @@
   background-color: #e4e6e7;
 }
 
-.new {
-  background-color: #5932ea;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  border-radius: 0.35rem;
-}
-
 .info-header {
   display: flex;
   justify-content: space-between;
