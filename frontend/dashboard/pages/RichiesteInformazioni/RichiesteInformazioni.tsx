@@ -11,27 +11,12 @@ interface InfoRequest {
 }
 
 const RichiesteInformazioni = () => {
-  const [infoRequest, setInfoRequest] = useState<InfoRequest[]>([
-    {
-      id: 1,
-      date: "2021-09-01",
-      name: "Mario Rossi",
-      title: "Richiesta informazioni",
-      message: "Mi servirebbero maggiori informazioni sul corso di inglese",
-    },
-    {
-      id: 2,
-      date: "2021-09-02",
-      name: "Luca Verdi",
-      title: "Richiesta informazioni",
-      message: "Vorrei sapere i costi del corso di spagnolo",
-    },
-  ]);
+  const [infoRequest, setInfoRequest] = useState<InfoRequest[]>([]);
 
   useEffect(() => {
     const fetchInfoRequest = async () => {
       try {
-        const response = await fetch("/api/richieste-informazioni");
+        const response = await fetch("/api/pub/getAllInfoRequest");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -43,10 +28,10 @@ const RichiesteInformazioni = () => {
       }
     };
 
-    // fetchInfoRequest();
+    fetchInfoRequest();
   }, []);
 
-  if (infoRequest.length === 0) {
+  if (infoRequest?.length === 0) {
     return (
       <div>
         <h2>Richieste Informazioni</h2>
@@ -60,7 +45,7 @@ const RichiesteInformazioni = () => {
       <h2>Richieste Informazioni</h2>
 
       <div className="info-container">
-        {infoRequest.map((request) => (
+        {infoRequest?.map((request) => (
           <NavLink
             key={request.id}
             to={`/dashboard/richieste-informazioni/${request.id}`}
