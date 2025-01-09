@@ -38,23 +38,32 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
   }
 
   return (
-    <div className="reply-modal" onClick={(e) => e.stopPropagation()}>
-      <div className="reply-modal-content">
-        <button className="close-modal" onClick={toggleReplyModal}>
+    <div className="reply-modal" onClick={toggleReplyModal}>
+      <div className="reply-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button
+          className="close-modal active-mobile"
+          onClick={toggleReplyModal}
+        >
           <X />
         </button>
         <h3>Rispondi alla richiesta</h3>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="reply-modal-email-input">
             <label htmlFor="">A: </label>
-            <input type="email" placeholder="Email" value={email} readOnly />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              readOnly
+              disabled
+            />
           </div>
 
           <div className="reply-modal-object-input">
             <label htmlFor="">Oggetto:</label>
             <input
               type="text"
-              placeholder="Oggetto"
+              placeholder="Inserisci l'oggetto della risposta"
               onChange={(e) =>
                 setResponse((prev) => ({ ...prev, subject: e.target.value }))
               }
@@ -72,10 +81,13 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
             ></textarea>
           </div>
           <div className="reply-modal-buttons">
-            <button className="reply-modal-button" onClick={toggleReplyModal}>
+            <button
+              className="reply-modal-button cancel"
+              onClick={toggleReplyModal}
+            >
               Annulla
             </button>
-            <button className="reply-modal-button" onClick={handleReply}>
+            <button className="reply-modal-button send" onClick={handleReply}>
               Invia
             </button>
           </div>

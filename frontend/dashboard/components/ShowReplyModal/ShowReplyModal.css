@@ -1,14 +1,112 @@
 .reply-modal {
-  padding: 2em 3em;
+  padding: 2em;
   background-color: white;
   position: absolute;
   inset: 0;
   top: 5.5em;
 }
 
-.reply-modal textarea {
-  width: 100%;
-  border: 2px solid #5932ea;
+.close-modal {
+  width: min-content;
+}
+
+.reply-modal-content {
+  height: 100%;
+}
+
+.reply-modal-content,
+.reply-modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.reply-modal-content h3 {
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.reply-modal-content
+  form
+  div:not(.reply-modal-email-input, .reply-modal-buttons) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.reply-modal-content input:not(.reply-modal-email-input input) {
   border-radius: 0.5em;
   padding: 0.5em 1em;
+}
+.reply-modal-content input:focus,
+.reply-modal-content textarea:focus {
+  border: 2px solid #5932ea;
+}
+
+.reply-modal-email-input input {
+  background-color: transparent;
+  color: #4d4d4d;
+}
+
+.reply-modal textarea {
+  width: 100%;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  resize: none;
+}
+
+.reply-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+.cancel {
+  color: #5932ea;
+  border: 2px solid #5932ea;
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+}
+
+.send {
+  background-color: #5932ea;
+  color: white;
+  border: 2px solid #5932ea;
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+}
+
+@media screen and (min-width: 834px) {
+  .reply-modal {
+    background-color: transparent;
+  }
+  .reply-modal-content {
+    background-color: #f1f1f1;
+    border-radius: 1em;
+    width: clamp(20em, 50%, 30em);
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    height: fit-content;
+  }
+  .reply-modal-content > * {
+    padding: 0.75em;
+  }
+
+  .active-mobile {
+    display: none;
+  }
+  .reply-modal-content h3 {
+    width: 100%;
+    background-color: #5932ea;
+    color: white;
+    font-weight: 400;
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .reply-modal-content {
+    right: 15%;
+  }
 }
