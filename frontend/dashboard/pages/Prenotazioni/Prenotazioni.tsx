@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
 import { useNavigate } from "react-router";
 import { CalendarBooking } from "../../models/CalendarBooking.model";
+import { CirclePlus } from "lucide-react";
 
 const Prenotazioni = () => {
   const navigate = useNavigate();
@@ -24,16 +25,7 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-  const [events, setEvents] = useState<CalendarBooking[]>([
-    {
-      id: "1",
-      title: "Prenotazione 1",
-      start: "2025-01-01 10:00",
-      end: "2025-01-01 12:00",
-      description: "Gruppo 1",
-      people: ["Adulti: 2", "Bambini: 3"],
-    },
-  ]);
+  const [events, setEvents] = useState<CalendarBooking[]>([]);
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
@@ -66,9 +58,14 @@ const Prenotazioni = () => {
   });
 
   useEffect(() => {
-    // get all events
+    fetch("/api/pub/getAllBookings")
+      .then((response) => response.json())
+      .then((data) => {
+        setEvents(data);
+      })
+      .catch((err) => console.error(err));
     eventsService.getAll();
-  }, [eventsService, events]);
+  }, [eventsService]);
 
   return (
     <div className="dashboard-calendar">
@@ -79,9 +76,10 @@ const Prenotazioni = () => {
         ></AddEventModal>
       )}
       <div className="dashboard-calendar-header">
-        <h1 className="dashboard-calendar-title">Prenotazioni</h1>
+        <h2 className="dashboard-calendar-title">Prenotazioni</h2>
         <button className="add-event-button" onClick={toggleAddEventModal}>
-          Aggiungi Prenotazione
+          <CirclePlus />
+          <span className="btn-text">Aggiungi Prenotazione</span>
         </button>
       </div>
       <ScheduleXCalendar calendarApp={calendar} />
