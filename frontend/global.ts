@@ -2,23 +2,29 @@
 
 const ul = document.querySelector('ul');
 const menu = document.querySelector('.menu-container');
-const click = document.querySelector('.menu-icon');
-const icon = document.querySelector('.menu-icon i');
+const menuClick = document.querySelector('.menu-icon');
+const icon = document.querySelector('#icon-menu');
+const closeIcon = document.querySelector('#icon-close');
 const logo = document.querySelector('.logo-container');
+const form = document.querySelector('.form-container');
 
-click?.addEventListener('click', toggleMenu);
+menuClick?.addEventListener('click', toggleMenu);
 
 function toggleMenu() {
 
+    form?.classList.add('hide');
     menu?.classList.add('active');
     logo?.classList.add('hide');
-    icon?.classList.replace('bx-menu', 'bxs-left-arrow-square');
+    closeIcon?.classList.remove('hide');
+    icon?.classList.add('hide');
     
     if (ul?.classList.contains('not-display')) {
+        form?.classList.remove('hide');
         ul.classList.remove('not-display');
         menu?.classList.remove('active');
         logo?.classList.remove('hide');
-        icon?.classList.replace('bxs-left-arrow-square', 'bx-menu');
+        closeIcon?.classList.add('hide');
+        icon?.classList.remove('hide');
     } else {
         ul?.classList.add('not-display');
     }
