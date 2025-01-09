@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./RichiestePrenotazione.css";
-import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
 interface BookingRequest {
   id: number;
@@ -63,9 +63,53 @@ const RichiestePrenotazione = () => {
       endAvailabilityDate: new Date(),
       duration: 0,
     },
+    {
+      id: 2,
+      keeper: {
+        id: 1,
+        firstName: "Giovanni",
+        lastName: "Giovanni",
+        email: "1N8H4@example.com",
+        cf: "12345678901",
+        phone: "1234567890",
+        group: {
+          id: 1,
+          minors: 1,
+          adults: 1,
+          keeper: "1",
+        },
+        organization: {
+          id: 1,
+          name: "Organizzazione",
+          type: "Organizzazione",
+          address: "Via Roma, 1",
+          phone: "1234567890",
+          email: "1N8H4@example.com",
+          keeper: "1",
+        },
+      },
+      startAvailabilityDate: new Date(),
+      endAvailabilityDate: new Date(),
+      duration: 0,
+    },
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchBookingRequests = async () => {
@@ -115,21 +159,46 @@ const RichiestePrenotazione = () => {
   return (
     <div>
       <h2>Richieste Prenotazione</h2>
-      <div className="request-booking-container">
-        {bookingRequests.map((bookingRequest) => (
-          <NavLink
-            to={`/dashboard/richieste-prenotazioni/${bookingRequest.id}`}
-            key={bookingRequest.id}
-            className="request-booking-item"
-          >
-            <p>
-              {bookingRequest.keeper.firstName} {bookingRequest.keeper.lastName}
-            </p>
-            <p>{bookingRequest.startAvailabilityDate.toISOString()}</p>
-            <p>{bookingRequest.endAvailabilityDate.toISOString()}</p>
-          </NavLink>
-        ))}
-      </div>
+
+      <table>
+        <thead className="table-header">
+          <tr>
+            <th>Email</th>
+            <th className="desktop-only">Accompagnatore</th>
+            <th> Tipologia</th>
+            <th>Inizio </th>
+            <th>Fine</th>
+          </tr>
+        </thead>
+        <tbody className="table-body">
+          {bookingRequests.map((bookingRequest) => (
+            <tr
+              key={bookingRequest.id}
+              onClick={() => {
+                navigate(
+                  `/dashboard/richieste-prenotazioni/${bookingRequest.id}`
+                );
+              }}
+            >
+              <td>{bookingRequest.keeper.email}</td>
+
+              <td className="desktop-only">
+                {`${bookingRequest.keeper.firstName} ${bookingRequest.keeper.lastName}`}
+              </td>
+              <td>{bookingRequest.keeper.organization.type}</td>
+
+              <td>
+                {bookingRequest.startAvailabilityDate.toLocaleDateString(
+                  "it-IT"
+                )}
+              </td>
+              <td>
+                {bookingRequest.endAvailabilityDate.toLocaleDateString("it-IT")}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

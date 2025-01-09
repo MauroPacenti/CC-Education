@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table-header th {
+  background-color: #5932ea;
+  color: #fff;
+  font-weight: 500;
+  padding: 10px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-body tr {
+  cursor: pointer;
+}
+
+.table-body tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-body td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
+  min-width: 0;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media screen and (min-width: 834px) {
+  .desktop-only {
+    display: table-cell;
+  }
+}
