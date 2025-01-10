@@ -33,66 +33,7 @@ interface BookingRequest {
 }
 
 const RichiestePrenotazione = () => {
-  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>([
-    {
-      id: 1,
-      keeper: {
-        id: 1,
-        firstName: "Giovanni",
-        lastName: "Giovanni",
-        email: "1N8H4@example.com",
-        cf: "12345678901",
-        phone: "1234567890",
-        group: {
-          id: 1,
-          minors: 1,
-          adults: 1,
-          keeper: "1",
-        },
-        organization: {
-          id: 1,
-          name: "Organizzazione",
-          type: "Organizzazione",
-          address: "Via Roma, 1",
-          phone: "1234567890",
-          email: "1N8H4@example.com",
-          keeper: "1",
-        },
-      },
-      startAvailabilityDate: new Date(),
-      endAvailabilityDate: new Date(),
-      duration: 0,
-    },
-    {
-      id: 2,
-      keeper: {
-        id: 1,
-        firstName: "Giovanni",
-        lastName: "Giovanni",
-        email: "1N8H4@example.com",
-        cf: "12345678901",
-        phone: "1234567890",
-        group: {
-          id: 1,
-          minors: 1,
-          adults: 1,
-          keeper: "1",
-        },
-        organization: {
-          id: 1,
-          name: "Organizzazione",
-          type: "Organizzazione",
-          address: "Via Roma, 1",
-          phone: "1234567890",
-          email: "1N8H4@example.com",
-          keeper: "1",
-        },
-      },
-      startAvailabilityDate: new Date(),
-      endAvailabilityDate: new Date(),
-      duration: 0,
-    },
-  ]);
+  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -114,8 +55,17 @@ const RichiestePrenotazione = () => {
         setIsLoading(false);
       }
     };
-    // fetchBookingRequests();
+    fetchBookingRequests();
   }, []);
+
+  if (bookingRequests?.length === 0) {
+    return (
+      <div>
+        <h2>Richieste Prenotazione</h2>
+        <p>Non ci sono richieste di prenotazione</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -135,14 +85,6 @@ const RichiestePrenotazione = () => {
     );
   }
 
-  if (bookingRequests?.length === 0) {
-    return (
-      <div>
-        <h2>Richieste Prenotazione</h2>
-        <p>Non ci sono richieste di prenotazione</p>
-      </div>
-    );
-  }
   return (
     <div>
       <h2>Richieste Prenotazione</h2>

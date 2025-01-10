@@ -51,49 +51,7 @@ const DettagliRichiestaPrenotazione = () => {
   const navigate = useNavigate();
 
   const [bookingRequestDetails, setBookingRequestDetails] =
-    useState<BookingRequestDetails>({
-      id: 1,
-      keeper: {
-        id: 1,
-        firstName: "Giovanni",
-        lastName: "Giovanni",
-        email: "1N8H4@example.com",
-        cf: "12345678901",
-        phone: "1234567890",
-        group: {
-          id: 1,
-          minors: 1,
-          adults: 1,
-          keeper: "1",
-        },
-        organization: {
-          id: 1,
-          name: "Scout",
-          type: "Scout",
-          address: "Via Roma, 1",
-          phone: "1234567890",
-          email: "1N8H4@example.com",
-          keeper: "1",
-        },
-      },
-      startAvailabilityDate: new Date().toISOString(),
-      endAvailabilityDate: new Date().toISOString(),
-      duration: 0,
-      status: {
-        id: 1,
-        name: "Pending",
-        journeyRequests: [],
-        infoRequests: [
-          {
-            id: 1,
-            email: "1N8H4@example.com",
-            title: "Title",
-            content: "Content",
-            status: "Pending",
-          },
-        ],
-      },
-    });
+    useState<BookingRequestDetails>();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -105,9 +63,9 @@ const DettagliRichiestaPrenotazione = () => {
       const response = await fetch(`/api/pub/createJourney`, {
         method: "POST",
         body: JSON.stringify({
-          startDate: bookingRequestDetails.startAvailabilityDate,
-          endDate: bookingRequestDetails.endAvailabilityDate,
-          keeperId: bookingRequestDetails.keeper.id,
+          startDate: bookingRequestDetails?.startAvailabilityDate,
+          endDate: bookingRequestDetails?.endAvailabilityDate,
+          keeperId: bookingRequestDetails?.keeper.id,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -164,7 +122,7 @@ const DettagliRichiestaPrenotazione = () => {
     };
 
     if (idRichiestaPrenotazione) {
-      // fetchBookingRequestDetails();
+      fetchBookingRequestDetails();
     }
   }, [idRichiestaPrenotazione]);
 
@@ -172,7 +130,7 @@ const DettagliRichiestaPrenotazione = () => {
     return (
       <div>
         <button className="back-button" onClick={() => navigate(-1)}>
-          <MoveLeft></MoveLeft>
+          <MoveLeft />
         </button>
 
         <p>Loading...</p>
@@ -184,7 +142,7 @@ const DettagliRichiestaPrenotazione = () => {
     return (
       <div>
         <button className="back-button" onClick={() => navigate(-1)}>
-          <MoveLeft></MoveLeft>
+          <MoveLeft />
         </button>
         <p>Error: {error}</p>
       </div>
@@ -200,7 +158,7 @@ const DettagliRichiestaPrenotazione = () => {
         />
       )}
       <button className="back-button" onClick={() => navigate(-1)}>
-        <MoveLeft></MoveLeft>
+        <MoveLeft />
       </button>
 
       <h2>Dettagli Richiesta Prenotazione</h2>
@@ -310,7 +268,7 @@ const DettagliRichiestaPrenotazione = () => {
               <span className="detail-label">Data inizio disponibilità:</span>
               <span className="detail-value">
                 {new Date(
-                  bookingRequestDetails?.startAvailabilityDate
+                  bookingRequestDetails?.startAvailabilityDate ?? ""
                 ).toLocaleDateString()}
               </span>
             </div>
@@ -318,7 +276,7 @@ const DettagliRichiestaPrenotazione = () => {
               <span className="detail-label">Data fine disponibilità:</span>
               <span className="detail-value">
                 {new Date(
-                  bookingRequestDetails?.endAvailabilityDate
+                  bookingRequestDetails?.endAvailabilityDate ?? ""
                 ).toLocaleDateString()}
               </span>
             </div>

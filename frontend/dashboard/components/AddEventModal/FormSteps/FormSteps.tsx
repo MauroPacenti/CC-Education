@@ -42,7 +42,6 @@ const FormSteps = ({ handleSubmit }: FormStepsProps) => {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("data:  ", formData);
     const calendarBooking = CalendarBookingMapper(formData);
     handleSubmit(calendarBooking);
   };

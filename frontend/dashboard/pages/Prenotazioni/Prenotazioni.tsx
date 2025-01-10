@@ -30,7 +30,25 @@ const Prenotazioni = () => {
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
   const addEventOnCalendar = (newEvent: CalendarBooking) => {
-    console.log(newEvent);
+    const postEvent = async () => {
+      try {
+        const res = await fetch("/api/pub/addJourney", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newEvent),
+        });
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    postEvent();
+
     setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
     eventsService.getAll();
@@ -58,7 +76,7 @@ const Prenotazioni = () => {
   });
 
   useEffect(() => {
-    fetch("/api/pub/getAllBookings")
+    fetch("/api/pub/getAllJourney")
       .then((response) => response.json())
       .then((data) => {
         setEvents(data);

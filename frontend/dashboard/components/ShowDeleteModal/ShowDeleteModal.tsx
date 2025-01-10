@@ -14,12 +14,13 @@ const ShowDeleteModal = ({ toggleDeleteModal }: Props) => {
     // Delete information request
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `/api/richieste-informazioni/${idRichiestaInformazione}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/pub/deleteInfoRequest`, {
+        method: "DELETE",
+        body: JSON.stringify({ infoRequestId: idRichiestaInformazione }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
