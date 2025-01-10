@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "journey_requests")
 public class JourneyRequest {
 
+    @Schema(hidden = true)
     @Id
     @Column(name = "id") // "id" column
     private int id;
 
+    @Schema(hidden = true)
     @ManyToOne
     @JoinColumn(name = "keeper_id")
     private Keeper keeper; // Foreign key for "keeper_id" column

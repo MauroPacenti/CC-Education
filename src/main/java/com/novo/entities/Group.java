@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "`groups`")
 public class Group {
-	
+	@Schema(hidden = true)
 	@Column(name = "id")
 	@Id
 	private int id;

@@ -1,7 +1,6 @@
 package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "`organizations`")
 public class Organization {
-
+	@Schema(hidden = true)
 	@Id
 	@Column(name = "id")
     private int id;

@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "statuses")
 public class Status {
-
+    @Schema(hidden = true)
     @Id
     @Column(name = "id") // "id" column
     private int id;

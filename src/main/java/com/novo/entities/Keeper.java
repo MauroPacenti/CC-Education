@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "`keepers`")
 public class Keeper implements Searchable {
-	
+	@Schema(hidden = true)
 	@Id
 	@Column(name = "id")
 	private int id;

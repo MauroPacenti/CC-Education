@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "`journeys`")
 public class Journey {
-	
+	@Schema(hidden = true)
 	@Column(name = "id")
 	@Id
 	private int id;

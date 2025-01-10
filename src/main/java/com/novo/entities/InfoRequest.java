@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "info_requests")
 public class InfoRequest {
-
+    @Schema(hidden = true)
     @Id
     @Column(name = "id") // "id" column
     private int id;
