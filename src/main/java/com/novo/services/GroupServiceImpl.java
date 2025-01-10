@@ -41,8 +41,9 @@ public class GroupServiceImpl implements GroupService {
 	  group.setAdults(adults);
 	  group.setMinors(minors);
 	  group.setKeeper(keeper);
-	  
-	  return groupRepo.save(group);
+	  groupRepo.save(group);
+	  List<Group> newGroups = groupRepo.findAll();
+	  return newGroups.get(newGroups.size() - 1);
 	    
 	}
 
@@ -60,8 +61,9 @@ public class GroupServiceImpl implements GroupService {
 	   group.setAdults(adults);
 	   group.setMinors(minors);
 	   group.setKeeper(keeper);
-	   
-	   return groupRepo.save(group);
+	   groupRepo.save(group);
+	   group = groupRepo.findById(groupId).orElse(null);
+	   return group;
 	   
 	   }
 

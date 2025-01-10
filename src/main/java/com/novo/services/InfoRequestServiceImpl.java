@@ -29,7 +29,7 @@ public class InfoRequestServiceImpl implements InfoRequestService {
 
     @Override
     public void addInfoRequest(InfoRequest infoRequest) {
-        infoRequest.setStatus(statusRepo.getStatus(1));
+        infoRequest.setStatus(statusRepo.findById(1).get());
         infoRequestRepo.save(infoRequest);
     }
 
@@ -47,7 +47,7 @@ public class InfoRequestServiceImpl implements InfoRequestService {
     @Override
     public void updateInfoRequest(int infoRequestId, int statusId) {
         InfoRequest edited = infoRequestRepo.findById(infoRequestId).get();
-                edited.setStatus(statusRepo.getStatus(statusId));
+                edited.setStatus(statusRepo.findById(statusId).get());
                 infoRequestRepo.save(edited);
     }
 }

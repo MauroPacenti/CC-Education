@@ -1,7 +1,11 @@
 package com.novo.controllers;
 
-import com.novo.entities.Keeper;
+import com.novo.entities.*;
+import com.novo.repos.KeeperRepository;
+import com.novo.services.GroupService;
+import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
+import com.novo.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +17,16 @@ import java.util.List;
 public class KeeperController {
     @Autowired
     private KeeperService keeperService;
+    @Autowired
+    private OrganizationService organizationService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private JourneyRequestService journeyRequestService;
+    @Autowired
+    private KeeperRepository keeperRepo;
 
-    @GetMapping("/auth/getKeepers")
+    @GetMapping("/pub/getKeepers")
     public ResponseEntity<List<Keeper>> getKeepers(@RequestParam(required = false) String key) {
         List<Keeper> keepers = keeperService.filteredKeepers(key);
         if (keepers.isEmpty()){
@@ -25,7 +37,7 @@ public class KeeperController {
         }
     }
 
-    @PostMapping("/auth/addKeeper")
+    @PostMapping("/pub/addKeeper")
     public ResponseEntity<Keeper> addKeeper(@RequestParam String firstName,
                                             @RequestParam String lastName,
                                             @RequestParam String email,
@@ -67,10 +79,12 @@ public class KeeperController {
         }
     }
 
-    @DeleteMapping("/auth/deleteKeeper")
+    @DeleteMapping("/pub/deleteKeeper")
     public ResponseEntity<String> deleteKeeper(@RequestParam int keeperId) {
         try{
-            keeperService.deleteKeeper(keeperId);
+            Keeper keeper = keeperService.getKeeper(keeperId).get();
+            keeperRepo.delete(keeper);
+//            keeperService.deleteKeeper(keeper);
             return ResponseEntity.ok("Cancellazione avvenuta con successo");
         } catch (Exception e){
             return ResponseEntity.noContent().build();

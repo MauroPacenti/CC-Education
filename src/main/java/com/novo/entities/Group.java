@@ -1,18 +1,15 @@
 package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "`groups`")
 public class Group {
-	
+	@Schema(hidden = true)
 	@Column(name = "id")
 	@Id
 	private int id;
@@ -22,8 +19,9 @@ public class Group {
 	
 	@Column(name = "adults")
 	private int adults;
-	
-	@JsonBackReference
+
+	@JsonIgnore
+	@Schema(hidden = true)
 	@OneToOne
 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Keeper keeper;

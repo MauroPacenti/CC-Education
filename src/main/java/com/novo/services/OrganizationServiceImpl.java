@@ -36,8 +36,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setPhone(phone);
         organization.setEmail(email);
         organization.setKeeper(keeper);
-
-        return organizationRepository.save(organization);
+        organizationRepository.save(organization);
+        List<Organization> newOrganizations = organizationRepository.findAll();
+        return newOrganizations.get(newOrganizations.size() - 1);
     }
 
     @Override

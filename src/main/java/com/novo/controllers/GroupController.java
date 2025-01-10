@@ -48,15 +48,6 @@ public class GroupController {
 		return updatedGroup;
 		
 	}
-	
-    // Deletes an existing Group
-	@DeleteMapping("api/pub/deleteGroup")
-	public boolean deleteGroup(@RequestParam int groupId) {
-		
-		boolean deletedGroup = groupService.delete(groupId);
-		return deletedGroup;
-		
-	}
 }
 
 	

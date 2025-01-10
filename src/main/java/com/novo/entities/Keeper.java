@@ -2,13 +2,14 @@ package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.novo.Interfaces.Searchable;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "`keepers`")
 public class Keeper implements Searchable {
-	
+	@Schema(hidden = true)
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -28,14 +29,13 @@ public class Keeper implements Searchable {
 	@Column(name = "phone")
 	private String phone;
 
-	@JsonManagedReference
-	@OneToOne(mappedBy = "keeper")
+	@Schema(hidden = true)
+	@OneToOne(mappedBy = "keeper", cascade = CascadeType.ALL)
 	private Group group;
 
-	@JsonManagedReference
-	@OneToOne(mappedBy = "keeper")
+	@Schema(hidden = true)
+	@OneToOne(mappedBy = "keeper", cascade = CascadeType.ALL)
 	private Organization organization;
-
 
 
 	public Organization getOrganization() {
