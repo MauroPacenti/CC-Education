@@ -1,7 +1,10 @@
 package com.novo.controllers;
 
-import com.novo.entities.Keeper;
+import com.novo.entities.*;
+import com.novo.services.GroupService;
+import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
+import com.novo.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +16,15 @@ import java.util.List;
 public class KeeperController {
     @Autowired
     private KeeperService keeperService;
+    @Autowired
+    private OrganizationService organizationService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private JourneyRequestService journeyRequestService;
 
-    @GetMapping("/auth/getKeepers")
+
+    @GetMapping("/pub/getKeepers")
     public ResponseEntity<List<Keeper>> getKeepers(@RequestParam(required = false) String key) {
         List<Keeper> keepers = keeperService.filteredKeepers(key);
         if (keepers.isEmpty()){
@@ -25,7 +35,7 @@ public class KeeperController {
         }
     }
 
-    @PostMapping("/auth/addKeeper")
+    @PostMapping("/pub/addKeeper")
     public ResponseEntity<Keeper> addKeeper(@RequestParam String firstName,
                                             @RequestParam String lastName,
                                             @RequestParam String email,

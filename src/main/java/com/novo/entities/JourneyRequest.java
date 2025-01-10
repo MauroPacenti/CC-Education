@@ -1,5 +1,6 @@
 package com.novo.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -28,8 +29,8 @@ public class JourneyRequest {
 
     @Column(name = "duration") // "duration" column
     private int duration;
-  
-    @JsonManagedReference
+
+    @Schema(hidden = true)
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;

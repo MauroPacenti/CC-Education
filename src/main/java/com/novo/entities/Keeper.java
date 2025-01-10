@@ -2,6 +2,7 @@ package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.novo.Interfaces.Searchable;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 
@@ -28,14 +29,16 @@ public class Keeper implements Searchable {
 	@Column(name = "phone")
 	private String phone;
 
-	@JsonManagedReference
+	@Schema(hidden = true)
+	@JsonManagedReference(value = "group")
 	@OneToOne(mappedBy = "keeper")
 	private Group group;
 
-	@JsonManagedReference
+	@Schema(hidden = true)
+	@JsonManagedReference(value = "organization")
 	@OneToOne(mappedBy = "keeper")
+	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Organization organization;
-
 
 
 	public Organization getOrganization() {

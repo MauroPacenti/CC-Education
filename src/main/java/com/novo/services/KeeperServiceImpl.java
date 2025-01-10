@@ -35,8 +35,15 @@ public class KeeperServiceImpl implements KeeperService {
     }
 
     @Override
-    public void addKeeper(Keeper keeper) {
-        keeperRepo.save(keeper);
+    public Keeper addKeeper(Keeper keeper) {
+        try {
+            keeperRepo.save(keeper);
+            List<Keeper> allKeepers = keeperRepo.findAll();
+            Keeper newKeeper = allKeepers.get(allKeepers.size()-1);
+            return newKeeper;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

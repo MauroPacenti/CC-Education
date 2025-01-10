@@ -1,10 +1,13 @@
 package com.novo.controllers;
 
-import com.novo.entities.JourneyRequest;
+import com.novo.entities.*;
+import com.novo.services.GroupService;
 import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
+import com.novo.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,6 +19,10 @@ public class JourneyRequestController {
     private JourneyRequestService journeyRequestService;
     @Autowired
     private KeeperService keeperService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private OrganizationService organizationService;
 
     // Returns all Journeys
     @GetMapping("/api/pub/getAllJourneyRequest")
@@ -26,18 +33,21 @@ public class JourneyRequestController {
 
     // Creates a new JourneyRequest
     @PostMapping("/api/pub/createJourneyRequest")
-    public JourneyRequest createJourneyRequest(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
-                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
-                                               @RequestParam int duration,
-                                               @RequestParam int keeperId) {
+    public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody RequestDto requestDto) {
 
-        JourneyRequest savedJourneyRequest = new JourneyRequest();
-        savedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
-        savedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
-        savedJourneyRequest.setDuration(duration);
-        savedJourneyRequest.setKeeper(keeperService.getKeeper(keeperId).get());
-        journeyRequestService.addJourneyRequest(savedJourneyRequest);
-        return savedJourneyRequest;
+        try {
+            Keeper newKeeper = keeperService.addKeeper(requestDto.getKeeper());
+            Group group = groupService.save(requestDto.getGroup().getMinors(), requestDto.getGroup().getAdults(), newKeeper.getId());
+            Organization organization = organizationService.save(requestDto.getOrganization().getName(), requestDto.getOrganization().getType(), requestDto.getOrganization().getAddress(), requestDto.getOrganization().getPhone(), requestDto.getOrganization().getEmail(), newKeeper.getId());
+            newKeeper.setGroup(group);
+            newKeeper.setOrganization(organization);
+            requestDto.getJourneyRequest().setKeeper(newKeeper);
+            JourneyRequest journeyRequest = journeyRequestService.addJourneyRequest(requestDto.getJourneyRequest());
+            return ResponseEntity.ok(journeyRequest);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // Updates existing JourneyRequest
