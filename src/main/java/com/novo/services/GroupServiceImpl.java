@@ -47,7 +47,7 @@ public class GroupServiceImpl implements GroupService {
 	    
 	}
 
-	// Updates existing Group
+	// Updates an existing Group by requested parameters
 	@Override
 	public Group update(int groupId, int minors, int adults, int keeperId) {
 		 Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
@@ -67,7 +67,7 @@ public class GroupServiceImpl implements GroupService {
 	   
 	   }
 
-	// Deletes existing Group
+	// Deletes an existing Group
 	@Override
 	public boolean delete(int groupId) {
 		if(groupRepo.existsById(groupId)) {

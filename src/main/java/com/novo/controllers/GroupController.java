@@ -19,12 +19,14 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 	
+	// Returns all Groups
 	@GetMapping("api/pub/getAllGroup")
 	public List<Group> getAllGroup(){
 		List<Group> filteredGroup = groupService.findALL();
 		return filteredGroup;
 	}
 	
+	// Creates a new Group
 	@PostMapping("api/pub/createGroup")
 	public Group createGroup(@RequestParam(required = false) int minors,
 							 @RequestParam(required = false) int adults,
@@ -35,6 +37,7 @@ public class GroupController {
 		
 	}
 	
+	// Updates an existing Group
 	@PutMapping("api/pub/updateGroup")
 	public Group updateGroup(@RequestParam(required = false) int minors,
 							 @RequestParam(required = false) int adults,

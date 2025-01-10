@@ -12,7 +12,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
     @Autowired
     SecurityCheckRepository securityCheckRepo;
 
-    //retrieves security codes from security_check table and confronts them with the codes given
+    // Retrieves security codes from security_check table and confronts them with the codes given
     @Override
     public boolean codeSecurityCheck(String oldEmailCode, String newEmailCode) {
         return securityCheckRepo.findById(1).isPresent() &&
@@ -20,7 +20,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
                 securityCheckRepo.findById(1).get().getNewEmailCode().equals(newEmailCode));
     }
 
-    //generates security codes
+    // Generates security codes
     @Override
     public String codeSecurityGeneration() {
             Random random = new Random();
@@ -32,7 +32,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService{
             return sb.toString();
     }
 
-    //saves security codes into database, the second one will be empty if not required
+    // Saves security codes into database, the second one will be empty if not required
     @Override
     public void saveCodes(String oldEmailCode, String newEmailCode) {
         SecurityCheck securityCheck = new SecurityCheck();
