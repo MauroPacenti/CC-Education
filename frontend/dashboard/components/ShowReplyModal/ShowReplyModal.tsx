@@ -9,15 +9,15 @@ interface Props {
 
 const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
   const [response, setResponse] = useState({
-    to: email,
-    subject: "",
-    message: "",
+    email: email,
+    title: "",
+    content: "",
   });
   const [err, setErr] = useState<string | null>(null);
 
   const handleReply = async () => {
     try {
-      const res = await fetch("/api/richiedi-informazione/reply", {
+      const res = await fetch("/api/pub/createInfoRequest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
               type="text"
               placeholder="Inserisci l'oggetto della risposta"
               onChange={(e) =>
-                setResponse((prev) => ({ ...prev, subject: e.target.value }))
+                setResponse((prev) => ({ ...prev, title: e.target.value }))
               }
             />
           </div>
@@ -76,7 +76,7 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
               className="reply-modal-textarea"
               placeholder="Scrivi qui la tua risposta..."
               onChange={(e) =>
-                setResponse((prev) => ({ ...prev, message: e.target.value }))
+                setResponse((prev) => ({ ...prev, content: e.target.value }))
               }
             ></textarea>
           </div>
