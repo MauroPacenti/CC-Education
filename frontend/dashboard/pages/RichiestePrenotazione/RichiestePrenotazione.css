@@ -31,6 +31,18 @@ table {
   white-space: nowrap;
   width: 200px;
   min-width: 0;
+  position: relative;
+}
+
+.table-body tr:hover td:first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: #5932ea;
+  z-index: 1;
 }
 
 .desktop-only {
