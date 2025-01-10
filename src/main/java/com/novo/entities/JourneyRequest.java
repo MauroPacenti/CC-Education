@@ -1,5 +1,6 @@
 package com.novo.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -10,11 +11,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "journey_requests")
 public class JourneyRequest {
 
+    @Schema(hidden = true)
     @Id
     @Column(name = "id") // "id" column
     private int id;
 
-    @ManyToOne
+    @Schema(hidden = true)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "keeper_id")
     private Keeper keeper; // Foreign key for "keeper_id" column
 
@@ -28,8 +31,8 @@ public class JourneyRequest {
 
     @Column(name = "duration") // "duration" column
     private int duration;
-  
-    @JsonManagedReference
+
+    @Schema(hidden = true)
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;
