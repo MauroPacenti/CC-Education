@@ -4,6 +4,7 @@ import com.novo.entities.Keeper;
 import com.novo.repos.KeeperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -63,7 +64,8 @@ public class KeeperServiceImpl implements KeeperService {
     }
 
     @Override
-    public void deleteKeeper(int keeperId) {
-        keeperRepo.delete(keeperRepo.findById(keeperId).get());
+    @Transactional
+    public void deleteKeeper(Keeper keeper) {
+        keeperRepo.delete(keeper);
     }
 }

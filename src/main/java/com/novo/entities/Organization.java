@@ -1,6 +1,7 @@
 package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,9 +34,10 @@ public class Organization {
     private String email;
 
 	@Schema(hidden = true)
-	@JsonBackReference(value="organization")
+	@JsonIgnore
+//	@JsonBackReference(value="organization")
 	@OneToOne
-	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
+ 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Keeper keeper;
 
 	public int getId() {

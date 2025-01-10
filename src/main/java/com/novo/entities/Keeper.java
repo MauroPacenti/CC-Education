@@ -30,14 +30,11 @@ public class Keeper implements Searchable {
 	private String phone;
 
 	@Schema(hidden = true)
-	@JsonManagedReference(value = "group")
-	@OneToOne(mappedBy = "keeper")
+	@OneToOne(mappedBy = "keeper", cascade = CascadeType.ALL)
 	private Group group;
 
 	@Schema(hidden = true)
-	@JsonManagedReference(value = "organization")
-	@OneToOne(mappedBy = "keeper")
-	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
+	@OneToOne(mappedBy = "keeper", cascade = CascadeType.ALL)
 	private Organization organization;
 
 

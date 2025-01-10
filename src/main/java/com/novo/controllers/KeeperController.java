@@ -1,6 +1,7 @@
 package com.novo.controllers;
 
 import com.novo.entities.*;
+import com.novo.repos.KeeperRepository;
 import com.novo.services.GroupService;
 import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
@@ -22,7 +23,8 @@ public class KeeperController {
     private GroupService groupService;
     @Autowired
     private JourneyRequestService journeyRequestService;
-
+    @Autowired
+    private KeeperRepository keeperRepo;
 
     @GetMapping("/pub/getKeepers")
     public ResponseEntity<List<Keeper>> getKeepers(@RequestParam(required = false) String key) {
@@ -77,10 +79,12 @@ public class KeeperController {
         }
     }
 
-    @DeleteMapping("/auth/deleteKeeper")
+    @DeleteMapping("/pub/deleteKeeper")
     public ResponseEntity<String> deleteKeeper(@RequestParam int keeperId) {
         try{
-            keeperService.deleteKeeper(keeperId);
+            Keeper keeper = keeperService.getKeeper(keeperId).get();
+            keeperRepo.delete(keeper);
+//            keeperService.deleteKeeper(keeper);
             return ResponseEntity.ok("Cancellazione avvenuta con successo");
         } catch (Exception e){
             return ResponseEntity.noContent().build();
