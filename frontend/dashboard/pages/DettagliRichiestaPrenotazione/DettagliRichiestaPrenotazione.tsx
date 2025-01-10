@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import "./DettagliRichiestaPrenotazione.css";
 import { MoveLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 
 interface BookingRequestDetails {
   id: number;
@@ -97,6 +98,8 @@ const DettagliRichiestaPrenotazione = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [replyModal, setReplyModal] = useState(false);
+
   const handleApprove = async () => {
     try {
       const response = await fetch(`/api/pub/createJourney`, {
@@ -137,7 +140,9 @@ const DettagliRichiestaPrenotazione = () => {
     }
   };
 
-  const handleContact = async () => {};
+  const handleContact = () => {
+    setReplyModal((prev) => !prev);
+  };
 
   useEffect(() => {
     const fetchBookingRequestDetails = async () => {
@@ -188,11 +193,31 @@ const DettagliRichiestaPrenotazione = () => {
 
   return (
     <div>
+      {replyModal && (
+        <ShowReplyModal
+          toggleReplyModal={handleContact}
+          email={bookingRequestDetails?.keeper?.email}
+        />
+      )}
       <button className="back-button" onClick={() => navigate(-1)}>
         <MoveLeft></MoveLeft>
       </button>
 
       <h2>Dettagli Richiesta Prenotazione</h2>
+
+      <div className="buttons-container">
+        <button className="button contact" onClick={handleContact}>
+          Contatta
+        </button>
+
+        <button className="button approve" onClick={handleApprove}>
+          Approva
+        </button>
+        <button className="button reject" onClick={handleReject}>
+          Rifiuta
+        </button>
+      </div>
+
       <div className="details-container">
         <section className="details-section">
           <h3 className="section-title">Dati Accompagnatore</h3>
@@ -305,19 +330,6 @@ const DettagliRichiestaPrenotazione = () => {
             </div>
           </div>
         </section>
-      </div>
-
-      <div className="buttons-container">
-        <button className="button contact" onClick={handleContact}>
-          Contatta
-        </button>
-
-        <button className="button approve" onClick={handleApprove}>
-          Approva
-        </button>
-        <button className="button reject" onClick={handleReject}>
-          Rifiuta
-        </button>
       </div>
     </div>
   );

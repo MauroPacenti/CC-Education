@@ -1,22 +1,21 @@
 .details-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25em;
 }
 
 .details-section {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: 1.25em;
+  margin-bottom: 1em;
 }
 
 .section-title {
-  color: #333;
   font-size: 1.5rem;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 1.25em;
+  padding-bottom: 0.625em;
   border-bottom: 2px solid #eee;
 }
 
@@ -65,28 +64,31 @@
 }
 
 .contact {
-  background-color: #3498db;
-  color: white;
+  color: #5932ea;
+  border: 2px solid #5932ea;
 }
 
 .contact:hover {
-  background-color: #2980b9;
+  background-color: #5932ea;
+  color: white;
 }
 
 .approve {
-  background-color: #2ecc71;
+  background-color: #5932ea;
   color: white;
 }
 
 .approve:hover {
-  background-color: #27ae60;
+  background-color: #4a27cc;
 }
 
 .reject {
-  background-color: #e74c3c;
-  color: white;
+  background-color: white;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
 }
 
 .reject:hover {
-  background-color: #c0392b;
+  background-color: #e74c3c;
+  color: white;
 }
