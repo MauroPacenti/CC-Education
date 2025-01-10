@@ -54,6 +54,6 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
             edited.setEndAvailabilityDate(journeyRequest.getEndAvailabilityDate());
         if(journeyRequest.getDuration() != 0)
             edited.setDuration(journeyRequest.getDuration());
-        journeyRequestRepo.save(journeyRequest);
+        journeyRequestRepo.save(edited);
     }
 }

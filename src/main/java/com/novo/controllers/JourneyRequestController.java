@@ -59,6 +59,7 @@ public class JourneyRequestController {
                                                @RequestParam int journeyRequestId) {
 
         JourneyRequest updatedJourneyRequest = new JourneyRequest();
+        updatedJourneyRequest.setId(journeyRequestId);
         updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
         updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
         updatedJourneyRequest.setDuration(duration);
