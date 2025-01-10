@@ -2,6 +2,7 @@ package com.novo.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 
@@ -21,8 +22,8 @@ public class InfoRequest {
 
     @Column(name = "content", columnDefinition = "TEXT") // "content" column
     private String content;
-    
-    @JsonManagedReference
+
+    @Schema(hidden = true)
     @ManyToOne
     @JoinColumn(name = "status_id") // Foreign key for "status_id" column
     private Status status;

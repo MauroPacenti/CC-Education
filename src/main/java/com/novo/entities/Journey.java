@@ -2,6 +2,7 @@ package com.novo.entities;
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,6 +30,7 @@ public class Journey {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 
+	@Schema(hidden = true)
 	@OneToOne
 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Keeper keeper;
