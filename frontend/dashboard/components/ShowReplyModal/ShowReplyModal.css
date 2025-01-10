@@ -78,7 +78,10 @@
 @media screen and (min-width: 834px) {
   .reply-modal {
     background-color: transparent;
+    position: fixed;
+    overflow: hidden;
   }
+
   .reply-modal-content {
     background-color: #f1f1f1;
     border-radius: 1em;

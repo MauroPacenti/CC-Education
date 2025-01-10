@@ -20,7 +20,7 @@ const DettagliRichiestaInformazione = () => {
 
   const [requestInformationDetails, setRequestInformationDetails] =
     useState<RequestInformation>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [showReplyModal, setShowReplyModal] = useState(false);
