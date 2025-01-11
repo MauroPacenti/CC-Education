@@ -57,12 +57,42 @@ import "./richiesta-prenotazione.css";
 
 const form = document.querySelector<HTMLFormElement>('.appointment-form');
 
+// funzione per recuperare i dati del form visibile
+const getVisibleFormData = (section: Element) => {
+  const inputs = section.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea');
+  const formData = new FormData();
+  inputs.forEach(input => {
+  if (input.name) {
+    formData.append(input.name, input.value);
+  }
+});
+return Object.fromEntries(formData.entries());
+};
+
+const successModal = document.getElementById('successModal');
+const errorModal = document.getElementById('errorModal');
+const closeButtons = document.querySelectorAll('.close-button');
+
 form?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-  const endpoint = ''; // Inserire l'endpoint corretto
+  if( section1 === null || section2 === null || groupSelect === null || journeySelect === null) return;
+
+  const keeper = getVisibleFormData(section1);
+  const organization = getVisibleFormData(section2);
+  const group = getVisibleFormData(groupSelect);
+  const journey = getVisibleFormData(journeySelect);
+
+  const data = {
+    keeper,
+    organization,
+    group,
+    journey,
+  };
+
+  console.log(data);
+
+  const endpoint = 'api/pub/createJourneyRequest';
 
   const response = await fetch(endpoint , {
     method: 'POST',
@@ -75,11 +105,32 @@ form?.addEventListener('submit', async (e) => {
   if (response.ok) {
     const json = await response.json();
     console.log(json);
+    if (successModal !== null) {
+      successModal.style.display = 'block';
+    }
   } else {
     console.error('Errore nella richiesta di prenotazione');
+    if (errorModal !== null) {
+      errorModal.style.display = 'block';
+    }
   }
 });
 
+closeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (successModal !== null) successModal.style.display = 'none';
+    if (errorModal !== null) errorModal.style.display = 'none';
+  });
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === successModal) {
+    if (successModal !== null) successModal.style.display = 'none';
+  }
+  if (event.target === errorModal) {
+    if (errorModal !== null) errorModal.style.display = 'none';
+  }
+});
 
 // Gestione cambio pagine del form
 let currentPage = 0;
@@ -96,6 +147,8 @@ const i2 = document.querySelector('#icon2 img');
 const title = document.querySelector('.form-title');
 const done1 = document.querySelector('#done1');
 const done2 = document.querySelector('#done2');
+const groupSelect = document.querySelector('.group');
+const journeySelect = document.querySelector('.journey');
 
 
 btnNext.forEach((btn) => {

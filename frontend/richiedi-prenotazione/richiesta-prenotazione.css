@@ -1,5 +1,61 @@
 /* Style per la pagina Richiedi Prenotazione */
 
+.modal {
+    display: none; /* Nascondi la modale di default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    position: relative; /* Add this line */
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute; /* Change to absolute positioning */
+    top: 10px; /* Position at the top */
+    right: 20px; /* Position at the right */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for success modal */
+#successModal .modal-content {
+    border: 2px solid green;
+}
+
+#successModal .modal-content h2 {
+    color: green;
+}
+
+/* Styles for error modal */
+#errorModal .modal-content {
+    border: 2px solid red;
+}
+
+#errorModal .modal-content h2 {
+    color: red;
+}
+
 .text-box {
     margin: 12px 24px 32px;
     font-size: 16px;
@@ -40,8 +96,10 @@ input, #tipologia, #durata, #info {
     height: 44px;
 }
 
-#data {
-    height: 44px;
+.date-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 22px;
 }
 
 option {
@@ -103,7 +161,6 @@ option {
     justify-content: center;
     color: var(--background);
     position: relative;
-    z-index: -1;
     aspect-ratio: 1 / 1;
 }
 
@@ -168,6 +225,22 @@ option {
         align-items: center;
         justify-content: center;
     }
+
+    .date-container {
+        margin: 0;
+    }
+
+    .date-field {
+        width: 100%;
+        margin: 0;
+    }
+    
+    #dataInizio, #dataFine {
+        width: calc(100% - 46px);
+        height: 44px;
+        border-radius: 8px;
+        padding: 10px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -197,6 +270,7 @@ option {
 
     .icon-container {
         background: var(--secondario-verde);
+        /* z-index: 0; */
     }
 
     .content-box {
@@ -225,8 +299,29 @@ option {
         margin-left: 25%;
     }
 
+    .date-label {
+        margin-left: 0;
+    }
+
+    .date-field {
+        width: 25%;
+        margin: 0 10px;
+    }
+    
+    #dataInizio, #dataFine {
+        width: 100%;
+        height: 44px;
+        border-radius: 8px;
+        padding: 10px;
+        
+    }
+
     input, #tipologia, #durata, #info {
         width: 50%;
         margin: 0 auto;
+    }
+
+    #btn-last {
+        margin-top: 1px;
     }
 }

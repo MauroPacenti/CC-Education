@@ -70,30 +70,31 @@
         
           
         <!-- form -->
-        <form action="#" method="post" class="appointment-form">
+        <form method="post" class="appointment-form">
   
           <!-- Dati Accompagnatore -->
           <div class="form-section active" id="page1">
             
             <!-- Nome -->
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" placeholder="Inserisci il tuo nome">
+            <label for="firstName">Nome</label>
+            <input type="text" name="firstName" id="firstName" placeholder="Inserisci il tuo nome">
   
             <!-- Cognome -->
-            <label for="cognome">Cognome</label>
-            <input type="text" name="cognome" id="cognome" placeholder="Inserisci il tuo cognome">
-  
-            <!-- Codice Fiscale -->
-            <label for="codiceFiscale">Codice Fiscale</label>
-            <input type="text" name="codiceFiscale" id="codiceFiscale" placeholder="Inserisci il tuo codice fiscale">
-  
+            <label for="lastName">Cognome</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Inserisci il tuo cognome">
+            
             <!-- Email -->
             <label for="email">Email (Obbligatoria)</label>
-            <input type="email" name="email" id="email" placeholder="Inserisci la tua email" required>
+            <input type="email" name="email" id="email" placeholder="Inserisci la tua email">
+
+            <!-- Codice Fiscale -->
+            <label for="cf">Codice Fiscale</label>
+            <input type="text" name="cf" id="cf" placeholder="Inserisci il tuo codice fiscale">
+  
   
             <!-- Telefono -->
-            <label for="telefono">Telefono (Opzionale)</label>
-            <input type="tel" name="telefono" id="telefono" placeholder="Inserisci un numero di telefono">
+            <label for="phone">Telefono (Opzionale)</label>
+            <input type="tel" name="phone" id="phone" placeholder="Inserisci un numero di telefono">
   
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
@@ -105,27 +106,27 @@
   
             <!-- Nome -->
             <label for="nomeOrganizzazione">Nome Organizzazione</label>
-            <input type="text" name="nomeOrganizzazione" id="nomeOrganizzazione" placeholder="Inserisci il nome dell'organizzazione">
+            <input type="text" name="name" id="nomeOrganizzazione" placeholder="Inserisci il nome dell'organizzazione">
   
             <!-- Tipologia -->
             <label for="tipologia">Tipologia Organizzazione</label>
-            <select name="tipologia" id="tipologia" placeholder="Seleziona una tipologia">
+            <select name="type" id="tipologia" placeholder="Seleziona una tipologia">
               <option value="scuola">Scuola</option>
               <option value="gruppo">Gruppo</option>
             </select>
   
             <!-- Indirizzo -->
             <label for="indirizzo">Indirizzo Organizzazione</label>
-            <input type="text" name="indirizzo" id="indirizzo" placeholder="Inserisci un indirizzo">
+            <input type="text" name="address" id="indirizzo" placeholder="Inserisci un indirizzo">
   
             <!-- Email -->
             <label for="emailOrganizzazione">Email Organizzazione</label>
-            <input type="email" name="emailOrganizzazione" id="emailOrganizzazione" placeholder="Inserisci un'email">
+            <input type="email" name="email" id="emailOrganizzazione" placeholder="Inserisci un'email">
   
             <!-- Telefono -->
             <label for="telefonoOrganizzazione">Telefono Organizzazione</label>
-            <input type="tel" name="telefonoOrganizzazione" id="telefonoOrganizzazione" placeholder="Inserisci un numero di telefono">
-  
+            <input type="tel" name="phone" id="telefonoOrganizzazione" placeholder="Inserisci un numero di telefono">
+
             <div class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
               <button class="btn btn-next" type="button">Avanti</button>
@@ -135,31 +136,47 @@
           <!-- Dati prenotazione -->
           <div class="form-section" id="page3">
 
-            <!-- Numero di minori -->
-            <label for="minori">Numero Minori</label>
-            <input type="number" name="minori" id="minori" placeholder="Inserisci il numero di minori">
+            <div class="group">
+                <!-- Numero di minori -->
+                <label for="minori">Numero Minori</label>
+                <input type="number" name="minors" id="minori" placeholder="Inserisci il numero di minori">
   
-            <!-- Numero di adulti -->
-            <label for="adulti">Numero Adulti</label>
-            <input type="number" name="adulti" id="adulti" placeholder="Inserisci il numero di adulti">
+                <!-- Numero di adulti -->
+                <label for="adulti">Numero Adulti</label>
+                <input type="number" name="adults" id="adulti"    placeholder="Inserisci il numero di adulti">
+            </div>
             
-            <!-- Durata -->
-            <label for="durata">Durata</label>
-            <select name="durata" id="durata">
-              <option value="mattina">Mattina</option>
-              <option value="pomeriggio">Pomeriggio</option>
-              <option value="giornata">Giornata Intera</option>
-              <option value="altro">Più giorni</option>
-            </select>
+            <div class="journey">
+                <!-- Durata -->
+                <label for="durata">Durata</label>
+                <select name="duration" id="durata">
+                  <option value="mattina">Mattina</option>
+                  <option value="pomeriggio">Pomeriggio</option>
+                  <option value="giornata">Giornata Intera</option>
+                  <option value="altro">Più giorni</option>
+                </select>
+
+                <div class="date-container">
+
+                  <div class="date-field">
+                    <!-- Data Inizio -->
+                    <label class="date-label" for="dataInizio">Data Inizio</label>
+                    <input type="date" name="startAvailabilityDate" id="dataInizio">
+                  </div>
+
+                  <div class="date-field">
+                    <!-- Data Fine -->
+                    <label class="date-label" for="dataFine">Data Fine</label>
+                    <input type="date" name="endAvailabilityDate" id="dataFine">
+                  </div>
+                </div>
+                
+                <!-- Ulteriori Informazioni -->
+                <label for="info">Ulteriori Informazioni</label>
+                <textarea name="info" id="info" placeholder="Inserisci ulteriori informazioni"></textarea>
+            </div>
             
-            <!-- Data -->
-            <label for="data">Data Desiderata</label>
-            <input type="date" name="data" id="data">
-  
             
-            <!-- Ulteriori Informazioni -->
-            <label for="info">Ulteriori Informazioni</label>
-            <textarea name="info" id="info" placeholder="Inserisci ulteriori informazioni"></textarea>
   
             <div id="btn-last" class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
@@ -170,7 +187,20 @@
       </div>
     </div>
       
-      
+    <!-- Modale -->
+    <div id="successModal" class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p>Prenotazione effettuata con successo!</p>
+      </div>
+    </div>
+
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p>Errore in fase di Prenotazione!</p>
+      </div>
+    </div>
 
     <!-- Javascript Section -->
     <script type="module" src="./richiedi-prenotazione.ts"></script>
