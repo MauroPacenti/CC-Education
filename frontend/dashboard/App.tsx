@@ -1,12 +1,13 @@
+import "./App.css";
+
 import { BrowserRouter, Route, Routes } from "react-router";
+
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
 import Prenotazioni from "./pages/Prenotazioni/Prenotazioni";
 import RichiestePrenotazione from "./pages/RichiestePrenotazione/RichiestePrenotazione";
 import RichiesteInformazioni from "./pages/RichiesteInformazioni/RichiesteInformazioni";
 import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazione";
-
-import "./App.css";
 import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
 import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
 

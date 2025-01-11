@@ -6,20 +6,26 @@
     <title>Richiedi Prenotazione</title>
 
     <!-- Fav Icon -->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <script type="module" src="../global.ts"></script>
+    <script type="module" src="./richiedi-prenotazione.ts"></script>
   </head>
   <body>
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente">
+        <img src="/img/logo.png" alt="logo liberamente" />
       </div>
 
       <div class="menu-container">
-
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu">
-            <img id="icon-close" class="hide" src="../img/icon-close.svg" alt="icon close">
+            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img
+              id="icon-close"
+              class="hide"
+              src="../img/icon-close.svg"
+              alt="icon close"
+            />
           </a>
         </div>
 
@@ -42,168 +48,249 @@
     <h1>Richiedi Prenotazione</h1>
 
     <div class="text-box">
-      <p>Vuoi far parte del nostro percorso di educazione civile? Compila il form qui sotto per richiedere una prenotazione per un'esperienza formativa a Cascina Caccia. Ogni incontro è un'opportunità per apprendere, riflettere e costruire insieme un futuro di legalità e solidarietà.</p>
+      <p>
+        Vuoi far parte del nostro percorso di educazione civile? Compila il form
+        qui sotto per richiedere una prenotazione per un'esperienza formativa a
+        Cascina Caccia. Ogni incontro è un'opportunità per apprendere,
+        riflettere e costruire insieme un futuro di legalità e solidarietà.
+      </p>
     </div>
-    
-    <div class="form-container">
 
+    <div class="form-container">
       <div class="container">
         <div class="content-box">
           <div class="progress-bar">
             <div class="icon-container active" id="icon1">
-              <img src="../img/icon-user.svg" alt="icon user" class="icon">
-              <img src="../img/icon-done.svg" alt="icon done" id="done1" class="icon-done hide">
+              <img src="../img/icon-user.svg" alt="icon user" class="icon" />
+              <img
+                src="../img/icon-done.svg"
+                alt="icon done"
+                id="done1"
+                class="icon-done hide"
+              />
             </div>
             <div class="line-break"></div>
             <div class="icon-container" id="icon2">
-              <img src="../img/icon-organization.svg" alt="icon organization" class="icon">
-              <img src="../img/icon-done.svg" alt="icon done" id="done2" class="icon-done hide">
+              <img
+                src="../img/icon-organization.svg"
+                alt="icon organization"
+                class="icon"
+              />
+              <img
+                src="../img/icon-done.svg"
+                alt="icon done"
+                id="done2"
+                class="icon-done hide"
+              />
             </div>
             <div class="line-break"></div>
             <div class="icon-container" id="icon3">
-              <img src="../img/icon-calendar.svg" alt="icon date" class="icon">
-              <img src="../img/icon-done.svg" alt="icon done" id="done3" class="icon-done hide">
+              <img
+                src="../img/icon-calendar.svg"
+                alt="icon date"
+                class="icon"
+              />
+              <img
+                src="../img/icon-done.svg"
+                alt="icon done"
+                id="done3"
+                class="icon-done hide"
+              />
             </div>
           </div>
           <h2 class="form-title">Dati Accompagnatore</h2>
         </div>
-        
-          
+
         <!-- form -->
         <form method="post" class="appointment-form">
-  
           <!-- Dati Accompagnatore -->
           <div class="form-section active" id="page1">
-            
             <!-- Nome -->
             <label for="firstName">Nome</label>
-            <input type="text" name="firstName" id="firstName" placeholder="Inserisci il tuo nome">
-  
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              placeholder="Inserisci il tuo nome"
+            />
+
             <!-- Cognome -->
             <label for="lastName">Cognome</label>
-            <input type="text" name="lastName" id="lastName" placeholder="Inserisci il tuo cognome">
-            
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Inserisci il tuo cognome"
+            />
+
             <!-- Email -->
             <label for="email">Email (Obbligatoria)</label>
-            <input type="email" name="email" id="email" placeholder="Inserisci la tua email">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Inserisci la tua email"
+            />
 
             <!-- Codice Fiscale -->
             <label for="cf">Codice Fiscale</label>
-            <input type="text" name="cf" id="cf" placeholder="Inserisci il tuo codice fiscale">
-  
-  
+            <input
+              type="text"
+              name="cf"
+              id="cf"
+              placeholder="Inserisci il tuo codice fiscale"
+            />
+
             <!-- Telefono -->
             <label for="phone">Telefono (Opzionale)</label>
-            <input type="tel" name="phone" id="phone" placeholder="Inserisci un numero di telefono">
-  
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="Inserisci un numero di telefono"
+            />
+
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
             </div>
           </div>
-  
+
           <!-- Dati Organizzazione -->
           <div class="form-section" id="page2">
-  
             <!-- Nome -->
             <label for="nomeOrganizzazione">Nome Organizzazione</label>
-            <input type="text" name="name" id="nomeOrganizzazione" placeholder="Inserisci il nome dell'organizzazione">
-  
+            <input
+              type="text"
+              name="name"
+              id="nomeOrganizzazione"
+              placeholder="Inserisci il nome dell'organizzazione"
+            />
+
             <!-- Tipologia -->
             <label for="tipologia">Tipologia Organizzazione</label>
-            <select name="type" id="tipologia" placeholder="Seleziona una tipologia">
+            <select
+              name="type"
+              id="tipologia"
+              placeholder="Seleziona una tipologia"
+            >
               <option value="scuola">Scuola</option>
               <option value="gruppo">Gruppo</option>
             </select>
-  
+
             <!-- Indirizzo -->
             <label for="indirizzo">Indirizzo Organizzazione</label>
-            <input type="text" name="address" id="indirizzo" placeholder="Inserisci un indirizzo">
-  
+            <input
+              type="text"
+              name="address"
+              id="indirizzo"
+              placeholder="Inserisci un indirizzo"
+            />
+
             <!-- Email -->
             <label for="emailOrganizzazione">Email Organizzazione</label>
-            <input type="email" name="email" id="emailOrganizzazione" placeholder="Inserisci un'email">
-  
+            <input
+              type="email"
+              name="email"
+              id="emailOrganizzazione"
+              placeholder="Inserisci un'email"
+            />
+
             <!-- Telefono -->
             <label for="telefonoOrganizzazione">Telefono Organizzazione</label>
-            <input type="tel" name="phone" id="telefonoOrganizzazione" placeholder="Inserisci un numero di telefono">
+            <input
+              type="tel"
+              name="phone"
+              id="telefonoOrganizzazione"
+              placeholder="Inserisci un numero di telefono"
+            />
 
             <div class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
               <button class="btn btn-next" type="button">Avanti</button>
             </div>
           </div>
-  
+
           <!-- Dati prenotazione -->
           <div class="form-section" id="page3">
-
             <div class="group">
-                <!-- Numero di minori -->
-                <label for="minori">Numero Minori</label>
-                <input type="number" name="minors" id="minori" placeholder="Inserisci il numero di minori">
-  
-                <!-- Numero di adulti -->
-                <label for="adulti">Numero Adulti</label>
-                <input type="number" name="adults" id="adulti"    placeholder="Inserisci il numero di adulti">
+              <!-- Numero di minori -->
+              <label for="minori">Numero Minori</label>
+              <input
+                type="number"
+                name="minors"
+                id="minori"
+                placeholder="Inserisci il numero di minori"
+              />
+
+              <!-- Numero di adulti -->
+              <label for="adulti">Numero Adulti</label>
+              <input
+                type="number"
+                name="adults"
+                id="adulti"
+                placeholder="Inserisci il numero di adulti"
+              />
             </div>
-            
+
             <div class="journey">
-                <!-- Durata -->
-                <label for="durata">Durata</label>
-                <select name="duration" id="durata">
-                  <option value="mattina">Mattina</option>
-                  <option value="pomeriggio">Pomeriggio</option>
-                  <option value="giornata">Giornata Intera</option>
-                  <option value="altro">Più giorni</option>
-                </select>
+              <!-- Durata -->
+              <label for="durata">Durata</label>
+              <select name="duration" id="durata">
+                <option value="mattina">Mattina</option>
+                <option value="pomeriggio">Pomeriggio</option>
+                <option value="giornata">Giornata Intera</option>
+                <option value="altro">Più giorni</option>
+              </select>
 
-                <div class="date-container">
-
-                  <div class="date-field">
-                    <!-- Data Inizio -->
-                    <label class="date-label" for="dataInizio">Data Inizio</label>
-                    <input type="date" name="startAvailabilityDate" id="dataInizio">
-                  </div>
-
-                  <div class="date-field">
-                    <!-- Data Fine -->
-                    <label class="date-label" for="dataFine">Data Fine</label>
-                    <input type="date" name="endAvailabilityDate" id="dataFine">
-                  </div>
+              <div class="date-container">
+                <div class="date-field">
+                  <!-- Data Inizio -->
+                  <label class="date-label" for="dataInizio">Data Inizio</label>
+                  <input
+                    type="date"
+                    name="startAvailabilityDate"
+                    id="dataInizio"
+                  />
                 </div>
-                
-                <!-- Ulteriori Informazioni -->
-                <label for="info">Ulteriori Informazioni</label>
-                <textarea name="info" id="info" placeholder="Inserisci ulteriori informazioni"></textarea>
+
+                <div class="date-field">
+                  <!-- Data Fine -->
+                  <label class="date-label" for="dataFine">Data Fine</label>
+                  <input type="date" name="endAvailabilityDate" id="dataFine" />
+                </div>
+              </div>
+
+              <!-- Ulteriori Informazioni -->
+              <label for="info">Ulteriori Informazioni</label>
+              <textarea
+                name="info"
+                id="info"
+                placeholder="Inserisci ulteriori informazioni"
+              ></textarea>
             </div>
-            
-            
-  
+
             <div id="btn-last" class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
               <button type="submit" class="btn btn-submit">Invia</button>
             </div>
-          </div> 
+          </div>
         </form>
       </div>
     </div>
-      
+
     <!-- Modale -->
     <div id="successModal" class="modal">
       <div class="modal-content">
-          <span class="close-button">&times;</span>
-          <p>Prenotazione effettuata con successo!</p>
+        <span class="close-button">&times;</span>
+        <p>Prenotazione effettuata con successo!</p>
       </div>
     </div>
 
     <div id="errorModal" class="modal">
       <div class="modal-content">
-          <span class="close-button">&times;</span>
-          <p>Errore in fase di Prenotazione!</p>
+        <span class="close-button">&times;</span>
+        <p>Errore in fase di Prenotazione!</p>
       </div>
     </div>
-
-    <!-- Javascript Section -->
-    <script type="module" src="./richiedi-prenotazione.ts"></script>
-    <script type="module" src="../global.ts"></script>
   </body>
 </html>
