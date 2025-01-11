@@ -97,7 +97,7 @@ const Prenotazioni = () => {
         <h2 className="dashboard-calendar-title">Prenotazioni</h2>
         <button className="add-event-button" onClick={toggleAddEventModal}>
           <CirclePlus />
-          <span className="btn-text">Aggiungi Prenotazione</span>
+          <span className="booking-btn-text">Aggiungi Prenotazione</span>
         </button>
       </div>
       <ScheduleXCalendar calendarApp={calendar} />
