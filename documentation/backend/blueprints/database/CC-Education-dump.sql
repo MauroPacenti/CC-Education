@@ -75,7 +75,7 @@ create table statuses
 
 create table info_requests
 (
-    id        int         not null
+    id        int auto_increment
         primary key,
     email     varchar(50) not null,
     title     varchar(50) not null,
