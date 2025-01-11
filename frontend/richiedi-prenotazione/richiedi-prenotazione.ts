@@ -47,7 +47,7 @@ form?.addEventListener("submit", async (e) => {
 
   console.log(data);
 
-  const endpoint = "api/pub/createJourneyRequest";
+  const endpoint = "/api/pub/createJourneyRequest";
 
   const response = await fetch(endpoint, {
     method: "POST",
