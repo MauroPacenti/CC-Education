@@ -107,23 +107,23 @@
         <p>Costruire una coscienza critica nelle nuove generazioni</p>
       </div>
 
-      <form class="richiedi-informazioni">
+      <form method="post" class="richiedi-informazioni">
         <h2>Richiedi Informazioni</h2>
         <p>
           Compila il form sottostante per richiedere informazioni relative alla
           nostra attività.
         </p>
         <fieldset>
-          <input type="text" placeholder="Nome" id="nome" />
-          <input type="text" placeholder="Cognome" id="cognome" />
-          <input type="email" placeholder="Email" />
-          <input type="tel" placeholder="Telefono" />
-          <textarea placeholder="Scrivi un messaggio..." rows="4"></textarea>
+          <input type="text" placeholder="Nome" id="nome" name="firstName" />
+          <input type="text" placeholder="Cognome" id="cognome" name="lastName" />
+          <input type="email" placeholder="Email" name="email" id="email" />
+          <input type="tel" placeholder="Telefono" name="phone" id="phone" />
+          <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message"></textarea>
         </fieldset>
 
         <div class="buttons-richiedi-info">
-          <button class="canc">Cancella</button>
-          <button class="send">Invia</button>
+          <button type="reset" class="canc">Cancella</button>
+          <button type="submit" class="send">Invia</button>
         </div>
       </form>
     </main>
