@@ -2,17 +2,18 @@ package com.novo.controllers;
 
 import com.novo.entities.InfoRequest;
 import com.novo.services.InfoRequestService;
+import com.novo.services.JavaMailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 public class InfoRequestController {
     @Autowired
     private InfoRequestService infoRequestService;
+    
+    @Autowired
+    private JavaMailSenderService javaMailSenderService;
 
     // Returns all Infos
     @GetMapping("/api/pub/getAllInfoRequest")
@@ -32,6 +33,13 @@ public class InfoRequestController {
         savedInfoRequest.setTitle(title);
         savedInfoRequest.setContent(content);
         infoRequestService.addInfoRequest(savedInfoRequest);
+        
+        try {
+        	javaMailSenderService.sendMail(savedInfoRequest.getEmail(),savedInfoRequest.getTitle(),savedInfoRequest.getContent()); // Sends email with info request
+        }catch(Exception e) {
+        	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
+        }
+        
         return savedInfoRequest;
     }
 

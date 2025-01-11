@@ -2,6 +2,7 @@ package com.novo.controllers;
 
 import com.novo.entities.*;
 import com.novo.services.GroupService;
+import com.novo.services.JavaMailSenderService;
 import com.novo.services.JourneyRequestService;
 import com.novo.services.KeeperService;
 import com.novo.services.OrganizationService;
@@ -17,12 +18,18 @@ import java.util.List;
 public class JourneyRequestController {
     @Autowired
     private JourneyRequestService journeyRequestService;
+    
     @Autowired
     private KeeperService keeperService;
+    
     @Autowired
     private GroupService groupService;
+    
     @Autowired
     private OrganizationService organizationService;
+    
+    @Autowired
+    private JavaMailSenderService javaMailSenderService;
 
     // Returns all Journeys
     @GetMapping("/api/pub/getAllJourneyRequest")
@@ -43,6 +50,25 @@ public class JourneyRequestController {
             newKeeper.setOrganization(organization);
             requestDto.getJourneyRequest().setKeeper(newKeeper);
             JourneyRequest journeyRequest = journeyRequestService.addJourneyRequest(requestDto.getJourneyRequest());
+            
+            try {
+            	String emailJourneyRequest = requestDto.getOrganization().getEmail();
+            	String contentJourneyRequest = String.format("Hi,\n\nA new journey request it was created for the organization %s (%s).\n"
+                        + "Details of journey request: \n\nThanks",
+                        organization.getName(),
+                        organization.getType(),
+                        group.getAdults(),
+                        group.getMinors(),
+                        journeyRequest.getDuration(),
+                        journeyRequest.getStartAvailabilityDate(),
+                        journeyRequest.getEndAvailabilityDate()
+                        );
+            	String titleJourneyRequest = "New journey request created";
+            	javaMailSenderService.sendMail(emailJourneyRequest, contentJourneyRequest, titleJourneyRequest); // Sends email with journey request
+            }catch(Exception e) {
+            	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
+            }
+            
             return ResponseEntity.ok(journeyRequest);
         }
         catch (Exception e){

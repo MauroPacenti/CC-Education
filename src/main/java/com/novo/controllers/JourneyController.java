@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.novo.entities.Group;
 import com.novo.entities.Journey;
+import com.novo.entities.Organization;
+import com.novo.services.JavaMailSenderService;
 import com.novo.services.JourneyService;
 
 @RestController
@@ -20,6 +23,9 @@ public class JourneyController {
 
 	@Autowired
 	private JourneyService journeyService;
+	
+	@Autowired
+	private JavaMailSenderService javaMailSenderService;
 
 	// Returns all Journeys
 	@GetMapping("/api/pub/getAllJourney")
@@ -41,6 +47,24 @@ public class JourneyController {
 	        @RequestParam int keeperId) {
 	   
 	    Journey savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+	    try {
+	    	Organization organization = new Organization();
+	    	Group group = new Group();
+        	String emailJourney = organization.getEmail();
+        	String contentJourney = String.format("Hi,\n\nA new journey it was created for the organization %s (%s).\n"
+                    + "Details of journey: \nThanks",
+                    organization.getName(),
+                    organization.getType(),
+                    group.getAdults(),
+                    group.getMinors(),
+                    savedJourney.getStartDate(),
+                    savedJourney.getEndDate(),
+                    savedJourney.getAnnotations());
+        	String titleJourney = savedJourney.getTitle();
+        	javaMailSenderService.sendMail(emailJourney, contentJourney, titleJourney); // Sends email with journey
+        }catch(Exception e) {
+        	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
+        }
 	    
 	    return savedJourney;
 	}
