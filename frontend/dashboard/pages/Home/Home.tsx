@@ -20,19 +20,22 @@ const Home = () => {
   useEffect(() => {
     fetch("/api/pub/getAllJourney")
       .then((res) => res.json())
-      .then((data) => setBookings(data));
+      .then((data) => setBookings(data))
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     fetch("/api/pub/getAllInfoRequest")
       .then((res) => res.json())
-      .then((data) => setInfoRequest(data));
+      .then((data) => setInfoRequest(data))
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     fetch("/api/pub/getAllJourneyRequest")
       .then((res) => res.json())
-      .then((data) => setJourneyRequest(data));
+      .then((data) => setJourneyRequest(data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
