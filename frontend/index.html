@@ -6,7 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="preflight.css">
-    <script type="module" src="./index.ts"></script>
+    <script type="module" src="/index.ts"></script>
 
     <!-- link google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,8 +55,25 @@
       <p class="mission">Cascina Caccia è molto più di un luogo: è un simbolo vivo di rinascita sociale e memoria attiva, dedicato a Bruno Caccia, 
         il magistrato ucciso dalla 'ndrangheta nel 1983. <br> Qui, ogni giorno, trasformiamo il dolore in speranza attraverso l'educazione civile, 
         coinvolgendo i giovani in un percorso di consapevolezza e impegno. </p>
-      
-      <div id="carosello">CAROSELLO</div>
+
+        <!-- carosello -->
+        <div class="carousel-container">
+          <div class="carousel">
+            <div class="carousel-item active"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+            <div class="carousel-item"></div>
+          </div>
+        <img src="/img/icons-carousel-prev.svg" class="btn-carousel prev"></img>
+        <img src="/img/icons-carousel-succ.svg" class="btn-carousel next">
+      </div>
+      <!-- fine carosello -->
 
       <h2>I nostri valori</h2>
       <p>Crediamo nell'educazione come strumento di trasformazione sociale, capace di sviluppare una coscienza critica che libera le nuove generazioni dalle logiche oppressive e apre nuove prospettive di futuro.
@@ -119,10 +136,12 @@
           <img src="img/icon-facebook.png" alt="" class="social facebook">
           <img src="img/icon-tiktok.png" alt="" class="social tiktok">
         </div>
-        <p class="footer-email">cascinacaccia@acmos.net</p>
+        <!-- <p class="footer-email">cascinacaccia@acmos.net</p> -->
       </div>
     </footer>
     
 
   </body>
+
+<script src="index.js"></script>
 </html>
