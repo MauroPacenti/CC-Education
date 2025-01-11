@@ -1,7 +1,6 @@
 package com.novo.services;
 
 import com.novo.entities.InfoRequest;
-import com.novo.entities.JourneyRequest;
 
 import java.util.List;
 import java.util.Optional;

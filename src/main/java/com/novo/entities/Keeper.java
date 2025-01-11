@@ -1,6 +1,5 @@
 package com.novo.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.novo.Interfaces.Searchable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

@@ -1,9 +1,5 @@
 package com.novo.entities;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
