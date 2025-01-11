@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,33 +41,24 @@ public class JourneyController {
 	
 	// Creates a new Journey
 	@PostMapping("/api/pub/createJourney")
-	public Journey createJourney(@RequestParam(required = false) String title,
+	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate ,
 	        @RequestParam(required = false) String annotations,
 	        @RequestParam int keeperId) {
 	   
-	    Journey savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+	    Journey savedJourney;
 	    try {
-	    	Organization organization = new Organization();
-	    	Group group = new Group();
-        	String emailJourney = organization.getEmail();
-        	String contentJourney = String.format("Hi,\n\nA new journey it was created for the organization %s (%s).\n"
-                    + "Details of journey: \nThanks",
-                    organization.getName(),
-                    organization.getType(),
-                    group.getAdults(),
-                    group.getMinors(),
-                    savedJourney.getStartDate(),
-                    savedJourney.getEndDate(),
-                    savedJourney.getAnnotations());
-        	String titleJourney = savedJourney.getTitle();
-        	javaMailSenderService.sendMail(emailJourney, contentJourney, titleJourney); // Sends email with journey
+			savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+			String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
+			String body= "La prenotazione è stata confermata";
+			javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
+			return ResponseEntity.ok(savedJourney);
         }catch(Exception e) {
         	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
+			return ResponseEntity.badRequest().build();
         }
-	    
-	    return savedJourney;
+
 	}
 	
 	// Updates existing Journey

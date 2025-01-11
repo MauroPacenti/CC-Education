@@ -1,11 +1,7 @@
 package com.novo.controllers;
 
 import com.novo.entities.*;
-import com.novo.services.GroupService;
-import com.novo.services.JavaMailSenderService;
-import com.novo.services.JourneyRequestService;
-import com.novo.services.KeeperService;
-import com.novo.services.OrganizationService;
+import com.novo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +17,9 @@ public class JourneyRequestController {
     
     @Autowired
     private KeeperService keeperService;
+
+    @Autowired
+    private AdminService adminService;
     
     @Autowired
     private GroupService groupService;
@@ -43,30 +42,24 @@ public class JourneyRequestController {
     public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody RequestDto requestDto) {
 
         try {
+            if(adminService.validateEmail(requestDto.getKeeper().getEmail())){
+                throw new Error("L'email non ha un formato idoneo.");
+            }
             Keeper newKeeper = keeperService.addKeeper(requestDto.getKeeper());
             Group group = groupService.save(requestDto.getGroup().getMinors(), requestDto.getGroup().getAdults(), newKeeper.getId());
             Organization organization = organizationService.save(requestDto.getOrganization().getName(), requestDto.getOrganization().getType(), requestDto.getOrganization().getAddress(), requestDto.getOrganization().getPhone(), requestDto.getOrganization().getEmail(), newKeeper.getId());
             newKeeper.setGroup(group);
             newKeeper.setOrganization(organization);
             requestDto.getJourneyRequest().setKeeper(newKeeper);
-            JourneyRequest journeyRequest = journeyRequestService.addJourneyRequest(requestDto.getJourneyRequest());
-            
+            JourneyRequest journeyRequest;
             try {
-            	String emailJourneyRequest = requestDto.getOrganization().getEmail();
-            	String contentJourneyRequest = String.format("Hi,\n\nA new journey request it was created for the organization %s (%s).\n"
-                        + "Details of journey request: \n\nThanks",
-                        organization.getName(),
-                        organization.getType(),
-                        group.getAdults(),
-                        group.getMinors(),
-                        journeyRequest.getDuration(),
-                        journeyRequest.getStartAvailabilityDate(),
-                        journeyRequest.getEndAvailabilityDate()
-                        );
-            	String titleJourneyRequest = "New journey request created";
-            	javaMailSenderService.sendMail(emailJourneyRequest, contentJourneyRequest, titleJourneyRequest); // Sends email with journey request
+                journeyRequest = journeyRequestService.addJourneyRequest(requestDto.getJourneyRequest());
+                String object= "Richiesta prenotazione: " + journeyRequest.getKeeper().getFirstName() + " " + journeyRequest.getKeeper().getLastName();
+                String body= "La richiesta è stata registrata";
+            	javaMailSenderService.sendMail(requestDto.getKeeper().getEmail(), object, body); // Sends email with journey request
             }catch(Exception e) {
-            	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
+            	new Exception("Error to send email");
+                return ResponseEntity.badRequest().build();
             }
             
             return ResponseEntity.ok(journeyRequest);
