@@ -5,7 +5,7 @@ import KeeperStep from "./KeeperStep/KeeperStep";
 import OrganizationStep from "./OrganizationStep/OrganizationStep";
 import BookingDetailsStep from "./BookingDetailsStep/BookingDetailsStep";
 import type Booking from "../../../models/Booking.model";
-import { CalendarBookingMapper } from "../../../utils/CalendarBookingMapper";
+import { CalendarBookingMapper } from "../../../utils/Mapper/CalendarBookingMapper";
 import { CalendarBooking } from "../../../models/CalendarBooking.model";
 
 interface FormStepsProps {

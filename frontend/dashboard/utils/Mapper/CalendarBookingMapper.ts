@@ -1,5 +1,5 @@
-import Booking from "../models/Booking.model";
-import { CalendarBooking } from "../models/CalendarBooking.model";
+import Booking from "../../models/Booking.model";
+import { CalendarBooking } from "../../models/CalendarBooking.model";
 
 export const CalendarBookingMapper = (booking: Booking): CalendarBooking => {
   return {

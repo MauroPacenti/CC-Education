@@ -2,14 +2,15 @@ import { NavLink } from "react-router";
 import "./Home.css";
 import { BookMarked, NotebookPen } from "lucide-react";
 import { useEffect, useState } from "react";
+import journeyMapper from "../../utils/Mapper/journeyMapper";
 
 interface Booking {
   id: number;
   title: string;
-  startHour: string;
-  endHour: string;
+  startDate: string;
+  endDate: string;
   participants: { minor: number; adult: number };
-  group: string;
+  organizationType: string;
 }
 
 const Home = () => {
@@ -20,7 +21,13 @@ const Home = () => {
   useEffect(() => {
     fetch("/api/pub/getAllJourney")
       .then((res) => res.json())
-      .then((data) => setBookings(data))
+      .then((data) => {
+        console.log(data);
+        // mapper for bookings
+        data = journeyMapper(data);
+        console.log(data);
+        setBookings(data);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -56,13 +63,14 @@ const Home = () => {
                   className="booking-item"
                 >
                   <p className="booking-time">
-                    {booking.startHour} - {booking.endHour}
+                    {booking.startDate} - {booking.endDate}
                   </p>
                   <h4 className="booking-title">{booking.title}</h4>
 
                   <p className="booking-participants">
                     {booking.participants.minor} minori -{" "}
-                    {booking.participants.adult} adulti | {booking.group}
+                    {booking.participants.adult} adulti |{" "}
+                    {booking.organizationType}
                   </p>
                 </NavLink>
               ))}
