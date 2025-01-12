@@ -6,6 +6,8 @@
     <title>Home</title>
     <script src="./global/global.ts" type="module"></script>
     <script type="module" src="./index.ts"></script>
+    <script type="module" src="index.js"></script>
+
 
     <!-- link google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -118,23 +120,23 @@
         </div>
       </div>
 
-      <form class="richiedi-informazioni" id="contattaci">
+      <form method="post" class="richiedi-informazioni" id="contattaci">
         <h2>Richiedi Informazioni</h2>
         <p>
           Compila il form sottostante per richiedere informazioni relative alla
           nostra attività.
         </p>
         <fieldset>
-          <input type="text" placeholder="Nome" id="nome" />
-          <input type="text" placeholder="Cognome" id="cognome" />
-          <input type="email" placeholder="Email" />
-          <input type="tel" placeholder="Telefono" />
-          <textarea placeholder="Scrivi un messaggio..." rows="4"></textarea>
+          <input type="text" placeholder="Nome" id="nome" name="firstName" />
+          <input type="text" placeholder="Cognome" id="cognome" name="lastName" />
+          <input type="email" placeholder="Email" name="email" id="email" />
+          <input type="tel" placeholder="Telefono" name="phone" id="phone" />
+          <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message"></textarea>
         </fieldset>
 
         <div class="buttons-richiedi-info">
-          <button class="canc">Cancella</button>
-          <button class="send">Invia</button>
+          <button type="reset" class="canc">Cancella</button>
+          <button type="submit" class="send">Invia</button>
         </div>
       </form>
     </main>
@@ -168,5 +170,4 @@
     </footer>
   </body>
 
-<script src="index.js"></script>
 </html>
