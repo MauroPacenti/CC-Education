@@ -82,8 +82,9 @@ const DettagliRichiestaPrenotazione = () => {
 
   const handleReject = async () => {
     try {
+      console.log(bookingRequestDetails?.id);
       const response = await fetch(`/api/pub/deleteJourneyRequest`, {
-        method: "POST",
+        method: "DELETE",
         body: JSON.stringify({ journeyRequestId: bookingRequestDetails?.id }),
         headers: {
           "Content-Type": "application/json",
@@ -106,14 +107,18 @@ const DettagliRichiestaPrenotazione = () => {
     const fetchBookingRequestDetails = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `/api/pub/getAllJourneyRequest/${idRichiestaPrenotazione}`
-        );
+        const response = await fetch(`/api/pub/getAllJourneyRequest`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setBookingRequestDetails(data);
+        const bookingRequestDetails = data.find(
+          (bookingRequest: BookingRequestDetails) =>
+            idRichiestaPrenotazione
+              ? bookingRequest.id === +idRichiestaPrenotazione
+              : null
+        );
+        setBookingRequestDetails(bookingRequestDetails);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {

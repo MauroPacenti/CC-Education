@@ -17,19 +17,21 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
 
   const handleReply = async () => {
     try {
-      const res = await fetch("/api/pub/createInfoRequest", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(response),
-      });
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const email = {
+        to: response.email,
+        subject: response.title,
+        text: response.content,
+      };
+
+      // Using mailto to open default email client
+      const mailtoLink = `mailto:${email.to}?subject=${encodeURIComponent(
+        email.subject
+      )}&body=${encodeURIComponent(email.text)}`;
+
+      window.location.href = mailtoLink;
       toggleReplyModal();
-    } catch (err) {
-      setErr(err instanceof Error ? err.message : "An error occurred");
+    } catch (error) {
+      setErr("Errore nell'invio dell'email: " + error);
     }
   };
 
