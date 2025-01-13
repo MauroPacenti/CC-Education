@@ -22,10 +22,8 @@ const Home = () => {
     fetch("/api/pub/getAllJourney")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         // mapper for bookings
         data = journeyMapper(data);
-        console.log(data);
         setBookings(data);
       })
       .catch((err) => console.error(err));

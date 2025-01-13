@@ -94,7 +94,6 @@ const BookingDetailsStep = ({
             <option>Ora inizio</option>
             {Array.from({ length: 12 }, (_, index) => (
               <option
-                onClick={() => console.log(new Date().getHours())}
                 selected={
                   formData.bookingDetails.start.split(" ")[1] ===
                   `${index + 8}:00`
@@ -194,7 +193,6 @@ const BookingDetailsStep = ({
         <button
           type="submit"
           className="next"
-          onClick={() => console.log(formData)}
           disabled={
             !formData.bookingDetails.start ||
             !formData.bookingDetails.end ||

@@ -30,7 +30,6 @@ const RichiestePrenotazione = () => {
         }
         const data = await response.json();
         const journeyRequest = journeyRequestMapper(data);
-        console.log(journeyRequest);
         setBookingRequests(journeyRequest);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");

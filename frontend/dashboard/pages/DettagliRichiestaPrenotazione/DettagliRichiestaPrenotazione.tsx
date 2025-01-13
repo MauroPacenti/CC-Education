@@ -59,8 +59,7 @@ const DettagliRichiestaPrenotazione = () => {
   const [replyModal, setReplyModal] = useState(false);
 
   const handleApprove = async () => {
-    console.log(bookingRequestDetails?.startAvailabilityDate);
-    console.log(bookingRequestDetails?.endAvailabilityDate);
+    
     try {
       const response = await fetch(`/api/pub/createJourney`, {
         method: "POST",
@@ -85,7 +84,6 @@ const DettagliRichiestaPrenotazione = () => {
 
   const handleReject = async () => {
     try {
-      console.log(bookingRequestDetails?.id);
       const response = await fetch(
         `/api/pub/deleteJourneyRequest?journeyRequestId=${bookingRequestDetails?.id}`,
         {

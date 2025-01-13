@@ -100,13 +100,8 @@ form?.addEventListener("submit", async (e) => {
   formData.group.adults = Number(formData.group.adults);
   formData.journeyRequest.duration = Number(formData.journeyRequest.duration);
 
-  console.log(formData);
-
-  console.log(data);
-
   const endpoint = "/api/pub/createJourneyRequest";
 
-  console.log(formData);
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
@@ -117,7 +112,6 @@ form?.addEventListener("submit", async (e) => {
 
   if (response.ok) {
     const json = await response.json();
-    console.log(json);
     if (successModal !== null) {
       successModal.style.display = "block";
     }

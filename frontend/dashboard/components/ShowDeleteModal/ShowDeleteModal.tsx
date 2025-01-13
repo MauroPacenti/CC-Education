@@ -23,7 +23,6 @@ const ShowDeleteModal = ({ toggleDeleteModal }: Props) => {
           },
         }
       );
-      console.log(idRichiestaInformazione);
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
