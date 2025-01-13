@@ -1,6 +1,6 @@
 package com.novo.controllers;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class JourneyController {
 	@GetMapping("/api/pub/getAllJourney")
 	public List<Journey> getAllJourney(
 			@RequestParam(required = false) String title,
-	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
+	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate) {
 		
 		List<Journey> listJourney = journeyService.filteredJourney(title, startDate, endDate);
 		return listJourney;
@@ -42,8 +42,8 @@ public class JourneyController {
 	// Creates a new Journey
 	@PostMapping("/api/pub/createJourney")
 	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate ,
+	        @RequestParam @DateTimeFormat LocalDateTime startDate,
+	        @RequestParam @DateTimeFormat LocalDateTime endDate,
 	        @RequestParam(required = false) String annotations,
 	        @RequestParam int keeperId) {
 	   
@@ -65,8 +65,8 @@ public class JourneyController {
 	@PutMapping("/api/pub/updateJourney")
 	public Journey updateJourney(@RequestParam(required = false) String title,
 		    @RequestParam int journeyId,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate ,
+	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
+	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate ,
 	        @RequestParam(required = false) String annotations,
 	        @RequestParam int keeperId) {
 	   

@@ -2,6 +2,7 @@ package com.novo.services;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -28,7 +29,7 @@ public class JourneyServiceImpl implements JourneyService {
 	
 	// Returns journey filters
 	@Override
-	public List<Journey> filteredJourney(String title, LocalDate startDate, LocalDate endDate){
+	public List<Journey> filteredJourney(String title, LocalDateTime startDate, LocalDateTime endDate){
 	    return journeyRepo.findAll()
 			.stream()
 			.filter(j -> {
@@ -59,7 +60,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Saves Journey by requested parameters
     @Override
-    public Journey save(String title, String annotations, LocalDate startDate, LocalDate endDate, int keeperId) {
+    public Journey save(String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
     	
     	if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
@@ -84,7 +85,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Updates existing Journey by requested parameters
     @Override
-    public Journey update(int journeyId, String title, String annotations, LocalDate startDate, LocalDate endDate, int keeperId) {
+    public Journey update(int journeyId, String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
     	
     	Journey journey = journeyRepo.findById(journeyId).orElseThrow(() -> 
         	new IllegalArgumentException("Journey with ID " + journeyId + " not found.")
