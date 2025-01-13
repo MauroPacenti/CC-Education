@@ -1,12 +1,4 @@
 /* Style per la pagina Richiedi Prenotazione */
-@font-face {
-    font-family: "Neue Machina";
-    src: url("frontend\fonts\Neue Machina - Free for Personal Use\NeueMachina-Regular.otf");
-  }
-
-h1, h2, p, label {
-    font-family: 'Neue Machina', sans-serif;
-}
 
 .modal {
     display: none; /* Nascondi la modale di default */
@@ -318,19 +310,22 @@ option {
         left: 0;
         width: 40%;
         height: 100%;
-        background-image: url('/img/immagine-form.jpg');
+        background: url('/img/immagine-form.jpg');
         background-size: cover;
-        filter: blur(2px);
+        filter:blur(2px);
         z-index: -1;
         border-radius: 23px 0 0 23px;
       }
+    
+    .background::after {
+        content: '';
+    }
 
     .content-box {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        /* background: url('/img/immagine-form1.jpg') rgba(0,0,0, 0.5); */
         width: 40%;
         height: 612px;
     }
