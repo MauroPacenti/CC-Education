@@ -3,6 +3,7 @@ interface JourneyRequestData {
   keeper: {
     organization: {
       type: string;
+      name: string;
     };
     group: {
       minors: number;
@@ -17,7 +18,7 @@ interface JourneyRequestData {
 const journeyMapper = (data: JourneyRequestData[]) => {
   return data.map((journey: JourneyRequestData) => ({
     id: journey.id,
-    title: journey.annotations,
+    title: journey.annotations || journey.keeper.organization.name,
     startDate: journey.startDate,
     endDate: journey.endDate,
     organizationType: journey.keeper?.organization?.type,
