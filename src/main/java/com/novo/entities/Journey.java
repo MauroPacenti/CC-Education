@@ -1,6 +1,7 @@
 package com.novo.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -25,10 +26,10 @@ public class Journey {
 	private String annotations;
 	
 	@Column(name = "start_date")
-	private LocalDate startDate;
+	private LocalDateTime startDate;
 	
 	@Column(name = "end_date")
-	private LocalDate endDate;
+	private LocalDateTime endDate;
 
 	@Schema(hidden = true)
 	@OneToOne
@@ -59,19 +60,19 @@ public class Journey {
 		this.annotations = annotations;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 
