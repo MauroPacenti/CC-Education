@@ -5,8 +5,8 @@ import KeeperStep from "./KeeperStep/KeeperStep";
 import OrganizationStep from "./OrganizationStep/OrganizationStep";
 import BookingDetailsStep from "./BookingDetailsStep/BookingDetailsStep";
 import type Booking from "../../../models/Booking.model";
-import { CalendarBookingMapper } from "../../../utils/Mapper/CalendarBookingMapper";
 import { CalendarBooking } from "../../../models/CalendarBooking.model";
+import { calendarBookingMapper } from "../../../utils/Mapper/CalendarBookingMapper";
 
 interface FormStepsProps {
   handleSubmit: (booking: CalendarBooking) => void;
@@ -42,7 +42,7 @@ const FormSteps = ({ handleSubmit }: FormStepsProps) => {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const calendarBooking = CalendarBookingMapper(formData);
+    const calendarBooking = calendarBookingMapper(formData);
     handleSubmit(calendarBooking);
   };
 

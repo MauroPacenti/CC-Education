@@ -4,18 +4,71 @@ import "./richiesta-prenotazione.css";
 
 const form = document.querySelector<HTMLFormElement>(".appointment-form");
 
+const formData: {
+  keeper: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    cf: string;
+    phone: string;
+  };
+  group: {
+    minors: number;
+    adults: number;
+  };
+  organization: {
+    name: string;
+    type: string;
+    address: string;
+    phone: string;
+    email: string;
+  };
+  journeyRequest: {
+    startAvailabilityDate: string;
+    endAvailabilityDate: string;
+    duration: number;
+  };
+} = {
+  keeper: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    cf: "",
+    phone: "",
+  },
+  group: {
+    minors: 0,
+    adults: 0,
+  },
+  organization: {
+    name: "",
+    type: "",
+    address: "",
+    phone: "",
+    email: "",
+  },
+  journeyRequest: {
+    startAvailabilityDate: "",
+    endAvailabilityDate: "",
+    duration: 0,
+  },
+};
+
 // funzione per recuperare i dati del form visibile
 const getVisibleFormData = (section: Element) => {
   const inputs = section.querySelectorAll<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
   >("input, select, textarea");
-  const formData = new FormData();
+
+  const data: Record<string, string | number> = {};
   inputs.forEach((input) => {
     if (input.name) {
-      formData.append(input.name, input.value);
+      data[input.name] =
+        input.type === "number" ? Number(input.value) : input.value;
     }
   });
-  return Object.fromEntries(formData.entries());
+
+  return data as any;
 };
 
 const successModal = document.getElementById("successModal");
@@ -38,21 +91,26 @@ form?.addEventListener("submit", async (e) => {
   const group = getVisibleFormData(groupSelect);
   const journey = getVisibleFormData(journeySelect);
 
-  const data = {
-    keeper,
-    organization,
-    group,
-    journey,
-  };
+  formData.keeper = keeper;
+  formData.organization = organization;
+  formData.group = group;
+  formData.journeyRequest = journey;
+
+  formData.group.minors = Number(formData.group.minors);
+  formData.group.adults = Number(formData.group.adults);
+  formData.journeyRequest.duration = Number(formData.journeyRequest.duration);
+
+  console.log(formData);
 
   const endpoint = "/api/pub/createJourneyRequest";
 
+  console.log(formData);
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(formData),
   });
 
   if (response.ok) {

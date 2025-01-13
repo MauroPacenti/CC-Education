@@ -17,6 +17,25 @@ import AddEventModal from "../../components/AddEventModal/AddEventModal";
 import { useNavigate } from "react-router";
 import { CalendarBooking } from "../../models/CalendarBooking.model";
 import { CirclePlus } from "lucide-react";
+import { calendarBookingMapper } from "../../utils/Mapper/CalendarBookingMapper";
+
+interface Journey {
+  id: number;
+  title: string;
+  keeper: {
+    organization: {
+      type: string;
+    };
+    group: {
+      minors: number;
+      adults: number;
+    };
+  };
+  annotations: string;
+  startDate: string;
+  endDate: string;
+  duration: number;
+}
 
 const Prenotazioni = () => {
   const navigate = useNavigate();
@@ -25,7 +44,7 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-  const [events, setEvents] = useState<CalendarBooking[]>([]);
+
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
 
@@ -49,11 +68,21 @@ const Prenotazioni = () => {
 
     postEvent();
 
-    setEvents((events) => [...events, newEvent]);
     eventsService.add({ ...newEvent, id: Date.now() });
     eventsService.getAll();
     toggleAddEventModal();
   };
+
+  useEffect(() => {
+    fetch("/api/pub/getAllJourney")
+      .then((response) => response.json())
+      .then((data) => {
+        data = data.map((booking: Journey) => calendarBookingMapper(booking));
+        eventsService.set(data);
+      })
+      .catch((err) => console.error(err));
+    eventsService.getAll();
+  }, [eventsService]);
 
   const calendar = useCalendarApp({
     locale: "it-IT",
@@ -71,19 +100,9 @@ const Prenotazioni = () => {
     },
 
     views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events: events,
+    events: [],
     plugins: [eventsService, createEventModalPlugin()],
   });
-
-  useEffect(() => {
-    fetch("/api/pub/getAllJourney")
-      .then((response) => response.json())
-      .then((data) => {
-        setEvents(data);
-      })
-      .catch((err) => console.error(err));
-    eventsService.getAll();
-  }, [eventsService]);
 
   return (
     <div className="dashboard-calendar">

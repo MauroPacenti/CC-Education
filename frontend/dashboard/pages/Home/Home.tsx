@@ -50,7 +50,7 @@ const Home = () => {
       <h2 className="dashboard-title">Bentornato Andrea</h2>
       <div className="dashboard-main">
         <div className="dashboard-bookings">
-          <h3 className="dashboard-subtitle">Prenotazioni di oggi</h3>
+          <h3 className="dashboard-subtitle">Prenotazioni accettate</h3>
 
           {/* TODO: Aggiungere la lista delle prenotazioni con componente BookingItem*/}
 
@@ -63,7 +63,14 @@ const Home = () => {
                   className="booking-item"
                 >
                   <p className="booking-time">
-                    {booking.startDate} - {booking.endDate}
+                    {new Date(booking.startDate).toLocaleDateString() ===
+                    new Date(booking.endDate).toLocaleDateString()
+                      ? new Date(booking.startDate).toLocaleDateString("it-IT")
+                      : new Date(booking.startDate).toLocaleDateString(
+                          "it-IT"
+                        ) +
+                        " - " +
+                        new Date(booking.endDate).toLocaleDateString("it-IT")}
                   </p>
                   <h4 className="booking-title">{booking.title}</h4>
 

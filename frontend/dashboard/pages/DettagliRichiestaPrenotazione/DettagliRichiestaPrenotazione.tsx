@@ -59,6 +59,8 @@ const DettagliRichiestaPrenotazione = () => {
   const [replyModal, setReplyModal] = useState(false);
 
   const handleApprove = async () => {
+    console.log(bookingRequestDetails?.startAvailabilityDate);
+    console.log(bookingRequestDetails?.endAvailabilityDate);
     try {
       const response = await fetch(`/api/pub/createJourney`, {
         method: "POST",
@@ -66,6 +68,7 @@ const DettagliRichiestaPrenotazione = () => {
           startDate: bookingRequestDetails?.startAvailabilityDate,
           endDate: bookingRequestDetails?.endAvailabilityDate,
           keeperId: bookingRequestDetails?.keeper.id,
+          title: bookingRequestDetails?.keeper.organization.name,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -83,16 +86,20 @@ const DettagliRichiestaPrenotazione = () => {
   const handleReject = async () => {
     try {
       console.log(bookingRequestDetails?.id);
-      const response = await fetch(`/api/pub/deleteJourneyRequest`, {
-        method: "DELETE",
-        body: JSON.stringify({ journeyRequestId: bookingRequestDetails?.id }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `/api/pub/deleteJourneyRequest?journeyRequestId=${bookingRequestDetails?.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      navigate("/dashboard/richieste-prenotazioni");
+
       // handle success
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -169,9 +176,9 @@ const DettagliRichiestaPrenotazione = () => {
       <h2>Dettagli Richiesta Prenotazione</h2>
 
       <div className="buttons-container">
-        <button className="button contact" onClick={handleContact}>
+        {/* <button className="button contact" onClick={handleContact}>
           Contatta
-        </button>
+        </button> */}
 
         <button className="button approve" onClick={handleApprove}>
           Approva

@@ -1,18 +1,56 @@
-import Booking from "../../models/Booking.model";
-import { CalendarBooking } from "../../models/CalendarBooking.model";
+interface Journey {
+  id: number;
+  title: string;
+  keeper: {
+    organization: {
+      type: string;
+    };
+    group: {
+      minors: number;
+      adults: number;
+    };
+  };
+  annotations: string;
+  startDate: string;
+  endDate: string;
+  duration: number;
+}
 
-export const CalendarBookingMapper = (booking: Booking): CalendarBooking => {
+const durationStart = (duration: number) => {
+  switch (duration) {
+    case 1:
+      return "08:00";
+    case 2:
+      return "13:00";
+    case 3:
+      return "08:00";
+    default:
+      return "";
+  }
+};
+const durationEnd = (duration: number) => {
+  switch (duration) {
+    case 1:
+      return "12:00";
+    case 2:
+      return "19:00";
+    case 3:
+      return "12:00";
+    default:
+      return "";
+  }
+};
+
+export const calendarBookingMapper = (booking: Journey) => {
   return {
-    id: Date.now().toString(),
-    title:
-      booking.organization.name ||
-      `${booking.keeper.firstName} ${booking.keeper.lastName}`,
-    start: booking.bookingDetails.start,
-    end: booking.bookingDetails.end,
-    description: booking.bookingDetails.otherInfo || "",
+    id: booking.id,
+    title: booking.title,
+    start: `${booking.startDate}${durationStart(booking.duration)}`,
+    end: `${booking.endDate}${durationEnd(booking.duration)}`,
+    description: booking.annotations || "",
     people: [
-      `Aduti: ${booking.bookingDetails.adults}`,
-      `Minori: ${booking.bookingDetails.minors}`,
+      `Aduti: ${booking.keeper.group.adults}`,
+      `Minori: ${booking.keeper.group.minors}`,
     ],
   };
 };

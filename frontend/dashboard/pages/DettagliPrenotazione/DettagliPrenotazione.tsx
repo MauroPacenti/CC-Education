@@ -5,14 +5,44 @@ import { useParams, useNavigate } from "react-router";
 
 interface Booking {
   id: number;
-  title: string;
-  startHour: string;
-  endHour: string;
-  participants: {
-    minor: number;
-    adult: number;
+  keeper: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    cf: string;
+    phone: string;
+    group: {
+      id: number;
+      minors: number;
+      adults: number;
+      keeper: string;
+    };
+    organization: {
+      id: number;
+      name: string;
+      type: string;
+      address: string;
+      phone: string;
+      email: string;
+      keeper: string;
+    };
   };
-  group: string;
+  startDate: string;
+  endDate: string;
+  duration: number;
+  status: {
+    id: number;
+    name: string;
+    journeyRequests: string[];
+    infoRequests: {
+      id: number;
+      email: string;
+      title: string;
+      content: string;
+      status: string;
+    }[];
+  };
 }
 
 const DettagliPrenotazione = () => {
@@ -26,12 +56,15 @@ const DettagliPrenotazione = () => {
     const fetchBookingDetails = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/booking/${idPrenotazione}`);
+        const response = await fetch(`/api/pub/getAllJourney`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
-        setBookingDetails(data);
+        let data = await response.json();
+        if (idPrenotazione) {
+          data = data.find((item: Booking) => item.id === +idPrenotazione);
+          setBookingDetails(data);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
@@ -66,26 +99,117 @@ const DettagliPrenotazione = () => {
     <div className="booking-details">
       <button onClick={() => navigate(-1)} className="back-button">
         <MoveLeft />
-        <span>Indietro</span>
       </button>
 
       <h2>Dettagli Prenotazione {idPrenotazione}</h2>
 
       {bookingDetails ? (
-        <div className="booking-info">
-          <h3>{bookingDetails.title}</h3>
-          <div className="booking-time">
-            <p>Ora inizio: {bookingDetails.startHour}</p>
-            <p>Ora fine: {bookingDetails.endHour}</p>
-          </div>
-          <div className="participants">
-            <p>Partecipanti:</p>
-            <ul>
-              <li>Adulti: {bookingDetails.participants.adult}</li>
-              <li>Minori: {bookingDetails.participants.minor}</li>
-            </ul>
-          </div>
-          <p>Gruppo: {bookingDetails.group}</p>
+        <div className="details-container">
+          <section className="details-section">
+            <h3 className="section-title">Dati Accompagnatore</h3>
+            <div className="details-grid">
+              <div className="detail-item">
+                <span className="detail-label">Nome:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.firstName}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Cognome:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.lastName}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Email:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.email}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">CF:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.cf}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Telefono:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.phone}
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section className="details-section">
+            <h3 className="section-title">Dati Organizzazione</h3>
+            <div className="details-grid">
+              <div className="detail-item">
+                <span className="detail-label">Nome:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.organization?.name}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Tipo:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.organization?.type}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Indirizzo:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.organization?.address}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Telefono:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.organization?.phone}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Email:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.organization?.email}
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section className="details-section">
+            <h3 className="section-title">Dati Prenotazione</h3>
+            <div className="details-grid">
+              <div className="detail-item">
+                <span className="detail-label">Minori nel Gruppo:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.group?.minors}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Adulti:</span>
+                <span className="detail-value">
+                  {bookingDetails?.keeper?.group?.adults}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Data inizio disponibilità:</span>
+                <span className="detail-value">
+                  {new Date(bookingDetails?.startDate ?? "").toLocaleDateString(
+                    "it-IT"
+                  )}
+                </span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Data fine disponibilità:</span>
+                <span className="detail-value">
+                  {new Date(bookingDetails?.endDate ?? "").toLocaleDateString(
+                    "it-IT"
+                  )}
+                </span>
+              </div>
+            </div>
+          </section>
         </div>
       ) : (
         <p>Nessun dettaglio disponibile</p>
