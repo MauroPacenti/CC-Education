@@ -1,13 +1,14 @@
 import { NavLink } from "react-router";
 import "./RichiesteInformazioni.css";
 import { PropsWithChildren, useEffect, useState } from "react";
+import infoRequestMapper from "../../utils/Mapper/infoRequestMapper";
 
 interface InfoRequest {
   id: number;
-  date: string;
-  name: string;
+  email: string;
   title: string;
-  message: string;
+  content: string;
+  date?: string;
 }
 
 const RichiesteInformazioni = () => {
@@ -21,8 +22,8 @@ const RichiesteInformazioni = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-
-        setInfoRequest(data);
+        const infoRequest = infoRequestMapper(data);
+        setInfoRequest(infoRequest);
       } catch (error) {
         console.error("Error fetching info request:", error);
       }
@@ -52,12 +53,12 @@ const RichiesteInformazioni = () => {
             className="info-card"
           >
             <div className="info-header">
-              <h3>{request.name}</h3>
+              <h3>{request.email}</h3>
               <p>{request.date}</p>
             </div>
             <p className="info-title">{request.title}</p>
             <p className="info-message">
-              {<InfoMessage message={request.message}> </InfoMessage>}
+              {<InfoMessage message={request.content}> </InfoMessage>}
             </p>
           </NavLink>
         ))}

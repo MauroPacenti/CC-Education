@@ -11,7 +11,7 @@ interface RequestInformation {
   name: string;
   email: string;
   title: string;
-  message: string;
+  content: string;
 }
 
 const DettagliRichiestaInformazione = () => {
@@ -30,14 +30,18 @@ const DettagliRichiestaInformazione = () => {
     const fetchBookingDetails = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `/api/pub/getAllInfoRequest/${idRichiestaInformazione}`
-        );
+        const response = await fetch(`/api/pub/getAllInfoRequest`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setRequestInformationDetails(data);
+        const requestInformationDetails = data.find(
+          (requestInformation: RequestInformation) =>
+            idRichiestaInformazione
+              ? requestInformation.id === +idRichiestaInformazione
+              : null
+        );
+        setRequestInformationDetails(requestInformationDetails);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
@@ -126,7 +130,7 @@ const DettagliRichiestaInformazione = () => {
       <p className="request-info-email">{requestInformationDetails?.email}</p>
       <p className="request-info-date">{requestInformationDetails?.date}</p>
       <hr />
-      <p>{requestInformationDetails?.message}</p>
+      <p>{requestInformationDetails?.content}</p>
       <button className="reply-button text-button" onClick={toggleReplyModal}>
         <MessageSquareReply /> Rispondi
       </button>

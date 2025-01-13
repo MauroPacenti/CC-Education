@@ -1,39 +1,20 @@
 import { useEffect, useState } from "react";
 import "./RichiestePrenotazione.css";
 import { useNavigate } from "react-router";
+import journeyRequestMapper from "../../utils/Mapper/journeyRequestMapper";
 
 interface BookingRequest {
   id: number;
-  keeper: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    cf: string;
-    phone: string;
-    group: {
-      id: number;
-      minors: number;
-      adults: number;
-      keeper: string;
-    };
-    organization: {
-      id: 1;
-      name: string;
-      type: string;
-      address: string;
-      phone: string;
-      email: string;
-      keeper: string;
-    };
-  };
-  startAvailabilityDate: Date;
-  endAvailabilityDate: Date;
-  duration: 0;
+  email: string;
+  firstName: string;
+  lastName: string;
+  organizationType: string;
+  startAvailabilityDate: string;
+  endAvailabilityDate: string;
 }
 
 const RichiestePrenotazione = () => {
-  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>([]);
+  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,7 +29,9 @@ const RichiestePrenotazione = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setBookingRequests(data);
+        const journeyRequest = journeyRequestMapper(data);
+        console.log(journeyRequest);
+        setBookingRequests(journeyRequest);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
@@ -100,7 +83,7 @@ const RichiestePrenotazione = () => {
           </tr>
         </thead>
         <tbody className="table-body">
-          {bookingRequests.map((bookingRequest) => (
+          {bookingRequests?.map((bookingRequest) => (
             <tr
               key={bookingRequest.id}
               onClick={() => {
@@ -109,21 +92,15 @@ const RichiestePrenotazione = () => {
                 );
               }}
             >
-              <td>{bookingRequest.keeper.email}</td>
+              <td>{bookingRequest.email}</td>
 
               <td className="desktop-only">
-                {`${bookingRequest.keeper.firstName} ${bookingRequest.keeper.lastName}`}
+                {`${bookingRequest.firstName} ${bookingRequest.lastName}`}
               </td>
-              <td>{bookingRequest.keeper.organization.type}</td>
+              <td>{bookingRequest.organizationType}</td>
 
-              <td>
-                {bookingRequest.startAvailabilityDate.toLocaleDateString(
-                  "it-IT"
-                )}
-              </td>
-              <td>
-                {bookingRequest.endAvailabilityDate.toLocaleDateString("it-IT")}
-              </td>
+              <td>{bookingRequest.startAvailabilityDate}</td>
+              <td>{bookingRequest.endAvailabilityDate}</td>
             </tr>
           ))}
         </tbody>
