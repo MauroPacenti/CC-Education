@@ -391,10 +391,4 @@ option {
     #btn-last {
         margin-top: 1px;
     }
-
-    footer {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-    }
 }
