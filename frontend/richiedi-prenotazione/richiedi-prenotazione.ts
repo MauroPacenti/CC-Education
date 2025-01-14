@@ -185,8 +185,6 @@ btnNext.forEach((btn) => {
         done2?.classList.remove("hide");
         currentPage++;
       }
-    } else {
-      alert("Compila correttamente tutti i campi obbligatori.");
     }
 
     
