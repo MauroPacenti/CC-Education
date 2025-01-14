@@ -82,17 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPosition < maxPosition) {
             currentPosition += itemsToScroll; //incremeneta la posizione attuale di elementi da scorrere
             currentPosition = Math.min(currentPosition, maxPosition); //ci si assicura che la posizione attuale non superi la massima
-            currentTranslateX = -currentPosition * itemWidth; //sposta gli elementi verso sinistra
-            setTranslateX(currentTranslateX); //aggiorna la posizione
+        } else {
+            currentPosition = 0; //se è alla fine torna all'inizio
         }
+        currentTranslateX = -currentPosition * itemWidth; //sposta gli elementi verso sinistra
+        setTranslateX(currentTranslateX); //aggiorna la posizione
     });
 
     prevBtn.addEventListener('click', () => {
         if (currentPosition > 0) {
             currentPosition -= itemsToScroll; //descrementa la posizione attuale di elementi
             currentPosition = Math.max(currentPosition, 0); //per assicurarsi che la posizione attuale non scenda sotto lo 0
-            currentTranslateX = -currentPosition * itemWidth;
-            setTranslateX(currentTranslateX);
+        } else {
+            currentPosition = maxPosition; //se è all'inizio torna alla fine
         }
+        currentTranslateX = -currentPosition * itemWidth;
+        setTranslateX(currentTranslateX);
     });
 });
