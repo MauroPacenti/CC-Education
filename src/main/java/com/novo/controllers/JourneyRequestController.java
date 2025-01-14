@@ -1,5 +1,6 @@
 package com.novo.controllers;
 
+import com.novo.dtos.JourneyRequestDto;
 import com.novo.entities.*;
 import com.novo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,24 +40,24 @@ public class JourneyRequestController {
 
     // Creates a new JourneyRequest
     @PostMapping("/api/pub/createJourneyRequest")
-    public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody RequestDto requestDto) {
+    public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody JourneyRequestDto journeyRequestDto) {
 
         try {
-            if(adminService.validateEmail(requestDto.getKeeper().getEmail())){
+            if(adminService.validateEmail(journeyRequestDto.getKeeper().getEmail())){
                 throw new Error("L'email non ha un formato idoneo.");
             }
-            Keeper newKeeper = keeperService.addKeeper(requestDto.getKeeper());
-            Group group = groupService.save(requestDto.getGroup().getMinors(), requestDto.getGroup().getAdults(), newKeeper.getId());
-            Organization organization = organizationService.save(requestDto.getOrganization().getName(), requestDto.getOrganization().getType(), requestDto.getOrganization().getAddress(), requestDto.getOrganization().getPhone(), requestDto.getOrganization().getEmail(), newKeeper.getId());
+            Keeper newKeeper = keeperService.addKeeper(journeyRequestDto.getKeeper());
+            Group group = groupService.save(journeyRequestDto.getGroup().getMinors(), journeyRequestDto.getGroup().getAdults(), newKeeper.getId());
+            Organization organization = organizationService.save(journeyRequestDto.getOrganization().getName(), journeyRequestDto.getOrganization().getType(), journeyRequestDto.getOrganization().getAddress(), journeyRequestDto.getOrganization().getPhone(), journeyRequestDto.getOrganization().getEmail(), newKeeper.getId());
             newKeeper.setGroup(group);
             newKeeper.setOrganization(organization);
-            requestDto.getJourneyRequest().setKeeper(newKeeper);
+            journeyRequestDto.getJourneyRequest().setKeeper(newKeeper);
             JourneyRequest journeyRequest;
             try {
-                journeyRequest = journeyRequestService.addJourneyRequest(requestDto.getJourneyRequest());
+                journeyRequest = journeyRequestService.addJourneyRequest(journeyRequestDto.getJourneyRequest());
                 String object= "Richiesta prenotazione: " + journeyRequest.getKeeper().getFirstName() + " " + journeyRequest.getKeeper().getLastName();
                 String body= "La richiesta è stata registrata";
-            	javaMailSenderService.sendMail(requestDto.getKeeper().getEmail(), object, body); // Sends email with journey request
+            	javaMailSenderService.sendMail(journeyRequestDto.getKeeper().getEmail(), object, body); // Sends email with journey request
             }catch(Exception e) {
             	new Exception("Error to send email");
                 return ResponseEntity.badRequest().build();
