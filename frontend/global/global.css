@@ -1,5 +1,8 @@
 @import "./preflight.css";
-
+@font-face {
+  font-family: "Neue Machina";
+  src: url("frontend\fonts\Neue Machina - Free for Personal Use\NeueMachina-Regular.otf");
+}
 :root {
   --primario: #8eb486;
   --primary-text-color: #000;
@@ -28,7 +31,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Poppins';
+  font-family: "Poppins", sans-serif;
 }
 
 /* Menù */
@@ -166,24 +169,21 @@ body {
   }
 }
 
-
 footer {
   background-color: var(--footer);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  font-family: 'Neue Machina', serif;
+  font-family: "Neue Machina", serif;
   padding: 2rem;
   height: 35rem;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
 
-
-
 iframe {
-  width: 100%;  
+  width: 100%;
 }
 .map {
   border-radius: 15px;
@@ -222,22 +222,17 @@ footer .contact {
   width: 1.5rem;
 }
 
-
-
-
-
 @media screen and (min-width: 835px) {
-
   footer {
     background-color: var(--footer);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    font-family: 'Neue Machina', serif;
+    font-family: "Neue Machina", serif;
     gap: 1rem;
-    font-size: 16px;
+    font-size: 18px;
   }
-  
+
   footer iframe {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
@@ -255,8 +250,6 @@ footer .contact {
     height: 100%;
   }
 
-
-  
   footer ul {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
@@ -265,7 +258,7 @@ footer .contact {
     margin: 2rem auto;
     text-align: left;
   }
-  
+
   footer .indirizzo {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
@@ -277,12 +270,12 @@ footer .contact {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     justify-items: center; /* Centra orizzontalmente */
-    align-items: center;   /* Centra verticalmente */
+    align-items: center; /* Centra verticalmente */
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
+
   .icons-social {
     width: 7rem;
     height: fit-content;
@@ -294,8 +287,6 @@ footer .contact {
   .social {
     width: 1.5rem;
   }
-  
-
 }
 
 /* footer {
