@@ -50,7 +50,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <NavLink to="/dashboard/" className="logo" onClick={removeActiveNav}>
-        Logo
+        <img src="../../../img/logo.png" />
       </NavLink>
 
       <ul className={`navbar-list ${isActive ? "active" : ""}`}>

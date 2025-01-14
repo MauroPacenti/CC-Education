@@ -237,6 +237,7 @@ main > p:nth-of-type(2) {
   justify-content: center;
   padding: 2rem;
   gap: 20px;
+  position: relative;
 }
 
 .richiedi-informazioni > h2 {

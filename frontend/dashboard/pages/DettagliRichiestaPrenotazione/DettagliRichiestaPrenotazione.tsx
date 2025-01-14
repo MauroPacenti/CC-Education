@@ -96,16 +96,22 @@ const DettagliRichiestaPrenotazione = () => {
     };
     console.log(data);
     try {
-      const response = await fetch(`/api/pub/createJourney`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      setIsLoading(true);
+      const response = await fetch(
+        `/api/pub/createJourney?startDate=${data.startDate}&endDate=${data.endDate}&title=${data.title}&keeperId=${data.keeperId}`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      setIsLoading(false);
+      navigate("/dashboard/prenotazioni");
       // handle success
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");

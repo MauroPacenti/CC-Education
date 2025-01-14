@@ -56,6 +56,14 @@
 .navbar-list.active {
   left: 0;
 }
+.logo {
+  height: 3em;
+}
+
+.logo img {
+  height: 2.5em;
+  width: auto;
+}
 
 @media screen and (min-width: 834px) {
   .hamburger {

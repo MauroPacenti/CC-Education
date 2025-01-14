@@ -131,6 +131,20 @@ body {
   font-weight: bold;
 }
 
+.modal {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(236, 234, 234, 0.514);
+  justify-content: center;
+  align-items: center;
+  display: none;
+  backdrop-filter: blur(10px);
+}
+
+.modal.active {
+  display: flex;
+}
+
 /* media query */
 
 @media screen and (min-width: 835px) {

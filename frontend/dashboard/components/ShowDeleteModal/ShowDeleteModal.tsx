@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import "./ShowDeleteModal.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 interface Props {
   toggleDeleteModal: () => void;
@@ -10,6 +10,8 @@ const ShowDeleteModal = ({ toggleDeleteModal }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { idRichiestaInformazione } = useParams();
+  const navigate = useNavigate();
+
   const deleteInformationRequest = async () => {
     // Delete information request
     try {
@@ -30,6 +32,7 @@ const ShowDeleteModal = ({ toggleDeleteModal }: Props) => {
 
       setIsLoading(false);
       toggleDeleteModal();
+      navigate("/dashboard/richieste-informazioni");
     } catch (error) {
       console.error("Error deleting information request:", error);
       setError("Error deleting information request");

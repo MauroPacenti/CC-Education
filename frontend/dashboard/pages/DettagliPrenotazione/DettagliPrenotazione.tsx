@@ -77,6 +77,30 @@ const DettagliPrenotazione = () => {
     }
   }, [idPrenotazione]);
 
+  const deleteJourney = async () => {
+    if (!idPrenotazione) return;
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `/api/pub/deleteJourney?journeyId=${idPrenotazione}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      // Handle successful deletion, e.g., redirect or update state
+      setBookingDetails(null);
+      navigate(-1);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (isLoading) {
     return <div>Caricamento...</div>;
   }
@@ -101,8 +125,12 @@ const DettagliPrenotazione = () => {
         <MoveLeft />
       </button>
 
-      <h2>Dettagli Prenotazione {idPrenotazione}</h2>
-
+      <h2>Dettagli Prenotazione</h2>
+      <div className="buttons-container">
+        <button className="button reject" onClick={deleteJourney}>
+          Rimuovi
+        </button>
+      </div>
       {bookingDetails ? (
         <div className="details-container">
           <section className="details-section">

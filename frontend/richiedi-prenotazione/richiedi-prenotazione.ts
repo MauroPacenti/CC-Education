@@ -95,10 +95,20 @@ const getVisibleFormData = (section: Element) => {
 
   return data as any;
 };
+const clearFormFields = (section: Element) => {
+  const inputs = section.querySelectorAll<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >("input, select, textarea");
+
+  inputs.forEach((input) => {
+    input.value = "";
+  });
+};
 
 const successModal = document.getElementById("successModal");
 const errorModal = document.getElementById("errorModal");
 const closeButtons = document.querySelectorAll(".close-button");
+const modal = document.querySelector(".modal");
 
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -134,6 +144,7 @@ form?.addEventListener("submit", async (e) => {
 
   const endpoint = "/api/pub/createJourneyRequest";
 
+  modal?.classList.toggle("active");
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
@@ -155,6 +166,12 @@ form?.addEventListener("submit", async (e) => {
       errorModal.style.display = "block";
     }
   }
+  clearFormFields(section1);
+  clearFormFields(section2);
+  clearFormFields(groupSelect);
+  clearFormFields(journeySelect);
+
+  modal?.classList.toggle("active");
 });
 
 closeButtons.forEach((button) => {
