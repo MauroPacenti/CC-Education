@@ -80,6 +80,31 @@ h1 {
     text-align: center;
 }
 
+.error {
+    border: 2px dashed red;
+}
+
+input.error {
+    border-color: #ff4d4d;
+    transition: all 0.3s ease-in-out;
+}
+
+input.error:hover {
+    border-color: #e60000;
+}
+
+input.error:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+}
+
+input:not(.error):not(:focus) {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+
 label, input, #tipologia, #durata, #info {
     display: block;
     margin: 10px 22px;

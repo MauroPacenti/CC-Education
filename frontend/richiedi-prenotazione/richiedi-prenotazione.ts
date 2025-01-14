@@ -159,30 +159,35 @@ const journeySelect = document.querySelector(".journey");
 
 btnNext.forEach((btn) => {
   btn.addEventListener("click", () => {
-    if (currentPage === 0) {
-      if (title !== null) {
-        title.textContent = "Dati Organizzazione";
-      }
-      section1?.classList.remove("active");
-      section2?.classList.add("active");
-      icon1?.classList.replace("active", "done");
-      icon2?.classList.add("active");
-      i1?.classList.add("hide");
-      done1?.classList.remove("hide");
 
-      currentPage++;
-    } else if (currentPage === 1) {
-      if (title !== null) {
-        title.textContent = "Dati Prenotazione";
+    if(validateForm(currentPage)){
+      if (currentPage === 0) {
+        if (title !== null) {
+          title.textContent = "Dati Organizzazione";
+        }
+        section1?.classList.remove("active");
+        section2?.classList.add("active");
+        icon1?.classList.replace("active", "done");
+        icon2?.classList.add("active");
+        i1?.classList.add("hide");
+        done1?.classList.remove("hide");
+  
+        currentPage++;
+      } else if (currentPage === 1) {
+        if (title !== null) {
+          title.textContent = "Dati Prenotazione";
+        }
+        section2?.classList.remove("active");
+        section3?.classList.add("active");
+        icon2?.classList.replace("active", "done");
+        icon3?.classList.add("active");
+        i2?.classList.add("hide");
+        done2?.classList.remove("hide");
+        currentPage++;
       }
-      section2?.classList.remove("active");
-      section3?.classList.add("active");
-      icon2?.classList.replace("active", "done");
-      icon3?.classList.add("active");
-      i2?.classList.add("hide");
-      done2?.classList.remove("hide");
-      currentPage++;
     }
+
+    
   });
 });
 
@@ -215,3 +220,148 @@ btnPrev.forEach((btn) => {
 });
 
 // Fine Gestione cambio pagine del form
+
+// Funziona di validazione del form di prenotazione
+
+const validateForm = (page: number): boolean => {
+
+    let isValid = true;
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    const cfPattern = /^[A-Z0-9]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
+
+    const phonePattern = /^\+?[0-9]{1,4}?[-.\s]?[0-9]{6,10}$/;
+
+    // Validazione del primo step (Accompagnatore)
+    if(page === 0) {
+      
+        const firstName = form?.querySelector<HTMLInputElement>('[name="firstName"]');
+        const lastName = form?.querySelector<HTMLInputElement>('[name="lastName"]');
+        const email = form?.querySelector<HTMLInputElement>('[name="email"]');
+        const cf = form?.querySelector<HTMLInputElement>('[name="cf"]');
+        const phone = form?.querySelector<HTMLInputElement>('[name="phone"]');
+
+
+        if(!firstName?.value.trim()){
+            firstName?.classList.add('error');
+            isValid = false;
+        } else {
+            firstName.classList.remove('error');
+        }
+
+        if (!lastName?.value.trim()) {
+          lastName?.classList.add('error');
+          isValid = false;
+        } else {
+          lastName.classList.remove('error');
+        }
+
+        if(!email?.value.trim() || !emailPattern.test(email.value)) {
+          email?.classList.add('error');
+          isValid = false;
+        } else {
+          email.classList.remove('error');
+        }
+
+        if(!cf?.value.trim() || !cfPattern.test(cf.value)){
+          cf?.classList.add('error');
+          isValid = false;
+        } else {
+          cf.classList.remove('error');
+        }
+
+        if(!phone?.value.trim() || !phonePattern.test(phone.value)) {
+          phone?.classList.add('error');
+          isValid = false;
+        } else {
+          phone.classList.remove('error');
+        }
+    }
+
+    // Validazione del secondo step (Organizzazione)
+    if(page === 1){
+      const nameOrg = form?.querySelector<HTMLInputElement>('[name="name"]');
+      const typeOrg = form?.querySelector<HTMLInputElement>('[name="type"]');
+      const addressOrg = form?.querySelector<HTMLInputElement>('[name="address"]');
+      const phoneOrg = form?.querySelector<HTMLInputElement>('[name="phone"]');
+      const emailOrg = form?.querySelector<HTMLInputElement>('[name="email"]');
+
+      if(!nameOrg?.value.trim()) {
+        nameOrg?.classList.add('error');
+        isValid = false;
+      } else {
+        nameOrg.classList.remove('error');
+      }
+
+      if(!typeOrg?.value.trim()) {
+        typeOrg?.classList.add('error');
+        isValid = false;
+      } else {
+        typeOrg.classList.remove('error');
+      }
+
+      if (!addressOrg?.value.trim()) {
+        addressOrg?.classList.add('error');
+        isValid = false;
+      } else {
+        addressOrg.classList.remove('error');
+      }
+
+      if (!phoneOrg?.value.trim() || !phonePattern.test(phoneOrg.value)) {
+        phoneOrg?.classList.add('error');
+        isValid = false;
+      } else {
+        phoneOrg.classList.remove('error');
+      }
+
+      if(!emailOrg?.value.trim() || !emailPattern.test(emailOrg.value)) {
+        emailOrg?.classList.add('error');
+        isValid = false;
+      } else {
+        emailOrg.classList.remove('error');
+      }
+      
+    }
+
+    // Validazione del terzo step (Prenotazione)
+    if(page === 2) {
+      const minors = form?.querySelector<HTMLInputElement>('[name="minors"]');
+      const adults = form?.querySelector<HTMLInputElement>('[name="adults"]');
+      const startDate = form?.querySelector<HTMLInputElement>('[name="startAvailabilityDate"]');
+      const endDate = form?.querySelector<HTMLInputElement>('[name="endAvailabilityDate"]');
+      const duration = form?.querySelector<HTMLInputElement>('[name="duration"]');
+
+      if(minors?.value.trim() === "" || Number(minors?.value) < 0) {
+        minors?.classList.add('error');
+        isValid = false;
+      } else {
+        minors?.classList.remove('error');
+      }
+
+      if(adults?.value.trim() === "" || Number(adults?.value) <= 0) {
+        adults?.classList.add('error');
+        isValid = false;
+      } else {
+        adults?.classList.remove('error');
+      }
+
+      if(!startDate?.value.trim() || !endDate?.value.trim() || new Date(startDate.value) >= new Date(endDate.value)) {
+        startDate?.classList.add('error');
+        endDate?.classList.add('error');
+        isValid = false;
+      } else {
+        startDate.classList.remove('error');
+        endDate.classList.remove('error');
+      }
+
+      if(duration?.value.trim() === "" || Number(duration?.value) <= 0) {
+        duration?.classList.add('error');
+        isValid = false;
+      } else {
+        duration?.classList.remove('error');
+      }
+    }
+
+    return isValid;
+}
