@@ -1,6 +1,11 @@
-package com.novo.entities;
+package com.novo.dtos;
 
-public class RequestDto {
+import com.novo.entities.Group;
+import com.novo.entities.JourneyRequest;
+import com.novo.entities.Keeper;
+import com.novo.entities.Organization;
+
+public class JourneyRequestDto {
     private Keeper keeper;
     private Group group;
     private Organization organization;
