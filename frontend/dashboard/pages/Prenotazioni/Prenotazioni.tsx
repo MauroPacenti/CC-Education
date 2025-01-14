@@ -44,6 +44,7 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
+  const [events, setEvents] = useState<CalendarBooking[]>([]);
 
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
@@ -79,6 +80,9 @@ const Prenotazioni = () => {
       .then((data) => {
         data = data.map((booking: Journey) => calendarBookingMapper(booking));
         eventsService.set(data);
+        setEvents(data);
+        console.log(eventsService.getAll());
+        console.log(data);
       })
       .catch((err) => console.error(err));
     eventsService.getAll();
@@ -100,7 +104,7 @@ const Prenotazioni = () => {
     },
 
     views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events: [],
+    events: events,
     plugins: [eventsService, createEventModalPlugin()],
   });
 

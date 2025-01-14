@@ -10,6 +10,7 @@ interface JourneyRequestData {
   };
   startAvailabilityDate: string;
   endAvailabilityDate: string;
+  duration: number;
 }
 
 const journeyRequestMapper = (data: JourneyRequestData[]) => {
@@ -21,6 +22,7 @@ const journeyRequestMapper = (data: JourneyRequestData[]) => {
     organizationType: request.keeper.organization.type,
     startAvailabilityDate: request.startAvailabilityDate,
     endAvailabilityDate: request.endAvailabilityDate,
+    duration: request.duration,
   }));
 };
 

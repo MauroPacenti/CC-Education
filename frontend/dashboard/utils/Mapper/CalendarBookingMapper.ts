@@ -16,37 +16,16 @@ interface Journey {
   duration: number;
 }
 
-const durationStart = (duration: number) => {
-  switch (duration) {
-    case 1:
-      return "08:00";
-    case 2:
-      return "13:00";
-    case 3:
-      return "08:00";
-    default:
-      return "";
-  }
-};
-const durationEnd = (duration: number) => {
-  switch (duration) {
-    case 1:
-      return "12:00";
-    case 2:
-      return "19:00";
-    case 3:
-      return "12:00";
-    default:
-      return "";
-  }
-};
-
 export const calendarBookingMapper = (booking: Journey) => {
   return {
     id: booking.id,
     title: booking.title,
-    start: `${booking.startDate}${durationStart(booking.duration)}`,
-    end: `${booking.endDate}${durationEnd(booking.duration)}`,
+    start: `${booking.startDate.split("T")[0]} ${booking.startDate
+      .split("T")[1]
+      .slice(0, 5)}`,
+    end: `${booking.endDate.split("T")[0]} ${booking.endDate
+      .split("T")[1]
+      .slice(0, 5)}`,
     description: booking.annotations || "",
     people: [
       `Aduti: ${booking.keeper.group.adults}`,

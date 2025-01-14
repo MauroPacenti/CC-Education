@@ -46,6 +46,31 @@ interface BookingRequestDetails {
   };
 }
 
+const durationStart = (duration?: number) => {
+  switch (duration) {
+    case 1:
+      return "08:00";
+    case 2:
+      return "13:00";
+    case 3:
+      return "08:00";
+    default:
+      return "09:00";
+  }
+};
+const durationEnd = (duration?: number) => {
+  switch (duration) {
+    case 1:
+      return "12:00";
+    case 2:
+      return "19:00";
+    case 3:
+      return "12:00";
+    default:
+      return "09:00";
+  }
+};
+
 const DettagliRichiestaPrenotazione = () => {
   const { idRichiestaPrenotazione } = useParams();
   const navigate = useNavigate();
@@ -59,16 +84,21 @@ const DettagliRichiestaPrenotazione = () => {
   const [replyModal, setReplyModal] = useState(false);
 
   const handleApprove = async () => {
-    
+    const data = {
+      startDate: `${
+        bookingRequestDetails?.startAvailabilityDate
+      }T${durationStart(bookingRequestDetails?.duration)}:00`,
+      endDate: `${bookingRequestDetails?.endAvailabilityDate}T${durationEnd(
+        bookingRequestDetails?.duration
+      )}:00`,
+      keeperId: bookingRequestDetails?.keeper.id,
+      title: bookingRequestDetails?.keeper.organization.name,
+    };
+    console.log(data);
     try {
       const response = await fetch(`/api/pub/createJourney`, {
         method: "POST",
-        body: JSON.stringify({
-          startDate: bookingRequestDetails?.startAvailabilityDate,
-          endDate: bookingRequestDetails?.endAvailabilityDate,
-          keeperId: bookingRequestDetails?.keeper.id,
-          title: bookingRequestDetails?.keeper.organization.name,
-        }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },

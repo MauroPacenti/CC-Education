@@ -10,22 +10,30 @@ form?.addEventListener("submit", async (e) => {
   const data = {
     email: formData.get("email"),
     title: formData.get("firstName") + " " + formData.get("lastName"),
-    message: formData.get("message"),
+    content: formData.get("message"),
   };
 
   const endpoint = "/api/pub/createInfoRequest";
+  try {
+    const response = await fetch(
+      endpoint +
+        `?email=${data.email}&title=${data.title}&content=${data.content}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+    console.log(data);
 
-  if (response.ok) {
+    if (!response.ok) {
+      throw new Error("err:" + response.status);
+    }
     const result = await response.json();
-  } else {
-    console.error("Errore nella richiesta");
+  } catch (err) {
+    console.error(err);
   }
 });

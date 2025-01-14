@@ -2,6 +2,31 @@ import "./richiesta-prenotazione.css";
 
 // Interazione con l'api per la richiesta di prenotazione
 
+const durationStart = (duration?: number) => {
+  switch (duration) {
+    case 1:
+      return "08:00";
+    case 2:
+      return "13:00";
+    case 3:
+      return "08:00";
+    default:
+      return "09:00";
+  }
+};
+const durationEnd = (duration?: number) => {
+  switch (duration) {
+    case 1:
+      return "12:00";
+    case 2:
+      return "19:00";
+    case 3:
+      return "12:00";
+    default:
+      return "09:00";
+  }
+};
+
 const form = document.querySelector<HTMLFormElement>(".appointment-form");
 
 const formData: {
@@ -99,6 +124,13 @@ form?.addEventListener("submit", async (e) => {
   formData.group.minors = Number(formData.group.minors);
   formData.group.adults = Number(formData.group.adults);
   formData.journeyRequest.duration = Number(formData.journeyRequest.duration);
+  formData.journeyRequest.startAvailabilityDate = `${
+    formData.journeyRequest.startAvailabilityDate
+  }T${durationStart(formData.journeyRequest.duration)}:00`;
+
+  formData.journeyRequest.endAvailabilityDate = `${
+    formData.journeyRequest.endAvailabilityDate
+  }T${durationEnd(formData.journeyRequest.duration)}:00`;
 
   const endpoint = "/api/pub/createJourneyRequest";
 
@@ -109,6 +141,8 @@ form?.addEventListener("submit", async (e) => {
     },
     body: JSON.stringify(formData),
   });
+
+  console.log(formData);
 
   if (response.ok) {
     const json = await response.json();
@@ -159,8 +193,7 @@ const journeySelect = document.querySelector(".journey");
 
 btnNext.forEach((btn) => {
   btn.addEventListener("click", () => {
-
-    if(validateForm(currentPage)){
+    if (validateForm(currentPage)) {
       if (currentPage === 0) {
         if (title !== null) {
           title.textContent = "Dati Organizzazione";
@@ -171,7 +204,7 @@ btnNext.forEach((btn) => {
         icon2?.classList.add("active");
         i1?.classList.add("hide");
         done1?.classList.remove("hide");
-  
+
         currentPage++;
       } else if (currentPage === 1) {
         if (title !== null) {
@@ -186,8 +219,6 @@ btnNext.forEach((btn) => {
         currentPage++;
       }
     }
-
-    
   });
 });
 
@@ -224,144 +255,151 @@ btnPrev.forEach((btn) => {
 // Funziona di validazione del form di prenotazione
 
 const validateForm = (page: number): boolean => {
+  let isValid = true;
 
-    let isValid = true;
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const cfPattern =
+    /^[A-Z0-9]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
 
-    const cfPattern = /^[A-Z0-9]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
+  const phonePattern = /^\+?[0-9]{1,4}?[-.\s]?[0-9]{6,10}$/;
 
-    const phonePattern = /^\+?[0-9]{1,4}?[-.\s]?[0-9]{6,10}$/;
+  // Validazione del primo step (Accompagnatore)
+  if (page === 0) {
+    const firstName =
+      form?.querySelector<HTMLInputElement>('[name="firstName"]');
+    const lastName = form?.querySelector<HTMLInputElement>('[name="lastName"]');
+    const email = form?.querySelector<HTMLInputElement>('[name="email"]');
+    const cf = form?.querySelector<HTMLInputElement>('[name="cf"]');
+    const phone = form?.querySelector<HTMLInputElement>('[name="phone"]');
 
-    // Validazione del primo step (Accompagnatore)
-    if(page === 0) {
-      
-        const firstName = form?.querySelector<HTMLInputElement>('[name="firstName"]');
-        const lastName = form?.querySelector<HTMLInputElement>('[name="lastName"]');
-        const email = form?.querySelector<HTMLInputElement>('[name="email"]');
-        const cf = form?.querySelector<HTMLInputElement>('[name="cf"]');
-        const phone = form?.querySelector<HTMLInputElement>('[name="phone"]');
-
-
-        if(!firstName?.value.trim()){
-            firstName?.classList.add('error');
-            isValid = false;
-        } else {
-            firstName.classList.remove('error');
-        }
-
-        if (!lastName?.value.trim()) {
-          lastName?.classList.add('error');
-          isValid = false;
-        } else {
-          lastName.classList.remove('error');
-        }
-
-        if(!email?.value.trim() || !emailPattern.test(email.value)) {
-          email?.classList.add('error');
-          isValid = false;
-        } else {
-          email.classList.remove('error');
-        }
-
-        if(!cf?.value.trim() || !cfPattern.test(cf.value)){
-          cf?.classList.add('error');
-          isValid = false;
-        } else {
-          cf.classList.remove('error');
-        }
-
-        if(!phone?.value.trim() || !phonePattern.test(phone.value)) {
-          phone?.classList.add('error');
-          isValid = false;
-        } else {
-          phone.classList.remove('error');
-        }
+    if (!firstName?.value.trim()) {
+      firstName?.classList.add("error");
+      isValid = false;
+    } else {
+      firstName.classList.remove("error");
     }
 
-    // Validazione del secondo step (Organizzazione)
-    if(page === 1){
-      const nameOrg = form?.querySelector<HTMLInputElement>('[name="name"]');
-      const typeOrg = form?.querySelector<HTMLInputElement>('[name="type"]');
-      const addressOrg = form?.querySelector<HTMLInputElement>('[name="address"]');
-      const phoneOrg = form?.querySelector<HTMLInputElement>('[name="phone"]');
-      const emailOrg = form?.querySelector<HTMLInputElement>('[name="email"]');
-
-      if(!nameOrg?.value.trim()) {
-        nameOrg?.classList.add('error');
-        isValid = false;
-      } else {
-        nameOrg.classList.remove('error');
-      }
-
-      if(!typeOrg?.value.trim()) {
-        typeOrg?.classList.add('error');
-        isValid = false;
-      } else {
-        typeOrg.classList.remove('error');
-      }
-
-      if (!addressOrg?.value.trim()) {
-        addressOrg?.classList.add('error');
-        isValid = false;
-      } else {
-        addressOrg.classList.remove('error');
-      }
-
-      if (!phoneOrg?.value.trim() || !phonePattern.test(phoneOrg.value)) {
-        phoneOrg?.classList.add('error');
-        isValid = false;
-      } else {
-        phoneOrg.classList.remove('error');
-      }
-
-      if(!emailOrg?.value.trim() || !emailPattern.test(emailOrg.value)) {
-        emailOrg?.classList.add('error');
-        isValid = false;
-      } else {
-        emailOrg.classList.remove('error');
-      }
-      
+    if (!lastName?.value.trim()) {
+      lastName?.classList.add("error");
+      isValid = false;
+    } else {
+      lastName.classList.remove("error");
     }
 
-    // Validazione del terzo step (Prenotazione)
-    if(page === 2) {
-      const minors = form?.querySelector<HTMLInputElement>('[name="minors"]');
-      const adults = form?.querySelector<HTMLInputElement>('[name="adults"]');
-      const startDate = form?.querySelector<HTMLInputElement>('[name="startAvailabilityDate"]');
-      const endDate = form?.querySelector<HTMLInputElement>('[name="endAvailabilityDate"]');
-      const duration = form?.querySelector<HTMLInputElement>('[name="duration"]');
-
-      if(minors?.value.trim() === "" || Number(minors?.value) < 0) {
-        minors?.classList.add('error');
-        isValid = false;
-      } else {
-        minors?.classList.remove('error');
-      }
-
-      if(adults?.value.trim() === "" || Number(adults?.value) <= 0) {
-        adults?.classList.add('error');
-        isValid = false;
-      } else {
-        adults?.classList.remove('error');
-      }
-
-      if(!startDate?.value.trim() || !endDate?.value.trim() || new Date(startDate.value) >= new Date(endDate.value)) {
-        startDate?.classList.add('error');
-        endDate?.classList.add('error');
-        isValid = false;
-      } else {
-        startDate.classList.remove('error');
-        endDate.classList.remove('error');
-      }
-
-      if(duration?.value.trim() === "" || Number(duration?.value) <= 0) {
-        duration?.classList.add('error');
-        isValid = false;
-      } else {
-        duration?.classList.remove('error');
-      }
+    if (!email?.value.trim() || !emailPattern.test(email.value)) {
+      email?.classList.add("error");
+      isValid = false;
+    } else {
+      email.classList.remove("error");
     }
 
-    return isValid;
-}
+    if (!cf?.value.trim() || !cfPattern.test(cf.value)) {
+      cf?.classList.add("error");
+      isValid = false;
+    } else {
+      cf.classList.remove("error");
+    }
+
+    if (!phone?.value.trim() || !phonePattern.test(phone.value)) {
+      phone?.classList.add("error");
+      isValid = false;
+    } else {
+      phone.classList.remove("error");
+    }
+  }
+
+  // Validazione del secondo step (Organizzazione)
+  if (page === 1) {
+    const nameOrg = form?.querySelector<HTMLInputElement>('[name="name"]');
+    const typeOrg = form?.querySelector<HTMLInputElement>('[name="type"]');
+    const addressOrg =
+      form?.querySelector<HTMLInputElement>('[name="address"]');
+    const phoneOrg = form?.querySelector<HTMLInputElement>('[name="phone"]');
+    const emailOrg = form?.querySelector<HTMLInputElement>('[name="email"]');
+
+    if (!nameOrg?.value.trim()) {
+      nameOrg?.classList.add("error");
+      isValid = false;
+    } else {
+      nameOrg.classList.remove("error");
+    }
+
+    if (!typeOrg?.value.trim()) {
+      typeOrg?.classList.add("error");
+      isValid = false;
+    } else {
+      typeOrg.classList.remove("error");
+    }
+
+    if (!addressOrg?.value.trim()) {
+      addressOrg?.classList.add("error");
+      isValid = false;
+    } else {
+      addressOrg.classList.remove("error");
+    }
+
+    if (!phoneOrg?.value.trim() || !phonePattern.test(phoneOrg.value)) {
+      phoneOrg?.classList.add("error");
+      isValid = false;
+    } else {
+      phoneOrg.classList.remove("error");
+    }
+
+    if (!emailOrg?.value.trim() || !emailPattern.test(emailOrg.value)) {
+      emailOrg?.classList.add("error");
+      isValid = false;
+    } else {
+      emailOrg.classList.remove("error");
+    }
+  }
+
+  // Validazione del terzo step (Prenotazione)
+  if (page === 2) {
+    const minors = form?.querySelector<HTMLInputElement>('[name="minors"]');
+    const adults = form?.querySelector<HTMLInputElement>('[name="adults"]');
+    const startDate = form?.querySelector<HTMLInputElement>(
+      '[name="startAvailabilityDate"]'
+    );
+    const endDate = form?.querySelector<HTMLInputElement>(
+      '[name="endAvailabilityDate"]'
+    );
+    const duration = form?.querySelector<HTMLInputElement>('[name="duration"]');
+
+    if (minors?.value.trim() === "" || Number(minors?.value) < 0) {
+      minors?.classList.add("error");
+      isValid = false;
+    } else {
+      minors?.classList.remove("error");
+    }
+
+    if (adults?.value.trim() === "" || Number(adults?.value) <= 0) {
+      adults?.classList.add("error");
+      isValid = false;
+    } else {
+      adults?.classList.remove("error");
+    }
+
+    if (
+      !startDate?.value.trim() ||
+      !endDate?.value.trim() ||
+      new Date(startDate.value) >= new Date(endDate.value)
+    ) {
+      startDate?.classList.add("error");
+      endDate?.classList.add("error");
+      isValid = false;
+    } else {
+      startDate.classList.remove("error");
+      endDate.classList.remove("error");
+    }
+
+    if (duration?.value.trim() === "" || Number(duration?.value) <= 0) {
+      duration?.classList.add("error");
+      isValid = false;
+    } else {
+      duration?.classList.remove("error");
+    }
+  }
+
+  return isValid;
+};

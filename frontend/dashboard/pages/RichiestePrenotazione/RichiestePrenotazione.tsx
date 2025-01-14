@@ -11,6 +11,7 @@ interface BookingRequest {
   organizationType: string;
   startAvailabilityDate: string;
   endAvailabilityDate: string;
+  duration: number;
 }
 
 const RichiestePrenotazione = () => {
