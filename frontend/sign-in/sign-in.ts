@@ -9,12 +9,6 @@ form?.addEventListener("submit", (e) => {
 
   fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-
-    credentials: "include",
     body: formData,
   })
     .then((response) => {

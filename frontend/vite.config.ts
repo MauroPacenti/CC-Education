@@ -19,7 +19,7 @@ export default defineConfig({
         main: "./index.html", // Pagina principale
         laboratori: "./laboratori/index.html", // Pagina "Laboratori"
         richiediPrenotazione: "./richiedi-prenotazione/index.html", // Pagina "Richiedi Prenotazione"
-        login: "./login/index.html", // Pagina "Login"
+        "sign-in": "./sign-in/index.html", // Pagina "Login"
         dashboard: "./dashboard/index.html", // Pagina "Laboratori"
       },
     },

@@ -10,8 +10,8 @@ const durationStart = (duration?: number) => {
       return "13:00";
     case 3:
       return "08:00";
-    default:
-      return "09:00";
+    case 4:
+      return "08:00";
   }
 };
 const durationEnd = (duration?: number) => {
@@ -21,9 +21,9 @@ const durationEnd = (duration?: number) => {
     case 2:
       return "19:00";
     case 3:
+      return "19:00";
+    case 4:
       return "12:00";
-    default:
-      return "09:00";
   }
 };
 

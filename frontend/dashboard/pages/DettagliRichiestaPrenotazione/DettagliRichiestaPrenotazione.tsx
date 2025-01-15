@@ -54,8 +54,8 @@ const durationStart = (duration?: number) => {
       return "13:00";
     case 3:
       return "08:00";
-    default:
-      return "09:00";
+    case 4:
+      return "08:00";
   }
 };
 const durationEnd = (duration?: number) => {
@@ -65,9 +65,9 @@ const durationEnd = (duration?: number) => {
     case 2:
       return "19:00";
     case 3:
+      return "19:00";
+    case 4:
       return "12:00";
-    default:
-      return "09:00";
   }
 };
 
@@ -329,7 +329,7 @@ const DettagliRichiestaPrenotazione = () => {
             <div className="detail-item">
               <span className="detail-label">Durata:</span>
               <span className="detail-value">
-                {bookingRequestDetails?.duration} giorni
+                {durationText(bookingRequestDetails?.duration)}
               </span>
             </div>
           </div>
@@ -337,6 +337,19 @@ const DettagliRichiestaPrenotazione = () => {
       </div>
     </div>
   );
+};
+
+const durationText = (duration?: number) => {
+  switch (duration) {
+    case 1:
+      return "Mattina";
+    case 2:
+      return "Pomeriggio";
+    case 3:
+      return "Intera giornata";
+    case 4:
+      return "Più giorni";
+  }
 };
 
 export default DettagliRichiestaPrenotazione;
