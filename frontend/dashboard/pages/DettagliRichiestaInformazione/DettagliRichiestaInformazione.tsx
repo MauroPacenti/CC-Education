@@ -1,77 +1,47 @@
-import { useNavigate, useParams } from "react-router";
 import "./DettagliRichiestaInformazione.css";
-import { MessageSquareReply, MoveLeft, Trash } from "lucide-react";
-import { useEffect, useState } from "react";
+import { MessageSquareReply } from "lucide-react";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
-
-interface RequestInformation {
-  id: number;
-  date: string;
-  name: string;
-  email: string;
-  title: string;
-  content: string;
-}
+import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
+import Buttons from "../../components/Buttons/Buttons";
 
 const DettagliRichiestaInformazione = () => {
-  const { idRichiestaInformazione } = useParams();
-  const navigate = useNavigate();
+  const {
+    isLoading,
+    error,
+    deleteInformationRequest,
+    requestInformationDetails,
+    showDeleteModal,
+    toggleDeleteModal,
+    showReplyModal,
+    toggleReplyModal,
+    isLoadingDelete,
+    errorDelete,
+  } = useDettagliRichiestaInformazioni();
 
-  const [requestInformationDetails, setRequestInformationDetails] =
-    useState<RequestInformation>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [showReplyModal, setShowReplyModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  useEffect(() => {
-    const fetchBookingDetails = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`/api/pub/getAllInfoRequest`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        const requestInformationDetails = data.find(
-          (requestInformation: RequestInformation) =>
-            idRichiestaInformazione
-              ? requestInformation.id === +idRichiestaInformazione
-              : null
-        );
-        setRequestInformationDetails(requestInformationDetails);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (idRichiestaInformazione) {
-      fetchBookingDetails();
-    }
-  }, [idRichiestaInformazione]);
-
-  if (isLoading) {
+  if (errorDelete) {
     return (
-      <div>
-        <button onClick={() => navigate(-1)} className="back-button">
-          <MoveLeft />
-        </button>
-        <div>Caricamento...</div>
-      </div>
+      <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
+        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+          <p>Si è verificato un errore durante l'eliminazione: {error}</p>
+          <button
+            className="delete-modal-button"
+            onClick={() => {
+              console.log("click");
+              toggleDeleteModal();
+            }}
+          >
+            Chiudi
+          </button>
+        </div>
+      </ShowDeleteModal>
     );
   }
 
   if (error) {
     return (
       <div>
-        <button onClick={() => navigate(-1)} className="back-button">
-          <MoveLeft />
-        </button>
-
+        <Buttons.BackButton></Buttons.BackButton>
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
           richiesta d'informazione: {error}
@@ -80,15 +50,27 @@ const DettagliRichiestaInformazione = () => {
     );
   }
 
-  const toggleReplyModal = () => {
-    // Open modal
-    setShowReplyModal((prev) => !prev);
-  };
+  if (isLoadingDelete) {
+    return (
+      <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
+        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+          <p>Caricamento...</p>
+          <button className="delete-modal-button" onClick={toggleDeleteModal}>
+            Chiudi
+          </button>
+        </div>
+      </ShowDeleteModal>
+    );
+  }
 
-  const toggleDeleteModal = () => {
-    // Open modal
-    setShowDeleteModal((prev) => !prev);
-  };
+  if (isLoading) {
+    return (
+      <div>
+        <Buttons.BackButton></Buttons.BackButton>
+        <div>Caricamento...</div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -99,16 +81,28 @@ const DettagliRichiestaInformazione = () => {
         ></ShowReplyModal>
       )}
       {showDeleteModal && (
-        <ShowDeleteModal toggleDeleteModal={toggleDeleteModal} />
+        <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
+          <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Sei sicuro di voler eliminare questa richiesta?</h3>
+            <div className="delete-modal-buttons">
+              <button
+                className="delete-modal-button"
+                onClick={toggleDeleteModal}
+              >
+                Annulla
+              </button>
+              <button
+                className="delete-modal-button delete"
+                onClick={deleteInformationRequest}
+              >
+                Elimina
+              </button>
+            </div>
+          </div>
+        </ShowDeleteModal>
       )}
       <div className="info-request-details-buttons">
-        <button
-          onClick={() => navigate(-1)}
-          title="Indietro"
-          className="back-button"
-        >
-          <MoveLeft />
-        </button>
+        <Buttons.BackButton></Buttons.BackButton>
         <div>
           <button
             title="Rispondi alla richiesta"
@@ -117,13 +111,10 @@ const DettagliRichiestaInformazione = () => {
           >
             <MessageSquareReply />
           </button>
-          <button
+          <Buttons.DeleteButton
             title="Elimina richiesta"
-            className="delete-button"
             onClick={toggleDeleteModal}
-          >
-            <Trash />
-          </button>
+          ></Buttons.DeleteButton>
         </div>
       </div>
       <h2>{requestInformationDetails?.title}</h2>

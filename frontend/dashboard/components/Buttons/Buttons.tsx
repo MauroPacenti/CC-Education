@@ -1,10 +1,20 @@
 import { MoveLeft, Trash } from "lucide-react";
+import { PropsWithChildren } from "react";
 import { useNavigate } from "react-router";
 
-const DeleteButton = ({ onClick }: { onClick: () => void }) => {
+interface Props {
+  onClick: () => void;
+  title: string;
+}
+
+const DeleteButton = ({
+  onClick,
+  children,
+  title,
+}: PropsWithChildren<Props>) => {
   return (
-    <button className="delete-button" onClick={onClick}>
-      <Trash />
+    <button className="delete-button" onClick={onClick} title={title}>
+      <Trash /> {children}
     </button>
   );
 };

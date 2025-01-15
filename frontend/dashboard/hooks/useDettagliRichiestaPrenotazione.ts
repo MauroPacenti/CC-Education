@@ -90,7 +90,6 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(name, value);
     setSelectedDate(
       (prevSelectedDate: {
         startDate: string | undefined;
@@ -106,7 +105,7 @@ const useDettagliRichiestaPrenotazione = () => {
     try {
       setIsLoading(true);
       if (!idRichiestaPrenotazione) {
-        throw new Error("idRichiestaPrenotazione is undefined");
+        throw new Error("id not found");
       }
 
       DettagliRichiestaPrenotazioneService.getRequest(
