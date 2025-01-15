@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class JourneyRequestController {
     @Autowired
     private JourneyRequestService journeyRequestService;
@@ -32,14 +33,18 @@ public class JourneyRequestController {
     private JavaMailSenderService javaMailSenderService;
 
     // Returns all Journeys
-    @GetMapping("/api/pub/getAllJourneyRequest")
-    public List<JourneyRequest> getAllJourneyRequest() {
-        List<JourneyRequest> listJourneyRequest = journeyRequestService.getJourneyRequests();
-        return listJourneyRequest;
+    @GetMapping("pub/getAllJourneyRequest")
+    public ResponseEntity<List<JourneyRequest>> getAllJourneyRequest() {
+        List<JourneyRequest> filteredJourneyRequest = journeyRequestService.getJourneyRequests();
+        if(filteredJourneyRequest.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}else {
+			return ResponseEntity.ok(filteredJourneyRequest);
+		}
     }
 
     // Creates a new JourneyRequest
-    @PostMapping("/api/pub/createJourneyRequest")
+    @PostMapping("/pub/createJourneyRequest")
     public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody JourneyRequestDto journeyRequestDto) {
 
         try {
@@ -71,26 +76,36 @@ public class JourneyRequestController {
     }
 
     // Updates existing JourneyRequest
-    @PutMapping("/api/pub/updateJourneyRequest")
-    public JourneyRequest updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
+    @PutMapping("pub/updateJourneyRequest")
+    public ResponseEntity<JourneyRequest> updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
                                                @RequestParam(required = false) int duration,
                                                @RequestParam(required = false) int keeperId,
                                                @RequestParam int journeyRequestId) {
 
-        JourneyRequest updatedJourneyRequest = new JourneyRequest();
-        updatedJourneyRequest.setId(journeyRequestId);
-        updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
-        updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
-        updatedJourneyRequest.setDuration(duration);
-        updatedJourneyRequest.setKeeper(keeperService.getKeeper(keeperId).get());
-        journeyRequestService.updateJourneyRequest(journeyRequestId, updatedJourneyRequest);
-        return updatedJourneyRequest;
+    	try {
+	        JourneyRequest updatedJourneyRequest = new JourneyRequest();
+	        updatedJourneyRequest.setId(journeyRequestId);
+	        updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
+	        updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
+	        updatedJourneyRequest.setDuration(duration);
+	        updatedJourneyRequest.setKeeper(keeperService.getKeeper(keeperId).get());
+	        journeyRequestService.updateJourneyRequest(journeyRequestId, updatedJourneyRequest);
+	        return ResponseEntity.ok(updatedJourneyRequest);
+    	}catch(Exception e) {
+    		return ResponseEntity.badRequest().build();
+    	}
     }
 
     // Deletes existing JourneyRequest
-    @DeleteMapping("/api/pub/deleteJourneyRequest")
-    public boolean deleteJourneyRequest(@RequestParam int journeyRequestId) {
-        return journeyRequestService.deleteJourneyRequest(journeyRequestId);
+    @DeleteMapping("pub/deleteJourneyRequest")
+    public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int journeyRequestId) {
+    	
+        try {
+        	boolean deletedJourneyRequest = journeyRequestService.deleteJourneyRequest(journeyRequestId);
+        	return ResponseEntity.ok(deletedJourneyRequest);
+        }catch(Exception e) {
+        	return ResponseEntity.noContent().build();
+        }
     }
 }

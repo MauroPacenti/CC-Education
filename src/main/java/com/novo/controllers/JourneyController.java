@@ -6,13 +6,14 @@ import java.util.List;
 import com.novo.dtos.JourneyDto;
 import com.novo.entities.*;
 import com.novo.services.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/api")
 public class JourneyController {
 
 	@Autowired
@@ -20,6 +21,9 @@ public class JourneyController {
 	
 	@Autowired
 	private JavaMailSenderService javaMailSenderService;
+	
+	@Autowired 
+	private JourneyRequestService journeyRequestService;
 
 	@Autowired
 	private AdminService adminService;
@@ -34,18 +38,22 @@ public class JourneyController {
 	private OrganizationService organizationService;
 
 	// Returns all Journeys
-	@GetMapping("/api/pub/getAllJourney")
-	public List<Journey> getAllJourney(
+	@GetMapping("/pub/getAllJourney")
+	public ResponseEntity<List<Journey>> getAllJourney(
 			@RequestParam(required = false) String title,
 	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
 	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate) {
 		
-		List<Journey> listJourney = journeyService.filteredJourney(title, startDate, endDate);
-		return listJourney;
+		List<Journey> filteredJourney = journeyService.filteredJourney(title, startDate, endDate);
+		if(filteredJourney.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}else {
+			return ResponseEntity.ok(filteredJourney);
+		}
 	}
 	
 	// Creates a new Journey
-	@PostMapping("/api/pub/createJourney")
+	@PostMapping("/pub/createJourney")
 	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat LocalDateTime startDate,
 	        @RequestParam @DateTimeFormat LocalDateTime endDate,
@@ -55,6 +63,10 @@ public class JourneyController {
 	    Journey savedJourney;
 	    try {
 			savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+			JourneyRequest journeyRequest = journeyRequestService.getKeeperId(keeperId);
+			if(journeyRequest != null){
+				journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
+			}
 			String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
 			String body= "La prenotazione è stata confermata";
 			javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
@@ -98,25 +110,33 @@ public class JourneyController {
 	}
 	
 	// Updates existing Journey
-	@PutMapping("/api/pub/updateJourney")
-	public Journey updateJourney(@RequestParam(required = false) String title,
+	@PutMapping("/pub/updateJourney")
+	public ResponseEntity<Journey> updateJourney(@RequestParam(required = false) String title,
 		    @RequestParam int journeyId,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate ,
 	        @RequestParam(required = false) String annotations,
 	        @RequestParam int keeperId) {
-	   
-	    Journey updatedJourney = journeyService.update(journeyId, title, annotations, startDate, endDate, keeperId);
-	    
-	    return updatedJourney;
+	   try {
+		   Journey journeyUpdated = journeyService.update(journeyId, title, annotations, startDate, endDate, keeperId);
+		   return ResponseEntity.ok(journeyUpdated);
+	   }catch(Exception e) {
+		   return ResponseEntity.badRequest().build();
+	   }
 	}
 	
 	// Deletes existing Journey
-	@DeleteMapping("/api/pub/deleteJourney")
-	public boolean deleteJourney(@RequestParam int journeyId) {
-	   boolean deletedJourney = journeyService.delete(journeyId);
+	@DeleteMapping("/pub/deleteJourney")
+	public ResponseEntity<Boolean> deleteJourney(@RequestParam int journeyId) {
+	  
+		try {
+			boolean deletedJourney = journeyService.delete(journeyId);
+			return ResponseEntity.ok(deletedJourney);
+		}catch(Exception e) {
+			return ResponseEntity.noContent().build();
+		}
 	    
-	    return deletedJourney;
+	   
 	}
 
 }

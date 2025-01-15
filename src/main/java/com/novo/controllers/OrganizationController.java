@@ -3,63 +3,87 @@ package com.novo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.novo.entities.Organization;
+import com.novo.repos.OrganizationRepository;
 import com.novo.services.OrganizationService;
 
 @RestController
+@RequestMapping("/api")
 public class OrganizationController {
 	
 	@Autowired
 	private OrganizationService organizationService;
 	
+	@Autowired
+	private OrganizationRepository organizationRepository;
+	
 	// Returns all Organizations
-	@GetMapping("api/pub/getAllOrganization")
-	public List<Organization> getAllOrganization(){
+	@GetMapping("pub/getAllOrganization")
+	public ResponseEntity<List<Organization>> getAllOrganization(){
 		List<Organization> filteredOrganization = organizationService.findAll();
-		return filteredOrganization;
+		if(filteredOrganization.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		}else {
+			return ResponseEntity.ok(filteredOrganization);
+		}
 	}
 	
 	// Creates a new Organization
-	@PostMapping("api/pub/createOrganization")
-	public Organization createOrganization(@RequestParam(required = false) String name,
+	@PostMapping("pub/createOrganization")
+	public ResponseEntity<Organization> createOrganization(@RequestParam(required = false) String name,
 										   @RequestParam(required = false) String type,
 										   @RequestParam(required = false) String address,
 										   @RequestParam(required = false) String phone,
 										   @RequestParam(required = false) String email,
 										   @RequestParam int keeperId ) {
-		
-		Organization savedOrganization = organizationService.save(name, type, address, phone, email, keeperId);
-		return savedOrganization;
+		try {
+			Organization savedOrganization = organizationService.save(name, type, address, phone, email, keeperId);
+			return ResponseEntity.ok(savedOrganization);
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 		
 	}
 	
 	// Updates an existing Organization
-	@PutMapping("api/pub/updateOrganization")
-	public Organization updateOrganization(@RequestParam(required = false) String name,
+	@PutMapping("pub/updateOrganization")
+	public ResponseEntity<Organization> updateOrganization(@RequestParam(required = false) String name,
 										   @RequestParam(required = false) String type,
 										   @RequestParam(required = false) String address,
 										   @RequestParam(required = false) String phone,
 										   @RequestParam(required = false) String email,
 										   @RequestParam int keeperId,
 										   @RequestParam int organizationId ) {
-		
-		Organization updatedOrganization = organizationService.update(organizationId, name, type, address, phone, email, organizationId);
-		return updatedOrganization;
-		
+		try {
+			Organization updatedOrganization = organizationService.update(organizationId, name, type, address, phone, email, organizationId);
+			return ResponseEntity.ok(updatedOrganization);
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+			
 	}
 	
 	// Deletes an existing Organization
-	@DeleteMapping("api/pub/deleteOrganization")
-	public void deletedOrganization(@RequestParam int organizationId ) {
+	@DeleteMapping("pub/deleteOrganization")
+	public ResponseEntity<String> deletedOrganization(@RequestParam int organizationId ) {
 		
-		organizationService.delete(organizationId);
+		try {
+			Organization organization = organizationService.findById(organizationId);
+			organizationRepository.delete(organization);
+			return ResponseEntity.ok("deletion successful");
+		}catch(Exception e) {
+			return ResponseEntity.noContent().build();
+		}
+		
     }
 	
 }

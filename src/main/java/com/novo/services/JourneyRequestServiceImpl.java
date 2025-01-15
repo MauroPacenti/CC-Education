@@ -44,6 +44,7 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
         }
 
     }
+    
 
     @Override
     public void updateJourneyRequest(int journeyRequestId, JourneyRequest journeyRequest) {
@@ -56,4 +57,9 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
             edited.setDuration(journeyRequest.getDuration());
         journeyRequestRepo.save(edited);
     }
+
+	@Override
+	public JourneyRequest getKeeperId(int keeperId) {
+		return journeyRequestRepo.findByKeeperId(keeperId);
+	}
 }
