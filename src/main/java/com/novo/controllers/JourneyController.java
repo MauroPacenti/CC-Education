@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.novo.dtos.JourneyDto;
 import com.novo.entities.*;
+import com.novo.repos.JourneyRequestRepository;
 import com.novo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,6 +33,12 @@ public class JourneyController {
 
 	@Autowired
 	private OrganizationService organizationService;
+	
+	@Autowired
+	private JourneyRequestService journeyRequestService;
+	
+	@Autowired
+	private JourneyRequestRepository journeyRequestRepository;
 
 	// Returns all Journeys
 	@GetMapping("/api/pub/getAllJourney")
@@ -55,6 +62,10 @@ public class JourneyController {
 	    Journey savedJourney;
 	    try {
 			savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+			JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
+			if(journeyRequest != null) {
+				journeyRequestRepository.delete(journeyRequest);
+			}
 			String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
 			String body= "La prenotazione è stata confermata";
 			javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
