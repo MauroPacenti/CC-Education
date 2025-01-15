@@ -26,6 +26,7 @@ public class KeeperController {
     @Autowired
     private KeeperRepository keeperRepo;
 
+    // Returns all keepers
     @GetMapping("/pub/getKeepers")
     public ResponseEntity<List<Keeper>> getKeepers(@RequestParam(required = false) String key) {
         List<Keeper> keepers = keeperService.filteredKeepers(key);
@@ -37,6 +38,7 @@ public class KeeperController {
         }
     }
 
+    // Creates a new keeper
     @PostMapping("/pub/addKeeper")
     public ResponseEntity<Keeper> addKeeper(@RequestParam String firstName,
                                             @RequestParam String lastName,
@@ -58,6 +60,7 @@ public class KeeperController {
         }
     }
 
+    // Updates an existing keeper
     @PutMapping("/auth/editKeeper")
     public ResponseEntity<Keeper> editKeeper(@RequestParam int keeperId,
                                              @RequestParam(required = false) String firstName,
@@ -79,6 +82,7 @@ public class KeeperController {
         }
     }
 
+    // Deletes an existing keeper
     @DeleteMapping("/pub/deleteKeeper")
     public ResponseEntity<String> deleteKeeper(@RequestParam int keeperId) {
         try{
