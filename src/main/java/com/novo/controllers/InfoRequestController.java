@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class InfoRequestController {
     @Autowired
     private InfoRequestService infoRequestService;
@@ -20,18 +19,14 @@ public class InfoRequestController {
     private JavaMailSenderService javaMailSenderService;
 
     // Returns all Infos
-    @GetMapping("pub/getAllInfoRequest")
-    public ResponseEntity<List<InfoRequest>> getAllInfoRequest() {
-        List<InfoRequest> filteredInfoRequest = infoRequestService.getInfoRequests();
-        if(filteredInfoRequest.isEmpty()) {
-        	return ResponseEntity.badRequest().build();
-        }else {
-        	return ResponseEntity.ok(filteredInfoRequest);
-        }
+    @GetMapping("/api/pub/getAllInfoRequest")
+    public List<InfoRequest> getAllInfoRequest() {
+        List<InfoRequest> listInfoRequest = infoRequestService.getInfoRequests();
+        return listInfoRequest;
     }
 
     // Creates a new InfoRequest
-    @PostMapping("pub/createInfoRequest")
+    @PostMapping("/api/pub/createInfoRequest")
     public ResponseEntity<InfoRequest> createInfoRequest(@RequestParam String email,
                                          @RequestParam String title,
                                          @RequestParam String content) {
@@ -57,27 +52,18 @@ public class InfoRequestController {
     }
 
     // Updates existing InfoRequest
-    @PutMapping("/pub/updateInfoRequest")
-    public ResponseEntity<InfoRequest> updateInfoRequest(@RequestParam int infoRequestId,
+    @PutMapping("/api/pub/updateInfoRequest")
+    public InfoRequest updateInfoRequest(@RequestParam int infoRequestId,
                                          @RequestParam int statusId) {
 
-    	try {
-	        InfoRequest updatedInfoRequest = new InfoRequest();
-	        infoRequestService.updateInfoRequest(infoRequestId, statusId);
-	        return ResponseEntity.ok(updatedInfoRequest);
-    	}catch(Exception e) {
-    		return ResponseEntity.badRequest().build();
-    	}
+        InfoRequest updatedInfoRequest = new InfoRequest();
+        infoRequestService.updateInfoRequest(infoRequestId, statusId);
+        return updatedInfoRequest;
     }
 
     // Deletes existing InfoRequest
-    @DeleteMapping("/pub/deleteInfoRequest")
-    public ResponseEntity<Boolean> deleteInfoRequest(@RequestParam int infoRequestId) {
-        try {
-    		boolean deletedInfoRequest = infoRequestService.deleteInfoRequest(infoRequestId);
-    		return ResponseEntity.ok(deletedInfoRequest);
-    	}catch(Exception e) {
-    		return ResponseEntity.noContent().build();
-    	}
+    @DeleteMapping("/api/pub/deleteInfoRequest")
+    public boolean deleteInfoRequest(@RequestParam int infoRequestId) {
+        return infoRequestService.deleteInfoRequest(infoRequestId);
     }
 }

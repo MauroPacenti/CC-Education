@@ -15,6 +15,7 @@ public class JourneyRequest {
     private int id;
 
     @Schema(hidden = true)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "keeper_id")
     private Keeper keeper; // Foreign key for "keeper_id" column
 

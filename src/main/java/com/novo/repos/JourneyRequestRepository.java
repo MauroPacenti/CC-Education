@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JourneyRequestRepository extends JpaRepository<JourneyRequest, Integer> {
 	
-	public JourneyRequest findByKeeperId(int keeperId);
-	
 }
