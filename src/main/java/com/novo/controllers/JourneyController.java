@@ -3,22 +3,14 @@ package com.novo.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.novo.dtos.JourneyDto;
+import com.novo.entities.*;
+import com.novo.services.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.novo.entities.Journey;
-import com.novo.entities.JourneyRequest;
-import com.novo.services.JavaMailSenderService;
-import com.novo.services.JourneyRequestService;
-import com.novo.services.JourneyService;
 
 @RestController
 @RequestMapping("/api")
@@ -32,6 +24,18 @@ public class JourneyController {
 	
 	@Autowired 
 	private JourneyRequestService journeyRequestService;
+
+	@Autowired
+	private AdminService adminService;
+
+	@Autowired
+	private KeeperService keeperService;
+
+	@Autowired
+	private GroupService groupService;
+
+	@Autowired
+	private OrganizationService organizationService;
 
 	// Returns all Journeys
 	@GetMapping("/pub/getAllJourney")
@@ -72,6 +76,37 @@ public class JourneyController {
 			return ResponseEntity.badRequest().build();
         }
 
+	}
+
+	@PostMapping("/api/pub/createJourneyFromAdmin")
+	// Creates a new journey from the admin interface
+	public ResponseEntity<Journey> createJourneyFromAdmin(@RequestBody JourneyDto journeyDto){
+		try {
+			if(adminService.validateEmail(journeyDto.getKeeper().getEmail())){
+				throw new Error("L'email non ha un formato idoneo.");
+			}
+			Keeper newKeeper = keeperService.addKeeper(journeyDto.getKeeper());
+			Group group = groupService.save(journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
+			Organization organization = organizationService.save(journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
+			newKeeper.setGroup(group);
+			newKeeper.setOrganization(organization);
+			journeyDto.getJourney().setKeeper(newKeeper);
+			Journey journey;
+			try {
+				journey = journeyService.save(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
+				String object= "Richiesta prenotazione: " + journey.getKeeper().getFirstName() + " " + journey.getKeeper().getLastName();
+				String body= "La richiesta è stata registrata";
+				javaMailSenderService.sendMail(journeyDto.getKeeper().getEmail(), object, body); // Sends email with journey request
+			}catch(Exception e) {
+				new Exception("Error to send email");
+				return ResponseEntity.badRequest().build();
+			}
+
+			return ResponseEntity.ok(journey);
+		}
+		catch (Exception e){
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	// Updates existing Journey
