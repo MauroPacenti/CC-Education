@@ -36,9 +36,6 @@ public class JourneyController {
 	
 	@Autowired
 	private JourneyRequestService journeyRequestService;
-	
-	@Autowired
-	private JourneyRequestRepository journeyRequestRepository;
 
 	// Returns all Journeys
 	@GetMapping("/api/pub/getAllJourney")
@@ -64,7 +61,7 @@ public class JourneyController {
 			savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
 			JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
 			if(journeyRequest != null) {
-				journeyRequestRepository.delete(journeyRequest);
+				journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
 			}
 			String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
 			String body= "La prenotazione è stata confermata";
