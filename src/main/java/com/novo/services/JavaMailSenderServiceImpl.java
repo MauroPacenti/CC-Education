@@ -15,7 +15,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         //server email address
-        message.setFrom("neotrinal@gmail.com");
+        message.setFrom("mauro.pacenti@edu.itspiemonte.it");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
@@ -27,7 +27,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     public void sendVerificationMail(String code, String email) {
         SimpleMailMessage message = new SimpleMailMessage();
         //server email address
-        message.setFrom("neotrinal@gmail.com");
+        message.setFrom("mauro.pacenti@edu.itspiemonte.it");
         message.setTo(email);
         message.setSubject("codice di verifica");
         message.setText("Il tuo codice di verifica per la modifica delle informazioni è: " + code);
