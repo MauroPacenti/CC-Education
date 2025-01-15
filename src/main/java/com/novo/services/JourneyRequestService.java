@@ -10,5 +10,6 @@ public interface JourneyRequestService {
     Optional<JourneyRequest> getJourneyRequest(int journeyRequestId);
     JourneyRequest addJourneyRequest(JourneyRequest journeyRequest);
     boolean deleteJourneyRequest(int journeyRequestId);
+    JourneyRequest getKeeper(int keeperId);
     void updateJourneyRequest(int journeyRequestId, JourneyRequest journeyRequest);
 }
