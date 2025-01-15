@@ -17,6 +17,8 @@ const DettagliRichiestaPrenotazione = () => {
     handleReject,
     approveModal,
     toggleAproveModal,
+    handleChange,
+    selectedDate,
   } = useDettagliRichiestaPrenotazione();
 
   if (isLoading) {
@@ -87,7 +89,24 @@ const DettagliRichiestaPrenotazione = () => {
                   <label className="date-label" htmlFor="single-date">
                     Seleziona giorno della prenotazione
                   </label>
-                  <input className="date-input" type="date" id="single-date" />
+                  <input
+                    className="date-input"
+                    type="date"
+                    id="single-date"
+                    min={
+                      bookingRequestDetails?.startAvailabilityDate ??
+                      new Date().toISOString().split("T")[0]
+                    }
+                    max={
+                      bookingRequestDetails?.endAvailabilityDate ??
+                      new Date().toISOString().split("T")[0]
+                    }
+                    onClick={(e) => {
+                      console.log(e.currentTarget.value);
+                      e.currentTarget.showPicker();
+                    }}
+                    onChange={handleChange}
+                  />
                 </div>
               ) : (
                 <div className="date-range-input">
@@ -95,13 +114,48 @@ const DettagliRichiestaPrenotazione = () => {
                     <label className="date-label" htmlFor="start-date">
                       Seleziona inizio della prenotazione
                     </label>
-                    <input className="date-input" type="date" id="start-date" />
+                    <input
+                      className="date-input"
+                      type="date"
+                      id="start-date"
+                      required
+                      min={
+                        bookingRequestDetails?.startAvailabilityDate ??
+                        new Date().toISOString().split("T")[0]
+                      }
+                      max={
+                        bookingRequestDetails?.endAvailabilityDate ??
+                        new Date().toISOString().split("T")[0]
+                      }
+                      name="startDate"
+                      value={selectedDate.startDate}
+                      onClick={(e) => {
+                        e.currentTarget.showPicker();
+                      }}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="date-field">
                     <label className="date-label" htmlFor="end-date">
                       Seleziona fine della prenotazione
                     </label>
-                    <input className="date-input" type="date" id="end-date" />
+                    <input
+                      className="date-input"
+                      type="date"
+                      id="end-date"
+                      required
+                      min={selectedDate?.startDate}
+                      max={
+                        bookingRequestDetails?.endAvailabilityDate ??
+                        new Date().toISOString().split("T")[0]
+                      }
+                      onChange={handleChange}
+                      name="endDate"
+                      value={selectedDate.endDate}
+                      onClick={(e) => {
+                        e.currentTarget.showPicker();
+                      }}
+                    />
                   </div>
                 </div>
               )}

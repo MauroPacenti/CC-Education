@@ -35,6 +35,11 @@ const useDettagliRichiestaPrenotazione = () => {
   const [bookingRequestDetails, setBookingRequestDetails] =
     useState<BookingRequestDetails>();
 
+  const [selectedDate, setSelectedDate] = useState({
+    startDate: bookingRequestDetails?.startAvailabilityDate,
+    endDate: bookingRequestDetails?.endAvailabilityDate,
+  });
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,10 +48,10 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const handleApprove = () => {
     const data = {
-      startDate: `${
-        bookingRequestDetails?.startAvailabilityDate
-      }T${durationStart(bookingRequestDetails?.duration)}:00`,
-      endDate: `${bookingRequestDetails?.endAvailabilityDate}T${durationEnd(
+      startDate: `${selectedDate.startDate}T${durationStart(
+        bookingRequestDetails?.duration
+      )}:00`,
+      endDate: `${selectedDate.endDate}T${durationEnd(
         bookingRequestDetails?.duration
       )}:00`,
       keeperId: bookingRequestDetails?.keeper.id,
@@ -83,6 +88,20 @@ const useDettagliRichiestaPrenotazione = () => {
     setReplyModal((prev) => !prev);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log(name, value);
+    setSelectedDate(
+      (prevSelectedDate: {
+        startDate: string | undefined;
+        endDate: string | undefined;
+      }) => ({
+        ...prevSelectedDate,
+        [name]: value,
+      })
+    );
+  };
+
   useEffect(() => {
     try {
       setIsLoading(true);
@@ -116,6 +135,8 @@ const useDettagliRichiestaPrenotazione = () => {
     handleReject,
     handleContact,
     toggleAproveModal,
+    handleChange,
+    selectedDate,
   };
 };
 
