@@ -105,6 +105,8 @@ const DettagliRichiestaPrenotazione = () => {
                       console.log(e.currentTarget.value);
                       e.currentTarget.showPicker();
                     }}
+                    name="startDate"
+                    value={selectedDate.startDate}
                     onChange={handleChange}
                   />
                 </div>

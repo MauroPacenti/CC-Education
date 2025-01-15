@@ -51,7 +51,7 @@ const useDettagliRichiestaPrenotazione = () => {
       startDate: `${selectedDate.startDate}T${durationStart(
         bookingRequestDetails?.duration
       )}:00`,
-      endDate: `${selectedDate.endDate}T${durationEnd(
+      endDate: `${selectedDate.endDate ?? selectedDate.startDate}T${durationEnd(
         bookingRequestDetails?.duration
       )}:00`,
       keeperId: bookingRequestDetails?.keeper.id,
