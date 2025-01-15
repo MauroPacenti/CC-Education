@@ -1,0 +1,37 @@
+.details-section {
+  background-color: white;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.25em;
+  margin-bottom: 1em;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.25em;
+  padding-bottom: 0.625em;
+  border-bottom: 2px solid #eee;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.detail-value {
+  color: #333;
+  font-size: 1rem;
+}

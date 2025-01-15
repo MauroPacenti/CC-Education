@@ -81,8 +81,6 @@ const Prenotazioni = () => {
         data = data.map((booking: Journey) => calendarBookingMapper(booking));
         eventsService.set(data);
         setEvents(data);
-        console.log(eventsService.getAll());
-        console.log(data);
       })
       .catch((err) => console.error(err));
     eventsService.getAll();

@@ -1,184 +1,28 @@
-import { useNavigate, useParams } from "react-router";
 import "./DettagliRichiestaPrenotazione.css";
-import { MoveLeft } from "lucide-react";
-import { useEffect, useState } from "react";
 import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
+import Modal from "../../components/Modal/Modal";
 
-interface BookingRequestDetails {
-  id: number;
-  keeper: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    cf: string;
-    phone: string;
-    group: {
-      id: number;
-      minors: number;
-      adults: number;
-      keeper: string;
-    };
-    organization: {
-      id: number;
-      name: string;
-      type: string;
-      address: string;
-      phone: string;
-      email: string;
-      keeper: string;
-    };
-  };
-  startAvailabilityDate: string;
-  endAvailabilityDate: string;
-  duration: number;
-  status: {
-    id: number;
-    name: string;
-    journeyRequests: string[];
-    infoRequests: {
-      id: number;
-      email: string;
-      title: string;
-      content: string;
-      status: string;
-    }[];
-  };
-}
-
-const durationStart = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "08:00";
-    case 2:
-      return "13:00";
-    case 3:
-      return "08:00";
-    case 4:
-      return "08:00";
-  }
-};
-const durationEnd = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "12:00";
-    case 2:
-      return "19:00";
-    case 3:
-      return "19:00";
-    case 4:
-      return "12:00";
-  }
-};
+import Details from "../../components/Details/Details";
+import Buttons from "../../components/Buttons/Buttons";
+import useDettagliRichiestaPrenotazione from "../../hooks/useDettagliRichiestaPrenotazione";
 
 const DettagliRichiestaPrenotazione = () => {
-  const { idRichiestaPrenotazione } = useParams();
-  const navigate = useNavigate();
-
-  const [bookingRequestDetails, setBookingRequestDetails] =
-    useState<BookingRequestDetails>();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [replyModal, setReplyModal] = useState(false);
-
-  const handleApprove = async () => {
-    const data = {
-      startDate: `${
-        bookingRequestDetails?.startAvailabilityDate
-      }T${durationStart(bookingRequestDetails?.duration)}:00`,
-      endDate: `${bookingRequestDetails?.endAvailabilityDate}T${durationEnd(
-        bookingRequestDetails?.duration
-      )}:00`,
-      keeperId: bookingRequestDetails?.keeper.id,
-      title: bookingRequestDetails?.keeper.organization.name,
-    };
-    console.log(data);
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `/api/pub/createJourney?startDate=${data.startDate}&endDate=${data.endDate}&title=${data.title}&keeperId=${data.keeperId}`,
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      setIsLoading(false);
-      navigate("/dashboard/prenotazioni");
-      // handle success
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    }
-  };
-
-  const handleReject = async () => {
-    try {
-      const response = await fetch(
-        `/api/pub/deleteJourneyRequest?journeyRequestId=${bookingRequestDetails?.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      navigate("/dashboard/richieste-prenotazioni");
-
-      // handle success
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    }
-  };
-
-  const handleContact = () => {
-    setReplyModal((prev) => !prev);
-  };
-
-  useEffect(() => {
-    const fetchBookingRequestDetails = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`/api/pub/getAllJourneyRequest`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        const bookingRequestDetails = data.find(
-          (bookingRequest: BookingRequestDetails) =>
-            idRichiestaPrenotazione
-              ? bookingRequest.id === +idRichiestaPrenotazione
-              : null
-        );
-        setBookingRequestDetails(bookingRequestDetails);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (idRichiestaPrenotazione) {
-      fetchBookingRequestDetails();
-    }
-  }, [idRichiestaPrenotazione]);
+  const {
+    isLoading,
+    error,
+    replyModal,
+    handleContact,
+    bookingRequestDetails,
+    handleApprove,
+    handleReject,
+    approveModal,
+    toggleAproveModal,
+  } = useDettagliRichiestaPrenotazione();
 
   if (isLoading) {
     return (
       <div>
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <MoveLeft />
-        </button>
-
+        <Buttons.BackButton></Buttons.BackButton>
         <p>Loading...</p>
       </div>
     );
@@ -187,9 +31,7 @@ const DettagliRichiestaPrenotazione = () => {
   if (error) {
     return (
       <div>
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <MoveLeft />
-        </button>
+        <Buttons.BackButton></Buttons.BackButton>
         <p>Error: {error}</p>
       </div>
     );
@@ -203,137 +45,153 @@ const DettagliRichiestaPrenotazione = () => {
           email={bookingRequestDetails?.keeper?.email}
         />
       )}
-      <button className="back-button" onClick={() => navigate(-1)}>
-        <MoveLeft />
-      </button>
+      <Buttons.BackButton></Buttons.BackButton>
 
       <h2>Dettagli Richiesta Prenotazione</h2>
 
       <div className="buttons-container">
-        {/* <button className="button contact" onClick={handleContact}>
-          Contatta
-        </button> */}
-
-        <button className="button approve" onClick={handleApprove}>
-          Approva
-        </button>
         <button className="button reject" onClick={handleReject}>
           Rifiuta
         </button>
+
+        <button className="button approve" onClick={toggleAproveModal}>
+          Seleziona data
+        </button>
       </div>
 
-      <div className="details-container">
-        <section className="details-section">
-          <h3 className="section-title">Dati Accompagnatore</h3>
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Nome:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.firstName}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Cognome:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.lastName}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Email:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.email}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">CF:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.cf}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Telefono:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.phone}
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="details-section">
-          <h3 className="section-title">Dati Organizzazione</h3>
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Nome:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.organization?.name}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Tipo:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.organization?.type}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Indirizzo:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.organization?.address}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Telefono:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.organization?.phone}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Email:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.organization?.email}
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="details-section">
-          <h3 className="section-title">Dati Prenotazione</h3>
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Minori nel Gruppo:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.group?.minors}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Adulti:</span>
-              <span className="detail-value">
-                {bookingRequestDetails?.keeper?.group?.adults}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Data inizio disponibilità:</span>
-              <span className="detail-value">
+      {approveModal && (
+        <Modal toggleActiveModal={toggleAproveModal}>
+          <div className="approve-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="availability-info">
+              <p className="availability-dates">
+                Disponibilità del cliente:{" "}
                 {new Date(
                   bookingRequestDetails?.startAvailabilityDate ?? ""
-                ).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Data fine disponibilità:</span>
-              <span className="detail-value">
+                ).toLocaleDateString()}{" "}
+                -{" "}
                 {new Date(
                   bookingRequestDetails?.endAvailabilityDate ?? ""
                 ).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Durata:</span>
-              <span className="detail-value">
+              </p>
+              <p className="duration-text">
+                Durata richiesta:{" "}
                 {durationText(bookingRequestDetails?.duration)}
-              </span>
+              </p>
             </div>
+
+            <div className="date-selection">
+              {bookingRequestDetails?.duration === 1 ||
+              bookingRequestDetails?.duration === 2 ||
+              bookingRequestDetails?.duration === 3 ? (
+                <div className="single-date-input">
+                  <label className="date-label" htmlFor="single-date">
+                    Seleziona giorno della prenotazione
+                  </label>
+                  <input className="date-input" type="date" id="single-date" />
+                </div>
+              ) : (
+                <div className="date-range-input">
+                  <div className="date-field">
+                    <label className="date-label" htmlFor="start-date">
+                      Seleziona inizio della prenotazione
+                    </label>
+                    <input className="date-input" type="date" id="start-date" />
+                  </div>
+                  <div className="date-field">
+                    <label className="date-label" htmlFor="end-date">
+                      Seleziona fine della prenotazione
+                    </label>
+                    <input className="date-input" type="date" id="end-date" />
+                  </div>
+                </div>
+              )}
+            </div>
+            <button className="button approve" onClick={handleApprove}>
+              Approva
+            </button>
           </div>
-        </section>
+        </Modal>
+      )}
+
+      <div className="details-container">
+        <Details.DetailsSection title="Dati Accompagnatore">
+          <Details.DetailsGrid>
+            <Details.DetailItem
+              label="Nome"
+              value={bookingRequestDetails?.keeper?.firstName}
+            />
+            <Details.DetailItem
+              label="Cognome"
+              value={bookingRequestDetails?.keeper?.lastName}
+            />
+            <Details.DetailItem
+              label="Email"
+              value={bookingRequestDetails?.keeper?.email}
+            />
+            <Details.DetailItem
+              label="CF"
+              value={bookingRequestDetails?.keeper?.cf}
+            />
+            <Details.DetailItem
+              label="Telefono"
+              value={bookingRequestDetails?.keeper?.phone}
+            />
+          </Details.DetailsGrid>
+        </Details.DetailsSection>
+
+        <Details.DetailsSection title="Dati Organizzazione">
+          <Details.DetailsGrid>
+            <Details.DetailItem
+              label="Nome"
+              value={bookingRequestDetails?.keeper?.organization?.name}
+            />
+            <Details.DetailItem
+              label="Tipo"
+              value={bookingRequestDetails?.keeper?.organization?.type}
+            />
+            <Details.DetailItem
+              label="Indirizzo"
+              value={bookingRequestDetails?.keeper?.organization?.address}
+            />
+            <Details.DetailItem
+              label="Telefono"
+              value={bookingRequestDetails?.keeper?.organization?.phone}
+            />
+            <Details.DetailItem
+              label="Email"
+              value={bookingRequestDetails?.keeper?.organization?.email}
+            />
+          </Details.DetailsGrid>
+        </Details.DetailsSection>
+
+        <Details.DetailsSection title="Dati Prenotazione">
+          <Details.DetailsGrid>
+            <Details.DetailItem
+              label="Minori nel Gruppo"
+              value={bookingRequestDetails?.keeper.group.minors}
+            ></Details.DetailItem>
+            <Details.DetailItem
+              label="Adulti"
+              value={bookingRequestDetails?.keeper.group.adults}
+            ></Details.DetailItem>
+            <Details.DetailItem
+              label="Data inizio disponibilità"
+              value={new Date(
+                bookingRequestDetails?.startAvailabilityDate ?? ""
+              ).toLocaleDateString()}
+            ></Details.DetailItem>
+            <Details.DetailItem
+              label="Data fine disponibilità"
+              value={new Date(
+                bookingRequestDetails?.endAvailabilityDate ?? ""
+              ).toLocaleDateString()}
+            ></Details.DetailItem>
+            <Details.DetailItem
+              label="Durata"
+              value={durationText(bookingRequestDetails?.duration)}
+            ></Details.DetailItem>
+          </Details.DetailsGrid>
+        </Details.DetailsSection>
       </div>
     </div>
   );
