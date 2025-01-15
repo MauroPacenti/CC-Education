@@ -11,37 +11,55 @@ import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazi
 import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
 import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
 
+import Toast from "./components/Toast/Toast";
+import useToast from "./hooks/useToast";
+
 function App() {
+  const { isToastOpen, toastType, toastMessage, toggleToastMessage } =
+    useToast();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route index element={<Home />} />
-          <Route path="prenotazioni" element={<Prenotazioni />} />
-          <Route
-            path="prenotazioni/:idPrenotazione"
-            element={<DettagliPrenotazione />}
-          />
-          <Route
-            path="richieste-prenotazioni"
-            element={<RichiestePrenotazione />}
-          />
-          <Route
-            path="richieste-prenotazioni/:idRichiestaPrenotazione"
-            element={<DettagliRichiestaPrenotazione />}
-          />
-          <Route
-            path="richieste-informazioni"
-            element={<RichiesteInformazioni />}
-          />
-          <Route
-            path="richieste-informazioni/:idRichiestaInformazione"
-            element={<DettagliRichiestaInformazione />}
-          />
-          <Route path="*" element={<h1>NotFount</h1>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Toast.ToastContainer>
+        <Toast.ToastItem toastType={toastType} isToastOpen={isToastOpen}>
+          <Toast.ToastMessage>{toastMessage}</Toast.ToastMessage>
+        </Toast.ToastItem>
+      </Toast.ToastContainer>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<Home />} />
+            <Route path="prenotazioni" element={<Prenotazioni />} />
+            <Route
+              path="prenotazioni/:idPrenotazione"
+              element={<DettagliPrenotazione />}
+            />
+            <Route
+              path="richieste-prenotazioni"
+              element={<RichiestePrenotazione />}
+            />
+            <Route
+              path="richieste-prenotazioni/:idRichiestaPrenotazione"
+              element={<DettagliRichiestaPrenotazione />}
+            />
+            <Route
+              path="richieste-informazioni"
+              element={<RichiesteInformazioni />}
+            />
+            <Route
+              path="richieste-informazioni/:idRichiestaInformazione"
+              element={
+                <DettagliRichiestaInformazione
+                  toggleToastMessage={toggleToastMessage}
+                />
+              }
+            />
+            <Route path="*" element={<h1>NotFount</h1>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -5,7 +5,14 @@ import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
 import Buttons from "../../components/Buttons/Buttons";
 
-const DettagliRichiestaInformazione = () => {
+const DettagliRichiestaInformazione = ({
+  toggleToastMessage,
+}: {
+  toggleToastMessage: (
+    type: "successo" | "errore" | "info" | "problema",
+    message: string
+  ) => void;
+}) => {
   const {
     isLoading,
     error,
@@ -93,7 +100,16 @@ const DettagliRichiestaInformazione = () => {
               </button>
               <button
                 className="delete-modal-button delete"
-                onClick={deleteInformationRequest}
+                onClick={() => {
+                  deleteInformationRequest();
+                  if (!errorDelete)
+                    toggleToastMessage("successo", "Richiesta eliminata");
+                  else
+                    toggleToastMessage(
+                      "errore",
+                      "Si è verificato un errore durante l'eliminazione"
+                    );
+                }}
               >
                 Elimina
               </button>
