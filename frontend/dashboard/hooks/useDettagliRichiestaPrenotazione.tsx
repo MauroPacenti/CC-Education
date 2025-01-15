@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DettagliRichiestaPrenotazioneService } from "../services/DettagliRichiestaPrenotazione.service";
-import type { BookingRequestDetails } from "../models/BookingRequestDetails";
+import type { BookingRequestDetails } from "../models/BookingRequestDetails.model";
 
 const durationStart = (duration?: number) => {
   switch (duration) {

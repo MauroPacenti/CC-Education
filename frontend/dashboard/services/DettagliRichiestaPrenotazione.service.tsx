@@ -1,4 +1,4 @@
-import type { BookingRequestDetails } from "../models/BookingRequestDetails";
+import type { BookingRequestDetails } from "../models/BookingRequestDetails.model";
 
 const approveRequest = async (data: {
   startDate?: string;
