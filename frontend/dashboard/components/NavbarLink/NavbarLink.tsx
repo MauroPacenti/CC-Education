@@ -1,50 +1,52 @@
-import "./NavbarLink.css";
 import { NavLink } from "react-router";
 import { ChevronRight, LucideIcon } from "lucide-react";
+import { useLocation } from "react-router";
+import "./NavbarLink.css";
 
-interface Props {
-  linkText: string;
-  currentPage: string;
-  removeActiveNav: () => void;
-  handlePageChange: (page: string) => void;
-  Icon: LucideIcon;
+interface NavbarLinkProps {
+  text: string;
+  icon: LucideIcon;
+  onNavigate?: () => void;
+  className?: string;
 }
 
-const NavbarLink = ({
-  linkText,
-  currentPage,
-  removeActiveNav,
-  handlePageChange,
-  Icon,
-}: Props) => {
-  const createSlug = (text: string) => {
-    return text.toLowerCase().split(" ").join("-");
+export const NavbarLink = ({
+  text,
+  icon: Icon,
+  onNavigate,
+  className = "",
+}: NavbarLinkProps) => {
+  const createSlug = (text: string): string =>
+    text.toLowerCase().replace(/[\s+/]/g, "-");
+
+  const getRoute = (text: string): string => {
+    const slug = createSlug(text);
+    return text.toLowerCase() === "dashboard" ? "" : slug;
   };
 
-  const getRoute = (text: string) => {
-    if (linkText.toLowerCase() === "dashboard") {
-      return "";
-    }
-    return `${createSlug(text)}/`;
-  };
+  const location = useLocation();
+  const path = `/dashboard/${getRoute(text)}`;
+
+  // Special handling for dashboard
+  const isActive =
+    text.toLowerCase() === "dashboard"
+      ? location.pathname === "/dashboard" ||
+        location.pathname === "/dashboard/"
+      : location.pathname.startsWith(path);
 
   return (
-    <li className={`navbar-item ${currentPage === linkText ? "active" : ""}`}>
+    <li className={`navbar-item ${isActive ? "active" : ""} ${className}`}>
       <NavLink
-        to={`/dashboard/${getRoute(linkText)}`}
-        onClick={() => {
-          removeActiveNav();
-          handlePageChange(linkText);
-        }}
+        to={path}
+        onClick={onNavigate}
+        className={isActive ? "active" : ""}
       >
         <span>
-          <Icon className="icon" />
-          {linkText}
+          <Icon className="icon" aria-hidden="true" />
+          {text}
         </span>
-        <ChevronRight className="chevron" />
+        <ChevronRight className="chevron" aria-hidden="true" />
       </NavLink>
     </li>
   );
 };
-
-export default NavbarLink;

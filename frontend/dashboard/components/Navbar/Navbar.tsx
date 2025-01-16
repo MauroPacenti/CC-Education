@@ -1,4 +1,4 @@
-import "./Navbar.css";
+import { useState, useCallback } from "react";
 import { NavLink } from "react-router";
 import {
   BookMarked,
@@ -6,87 +6,90 @@ import {
   ChevronRight,
   LayoutDashboard,
   LogOut,
+  LucideIcon,
   NotebookPen,
   Settings,
 } from "lucide-react";
-import NavbarLink from "../NavbarLink/NavbarLink";
-import { useState } from "react";
+
+import "./Navbar.css";
+import { NavbarLink } from "../NavbarLink/NavbarLink";
+
+interface NavLinkModel {
+  text: string;
+  icon: LucideIcon;
+  path?: string;
+}
+const navLinks: NavLinkModel[] = [
+  {
+    text: "Dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    text: "Prenotazioni",
+    icon: CalendarDays,
+  },
+  {
+    text: "Richieste Prenotazioni",
+    icon: BookMarked,
+  },
+  {
+    text: "Richieste Informazioni",
+    icon: NotebookPen,
+  },
+];
 
 const Navbar = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [activePage, setActivePage] = useState("Dashboard");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handlePageChange = (page: string) => {
-    setActivePage(page);
-  };
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
-  const toggleActiveClass = () => {
-    setIsActive((prevState) => !prevState);
-  };
-
-  const removeActiveNav = () => {
-    setIsActive(false);
-  };
-
-  const navLinks = [
-    {
-      text: "Dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      text: "Prenotazioni",
-      icon: CalendarDays,
-    },
-    {
-      text: "Richieste Prenotazioni",
-      icon: BookMarked,
-    },
-    {
-      text: "Richieste Informazioni",
-      icon: NotebookPen,
-    },
-  ];
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
 
   return (
     <nav className="navbar">
-      <NavLink to="/dashboard/" className="logo" onClick={removeActiveNav}>
-        <img src="../../../img/logo.png" />
+      <NavLink to="/dashboard/" className="logo" onClick={closeMenu}>
+        <img src="/img/logo.png" alt="Logo" />
       </NavLink>
 
-      <ul className={`navbar-list ${isActive ? "active" : ""}`}>
+      <ul className={`navbar-list ${isMenuOpen ? "active" : ""}`}>
         {navLinks.map((link) => (
           <NavbarLink
             key={link.text}
-            linkText={link.text}
-            currentPage={activePage}
-            removeActiveNav={removeActiveNav}
-            handlePageChange={handlePageChange}
-            Icon={link.icon}
+            text={link.text}
+            icon={link.icon}
+            onNavigate={closeMenu}
           />
         ))}
 
-        <li className="navbar-item">
-          <NavLink to={"/login"}>
+        <li className="navbar-item navbar-item--actions">
+          <NavLink to="/login" className="navbar-link">
             <span>
-              <LogOut className="icon" />
+              <LogOut className="icon" aria-hidden="true" />
               Logout
             </span>
-            <ChevronRight className="chevron" />
+            <ChevronRight className="chevron" aria-hidden="true" />
           </NavLink>
-          <NavLink to={"/dashboard/impostazioni"}>
-            <Settings className="icon setting" />
+
+          <NavLink to="/dashboard/impostazioni" className="navbar-link">
+            <Settings className="icon setting" aria-hidden="true" />
           </NavLink>
         </li>
       </ul>
 
-      <div
-        className={`hamburger ${isActive ? "active" : ""}`}
-        onClick={toggleActiveClass}
+      <button
+        className={`hamburger ${isMenuOpen ? "active" : ""}`}
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+        aria-expanded={isMenuOpen}
       >
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
-      </div>
+      </button>
     </nav>
   );
 };
