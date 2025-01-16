@@ -1,0 +1,20 @@
+.settings-container-buttons {
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f3f4;
+  max-width: 50em;
+  min-width: 15em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  margin-top: 1em;
+}
+
+.btn-settings {
+  display: flex;
+  padding: 0.75em 1em;
+  justify-content: space-between;
+}
+
+.btn-settings:hover {
+  background-color: #e8eaed;
+}
