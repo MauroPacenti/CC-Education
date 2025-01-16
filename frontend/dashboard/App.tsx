@@ -13,6 +13,7 @@ import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione
 
 import Toast from "./components/Toast/Toast";
 import useToast from "./hooks/useToast";
+import Impostazioni from "./pages/Impostazioni/Impostazioni";
 
 function App() {
   const { isToastOpen, toastType, toastMessage, toggleToastMessage } =
@@ -55,6 +56,7 @@ function App() {
                 />
               }
             />
+            <Route path="impostazioni" element={<Impostazioni />} />
             <Route path="*" element={<h1>NotFount</h1>} />
           </Route>
         </Routes>
