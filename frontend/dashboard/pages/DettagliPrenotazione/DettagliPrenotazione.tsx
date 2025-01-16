@@ -1,116 +1,24 @@
+import Buttons from "../../components/Buttons/Buttons";
+import useDettagliPrenotazione from "../../hooks/useDettagliPrenotazione";
 import "./DettagliPrenotazione.css";
-import { MoveLeft } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
-
-interface Booking {
-  id: number;
-  keeper: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    cf: string;
-    phone: string;
-    group: {
-      id: number;
-      minors: number;
-      adults: number;
-      keeper: string;
-    };
-    organization: {
-      id: number;
-      name: string;
-      type: string;
-      address: string;
-      phone: string;
-      email: string;
-      keeper: string;
-    };
-  };
-  startDate: string;
-  endDate: string;
-  duration: number;
-  status: {
-    id: number;
-    name: string;
-    journeyRequests: string[];
-    infoRequests: {
-      id: number;
-      email: string;
-      title: string;
-      content: string;
-      status: string;
-    }[];
-  };
-}
 
 const DettagliPrenotazione = () => {
-  const { idPrenotazione } = useParams<{ idPrenotazione: string }>();
-  const navigate = useNavigate();
-  const [bookingDetails, setBookingDetails] = useState<Booking | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchBookingDetails = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`/api/pub/getAllJourney`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        let data = await response.json();
-        if (idPrenotazione) {
-          data = data.find((item: Booking) => item.id === +idPrenotazione);
-          setBookingDetails(data);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (idPrenotazione) {
-      fetchBookingDetails();
-    }
-  }, [idPrenotazione]);
-
-  const deleteJourney = async () => {
-    if (!idPrenotazione) return;
-
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `/api/pub/deleteJourney?journeyId=${idPrenotazione}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      // Handle successful deletion, e.g., redirect or update state
-      setBookingDetails(null);
-      navigate(-1);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { bookingDetails, deleteJourney, error, isLoading } =
+    useDettagliPrenotazione();
 
   if (isLoading) {
-    return <div>Caricamento...</div>;
+    return (
+      <div>
+        <Buttons.BackButton></Buttons.BackButton>
+        <p>Caricamento in corso...</p>
+      </div>
+    );
   }
 
   if (error) {
     return (
       <div>
-        <button onClick={() => navigate(-1)} className="back-button">
-          <MoveLeft />
-        </button>
+        <Buttons.BackButton></Buttons.BackButton>
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
           prenotazione: {error}
@@ -121,9 +29,7 @@ const DettagliPrenotazione = () => {
 
   return (
     <div className="booking-details">
-      <button onClick={() => navigate(-1)} className="back-button">
-        <MoveLeft />
-      </button>
+      <Buttons.BackButton></Buttons.BackButton>
 
       <h2>Dettagli Prenotazione</h2>
       <div className="buttons-container">

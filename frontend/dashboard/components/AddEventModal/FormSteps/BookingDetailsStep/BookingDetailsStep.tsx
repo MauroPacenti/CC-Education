@@ -1,4 +1,4 @@
-import type Booking from "../../../../models/Booking.model";
+import type Booking from "../../../../models/BookingFormSteps.model";
 import "./BookingDetailsStep.css";
 
 interface BookingDetailsStepProps {

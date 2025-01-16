@@ -1,4 +1,4 @@
-import Booking from "../../models/Booking.model";
+import Booking from "../../models/BookingFormSteps.model";
 
 const addBookingOnCalendarMapper = (booking: Booking) => {
   return {

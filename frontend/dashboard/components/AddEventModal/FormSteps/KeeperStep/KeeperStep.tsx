@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type Booking from "../../../../models/Booking.model";
+import type Booking from "../../../../models/BookingFormSteps.model";
 import "./KeeperStep.css";
 import {
   verifyCodiceFiscale,

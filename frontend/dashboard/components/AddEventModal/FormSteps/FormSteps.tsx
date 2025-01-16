@@ -4,7 +4,7 @@ import { useState } from "react";
 import KeeperStep from "./KeeperStep/KeeperStep";
 import OrganizationStep from "./OrganizationStep/OrganizationStep";
 import BookingDetailsStep from "./BookingDetailsStep/BookingDetailsStep";
-import type Booking from "../../../models/Booking.model";
+import type Booking from "../../../models/BookingFormSteps.model";
 import { CalendarBooking } from "../../../models/CalendarBooking.model";
 import addBookingOnCalendarMapper from "../../../utils/Mapper/addBookingOnCalendarMapper";
 
