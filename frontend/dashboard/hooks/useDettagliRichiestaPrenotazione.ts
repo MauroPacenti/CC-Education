@@ -65,7 +65,11 @@ const useDettagliRichiestaPrenotazione = () => {
       });
     } catch (err) {
       setIsLoading(false);
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Si è verificato un errore durante il caricamento dei dati."
+      );
     }
   };
 
@@ -80,7 +84,11 @@ const useDettagliRichiestaPrenotazione = () => {
       });
     } catch (err) {
       setIsLoading(false);
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Si è verificato un errore durante il caricamento dei dati."
+      );
     }
   };
 
@@ -116,7 +124,11 @@ const useDettagliRichiestaPrenotazione = () => {
       });
     } catch (err) {
       setIsLoading(false);
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Si è verificato un errore durante il caricamento dei dati."
+      );
     }
   }, [idRichiestaPrenotazione]);
 

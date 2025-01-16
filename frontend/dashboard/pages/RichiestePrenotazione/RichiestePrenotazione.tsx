@@ -33,7 +33,11 @@ const RichiestePrenotazione = () => {
         const journeyRequest = journeyRequestMapper(data);
         setBookingRequests(journeyRequest);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Si è verificato un errore durante il caricamento dei dati."
+        );
       } finally {
         setIsLoading(false);
       }
