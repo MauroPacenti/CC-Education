@@ -3,6 +3,7 @@ package com.novo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,32 +21,30 @@ public class GroupController {
 	
 	// Returns all Groups
 	@GetMapping("api/pub/getAllGroup")
-	public List<Group> getAllGroup(){
-		List<Group> filteredGroup = groupService.findALL();
-		return filteredGroup;
-	}
-	
-	// Creates a new Group
-	@PostMapping("api/pub/createGroup")
-	public Group createGroup(@RequestParam(required = false) int minors,
-							 @RequestParam(required = false) int adults,
-							 @RequestParam int keeperId) {
-		
-		Group savedGroup = groupService.save(minors, adults, keeperId);
-		return savedGroup;
-		
+	public ResponseEntity<List<Group>> getAllGroup(){
+		try {
+			List<Group> filteredGroup = groupService.findALL();
+			return ResponseEntity.ok(filteredGroup);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	// Updates an existing Group
 	@PutMapping("api/pub/updateGroup")
-	public Group updateGroup(@RequestParam(required = false) int minors,
-							 @RequestParam(required = false) int adults,
-							 @RequestParam int keeperId,
-							 @RequestParam int groupId) {
+	public ResponseEntity<Group> updateGroup(@RequestParam(required = false) int minors,
+											 @RequestParam(required = false) int adults,
+											 @RequestParam int keeperId,
+											 @RequestParam int groupId) {
 		
-		Group updatedGroup = groupService.update(groupId, minors, adults, keeperId);
-		return updatedGroup;
-		
+		try{
+			Group updatedGroup = groupService.update(groupId, minors, adults, keeperId);
+			return ResponseEntity.ok(updatedGroup);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+		}
 	}
 }
 
