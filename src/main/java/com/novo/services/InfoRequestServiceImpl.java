@@ -36,6 +36,9 @@ public class InfoRequestServiceImpl implements InfoRequestService {
     @Override
     public boolean deleteInfoRequest(int infoRequestId) {
         try {
+            if(infoRequestRepo.findById(infoRequestId).isEmpty()) {
+                throw new Exception("Richiesta non trovata.");
+            }
             infoRequestRepo.deleteById(infoRequestId);
             return true;
         }

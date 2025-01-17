@@ -27,7 +27,7 @@ public class GroupController {
 			return ResponseEntity.ok(filteredGroup);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.noContent().build();
 		}
 	}
 	

@@ -20,9 +20,14 @@ public class InfoRequestController {
 
     // Returns all Infos
     @GetMapping("/api/pub/getAllInfoRequest")
-    public List<InfoRequest> getAllInfoRequest() {
-        List<InfoRequest> listInfoRequest = infoRequestService.getInfoRequests();
-        return listInfoRequest;
+    public ResponseEntity<List<InfoRequest>> getAllInfoRequest() {
+        try {
+            List<InfoRequest> listInfoRequest = infoRequestService.getInfoRequests();
+            return ResponseEntity.ok(listInfoRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.noContent().build();
+        }
     }
 
     // Creates a new InfoRequest
@@ -30,40 +35,41 @@ public class InfoRequestController {
     public ResponseEntity<InfoRequest> createInfoRequest(@RequestParam String email,
                                          @RequestParam String title,
                                          @RequestParam String content) {
-
-        InfoRequest savedInfoRequest = new InfoRequest();
-        if(adminService.validateEmail(email)){
-            throw new Error("L'email non ha un formato idoneo.");
-        }
-        savedInfoRequest.setEmail(email);
-        savedInfoRequest.setTitle(title);
-        savedInfoRequest.setContent(content);
-
+            InfoRequest savedInfoRequest = new InfoRequest();
         try {
+            if(adminService.validateEmail(email)){
+                throw new Error("L'email non ha un formato idoneo.");
+            }
+            savedInfoRequest.setEmail(email);
+            savedInfoRequest.setTitle(title);
+            savedInfoRequest.setContent(content);
             infoRequestService.addInfoRequest(savedInfoRequest);
-        	String object= "Richiesta informazioni: " + savedInfoRequest.getTitle();
-            String body= "La richiesta è stata registrata";
-            javaMailSenderService.sendMail(savedInfoRequest.getEmail(),object,body);
-            return ResponseEntity.ok(savedInfoRequest);
         }catch(Exception e) {
-        	new Exception("Error to send email");
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    // Updates existing InfoRequest
-    @PutMapping("/api/pub/updateInfoRequest")
-    public InfoRequest updateInfoRequest(@RequestParam int infoRequestId,
-                                         @RequestParam int statusId) {
-
-        InfoRequest updatedInfoRequest = new InfoRequest();
-        infoRequestService.updateInfoRequest(infoRequestId, statusId);
-        return updatedInfoRequest;
+        try {
+            String object= "Richiesta informazioni: " + savedInfoRequest.getTitle();
+            String body= "La richiesta è stata registrata";
+            javaMailSenderService.sendMail(savedInfoRequest.getEmail(),object,body);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+            return ResponseEntity.ok(savedInfoRequest);
     }
 
     // Deletes existing InfoRequest
     @DeleteMapping("/api/pub/deleteInfoRequest")
-    public boolean deleteInfoRequest(@RequestParam int infoRequestId) {
-        return infoRequestService.deleteInfoRequest(infoRequestId);
+    public ResponseEntity<Boolean> deleteInfoRequest(@RequestParam int infoRequestId) {
+        try {
+                if(!infoRequestService.deleteInfoRequest(infoRequestId)){
+                    throw new Exception("Richiesta non trovata.");
+                }
+                return ResponseEntity.ok(true);
+        } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().body(false);
+        }
     }
 }
