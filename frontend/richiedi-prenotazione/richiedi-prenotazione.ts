@@ -1,4 +1,5 @@
 import "./richiesta-prenotazione.css";
+// import Toastify from 'toastify-js';
 
 // Interazione con l'api per la richiesta di prenotazione
 
@@ -26,6 +27,102 @@ const durationEnd = (duration?: number) => {
       return "09:00";
   }
 };
+
+// Selezioniamo i campi data
+const startDateInput = document.getElementById('dataInizio') as HTMLInputElement;
+const endDateInput = document.getElementById('dataFine') as HTMLInputElement;
+const durationSelect = document.getElementById('durata') as HTMLSelectElement;
+
+// Impostiamo la data minima (data attuale) per i due campi
+const today = new Date();
+const minDate = new Date(today);
+minDate.setDate(today.getDate()); // Il minimo per la data di inizio deve essere il giorno successivo
+const minDateStr = minDate.toISOString().split('T')[0]; // Otteniamo la data in formato YYYY-MM-DD
+startDateInput.min = minDateStr; // Impostiamo la data minima della data di inizio
+endDateInput.min = minDateStr; // Impostiamo la data minima anche per la data di fine
+
+// Funzione per abilitare/disabilitare la data finale e sincronizzarla con la data iniziale
+function toggleDateFields() {
+  const duration = durationSelect.value; // Ottieni la durata selezionata
+
+  const dateEndContainer = document.querySelector(".date-field.end");
+  const dateStartContainer = document.querySelector(".date-field.start");
+  const dataLabel = document.querySelector("label[for='dataInizio']");
+
+  if (duration === '4') {
+    // Quando la durata è 4, la data finale può essere selezionata separatamente
+    endDateInput.disabled = false;
+    dateEndContainer?.classList.remove('hidden');
+    dateStartContainer?.classList.remove('max');
+    if(dataLabel)
+      dataLabel.textContent = "Data Inizio";
+    // La data finale può essere diversa dalla data iniziale
+  } else {
+    // Quando la durata è diversa da 4, la data finale è sincronizzata con la data di inizio
+    endDateInput.disabled = true;
+    dateEndContainer?.classList.add('hidden');
+    dateStartContainer?.classList.add("max");
+    if(dataLabel)
+      dataLabel.textContent = "Data";
+    endDateInput.value = startDateInput.value; // Sincronizza la data finale con la data di inizio
+  }
+}
+
+// Funzione per sincronizzare le date
+startDateInput.addEventListener('change', function () {
+  const startDate = new Date(startDateInput.value);
+  const duration = durationSelect.value; // Ottieni la durata selezionata
+
+  // Se la durata è diversa da 4
+  if (duration !== '4') {
+    // La data finale deve essere sincronizzata con la data di inizio
+    endDateInput.value = startDateInput.value;
+  } else {
+    // Se la durata è 4, lascia che la data finale sia separata
+    // Non fare nulla
+  }
+
+  // Impostiamo la data minima della data di fine in base alla data di inizio
+  endDateInput.min = startDate.toISOString().split('T')[0]; // La data finale non può essere anteriore alla data di inizio
+});
+
+// Se la data finale cambia, assicuriamoci che non sia prima della data di inizio
+endDateInput.addEventListener('change', function () {
+  const startDate = new Date(startDateInput.value);
+  const endDate = new Date(endDateInput.value);
+
+  if (endDate < startDate) {
+    alert('La data di fine non può essere precedente alla data di inizio');
+    endDateInput.value = startDateInput.value; // Imposta la data finale uguale alla data di inizio
+  }
+});
+
+// Ascoltiamo il cambiamento nel campo durata per abilitare o disabilitare la data finale
+durationSelect.addEventListener('change', function () {
+  toggleDateFields(); // Toggle tra le due modalità (1 data o 2 date)
+});
+
+// Inizializza lo stato del campo data finale in base alla durata selezionata all'inizio
+toggleDateFields();
+
+const privacyCheckbox = document.getElementById('privacy') as HTMLInputElement;
+const termsCheckbox = document.getElementById('terms') as HTMLInputElement;
+const submitButton = document.querySelector('.btn-submit') as HTMLButtonElement;
+
+  function updateSubmitButtonState(): void {
+    if(privacyCheckbox.checked && termsCheckbox.checked){
+      submitButton.disabled = false;
+    } else {
+      submitButton.disabled = true;
+    }
+  }
+  
+  // Aggiungi un evento di ascolto ai checkbox
+  privacyCheckbox.addEventListener('change', updateSubmitButtonState);
+  termsCheckbox.addEventListener('change', updateSubmitButtonState);
+
+
+
 
 const form = document.querySelector<HTMLFormElement>(".appointment-form");
 
@@ -95,6 +192,7 @@ const getVisibleFormData = (section: Element) => {
 
   return data as any;
 };
+
 const clearFormFields = (section: Element) => {
   const inputs = section.querySelectorAll<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -108,10 +206,18 @@ const clearFormFields = (section: Element) => {
 const successModal = document.getElementById("successModal");
 const errorModal = document.getElementById("errorModal");
 const closeButtons = document.querySelectorAll(".close-button");
-const modal = document.querySelector(".modal");
+const modalLoading = document.querySelector("#modal-loading");
+
 
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  if (!validateStep(currentPage)) {
+    showToast("Riempire i campi obbligatori prima di inviare i dati", "error");
+    submitButton.disabled = true;
+  } else {
+    submitButton.disabled = false;
+  }
 
   if (
     section1 === null ||
@@ -144,49 +250,76 @@ form?.addEventListener("submit", async (e) => {
 
   const endpoint = "/api/pub/createJourneyRequest";
 
-  modal?.classList.toggle("active");
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+  modalLoading?.classList.add("active");
+  document.body.classList.add('no-scroll');
 
-  console.log(formData);
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  if (response.ok) {
-    const json = await response.json();
-    if (successModal !== null) {
-      successModal.style.display = "block";
+    setTimeout(() => {
+      modalLoading?.classList.remove('active');
+    }, 10000);
+  
+    console.log(formData);
+  
+    if (response.ok) {
+      const json = await response.json();
+      if (successModal !== null) {
+        setTimeout(() => {
+          successModal.style.display = "block";
+        }, 5000);
+      }
+    } else {
+      console.error("Errore nella richiesta di prenotazione");
+      if (errorModal !== null) {
+        setTimeout(() => {
+          errorModal.style.display = "block";
+        }, 5000);
+        
+      }
     }
-  } else {
-    console.error("Errore nella richiesta di prenotazione");
-    if (errorModal !== null) {
+  } catch (error) {
+    console.log("Errore nella richiesta di prenotazione", error);
+    modalLoading?.classList.remove("active");
+
+    if(errorModal !== null){
       errorModal.style.display = "block";
     }
   }
+  
   clearFormFields(section1);
   clearFormFields(section2);
   clearFormFields(groupSelect);
   clearFormFields(journeySelect);
 
-  modal?.classList.toggle("active");
+  setTimeout(() => {
+    modalLoading?.classList.remove('active');
+  }, 5000);
 });
 
 closeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     if (successModal !== null) successModal.style.display = "none";
+    document.body.classList.remove('no-scroll');
     if (errorModal !== null) errorModal.style.display = "none";
+    document.body.classList.remove('no-scroll');
   });
 });
 
 window.addEventListener("click", (event) => {
   if (event.target === successModal) {
     if (successModal !== null) successModal.style.display = "none";
+    document.body.classList.remove('no-scroll');
   }
   if (event.target === errorModal) {
     if (errorModal !== null) errorModal.style.display = "none";
+    document.body.classList.remove('no-scroll');
   }
 });
 
@@ -196,227 +329,188 @@ const btnNext = document.querySelectorAll(".btn-next");
 const btnPrev = document.querySelectorAll(".btn-prev");
 const section1 = document.querySelector("#page1");
 const section2 = document.querySelector("#page2");
-const section3 = document.querySelector("#page3");
-const icon1 = document.querySelector("#icon1");
-const icon2 = document.querySelector("#icon2");
-const icon3 = document.querySelector("#icon3");
-const i1 = document.querySelector("#icon1 img");
-const i2 = document.querySelector("#icon2 img");
 const title = document.querySelector(".form-title");
-const done1 = document.querySelector("#done1");
-const done2 = document.querySelector("#done2");
 const groupSelect = document.querySelector(".group");
 const journeySelect = document.querySelector(".journey");
 
+
 btnNext.forEach((btn) => {
   btn.addEventListener("click", () => {
-    if (validateForm(currentPage)) {
-      if (currentPage === 0) {
-        if (title !== null) {
-          title.textContent = "Dati Organizzazione";
-        }
-        section1?.classList.remove("active");
-        section2?.classList.add("active");
-        icon1?.classList.replace("active", "done");
-        icon2?.classList.add("active");
-        i1?.classList.add("hide");
-        done1?.classList.remove("hide");
 
-        currentPage++;
-      } else if (currentPage === 1) {
-        if (title !== null) {
-          title.textContent = "Dati Prenotazione";
-        }
-        section2?.classList.remove("active");
-        section3?.classList.add("active");
-        icon2?.classList.replace("active", "done");
-        icon3?.classList.add("active");
-        i2?.classList.add("hide");
-        done2?.classList.remove("hide");
-        currentPage++;
-      }
+      nextStep(currentPage);
+
     }
-  });
+  );
 });
+
+
 
 btnPrev.forEach((btn) => {
   btn.addEventListener("click", () => {
-    if (currentPage === 2) {
-      if (title !== null) {
-        title.textContent = "Dati Organizzazione";
-      }
-      section3?.classList.remove("active");
-      section2?.classList.add("active");
-      icon3?.classList.remove("active");
-      icon2?.classList.replace("done", "active");
-      i2?.classList.remove("hide");
-      done2?.classList.add("hide");
-      currentPage--;
-    } else if (currentPage === 1) {
-      if (title !== null) {
-        title.textContent = "Dati Accompagnatore";
-      }
-      section2?.classList.remove("active");
-      section1?.classList.add("active");
-      icon2?.classList.remove("active");
-      icon1?.classList.replace("done", "active");
-      i1?.classList.remove("hide");
-      done1?.classList.add("hide");
-      currentPage--;
-    }
+
+    prevStep(currentPage);
+    
   });
 });
 
 // Fine Gestione cambio pagine del form
 
-// Funziona di validazione del form di prenotazione
+// Funzione di validazione del form di prenotazione
 
-const validateForm = (page: number): boolean => {
-  let isValid = true;
+// Tipo per rappresentare un input HTML valido
+type ValidatableInput = HTMLInputElement | HTMLTextAreaElement;
 
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+function validateInput(input: ValidatableInput): boolean {
+  const inputValue = input.value.trim();
+  const fieldName = input.name;
 
-  const cfPattern =
-    /^[A-Z0-9]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/;
+  if (fieldName === "email" && !validateEmail(inputValue)) {
+    if (!input.classList.contains("error")) {
+      input.classList.add("error");
+      input.classList.remove("success");
+      showToast("Email non valida", "error");
+    }
+    return false;
+  } else if (fieldName === "phone" && !validatePhone(inputValue)) {
+    if (!input.classList.contains("error")) {
+      input.classList.add("error");
+      input.classList.remove("success");
+      showToast("Numero di telefono non valido", "error");
+    }
+    return false;
+  } else if (fieldName === "cf" && !validateCF(inputValue)) {
+    if (!input.classList.contains("error")) {
+      input.classList.add("error");
+      input.classList.remove("success");
+      showToast("Codice fiscale non valido", "error");
+    }
+    return false;
+  }
+  
+  // Controlla se l'input è vuoto
+  if (!inputValue) {
+    // Mostra un toast solo se non c'è già la classe di errore
+    if (!input.classList.contains("error")) {
+      input.classList.add("error");
+      input.classList.remove("success");
+      showToast("Input inserito non valido", "error");
+    }
+    return false;
+  } else {
+    if (!input.classList.contains("success")) {
+      input.classList.remove("error");
+      input.classList.add("success");
+      showToast("Input valido", "success");
+    }
+    return true;
+  } 
+  
+}
 
-  const phonePattern = /^\+?[0-9]{1,4}?[-.\s]?[0-9]{6,10}$/;
+// Funzione di validazione per l'email
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
 
-  // Validazione del primo step (Accompagnatore)
-  if (page === 0) {
-    const firstName =
-      form?.querySelector<HTMLInputElement>('[name="firstName"]');
-    const lastName = form?.querySelector<HTMLInputElement>('[name="lastName"]');
-    const email = form?.querySelector<HTMLInputElement>('[name="email"]');
-    const cf = form?.querySelector<HTMLInputElement>('[name="cf"]');
-    const phone = form?.querySelector<HTMLInputElement>('[name="phone"]');
+// Funzione di validazione per il telefono
+function validatePhone(phone: string): boolean {
+  const phoneRegex = /^(\+?[1-9]{1,4}[\s-]?)?(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{6,15}$/;
+  return phoneRegex.test(phone);
+}
 
-    if (!firstName?.value.trim()) {
-      firstName?.classList.add("error");
-      isValid = false;
-    } else {
-      firstName.classList.remove("error");
+// Funzione di validazione per il codice fiscale
+function validateCF(cf: string): boolean {
+  const cfRegex = /^[a-zA-Z0-9]{16}$/;
+  return cfRegex.test(cf);
+}
+
+// Funzione per validare tutti gli input di uno step
+function validateStep(step: number): boolean {
+  const inputs = document.querySelectorAll<ValidatableInput>(
+    `#page${step} input`
+  );
+  let isStepValid = true;
+
+  inputs.forEach((input) => {
+  
+    if(!validateInput(input)){
+      isStepValid = false;
     }
 
-    if (!lastName?.value.trim()) {
-      lastName?.classList.add("error");
-      isValid = false;
-    } else {
-      lastName.classList.remove("error");
+  });
+
+  return isStepValid;
+}
+
+function showToast(message: string, type: "success" | "error"): void {
+
+  const toastOptions: any = {
+    text: message,
+    duration: 5000,
+    gravity: "top",
+    position: "center",
+    backgroundColor: type === "error" ? "red" : "green",
+    stopOnFocus: true,
+    closeOnClick: true,
+  };
+
+  Toastify(toastOptions).showToast();
+}
+
+// Funzione per passare allo step successivo
+function nextStep(current: number): void {
+  if (validateStep(current)) {
+    document.getElementById(`page${current}`)?.classList.remove("active");
+    document.getElementById(`page${current + 1}`)?.classList.add("active");
+    document.getElementById(`icon${current}`)?.classList.replace("active", "done");
+    document.getElementById(`icon${current + 1}`)?.classList.add("active");
+    document.getElementById(`done${current}`)?.classList.add("check-animation");
+    document.getElementById(`line${current}`)?.classList.add("line-fill");
+    document.querySelector(`#icon${current} img`)?.classList.add("hide");
+    document.getElementById(`done${current}`)?.classList.remove("hide");
+
+    if(currentPage === 1){
+      if (title !== null) {
+        title.textContent = "Dati Organizzazione";
+      }
+    } else if(currentPage === 2) {
+      if (title !== null) {
+        title.textContent = "Dati Prenotazione";
+      }
     }
 
-    if (!email?.value.trim() || !emailPattern.test(email.value)) {
-      email?.classList.add("error");
-      isValid = false;
-    } else {
-      email.classList.remove("error");
-    }
+    currentPage++;
+  } else {
+    showToast("Riempire i campi obbligatori per proseguire", "error");
+  }
+}
 
-    if (!cf?.value.trim() || !cfPattern.test(cf.value)) {
-      cf?.classList.add("error");
-      isValid = false;
-    } else {
-      cf.classList.remove("error");
-    }
+// Funzione per tornare allo step precedente
+function prevStep(current: number): void {
+  document.getElementById(`page${current}`)?.classList.remove("active");
+  document.getElementById(`page${current - 1}`)?.classList.add("active");
+  document.getElementById(`icon${current}`)?.classList.remove("active");
+  document.getElementById(`icon${current - 1}`)?.classList.replace("done", "active");
+  document.getElementById(`icon${current}`)?.classList.add("active");
+  document.querySelector(`#icon${current - 1} img`)?.classList.remove("hide");
+  document.getElementById(`done${current - 1}`)?.classList.add("hide");
+  document.getElementById(`line${current - 1}`)?.classList.remove("line-fill");
 
-    if (!phone?.value.trim() || !phonePattern.test(phone.value)) {
-      phone?.classList.add("error");
-      isValid = false;
-    } else {
-      phone.classList.remove("error");
+  if (currentPage === 3) {
+    if (title !== null) {
+      title.textContent = "Dati Organizzazione";
+    }
+  } else if (currentPage === 2) {
+    if (title !== null) {
+      title.textContent = "Dati Accompagnatore";
     }
   }
 
-  // Validazione del secondo step (Organizzazione)
-  if (page === 1) {
-    const nameOrg = form?.querySelector<HTMLInputElement>('[name="name"]');
-    const typeOrg = form?.querySelector<HTMLInputElement>('[name="type"]');
-    const addressOrg =
-      form?.querySelector<HTMLInputElement>('[name="address"]');
-    const phoneOrg = form?.querySelector<HTMLInputElement>('[name="phone"]');
-    const emailOrg = form?.querySelector<HTMLInputElement>('[name="email"]');
+  currentPage--;
+}
 
-    if (!nameOrg?.value.trim()) {
-      nameOrg?.classList.add("error");
-      isValid = false;
-    } else {
-      nameOrg.classList.remove("error");
-    }
-
-    if (!typeOrg?.value.trim()) {
-      typeOrg?.classList.add("error");
-      isValid = false;
-    } else {
-      typeOrg.classList.remove("error");
-    }
-
-    if (!addressOrg?.value.trim()) {
-      addressOrg?.classList.add("error");
-      isValid = false;
-    } else {
-      addressOrg.classList.remove("error");
-    }
-
-    if (!phoneOrg?.value.trim() || !phonePattern.test(phoneOrg.value)) {
-      phoneOrg?.classList.add("error");
-      isValid = false;
-    } else {
-      phoneOrg.classList.remove("error");
-    }
-
-    if (!emailOrg?.value.trim() || !emailPattern.test(emailOrg.value)) {
-      emailOrg?.classList.add("error");
-      isValid = false;
-    } else {
-      emailOrg.classList.remove("error");
-    }
-  }
-
-  // Validazione del terzo step (Prenotazione)
-  if (page === 2) {
-    const minors = form?.querySelector<HTMLInputElement>('[name="minors"]');
-    const adults = form?.querySelector<HTMLInputElement>('[name="adults"]');
-    const startDate = form?.querySelector<HTMLInputElement>(
-      '[name="startAvailabilityDate"]'
-    );
-    const endDate = form?.querySelector<HTMLInputElement>(
-      '[name="endAvailabilityDate"]'
-    );
-    const duration = form?.querySelector<HTMLInputElement>('[name="duration"]');
-
-    if (minors?.value.trim() === "" || Number(minors?.value) < 0) {
-      minors?.classList.add("error");
-      isValid = false;
-    } else {
-      minors?.classList.remove("error");
-    }
-
-    if (adults?.value.trim() === "" || Number(adults?.value) <= 0) {
-      adults?.classList.add("error");
-      isValid = false;
-    } else {
-      adults?.classList.remove("error");
-    }
-
-    if (
-      !startDate?.value.trim() ||
-      !endDate?.value.trim() ||
-      new Date(startDate.value) >= new Date(endDate.value)
-    ) {
-      startDate?.classList.add("error");
-      endDate?.classList.add("error");
-      isValid = false;
-    } else {
-      startDate.classList.remove("error");
-      endDate.classList.remove("error");
-    }
-
-    if (duration?.value.trim() === "" || Number(duration?.value) <= 0) {
-      duration?.classList.add("error");
-      isValid = false;
-    } else {
-      duration?.classList.remove("error");
-    }
-  }
-
-  return isValid;
-};
+// Aggiunge il listener per validare gli input in tempo reale
+document.querySelectorAll<ValidatableInput>("input, textarea").forEach((input) => {
+  input.addEventListener("input", () => validateInput(input));
+});
