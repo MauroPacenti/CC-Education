@@ -16,6 +16,8 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   </head>
   <body>
     <nav class="nav-container">
@@ -70,49 +72,52 @@
 
     <div class="form-container">
       <div class="container">
-        <div class="content-box">
-          <div class="background"></div>
-          <div class="progress-bar">
-            <div class="icon-container active" id="icon1">
-              <img src="../img/icon-user.svg" alt="icon user" class="icon" />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done1"
-                class="icon-done hide"
-              />
-            </div>
-            <div class="line-break"></div>
-            <div class="icon-container" id="icon2">
-              <img
-                src="../img/icon-organization.svg"
-                alt="icon organization"
-                class="icon"
-              />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done2"
-                class="icon-done hide"
-              />
-            </div>
-            <div class="line-break"></div>
-            <div class="icon-container" id="icon3">
-              <img
-                src="../img/icon-calendar.svg"
-                alt="icon date"
-                class="icon"
-              />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done3"
-                class="icon-done hide"
-              />
-            </div>
+          
+        <div class="progress-bar">
+          <div class="icon-container active" id="icon1">
+            <img src="../img/icon-user.svg" alt="icon user" class="icon" />
+            <img
+              src="../img/icon-done.svg"
+              alt="icon done"
+              id="done1"
+              class="icon-done hide"
+            />
           </div>
-          <h2 class="form-title">Dati Accompagnatore</h2>
+          <div class="line-break">
+            <div id="line1"></div>
+          </div>
+          <div class="icon-container" id="icon2">
+            <img
+              src="../img/icon-organization.svg"
+              alt="icon organization"
+              class="icon"
+            />
+            <img
+              src="../img/icon-done.svg"
+              alt="icon done"
+              id="done2"
+              class="icon-done hide"
+            />
+          </div>
+          <div class="line-break">
+            <div id="line2"></div>
+          </div>
+          <div class="icon-container" id="icon3">
+            <img
+              src="../img/icon-calendar.svg"
+              alt="icon date"
+              class="icon"
+            />
+            <img
+              src="../img/icon-done.svg"
+              alt="icon done"
+              id="done3"
+              class="icon-done hide"
+            />
+          </div>
         </div>
+        
+        <h2 class="form-title">Dati Accompagnatore</h2>
 
         <!-- form -->
         <form method="post" class="appointment-form">
@@ -126,6 +131,9 @@
               id="firstName"
               placeholder="Inserisci il tuo nome"
             />
+            <div class="toast-container">
+
+            </div>
 
             <!-- Cognome -->
             <label for="lastName">Cognome</label>
@@ -233,6 +241,7 @@
                 name="minors"
                 id="minori"
                 placeholder="Inserisci il numero di minori"
+                min="0"
               />
 
               <!-- Numero di adulti -->
@@ -242,6 +251,7 @@
                 name="adults"
                 id="adulti"
                 placeholder="Inserisci il numero di adulti"
+                min="1"
               />
             </div>
 
@@ -263,13 +273,14 @@
                     type="date"
                     name="startAvailabilityDate"
                     id="dataInizio"
+                    class="date-picker"
                   />
                 </div>
 
                 <div class="date-field end">
                   <!-- Data Fine -->
                   <label class="date-label" for="dataFine">Data Fine</label>
-                  <input type="date" name="endAvailabilityDate" id="dataFine" />
+                  <input type="date" name="endAvailabilityDate" id="dataFine" class="date-picker" />
                 </div>
               </div>
 
@@ -282,34 +293,49 @@
               ></textarea>
             </div>
 
+            <div class="container-check">
+              <div class="checkbox-container">
+                <input type="checkbox" name="privacy" id="privacy">
+                <label for="privacy">Sono d'accordo e accetto <a href="#" target="_blank">l'Informativa sulla Privacy</a> *</label>
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" name="terms" id="terms">
+                <label for="terms">Sono d'accordo e accetto i <a href="#" target="_blank">Termini d'Uso</a> *</label>
+              </div>
+            </div>
+
+            <p>* Puoi procedere nell'invio dei dati solo se accetti le condizioni qui sopra</p>
+
             <div id="btn-last" class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
-              <button type="submit" class="btn btn-submit">Invia</button>
+              <button class="btn btn-submit" disabled>Invia</button>
             </div>
           </div>
-          <div class="modal">
+          <!-- Modali -->
+          <div id="modal-loading" class="modal">
+            <div>
+              <div class="spinner"></div>
+              <p>Invio dati prenotazione in corso...</p>
+            </div>
+          </div>
+          <div id="successModal" class="modal">
             <div class="modal-content">
-              <p>Caricamento...</p>
+              <span class="close-button">&times;</span>
+              <p>Prenotazione effettuata con successo!</p>
+            </div>
+          </div>
+
+          <div id="errorModal" class="modal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <p>Errore in fase di Prenotazione!</p>
             </div>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- Modale -->
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <p>Prenotazione effettuata con successo!</p>
-      </div>
-    </div>
-
-    <div id="errorModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <p>Errore in fase di Prenotazione!</p>
-      </div>
-    </div>
+    
 
     <footer>
       <div class="map">
@@ -336,5 +362,7 @@
         <p>cascinacaccia@acmos.net</p>
       </div>
     </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   </body>
 </html>
