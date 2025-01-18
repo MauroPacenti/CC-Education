@@ -4,26 +4,9 @@ body {
   font-family: "Neue Machina";
 }
 
-.modal {
-  display: none; /* Nascondi la modale di default */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
+body.no-scroll {
+  overflow: hidden;
   height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-  position: relative; /* Add this line */
 }
 
 .close-button {
@@ -69,20 +52,45 @@ h1 {
   margin-top: 100px;
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 2rem;
 }
 
 .form-container {
   background-color: var(--secondario-verde);
   margin: 24px;
-  border-radius: 23px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 0;
 }
 
 .form-title {
   text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
+
+label {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin: 8px 20%;
+  font-weight: 500;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
 
 .error {
   border: 2px dashed red;
@@ -113,20 +121,13 @@ input:not(.error):not(:focus) {
   transition: all 0.3s ease-in-out;
 }
 
-label,
 input,
 #tipologia,
 #durata,
 #info {
   display: block;
-  margin: 10px 22px;
-}
-
-input,
-#tipologia,
-#durata,
-#info {
-  width: calc(100% - 46px);
+  width: 60%;
+  margin: 10px 20%;
   border-radius: 8px;
   padding: 10px;
 }
@@ -147,7 +148,7 @@ input,
 }
 
 .date-field {
-  width: 100%;
+  width: 30%;
   margin: 0 10px;
 }
 
@@ -175,7 +176,7 @@ option {
 .btn-container {
   display: flex;
   justify-content: flex-end;
-  margin: 25px;
+  margin: 25px 20%;
   position: relative;
   z-index: 1;
 }
@@ -205,9 +206,16 @@ option {
   color: var(--secondary-text-color);
 }
 
+.btn-submit[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
 #btn-last {
   margin-top: -9px;
 }
+
+/* Progress Bar Style */
 
 .progress-bar {
   display: flex;
@@ -227,6 +235,58 @@ option {
   color: var(--background);
   position: relative;
   aspect-ratio: 1 / 1;
+}
+
+.icon-done {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.icon-done.check-animation {
+    opacity: 1;
+    transform: scale(1);
+    animation: pop-and-check 0.5s ease;
+}
+
+@keyframes pop-and-check {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.line-break {
+    width: 10%;
+    height: 4px;
+    margin: 10px;
+    background-color: var(--background);
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.line-fill {
+    height: 100%;
+    background-color: #8ca486;
+    border-radius: 2px;
+    animation: fill 0.5s ease-in-out;
+}
+
+@keyframes fill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
 }
 
 .icon,
@@ -261,12 +321,157 @@ option {
   background-color: var(--background);
 }
 
-.line-break {
-  display: inline-block;
-  border: 2px solid var(--background);
-  width: 61px;
-  margin: 10px;
+/* Progress Bar Style ending */
+
+/* Date Picker */
+
+.hidden {
+    display: none;
 }
+
+.date-field.start.max {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* Checkbox */
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.checkbox-container input[type="checkbox"] {
+  align-items: center;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkbox-container label, label a{
+  font-size: 0.7rem;
+  margin: 0;
+}
+
+label a {
+  text-decoration: underline;
+  color: blue;
+}
+
+.appointment-form p {
+  font-size: 0.8rem;
+  margin: 0 5%;
+  text-align: center;
+}
+
+/* Checkbox ending */
+
+/* Modal */
+
+.modal {
+  display: none; /* Nascondi la modale di default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  position: relative;
+}
+
+/* Stile per la modale di caricamento */
+#modal-loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal-loading.active {
+  display: flex;
+}
+
+#modal-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid var(--primario);
+  border-radius: 50%;
+  background-color: var(--background);
+  margin: 5px auto;
+  animation: spin 6s infinite linear;
+}
+
+.modal-content p {
+  font-size: 1.6rem;
+}
+
+#modal-loading p {
+  color: var(--background);
+  font-size: 1.8rem;
+  padding: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(720deg); 
+  }
+  100% {
+    transform: rotate(1440deg); 
+  }
+}
+
+/* Toast durante la validazione */
+
+.toastify {
+  position: absolute;
+  margin-top: 50%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  opacity: 1;
+  transition: opacity 0.5s;
+  color: white;
+}
+
+@keyframes fadeInOut {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  10%, 90% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+}
+
 
 .form-section {
   display: none;
@@ -279,6 +484,31 @@ footer {
   margin-top: 5em;
 }
 /* Media Query */
+
+@media screen and (max-width: 546px) {
+  .date-container {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .date-field.start, .date-field.end {
+    width: 60%;
+    margin: 10px 20%;
+  }
+
+  .date-field.start.max {
+    width: 60%;
+    margin: 10px 20%;
+  }
+}
+
+@media screen and (max-width: 834px) {
+  .date-field.start.max {
+    width: 63%;
+    margin: 0 auto;
+  }
+}
 
 @media screen and (max-width: 1439px) and (min-width: 834px) {
   .text-box {
@@ -302,17 +532,65 @@ footer {
   }
 
   .date-field {
-    width: 100%;
+    width: 24%;
     margin: 0;
+  }
+
+  .date-field.start {
+    margin-right: 10px;
+  }
+
+  .date-field.end {
+    margin-left: 10px;
   }
 
   #dataInizio,
   #dataFine {
-    width: calc(100% - 46px);
+    width: 100%;
     height: 44px;
     border-radius: 8px;
     padding: 10px;
+    margin: 0 auto 10px;
   }
+
+  input,
+  #tipologia,
+  #durata,
+  #info {
+    width: 50%;
+    height: 46px;
+    margin: 0 auto 10px;
+  }
+
+  label {
+    width: 50%; 
+    margin: 10px auto; 
+  }
+
+  .container-check {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .checkbox-container input {
+    margin: 30px;
+  }
+
+  .checkbox-container label {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .checkbox-container {
+    align-items: center;
+    justify-items: flex-start;
+  }
+
+  .toastify {
+    margin-top: 31%;
+  }
+
 }
 
 @media screen and (min-width: 1440px) {
@@ -327,50 +605,20 @@ footer {
   }
 
   .form-container {
-    margin: 0 10%;
-  }
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 23px;
+    margin: 0 20%;
   }
 
   .icon-container {
     background: var(--secondario-verde);
-    /* z-index: 0; */
   }
 
-  .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    background: url("/img/immagine-form.jpg");
-    background-size: cover;
-    filter: blur(2px);
-    z-index: -1;
-    border-radius: 23px 0 0 23px;
-  }
-
-  .background::after {
-    content: "";
-  }
-
-  .content-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 40%;
-    height: 612px;
+  .progress-bar {
+    padding: 30px;
   }
 
   .appointment-form {
     padding: 30px 30px 0;
-    width: 60%;
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -379,8 +627,6 @@ footer {
 
   .form-title {
     font-size: 30px;
-    width: 50%;
-    color: var(--background);
   }
 
   label {
@@ -393,15 +639,15 @@ footer {
 
   .date-field {
     width: 30%;
-    margin: 0 10px;
+    margin: 10px;
   }
 
   .date-field.start {
-    margin-left: 0;
+    margin: 10px 10px 0 0;
   }
 
   .date-field.end {
-    margin-right: 0;
+    margin: 10px 0 0 10px;
   }
 
   #dataInizio,
@@ -417,14 +663,37 @@ footer {
   #durata,
   #info {
     width: 60%;
+    height: 46px;
     margin: 0 auto;
   }
 
-  .btn-container {
-    margin: 25px 20%;
+  .container-check {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
   }
 
-  #btn-last {
-    margin-top: 1px;
+  .checkbox-container input {
+    margin: 30px;
   }
+
+  .checkbox-container label {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .checkbox-container {
+    align-items: center;
+    justify-items: flex-start;
+  }
+
+  .date-field.start.max {
+    width: 63%;
+    margin: 0 auto;
+  }
+  
+  .toastify {
+    margin-top: 22%;
+  }
+
 }
