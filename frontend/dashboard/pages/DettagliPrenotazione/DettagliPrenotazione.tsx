@@ -3,8 +3,20 @@ import useDettagliPrenotazione from "../../hooks/useDettagliPrenotazione";
 import "./DettagliPrenotazione.css";
 
 const DettagliPrenotazione = () => {
-  const { bookingDetails, deleteJourney, error, isLoading } =
+  const { bookingDetails, mutation, error, isLoading, isError } =
     useDettagliPrenotazione();
+
+  if (isError) {
+    return (
+      <div>
+        <Buttons.BackButton></Buttons.BackButton>
+        <div>
+          Si è verificato un errore durante il recupero dei dettagli della
+          prenotazione: {error?.message}
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -15,25 +27,16 @@ const DettagliPrenotazione = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div>
-        <Buttons.BackButton></Buttons.BackButton>
-        <div>
-          Si è verificato un errore durante il recupero dei dettagli della
-          prenotazione: {error}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="booking-details">
       <Buttons.BackButton></Buttons.BackButton>
 
       <h2>Dettagli Prenotazione</h2>
       <div className="buttons-container">
-        <button className="button reject" onClick={deleteJourney}>
+        <button
+          className="button reject"
+          onClick={() => mutation.mutate(bookingDetails)}
+        >
           Rimuovi
         </button>
       </div>

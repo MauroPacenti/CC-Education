@@ -100,7 +100,6 @@ const PasswordModal = ({
         method: "PUT",
       }
     );
-    console.log("hey");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.statusText}`);
     }

@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DettagliRichiestaPrenotazioneService } from "../services/DettagliRichiestaPrenotazione.service";
 import type { BookingRequestDetails } from "../models/BookingRequestDetails.model";
 import ToastContext from "../context/ToastContext";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const durationStart = (duration?: number) => {
   switch (duration) {
@@ -35,65 +36,124 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const { toggleToast } = useContext(ToastContext);
 
-  const [bookingRequestDetails, setBookingRequestDetails] =
-    useState<BookingRequestDetails>();
+  const {
+    data: bookingRequestDetails,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["bookingRequestDetails", idRichiestaPrenotazione],
+    queryFn: (): Promise<BookingRequestDetails> => {
+      return DettagliRichiestaPrenotazioneService.getRequest(
+        +idRichiestaPrenotazione!
+      );
+    },
+  });
+
+  const approveMutation = useMutation({
+    mutationFn: () => {
+      const data = {
+        startDate: `${selectedDate.startDate}T${durationStart(
+          bookingRequestDetails?.duration
+        )}:00`,
+        endDate: `${
+          selectedDate.endDate ?? selectedDate.startDate
+        }T${durationEnd(bookingRequestDetails?.duration)}:00`,
+        keeperId: bookingRequestDetails?.keeper.id,
+        title: bookingRequestDetails?.keeper.organization.name,
+      };
+      return DettagliRichiestaPrenotazioneService.approveRequest(data);
+    },
+    onSuccess: () => {
+      toggleToast({
+        message: "Richiesta approvata con successo",
+        type: "success",
+      });
+      navigate("/dashboard/prenotazioni");
+    },
+    onError: () => {
+      toggleToast({
+        message:
+          "Si è verificato un errore durante l'approvazione della richiesta",
+        type: "error",
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (idRichiestaPrenotazione: number) => {
+      return DettagliRichiestaPrenotazioneService.deleteRequest(
+        +idRichiestaPrenotazione!
+      );
+    },
+    onSuccess: () => {
+      toggleToast({
+        message: "Richiesta rifiutata con successo",
+        type: "success",
+      });
+      navigate("/dashboard/richieste-prenotazioni");
+    },
+    onError: () => {
+      toggleToast({
+        message: "Si è verificato un errore durante il rifiuto della richiesta",
+        type: "error",
+      });
+    },
+  });
 
   const [selectedDate, setSelectedDate] = useState({
     startDate: bookingRequestDetails?.startAvailabilityDate,
     endDate: bookingRequestDetails?.endAvailabilityDate,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
   const [replyModal, setReplyModal] = useState(false);
   const [approveModal, setApproveModal] = useState(false);
 
-  const handleApprove = () => {
-    const data = {
-      startDate: `${selectedDate.startDate}T${durationStart(
-        bookingRequestDetails?.duration
-      )}:00`,
-      endDate: `${selectedDate.endDate ?? selectedDate.startDate}T${durationEnd(
-        bookingRequestDetails?.duration
-      )}:00`,
-      keeperId: bookingRequestDetails?.keeper.id,
-      title: bookingRequestDetails?.keeper.organization.name,
-    };
-    setIsLoading(true);
-    try {
-      DettagliRichiestaPrenotazioneService.approveRequest(data).then(() => {
-        navigate("/dashboard/prenotazioni");
-        setIsLoading(false);
-      });
-    } catch (err) {
-      setIsLoading(false);
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Si è verificato un errore durante il caricamento dei dati."
-      );
-    }
-  };
+  // const handleApprove = () => {
+  //   const data = {
+  //     startDate: `${selectedDate.startDate}T${durationStart(
+  //       bookingRequestDetails?.duration
+  //     )}:00`,
+  //     endDate: `${selectedDate.endDate ?? selectedDate.startDate}T${durationEnd(
+  //       bookingRequestDetails?.duration
+  //     )}:00`,
+  //     keeperId: bookingRequestDetails?.keeper.id,
+  //     title: bookingRequestDetails?.keeper.organization.name,
+  //   };
+  //   setIsLoading(true);
+  //   try {
+  //     DettagliRichiestaPrenotazioneService.approveRequest(data).then(() => {
+  //       navigate("/dashboard/prenotazioni");
+  //       setIsLoading(false);
+  //     });
+  //   } catch (err) {
+  //     setIsLoading(false);
+  //     setError(
+  //       err instanceof Error
+  //         ? err.message
+  //         : "Si è verificato un errore durante il caricamento dei dati."
+  //     );
+  //   }
+  // };
 
-  const handleReject = () => {
-    try {
-      setIsLoading(true);
-      DettagliRichiestaPrenotazioneService.deleteRequest(
-        bookingRequestDetails?.id
-      ).then(() => {
-        navigate("/dashboard/richieste-prenotazioni");
-        setIsLoading(false);
-      });
-    } catch (err) {
-      setIsLoading(false);
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Si è verificato un errore durante il caricamento dei dati."
-      );
-    }
-  };
+  // const handleReject = () => {
+  //   try {
+  //     setIsLoading(true);
+  //     DettagliRichiestaPrenotazioneService.deleteRequest(
+  //       bookingRequestDetails?.id
+  //     ).then(() => {
+  //       navigate("/dashboard/richieste-prenotazioni");
+  //       setIsLoading(false);
+  //     });
+  //   } catch (err) {
+  //     setIsLoading(false);
+  //     setError(
+  //       err instanceof Error
+  //         ? err.message
+  //         : "Si è verificato un errore durante il caricamento dei dati."
+  //     );
+  //   }
+  // };
 
   const handleContact = () => {
     setReplyModal((prev) => !prev);
@@ -112,29 +172,6 @@ const useDettagliRichiestaPrenotazione = () => {
     );
   };
 
-  useEffect(() => {
-    try {
-      setIsLoading(true);
-      if (!idRichiestaPrenotazione) {
-        throw new Error("id not found");
-      }
-
-      DettagliRichiestaPrenotazioneService.getRequest(
-        +idRichiestaPrenotazione
-      ).then((bookingRequestDetails) => {
-        setBookingRequestDetails(bookingRequestDetails);
-        setIsLoading(false);
-      });
-    } catch (err) {
-      setIsLoading(false);
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Si è verificato un errore durante il caricamento dei dati."
-      );
-    }
-  }, [idRichiestaPrenotazione]);
-
   const toggleAproveModal = () => {
     setApproveModal((prev) => !prev);
   };
@@ -142,11 +179,12 @@ const useDettagliRichiestaPrenotazione = () => {
   return {
     bookingRequestDetails,
     isLoading,
+    isError,
     error,
     replyModal,
     approveModal,
-    handleApprove,
-    handleReject,
+    approveMutation,
+    deleteMutation,
     handleContact,
     toggleAproveModal,
     handleChange,

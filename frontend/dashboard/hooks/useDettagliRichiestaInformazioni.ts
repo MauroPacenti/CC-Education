@@ -1,18 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DettagliRichiestaInformazioneService } from "../services/DettagliRichiestaInformazione.service";
 
 import type { InformationRequest } from "../models/InformationRequest.model";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useDettagliRichiestaInformazioni = () => {
   const { idRichiestaInformazione } = useParams();
   const navigate = useNavigate();
 
-  const [requestInformationDetails, setRequestInformationDetails] =
-    useState<InformationRequest>();
+  const {
+    data: requestInformationDetails,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["requestInformationDetails", idRichiestaInformazione],
+    queryFn: (): Promise<InformationRequest> => {
+      if (!idRichiestaInformazione) {
+        throw new Error("No information request ID provided");
+      }
+      return DettagliRichiestaInformazioneService.getRequest(
+        +idRichiestaInformazione
+      );
+    },
+  });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const mutation = useMutation({
+    mutationFn: (id: number) =>
+      DettagliRichiestaInformazioneService.deleteRequest(id),
+    onSuccess: () => {
+      navigate("/dashboard/richieste-informazioni");
+    },
+    onError: (error) => {
+      setErrorDelete(error.message);
+    },
+  });
 
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -20,64 +43,12 @@ const useDettagliRichiestaInformazioni = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [errorDelete, setErrorDelete] = useState<string | null>(null);
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    if (!idRichiestaInformazione) {
-      throw new Error("No booking ID provided");
-    }
-
-    DettagliRichiestaInformazioneService.getRequest(+idRichiestaInformazione)
-      .then((requestInformationDetails) => {
-        setRequestInformationDetails(requestInformationDetails);
-      })
-      .catch((err) => {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Si è verificato un errore durante il caricamento dei dati."
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [idRichiestaInformazione]);
-
-  const deleteInformationRequest = () => {
-    // Delete information request
-
-    setIsLoadingDelete(true);
-    if (!idRichiestaInformazione) {
-      throw new Error("No information ID provided");
-    }
-
-    DettagliRichiestaInformazioneService.deleteRequest(+idRichiestaInformazione)
-      .then(() => {
-        toggleDeleteModal();
-        navigate("/dashboard/richieste-informazioni");
-      })
-      .catch((err) => {
-        setErrorDelete(
-          err instanceof Error
-            ? err.message
-            : "Si è verificato un errore durante il caricamento dei dati."
-        );
-      })
-      .finally(() => {
-        setIsLoadingDelete(false);
-      });
-  };
-
   const toggleReplyModal = () => {
-    // Open modal
     setShowReplyModal((prev) => !prev);
   };
 
   const toggleDeleteModal = () => {
-    // Open modal
-    setError(null);
     setErrorDelete(null);
-    setIsLoading(false);
     setIsLoadingDelete(false);
     setShowDeleteModal((prev) => !prev);
   };
@@ -90,9 +61,10 @@ const useDettagliRichiestaInformazioni = () => {
     showDeleteModal,
     toggleReplyModal,
     toggleDeleteModal,
-    deleteInformationRequest,
+    mutation,
     isLoadingDelete,
     errorDelete,
+    isError,
   };
 };
 

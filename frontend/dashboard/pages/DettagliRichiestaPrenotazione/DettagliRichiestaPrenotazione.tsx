@@ -13,29 +13,29 @@ const DettagliRichiestaPrenotazione = () => {
     replyModal,
     handleContact,
     bookingRequestDetails,
-    handleApprove,
-    handleReject,
+    approveMutation,
+    deleteMutation,
+    isError,
     approveModal,
     toggleAproveModal,
     handleChange,
     selectedDate,
-    toggleToast,
   } = useDettagliRichiestaPrenotazione();
+
+  if (isError) {
+    return (
+      <div>
+        <Buttons.BackButton></Buttons.BackButton>
+        <p>Error: {error?.message}</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
       <div>
         <Buttons.BackButton></Buttons.BackButton>
         <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div>
-        <Buttons.BackButton></Buttons.BackButton>
-        <p>Error: {error}</p>
       </div>
     );
   }
@@ -56,18 +56,8 @@ const DettagliRichiestaPrenotazione = () => {
         <button
           className="button reject"
           onClick={() => {
-            handleReject();
-            if (!error) {
-              toggleToast({
-                type: "success",
-                message: "Richiesta rifiutata",
-              });
-            } else {
-              toggleToast({
-                type: "error",
-                message: "Errore nel rifiuto della richiesta",
-              });
-            }
+            if (!bookingRequestDetails?.id) return;
+            deleteMutation.mutate(bookingRequestDetails?.id);
           }}
         >
           Rifiuta
@@ -179,8 +169,13 @@ const DettagliRichiestaPrenotazione = () => {
                 </div>
               )}
             </div>
-            <button className="button approve" onClick={handleApprove}>
-              Approva
+            <button
+              className={`button approve ${
+                approveMutation.isPending ? "loading-btn" : ""
+              }`}
+              onClick={() => approveMutation.mutate()}
+            >
+              {approveMutation.isPending ? <span></span> : "Approva"}
             </button>
           </div>
         </Modal>

@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import "./RichiesteInformazioni.css";
 import { PropsWithChildren, useEffect, useState } from "react";
 import infoRequestMapper from "../../utils/Mapper/infoRequestMapper";
+import { useQuery } from "@tanstack/react-query";
 
 interface InfoRequest {
   id: number;
@@ -12,36 +13,23 @@ interface InfoRequest {
 }
 
 const RichiesteInformazioni = () => {
-  const [infoRequest, setInfoRequest] = useState<InfoRequest[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["infoRequest"],
+    queryFn: (): Promise<InfoRequest[]> =>
+      fetch("/api/pub/getAllInfoRequest")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          return infoRequestMapper(data);
+        }),
+  });
 
-  useEffect(() => {
-    const fetchInfoRequest = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch("/api/pub/getAllInfoRequest");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        const infoRequest = infoRequestMapper(data);
-        setInfoRequest(infoRequest);
-      } catch (error) {
-        setError(`Error fetching info request: ${error}`);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchInfoRequest();
-  }, []);
-
-  if (error) {
+  if (isError) {
     return (
       <div>
         <h2>Richieste Informazioni</h2>
-        Error: {error}
+        Error: {isError}
       </div>
     );
   }
@@ -55,7 +43,7 @@ const RichiesteInformazioni = () => {
     );
   }
 
-  if (infoRequest?.length === 0) {
+  if (data?.length === 0) {
     return (
       <div>
         <h2>Richieste Informazioni</h2>
@@ -69,7 +57,7 @@ const RichiesteInformazioni = () => {
       <h2>Richieste Informazioni</h2>
 
       <div className="info-container">
-        {infoRequest?.map((request) => (
+        {data?.map((request) => (
           <NavLink
             key={request.id}
             to={`/dashboard/richieste-informazioni/${request.id}`}

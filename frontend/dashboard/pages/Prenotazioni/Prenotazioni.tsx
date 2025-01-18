@@ -11,13 +11,14 @@ import "@schedule-x/theme-default/dist/index.css";
 
 import { createEventModalPlugin } from "@schedule-x/event-modal";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import AddEventModal from "../../components/AddEventModal/AddEventModal";
 import { useNavigate } from "react-router";
 import { CalendarBooking } from "../../models/CalendarBooking.model";
 import { CirclePlus } from "lucide-react";
 import { calendarBookingMapper } from "../../utils/Mapper/CalendarBookingMapper";
+import { useQuery } from "@tanstack/react-query";
 
 interface Journey {
   id: number;
@@ -44,7 +45,25 @@ const Prenotazioni = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-  const [events, setEvents] = useState<CalendarBooking[]>([]);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["journey"],
+    queryFn: () =>
+      fetch("/api/pub/getAllJourney")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          data = data.map((event: Journey) => calendarBookingMapper(event));
+          eventsService.set(data);
+          eventsService.getAll();
+          return data;
+        })
+        .finally(() => {
+          eventsService.getAll();
+          return data;
+        }),
+  });
 
   const toggleAddEventModal = () =>
     setIsActiveModal((isActiveModal) => !isActiveModal);
@@ -74,18 +93,6 @@ const Prenotazioni = () => {
     toggleAddEventModal();
   };
 
-  useEffect(() => {
-    fetch("/api/pub/getAllJourney")
-      .then((response) => response.json())
-      .then((data) => {
-        data = data.map((booking: Journey) => calendarBookingMapper(booking));
-        eventsService.set(data);
-        setEvents(data);
-      })
-      .catch((err) => console.error(err));
-    eventsService.getAll();
-  }, [eventsService]);
-
   const calendar = useCalendarApp({
     locale: "it-IT",
     dayBoundaries: {
@@ -102,9 +109,26 @@ const Prenotazioni = () => {
     },
 
     views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events: events,
+    events: data,
     plugins: [eventsService, createEventModalPlugin()],
   });
+
+  if (isError) {
+    return (
+      <div>
+        <h2>Prenotazioni</h2>
+        Error: {error.message}
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div>
+        <h2>Prenotazioni</h2>
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-calendar">

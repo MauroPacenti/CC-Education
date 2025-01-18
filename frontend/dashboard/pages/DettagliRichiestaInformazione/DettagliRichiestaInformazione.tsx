@@ -11,7 +11,8 @@ const DettagliRichiestaInformazione = () => {
   const {
     isLoading,
     error,
-    deleteInformationRequest,
+    mutation,
+    isError,
     requestInformationDetails,
     showDeleteModal,
     toggleDeleteModal,
@@ -27,7 +28,7 @@ const DettagliRichiestaInformazione = () => {
     return (
       <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
         <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-          <p>Si è verificato un errore durante l'eliminazione: {error}</p>
+          <p>Si è verificato un errore durante l'eliminazione: {errorDelete}</p>
           <button
             className="delete-modal-button"
             onClick={() => {
@@ -42,13 +43,13 @@ const DettagliRichiestaInformazione = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div>
         <Buttons.BackButton></Buttons.BackButton>
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
-          richiesta d'informazione: {error}
+          richiesta d'informazione: {error?.message}
         </div>
       </div>
     );
@@ -98,7 +99,8 @@ const DettagliRichiestaInformazione = () => {
               <button
                 className="delete-modal-button delete"
                 onClick={() => {
-                  deleteInformationRequest();
+                  if (!requestInformationDetails) return;
+                  mutation.mutate(requestInformationDetails.id);
                   if (!errorDelete)
                     toggleToast({
                       type: "success",

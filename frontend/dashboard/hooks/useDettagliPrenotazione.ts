@@ -1,53 +1,41 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Booking } from "../models/Booking.model";
 import { DettagliPrenotazioneService } from "../services/DettagliPrenotazione.service";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useDettagliPrenotazione = () => {
   const { idPrenotazione } = useParams();
   const navigate = useNavigate();
-  const [bookingDetails, setBookingDetails] = useState<Booking | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    setIsLoading(true);
-    DettagliPrenotazioneService.getJourneyById(Number(idPrenotazione))
-      .then((data) => {
-        setBookingDetails(data);
-      })
-      .catch((err) =>
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Si è verificato un errore durante il caricamento dei dati."
-        )
-      )
-      .finally(() => setIsLoading(false));
-  }, [idPrenotazione]);
+  const {
+    data: bookingDetails,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["bookingDetails", idPrenotazione],
+    queryFn: () =>
+      DettagliPrenotazioneService.getJourneyById(Number(idPrenotazione)),
+    staleTime: 30000,
+  });
 
-  const deleteJourney = async () => {
-    setIsLoading(true);
-    DettagliPrenotazioneService.deleteById(Number(idPrenotazione))
-      .then(() => {
-        setBookingDetails(null);
-        navigate(-1);
-      })
-      .catch((err) =>
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Si è verificato un errore durante il caricamento dei dati."
-        )
-      )
-      .finally(() => setIsLoading(false));
-  };
+  const mutation = useMutation({
+    mutationFn: (data: Booking) =>
+      DettagliPrenotazioneService.deleteById(data.id),
+    onSuccess: () => {
+      navigate(-1);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return {
     bookingDetails,
     isLoading,
     error,
-    deleteJourney,
+    isError,
+    mutation,
   };
 };
 

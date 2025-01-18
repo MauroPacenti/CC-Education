@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import "./RichiestePrenotazione.css";
 import { useNavigate } from "react-router";
 import journeyRequestMapper from "../../utils/Mapper/journeyRequestMapper";
+import { useQuery } from "@tanstack/react-query";
 
 interface BookingRequest {
   id: number;
@@ -15,41 +15,25 @@ interface BookingRequest {
 }
 
 const RichiestePrenotazione = () => {
-  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["bookingRequests"],
+    queryFn: (): Promise<BookingRequest[]> =>
+      fetch("/api/pub/getAllJourneyRequest")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          return journeyRequestMapper(data);
+        }),
+  });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchBookingRequests = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/api/pub/getAllJourneyRequest");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        const journeyRequest = journeyRequestMapper(data);
-        setBookingRequests(journeyRequest);
-      } catch (err) {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Si è verificato un errore durante il caricamento dei dati."
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchBookingRequests();
-  }, []);
-
-  if (bookingRequests?.length === 0) {
+  if (isError) {
     return (
       <div>
         <h2>Richieste Prenotazione</h2>
-        <p>Non ci sono richieste di prenotazione</p>
+        Error: {isError}
       </div>
     );
   }
@@ -63,11 +47,11 @@ const RichiestePrenotazione = () => {
     );
   }
 
-  if (error) {
+  if (data?.length === 0) {
     return (
       <div>
         <h2>Richieste Prenotazione</h2>
-        Error: {error}
+        <p>Non ci sono richieste di prenotazione</p>
       </div>
     );
   }
@@ -87,7 +71,7 @@ const RichiestePrenotazione = () => {
           </tr>
         </thead>
         <tbody className="table-body">
-          {bookingRequests?.map((bookingRequest) => (
+          {data?.map((bookingRequest) => (
             <tr
               key={bookingRequest.id}
               onClick={() => {

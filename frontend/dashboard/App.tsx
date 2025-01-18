@@ -12,40 +12,45 @@ import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione
 import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
 
 import Impostazioni from "./pages/Impostazioni/Impostazioni";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<Home />} />
-            <Route path="prenotazioni" element={<Prenotazioni />} />
-            <Route
-              path="prenotazioni/:idPrenotazione"
-              element={<DettagliPrenotazione />}
-            />
-            <Route
-              path="richieste-prenotazioni"
-              element={<RichiestePrenotazione />}
-            />
-            <Route
-              path="richieste-prenotazioni/:idRichiestaPrenotazione"
-              element={<DettagliRichiestaPrenotazione />}
-            />
-            <Route
-              path="richieste-informazioni"
-              element={<RichiesteInformazioni />}
-            />
-            <Route
-              path="richieste-informazioni/:idRichiestaInformazione"
-              element={<DettagliRichiestaInformazione />}
-            />
-            <Route path="impostazioni" element={<Impostazioni />} />
-            <Route path="*" element={<h1>NotFount</h1>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="dashboard" element={<Dashboard />}>
+              <Route index element={<Home />} />
+              <Route path="prenotazioni" element={<Prenotazioni />} />
+              <Route
+                path="prenotazioni/:idPrenotazione"
+                element={<DettagliPrenotazione />}
+              />
+              <Route
+                path="richieste-prenotazioni"
+                element={<RichiestePrenotazione />}
+              />
+              <Route
+                path="richieste-prenotazioni/:idRichiestaPrenotazione"
+                element={<DettagliRichiestaPrenotazione />}
+              />
+              <Route
+                path="richieste-informazioni"
+                element={<RichiesteInformazioni />}
+              />
+              <Route
+                path="richieste-informazioni/:idRichiestaInformazione"
+                element={<DettagliRichiestaInformazione />}
+              />
+              <Route path="impostazioni" element={<Impostazioni />} />
+              <Route path="*" element={<h1>NotFount</h1>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
     </>
   );
 }

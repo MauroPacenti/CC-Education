@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
 import "./Home.css";
 import { BookMarked, NotebookPen } from "lucide-react";
-import { useEffect, useState } from "react";
 import journeyMapper from "../../utils/Mapper/journeyMapper";
+import { useQuery } from "@tanstack/react-query";
 
 interface Booking {
   id: number;
@@ -14,47 +14,36 @@ interface Booking {
 }
 
 const Home = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [journeyRequest, setJourneyRequest] = useState([]);
-  const [infoRequest, setInfoRequest] = useState([]);
+  const {
+    data: bookings,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["bookings"],
+    queryFn: (): Promise<Booking[]> =>
+      fetch("/api/pub/getAllJourney").then((res) =>
+        res.json().then((data) => journeyMapper(data))
+      ),
+  });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data: infoRequest } = useQuery({
+    queryKey: ["journeyRequest"],
+    queryFn: () =>
+      fetch("/api/pub/getAllInfoRequest").then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("/api/pub/getAllJourney")
-      .then((res) => res.json())
-      .then((data) => {
-        // mapper for bookings
-        data = journeyMapper(data);
-        setBookings(data);
-      })
-      .catch((err) =>
-        setError(`Errore durante il caricamento dei dati: ${err}`)
-      )
-      .finally(() => setIsLoading(false));
-  }, []);
+  const { data: journeyRequest } = useQuery({
+    queryKey: ["journeyRequest"],
+    queryFn: () =>
+      fetch("/api/pub/getAllJourneyRequest").then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    fetch("/api/pub/getAllInfoRequest")
-      .then((res) => res.json())
-      .then((data) => setInfoRequest(data))
-      .catch((err) => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/pub/getAllJourneyRequest")
-      .then((res) => res.json())
-      .then((data) => setJourneyRequest(data))
-      .catch((err) => console.error(err));
-  }, []);
-
-  if (error) {
+  if (isError) {
     return (
       <div>
         <h2 className="dashboard-title">Bentornato Andrea</h2>
-        Error: {error}
+        Error: {error.message}
       </div>
     );
   }
@@ -77,7 +66,7 @@ const Home = () => {
 
           {/* TODO: Aggiungere la lista delle prenotazioni con componente BookingItem*/}
 
-          {bookings.length > 0 ? (
+          {bookings && bookings.length > 0 ? (
             <div className="bookings">
               {bookings.map((booking) => (
                 <NavLink
@@ -122,7 +111,7 @@ const Home = () => {
               className={"btn btn-request"}
             >
               <span>
-                {journeyRequest.length}
+                {journeyRequest?.length}
                 <BookMarked strokeWidth="2.5" className="btn-icon"></BookMarked>
               </span>
               <span className="btn-text">Nuove richieste di prenotazione</span>
@@ -132,7 +121,7 @@ const Home = () => {
               className={"btn btn-request"}
             >
               <span>
-                {infoRequest.length}
+                {infoRequest?.length}
                 <NotebookPen
                   strokeWidth="2.5"
                   className="btn-icon"
