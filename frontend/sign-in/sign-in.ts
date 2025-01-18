@@ -10,6 +10,10 @@ form?.addEventListener("submit", (e) => {
   fetch(url, {
     method: "POST",
     body: formData,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    credentials: "include",
   })
     .then((response) => {
       if (response.ok) {

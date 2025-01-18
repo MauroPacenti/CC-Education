@@ -18,7 +18,11 @@ const Home = () => {
   const [journeyRequest, setJourneyRequest] = useState([]);
   const [infoRequest, setInfoRequest] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
+    setIsLoading(true);
     fetch("/api/pub/getAllJourney")
       .then((res) => res.json())
       .then((data) => {
@@ -26,7 +30,10 @@ const Home = () => {
         data = journeyMapper(data);
         setBookings(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) =>
+        setError(`Errore durante il caricamento dei dati: ${err}`)
+      )
+      .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
@@ -42,6 +49,24 @@ const Home = () => {
       .then((data) => setJourneyRequest(data))
       .catch((err) => console.error(err));
   }, []);
+
+  if (error) {
+    return (
+      <div>
+        <h2 className="dashboard-title">Bentornato Andrea</h2>
+        Error: {error}
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        <h2 className="dashboard-title">Bentornato Andrea</h2>
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-home">

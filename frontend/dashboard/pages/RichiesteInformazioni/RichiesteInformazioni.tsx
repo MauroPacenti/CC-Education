@@ -13,9 +13,12 @@ interface InfoRequest {
 
 const RichiesteInformazioni = () => {
   const [infoRequest, setInfoRequest] = useState<InfoRequest[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchInfoRequest = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch("/api/pub/getAllInfoRequest");
         if (!response.ok) {
@@ -25,12 +28,32 @@ const RichiesteInformazioni = () => {
         const infoRequest = infoRequestMapper(data);
         setInfoRequest(infoRequest);
       } catch (error) {
-        console.error("Error fetching info request:", error);
+        setError(`Error fetching info request: ${error}`);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchInfoRequest();
   }, []);
+
+  if (error) {
+    return (
+      <div>
+        <h2>Richieste Informazioni</h2>
+        Error: {error}
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        <h2>Richieste Informazioni</h2>
+        Caricamento...
+      </div>
+    );
+  }
 
   if (infoRequest?.length === 0) {
     return (
