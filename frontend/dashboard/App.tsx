@@ -11,22 +11,11 @@ import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazi
 import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
 import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
 
-import Toast from "./components/Toast/Toast";
-import useToast from "./hooks/useToast";
 import Impostazioni from "./pages/Impostazioni/Impostazioni";
 
 function App() {
-  const { isToastOpen, toastType, toastMessage, toggleToastMessage } =
-    useToast();
-
   return (
     <>
-      <Toast.ToastContainer>
-        <Toast.ToastItem toastType={toastType} isToastOpen={isToastOpen}>
-          <Toast.ToastMessage>{toastMessage}</Toast.ToastMessage>
-        </Toast.ToastItem>
-      </Toast.ToastContainer>
-
       <BrowserRouter>
         <Routes>
           <Route path="dashboard" element={<Dashboard />}>
@@ -50,11 +39,7 @@ function App() {
             />
             <Route
               path="richieste-informazioni/:idRichiestaInformazione"
-              element={
-                <DettagliRichiestaInformazione
-                  toggleToastMessage={toggleToastMessage}
-                />
-              }
+              element={<DettagliRichiestaInformazione />}
             />
             <Route path="impostazioni" element={<Impostazioni />} />
             <Route path="*" element={<h1>NotFount</h1>} />

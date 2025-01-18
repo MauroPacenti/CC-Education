@@ -1,7 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import "./Impostazioni.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import ToastContext from "../../context/ToastContext";
 
 const Impostazioni = () => {
   const [isOpenPasswordModal, setIsOpenPasswordModal] = useState(false);
@@ -315,6 +316,7 @@ const PasswordCodeModal = ({
   toggleCodePasswordModal: () => void;
 }) => {
   const [code, setCode] = useState(["", "", "", "", "", "", "", "", ""]);
+  const { toggleToast } = useContext(ToastContext);
 
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1 && /^\d*$/.test(value)) {
@@ -356,8 +358,20 @@ const PasswordCodeModal = ({
       toggleCodePasswordModal();
       setCode(["", "", "", "", "", "", "", "", ""]);
       // Toast successo
+      toggleToast({
+        message: "Password modificata con successo",
+        type: "success",
+      });
     } catch (error) {
-      console.error("Errore durante l'aggiornamento della password:", error);
+      // Toast errore
+      toggleToast({
+        message: `${
+          error instanceof Error
+            ? error.message
+            : "Errore durante l'invio del codice"
+        }`,
+        type: "error",
+      });
     }
   };
 
@@ -585,6 +599,8 @@ const EmailCodesModal = ({
   const [oldCode, setOldCode] = useState(["", "", "", "", "", "", "", "", ""]);
   const [newCode, setNewCode] = useState(["", "", "", "", "", "", "", "", ""]);
 
+  const { toggleToast } = useContext(ToastContext);
+
   const handleCodeChange = (
     type: "old" | "new",
     index: number,
@@ -634,10 +650,21 @@ const EmailCodesModal = ({
       toggleCodesEmailModal();
       setOldCode(["", "", "", "", "", "", "", "", ""]);
       setNewCode(["", "", "", "", "", "", "", "", ""]);
-
       // toast successo
+      toggleToast({
+        message: "Email modificata con successo",
+        type: "success",
+      });
     } catch (error) {
-      console.error("Errore durante l'aggiornamento della password:", error);
+      // toast errore
+      toggleToast({
+        message: `${
+          error instanceof Error
+            ? error.message
+            : "Errore durante l'invio dei codici"
+        }`,
+        type: "error",
+      });
     }
   };
 

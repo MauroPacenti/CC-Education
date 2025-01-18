@@ -4,15 +4,10 @@ import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
 import Buttons from "../../components/Buttons/Buttons";
+import { useContext } from "react";
+import ToastContext from "../../context/ToastContext";
 
-const DettagliRichiestaInformazione = ({
-  toggleToastMessage,
-}: {
-  toggleToastMessage: (
-    type: "successo" | "errore" | "info" | "problema",
-    message: string
-  ) => void;
-}) => {
+const DettagliRichiestaInformazione = () => {
   const {
     isLoading,
     error,
@@ -25,6 +20,8 @@ const DettagliRichiestaInformazione = ({
     isLoadingDelete,
     errorDelete,
   } = useDettagliRichiestaInformazioni();
+
+  const { toggleToast } = useContext(ToastContext);
 
   if (errorDelete) {
     return (
@@ -103,12 +100,16 @@ const DettagliRichiestaInformazione = ({
                 onClick={() => {
                   deleteInformationRequest();
                   if (!errorDelete)
-                    toggleToastMessage("successo", "Richiesta eliminata");
+                    toggleToast({
+                      type: "success",
+                      message: "Richiesta eliminata",
+                    });
                   else
-                    toggleToastMessage(
-                      "errore",
-                      "Si è verificato un errore durante l'eliminazione"
-                    );
+                    toggleToast({
+                      type: "error",
+                      message:
+                        "Si è verificato un errore durante l'eliminazione",
+                    });
                 }}
               >
                 Elimina

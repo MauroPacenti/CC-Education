@@ -19,6 +19,7 @@ const DettagliRichiestaPrenotazione = () => {
     toggleAproveModal,
     handleChange,
     selectedDate,
+    toggleToast,
   } = useDettagliRichiestaPrenotazione();
 
   if (isLoading) {
@@ -52,7 +53,23 @@ const DettagliRichiestaPrenotazione = () => {
       <h2>Dettagli Richiesta Prenotazione</h2>
 
       <div className="buttons-container">
-        <button className="button reject" onClick={handleReject}>
+        <button
+          className="button reject"
+          onClick={() => {
+            handleReject();
+            if (!error) {
+              toggleToast({
+                type: "success",
+                message: "Richiesta rifiutata",
+              });
+            } else {
+              toggleToast({
+                type: "error",
+                message: "Errore nel rifiuto della richiesta",
+              });
+            }
+          }}
+        >
           Rifiuta
         </button>
 

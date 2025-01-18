@@ -1,32 +1,31 @@
 import "./Toast.css";
 import { PropsWithChildren } from "react";
 
+type ToastType = "success" | "error";
+
 const ToastContainer = ({ children }: PropsWithChildren) => {
   return <div className="toast-container">{children}</div>;
 };
 
-type ToastType = "successo" | "errore" | "problema" | "info";
-
 const ToastItem = ({
   children,
-  toastType,
-  isToastOpen,
-}: PropsWithChildren<{ toastType: ToastType; isToastOpen: boolean }>) => {
-  return (
-    <div className={`toast ${toastType} ${isToastOpen ? "show" : ""}`}>
-      {children}
-    </div>
-  );
+  type,
+}: PropsWithChildren<{ type: ToastType }>) => {
+  return <div className={`toast-item ${type}`}>{children}</div>;
 };
 
 const ToastMessage = ({ children }: PropsWithChildren) => {
   return <div className="toast-message">{children}</div>;
 };
 
-const Toast = {
-  ToastContainer,
-  ToastItem,
-  ToastMessage,
+const Toast = ({ type, message }: { type: ToastType; message: string }) => {
+  return (
+    <ToastItem type={type}>
+      <ToastMessage>{message}</ToastMessage>
+    </ToastItem>
+  );
 };
+
+Toast.ToastContainer = ToastContainer;
 
 export default Toast;

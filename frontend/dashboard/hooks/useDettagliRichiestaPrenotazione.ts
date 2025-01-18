@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DettagliRichiestaPrenotazioneService } from "../services/DettagliRichiestaPrenotazione.service";
 import type { BookingRequestDetails } from "../models/BookingRequestDetails.model";
+import ToastContext from "../context/ToastContext";
 
 const durationStart = (duration?: number) => {
   switch (duration) {
@@ -31,6 +32,8 @@ const durationEnd = (duration?: number) => {
 const useDettagliRichiestaPrenotazione = () => {
   const { idRichiestaPrenotazione } = useParams();
   const navigate = useNavigate();
+
+  const { toggleToast } = useContext(ToastContext);
 
   const [bookingRequestDetails, setBookingRequestDetails] =
     useState<BookingRequestDetails>();
@@ -148,6 +151,7 @@ const useDettagliRichiestaPrenotazione = () => {
     toggleAproveModal,
     handleChange,
     selectedDate,
+    toggleToast,
   };
 };
 
