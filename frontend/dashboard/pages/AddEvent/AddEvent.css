@@ -3,6 +3,7 @@
   padding: 20px;
   width: 100%;
   margin-bottom: 2em;
+  background-color: #fff;
 }
 .addEventForm h3 {
   font-size: 1.35rem;
@@ -55,6 +56,11 @@
   margin-top: 4px;
 }
 
+.addEventForm select.error,
+.addEventForm input.error {
+  border: 1px solid #ff4444;
+}
+
 .submitButton {
   text-align: center;
   margin-top: 20px;
@@ -71,7 +77,12 @@
 }
 
 .submitButton button:hover {
-  background-color: #0052a3;
+  background-color: #4b21e1;
+}
+
+.submitButton button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .addEventForm select {

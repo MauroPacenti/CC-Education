@@ -23,7 +23,9 @@ interface Journey {
   title: string;
   keeper: {
     organization: {
+      name: string;
       type: string;
+      email: string;
     };
     group: {
       minors: number;

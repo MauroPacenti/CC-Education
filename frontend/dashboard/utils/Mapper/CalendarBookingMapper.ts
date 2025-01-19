@@ -3,7 +3,9 @@ interface Journey {
   title: string;
   keeper: {
     organization: {
+      name: string;
       type: string;
+      email: string;
     };
     group: {
       minors: number;
@@ -26,7 +28,11 @@ export const calendarBookingMapper = (booking: Journey) => {
     end: `${booking.endDate.split("T")[0]} ${booking.endDate
       .split("T")[1]
       .slice(0, 5)}`,
-    description: booking.annotations || "",
+    description:
+      booking.annotations ||
+      `${booking.keeper.organization.name} | ${booking.keeper.organization.type}
+      ${booking.keeper.organization.email}
+      `,
     people: [
       `Aduti: ${booking.keeper.group.adults}`,
       `Minori: ${booking.keeper.group.minors}`,

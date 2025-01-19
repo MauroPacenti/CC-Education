@@ -11,6 +11,34 @@ import {
   verifyPhoneNumber,
 } from "../../utils/verifyFormInputs";
 
+interface ValidationModel {
+  keeper: {
+    firstName: boolean;
+    lastName: boolean;
+    email: boolean;
+    cf: boolean;
+    phone: boolean;
+  };
+  group: {
+    minors: boolean;
+    adults: boolean;
+  };
+  organization: {
+    name: boolean;
+    type: boolean;
+    address: boolean;
+    phone: boolean;
+    email: boolean;
+  };
+  journey: {
+    startDate: boolean;
+    endDate: boolean;
+    title: boolean;
+    annotations: boolean;
+    duration: boolean;
+  };
+}
+
 const AddEvent = () => {
   const { toggleToast } = useContext(ToastContext);
   const mutation = useMutation({
@@ -70,9 +98,47 @@ const AddEvent = () => {
   });
   const [duration, setDuration] = useState("");
 
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPhoneNumValid, setIsPhoneNumValid] = useState(true);
-  const [isCodiceFiscaleValid, setIsCodiceFiscaleValid] = useState(true);
+  const [validationForm, setValidationForm] = useState<ValidationModel>({
+    keeper: {
+      firstName: true,
+      lastName: true,
+      email: true,
+      cf: true,
+      phone: true,
+    },
+    group: {
+      minors: true,
+      adults: true,
+    },
+    organization: {
+      name: true,
+      type: true,
+      address: true,
+      phone: true,
+      email: true,
+    },
+    journey: {
+      startDate: true,
+      endDate: true,
+      title: true,
+      annotations: true,
+      duration: true,
+    },
+  });
+
+  const handleBlur = (
+    obj: "keeper" | "group" | "organization" | "journey",
+    key: string,
+    isValid: boolean
+  ) => {
+    setValidationForm((prev: ValidationModel) => ({
+      ...prev,
+      [obj]: {
+        ...prev[obj],
+        [key]: isValid,
+      },
+    }));
+  };
 
   return (
     <div>
@@ -81,12 +147,6 @@ const AddEvent = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(formData);
-          formData.journey.title =
-            formData.keeper.firstName + " " + formData.keeper.lastName;
-          formData.journey.startDate += "T" + durationStart(+duration) + ":00";
-          formData.journey.endDate += "T" + durationEnd(+duration) + ":00";
-          mutation.mutate(formData);
         }}
         className="addEventForm"
       >
@@ -97,6 +157,7 @@ const AddEvent = () => {
             <input
               type="text"
               id="firstName"
+              className={!validationForm.keeper.firstName ? "error" : ""}
               value={formData.keeper.firstName}
               required
               onChange={(e) =>
@@ -109,13 +170,24 @@ const AddEvent = () => {
                 }))
               }
               placeholder="Inserisci nome accompagnatore"
+              onBlur={() => {
+                if (formData.keeper.firstName.length < 2) {
+                  handleBlur("keeper", "firstName", false);
+                } else {
+                  handleBlur("keeper", "firstName", true);
+                }
+              }}
             />
+            {!validationForm.keeper.firstName && (
+              <p className="errorMessage"> Nome accompagnatore non valido</p>
+            )}
           </div>
           <div className="lastName-input inputGroup">
             <label htmlFor="lastName">Cognome accompagnatore</label>
             <input
               type="text"
               id="lastName"
+              className={`${!validationForm.keeper.lastName ? "error" : ""}`}
               value={formData.keeper.lastName}
               required
               onChange={(e) =>
@@ -128,7 +200,17 @@ const AddEvent = () => {
                 }))
               }
               placeholder="Inserisci cognome accompagnatore"
+              onBlur={() => {
+                if (formData.keeper.lastName.length < 2) {
+                  handleBlur("keeper", "lastName", false);
+                } else {
+                  handleBlur("keeper", "lastName", true);
+                }
+              }}
             />
+            {!validationForm.keeper.lastName && (
+              <p className="errorMessage">Cognome accompagnatore non valido</p>
+            )}
           </div>
 
           <div className="codiceFiscale-input inputGroup">
@@ -136,6 +218,7 @@ const AddEvent = () => {
             <input
               type="text"
               id="codiceFiscale"
+              className={`${!validationForm.keeper.cf ? "error" : ""}`}
               value={formData.keeper.cf}
               required
               onChange={(e) =>
@@ -149,15 +232,17 @@ const AddEvent = () => {
               }
               onBlur={(e) => {
                 if (!verifyCodiceFiscale(e.target.value)) {
-                  setIsCodiceFiscaleValid(false);
+                  handleBlur("keeper", "cf", false);
                   return;
                 }
-                setIsCodiceFiscaleValid(true);
+                handleBlur("keeper", "cf", true);
               }}
               placeholder="Inserisci codice fiscale"
             />
-            {!isCodiceFiscaleValid && (
-              <span className="error-message">Codice fiscale non valido</span>
+            {!validationForm.keeper.cf && (
+              <p className="errorMessage">
+                Codice fiscale accompagnatore non valido
+              </p>
             )}
           </div>
           <div className="email-input inputGroup">
@@ -167,6 +252,7 @@ const AddEvent = () => {
             <input
               type="email"
               id="email"
+              className={`${!validationForm.keeper.email ? "error" : ""}`}
               required
               value={formData.keeper.email}
               onChange={(e) => {
@@ -181,15 +267,15 @@ const AddEvent = () => {
               onBlur={(e) => {
                 if (!verifyEmail(e.target.value)) {
                   // add error message
-                  setIsEmailValid(false);
+                  handleBlur("keeper", "email", false);
                   return;
                 }
-                setIsEmailValid(true);
+                handleBlur("keeper", "email", true);
               }}
               placeholder="Inserisci email"
             />
-            {!isEmailValid && (
-              <span className="error-message">Email non valida</span>
+            {!validationForm.keeper.email && (
+              <p className="errorMessage">Email accompagnatore non valida</p>
             )}
           </div>
           <div className="phone-input inputGroup">
@@ -199,6 +285,7 @@ const AddEvent = () => {
             <input
               type="tel"
               id="phone"
+              className={`${!validationForm.keeper.phone ? "error" : ""}`}
               value={formData.keeper.phone}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -211,18 +298,16 @@ const AddEvent = () => {
               }
               onBlur={(e) => {
                 if (!verifyPhoneNumber(e.target.value)) {
-                  setIsPhoneNumValid(false);
+                  handleBlur("keeper", "phone", false);
                   return;
                 }
-                setIsPhoneNumValid(true);
+                handleBlur("keeper", "phone", true);
               }}
               placeholder="Inserisci telefono"
               required
             />
-            {!isPhoneNumValid && formData.keeper.phone && (
-              <span className="error-message">
-                Numero di telefono non valido
-              </span>
+            {!validationForm.keeper.phone && (
+              <p className="errorMessage">Telefono accompagnatore non valido</p>
             )}
           </div>
         </div>
@@ -233,6 +318,7 @@ const AddEvent = () => {
             <input
               type="text"
               id="organizationName"
+              className={`${!validationForm.organization.name ? "error" : ""}`}
               value={formData.organization.name}
               required
               onChange={(e) =>
@@ -245,7 +331,17 @@ const AddEvent = () => {
                 }))
               }
               placeholder="Inserisci nome organizzazione"
+              onBlur={() => {
+                if (formData.organization.name.length < 2) {
+                  handleBlur("organization", "name", false);
+                } else {
+                  handleBlur("organization", "name", true);
+                }
+              }}
             />
+            {!validationForm.organization.name && (
+              <p className="errorMessage">Nome organizzazione non valido</p>
+            )}
           </div>
 
           <div className="organization-type-input inputGroup">
@@ -253,6 +349,7 @@ const AddEvent = () => {
             <select
               name="organizationType"
               id="organizationType"
+              className={`${!validationForm.organization.type ? "error" : ""}`}
               value={formData.organization.type}
               onChange={(e) => {
                 setFormData((prev) => ({
@@ -263,13 +360,24 @@ const AddEvent = () => {
                   },
                 }));
               }}
+              required
+              onBlur={() => {
+                if (formData.organization.type === "") {
+                  handleBlur("organization", "type", false);
+                } else {
+                  handleBlur("organization", "type", true);
+                }
+              }}
             >
-              <option value="" disabled>
+              <option value="" disabled selected>
                 Seleziona tipo organizzazione
               </option>
               <option value="scuola">Scuola</option>
               <option value="gruppo">Gruppo</option>
             </select>
+            {!validationForm.organization.type && (
+              <p className="errorMessage">Tipo di organizzazione non valido</p>
+            )}
           </div>
 
           <div className="organization-address-input inputGroup">
@@ -279,6 +387,9 @@ const AddEvent = () => {
             <input
               type="text"
               id="organizationAddress"
+              className={`${
+                !validationForm.organization.address ? "error" : ""
+              }`}
               value={formData.organization.address}
               required
               onChange={(e) =>
@@ -290,8 +401,20 @@ const AddEvent = () => {
                   },
                 }))
               }
+              onBlur={() => {
+                if (formData.organization.address.length < 2) {
+                  handleBlur("organization", "address", false);
+                } else {
+                  handleBlur("organization", "address", true);
+                }
+              }}
               placeholder="Inserisci indirizzo organizzazione"
             />
+            {!validationForm.organization.address && (
+              <p className="errorMessage">
+                Indirizzo organizzazione non valido
+              </p>
+            )}
           </div>
 
           <div className="organization-email-input inputGroup">
@@ -302,6 +425,7 @@ const AddEvent = () => {
             <input
               type="email"
               id="organizationEmail"
+              className={`${!validationForm.organization.email ? "error" : ""}`}
               required
               value={formData.organization.email}
               onChange={(e) =>
@@ -315,15 +439,15 @@ const AddEvent = () => {
               }
               onBlur={(e) => {
                 if (!verifyEmail(e.target.value)) {
-                  setIsEmailValid(false);
+                  handleBlur("organization", "email", false);
                   return;
                 }
-                setIsEmailValid(true);
+                handleBlur("organization", "email", true);
               }}
               placeholder="Inserisci email organizzazione"
             />
-            {!isEmailValid && (
-              <span className="error-message">Email non valida</span>
+            {!validationForm.organization.email && (
+              <p className="errorMessage">Email organizzazione non valida</p>
             )}
           </div>
 
@@ -335,6 +459,7 @@ const AddEvent = () => {
             <input
               type="tel"
               id="organizationPhone"
+              className={`${!validationForm.organization.phone ? "error" : ""}`}
               value={formData.organization.phone}
               required
               onChange={(e) =>
@@ -348,15 +473,15 @@ const AddEvent = () => {
               }
               onBlur={(e) => {
                 if (!verifyPhoneNumber(e.target.value)) {
-                  setIsPhoneNumValid(false);
+                  handleBlur("organization", "phone", false);
                   return;
                 }
-                setIsPhoneNumValid(true);
+                handleBlur("organization", "phone", true);
               }}
               placeholder="Inserisci telefono organizzazione"
             />
-            {!isPhoneNumValid && formData.organization.phone && (
-              <span className="error-message">Telefono non valido</span>
+            {!validationForm.organization.phone && (
+              <p className="errorMessage">Telefono organizzazione non valido</p>
             )}
           </div>
         </div>
@@ -368,10 +493,11 @@ const AddEvent = () => {
             <input
               type="number"
               id="minors"
+              className={`${!validationForm.group.minors ? "error" : ""}`}
               value={formData.group.minors}
               required
               min={0}
-              max={30}
+              max={40}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
@@ -381,8 +507,22 @@ const AddEvent = () => {
                   },
                 }))
               }
+              onBlur={() => {
+                if (
+                  formData.group.minors < 0 ||
+                  formData.group.minors > 40 ||
+                  formData.group.adults <= 0
+                ) {
+                  handleBlur("group", "minors", false);
+                } else {
+                  handleBlur("group", "minors", true);
+                }
+              }}
               placeholder="Inserisci numero minorenni"
             />
+            {!validationForm.group.minors && (
+              <p className="errorMessage">Numero di minori non valido(0-40)</p>
+            )}
           </div>
 
           <div className="adults-input inputGroup">
@@ -390,10 +530,11 @@ const AddEvent = () => {
             <input
               type="number"
               id="adults"
+              className={`${!validationForm.group.adults ? "error" : ""}`}
               value={formData.group.adults}
               required
               min={0}
-              max={30}
+              max={40}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
@@ -403,17 +544,43 @@ const AddEvent = () => {
                   },
                 }))
               }
+              onBlur={() => {
+                if (formData.group.adults < 0 || formData.group.adults > 40) {
+                  handleBlur("group", "adults", false);
+                } else {
+                  handleBlur("group", "adults", true);
+                  handleBlur("group", "minors", true);
+                }
+              }}
               placeholder="Inserisci numero adulti"
             />
+            {!validationForm.group.adults && (
+              <p className="errorMessage">Numero di adulti non valido(0-40)</p>
+            )}
           </div>
 
           <div>
             <label htmlFor="">Durata</label>
             <select
-              name=""
-              id=""
+              name="durata"
+              id="durata"
+              className={`${!validationForm.journey.duration ? "error" : ""}`}
               onChange={(e) => {
                 setDuration(e.target.value);
+              }}
+              required
+              onBlur={(e) => {
+                if (
+                  e.target.value === "" ||
+                  (e.target.value !== "1" &&
+                    e.target.value !== "2" &&
+                    e.target.value !== "3" &&
+                    e.target.value !== "4")
+                ) {
+                  handleBlur("journey", "duration", false);
+                } else {
+                  handleBlur("journey", "duration", true);
+                }
               }}
             >
               <option value="" disabled selected>
@@ -424,6 +591,9 @@ const AddEvent = () => {
               <option value="3">Tutta la giornata</option>
               <option value="4">Più di un giorno</option>
             </select>
+            {!validationForm.journey.duration && (
+              <p className="errorMessage">Durata non valida</p>
+            )}
           </div>
 
           <div className="start-date-input inputGroup">
@@ -431,6 +601,7 @@ const AddEvent = () => {
             <input
               type="date"
               id="start"
+              className={`${!validationForm.journey.startDate ? "error" : ""}`}
               min={new Date().toISOString().split("T")[0]}
               value={formData.journey.startDate.split("T")[0]}
               onChange={(e) =>
@@ -443,8 +614,24 @@ const AddEvent = () => {
                   },
                 }))
               }
+              required
               placeholder="Inserisci data inizio"
+              onBlur={() => {
+                if (
+                  formData.journey.startDate === "" ||
+                  formData.journey.startDate === "Invalid Date" ||
+                  formData.journey.startDate === null ||
+                  new Date(formData.journey.startDate) < new Date()
+                ) {
+                  handleBlur("journey", "startDate", false);
+                } else {
+                  handleBlur("journey", "startDate", true);
+                }
+              }}
             />
+            {!validationForm.journey.startDate && (
+              <p className="errorMessage">Data non valida</p>
+            )}
           </div>
           {+duration === 4 && (
             <div className="end-date-input inputGroup">
@@ -452,24 +639,72 @@ const AddEvent = () => {
               <input
                 type="date"
                 id="end"
-                min={formData.journey.startDate.split(" ")[0]}
-                value={formData.journey.endDate.split(" ")[0]}
+                className={`${!validationForm.journey.endDate ? "error" : ""}`}
+                min={new Date().toISOString().split("T")[0]}
+                value={formData.journey.endDate.split("T")[0]}
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
                     journey: {
                       ...prev.journey,
-                      endDate: e.target.value + durationEnd(+duration),
+                      endDate: e.target.value,
                     },
                   }))
                 }
+                onBlur={() => {
+                  if (
+                    formData.journey.endDate === "" ||
+                    formData.journey.endDate === "Invalid Date" ||
+                    formData.journey.endDate === null ||
+                    new Date(formData.journey.endDate) < new Date() ||
+                    new Date(formData.journey.endDate) <
+                      new Date(formData.journey.startDate)
+                  ) {
+                    handleBlur("journey", "endDate", false);
+                  } else {
+                    handleBlur("journey", "endDate", true);
+                  }
+                }}
+                required
                 placeholder="Inserisci data fine"
               />
+              {!validationForm.journey.endDate && (
+                <p className="errorMessage">Data non valida</p>
+              )}
             </div>
           )}
         </div>
         <div className="submitButton">
-          <button type="submit">Invia</button>
+          <button
+            type="submit"
+            disabled={Object.values(validationForm).some((obj) =>
+              Object.values(obj).some((value) => value === false)
+            )}
+            title={
+              Object.values(validationForm).some((obj) =>
+                Object.values(obj).some((value) => value === false)
+              )
+                ? "Compila tutti i campi"
+                : "Invia Dati"
+            }
+            onClick={() => {
+              if (
+                Object.values(validationForm).some((obj) =>
+                  Object.values(obj).every((value) => value === true)
+                )
+              ) {
+                formData.journey.title =
+                  formData.keeper.firstName + " " + formData.keeper.lastName;
+                formData.journey.startDate +=
+                  "T" + durationStart(+duration) + ":00";
+                formData.journey.endDate +=
+                  "T" + durationEnd(+duration) + ":00";
+                mutation.mutate(formData);
+              }
+            }}
+          >
+            Invia
+          </button>
         </div>
       </form>
     </div>
