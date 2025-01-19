@@ -10,37 +10,39 @@ import {
   verifyEmail,
   verifyPhoneNumber,
 } from "../../utils/verifyFormInputs";
+import { useNavigate } from "react-router";
 
 interface ValidationModel {
   keeper: {
-    firstName: boolean;
-    lastName: boolean;
-    email: boolean;
-    cf: boolean;
-    phone: boolean;
+    firstName?: boolean;
+    lastName?: boolean;
+    email?: boolean;
+    cf?: boolean;
+    phone?: boolean;
   };
   group: {
-    minors: boolean;
-    adults: boolean;
+    minors?: boolean;
+    adults?: boolean;
   };
   organization: {
-    name: boolean;
-    type: boolean;
-    address: boolean;
-    phone: boolean;
-    email: boolean;
+    name?: boolean;
+    type?: boolean;
+    address?: boolean;
+    phone?: boolean;
+    email?: boolean;
   };
   journey: {
-    startDate: boolean;
-    endDate: boolean;
-    title: boolean;
-    annotations: boolean;
-    duration: boolean;
+    startDate?: boolean;
+    endDate?: boolean;
+    title?: boolean;
+    annotations?: boolean;
+    duration?: boolean;
   };
 }
 
 const AddEvent = () => {
   const { toggleToast } = useContext(ToastContext);
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (newEvent: BookingFormSteps) => {
       const response = await fetch("/api/pub/createJourneyFromAdmin", {
@@ -60,6 +62,7 @@ const AddEvent = () => {
         type: "success",
         message: "Prenotazione creata con successo",
       });
+      navigate("/dashboard/prenotazioni");
     },
     onError: () => {
       toggleToast({
@@ -69,6 +72,8 @@ const AddEvent = () => {
       });
     },
   });
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [formData, setFormData] = useState<BookingFormSteps>({
     keeper: {
@@ -100,29 +105,27 @@ const AddEvent = () => {
 
   const [validationForm, setValidationForm] = useState<ValidationModel>({
     keeper: {
-      firstName: true,
-      lastName: true,
-      email: true,
-      cf: true,
-      phone: true,
+      firstName: undefined,
+      lastName: undefined,
+      email: undefined,
+      cf: undefined,
+      phone: undefined,
     },
     group: {
-      minors: true,
-      adults: true,
+      minors: undefined,
+      adults: undefined,
     },
     organization: {
-      name: true,
-      type: true,
-      address: true,
-      phone: true,
-      email: true,
+      name: undefined,
+      type: undefined,
+      address: undefined,
+      phone: undefined,
+      email: undefined,
     },
     journey: {
-      startDate: true,
-      endDate: true,
-      title: true,
-      annotations: true,
-      duration: true,
+      startDate: undefined,
+      endDate: undefined,
+      duration: undefined,
     },
   });
 
@@ -138,6 +141,12 @@ const AddEvent = () => {
         [key]: isValid,
       },
     }));
+    setIsFormValid(
+      Object.values(validationForm).every((obj) =>
+        Object.values(obj).every((value) => value === true)
+      )
+    );
+    console.log(validationForm);
   };
 
   return (
@@ -157,7 +166,12 @@ const AddEvent = () => {
             <input
               type="text"
               id="firstName"
-              className={!validationForm.keeper.firstName ? "error" : ""}
+              className={
+                !validationForm.keeper.firstName &&
+                validationForm.keeper.firstName !== undefined
+                  ? "error"
+                  : ""
+              }
               value={formData.keeper.firstName}
               required
               onChange={(e) =>
@@ -178,16 +192,22 @@ const AddEvent = () => {
                 }
               }}
             />
-            {!validationForm.keeper.firstName && (
-              <p className="errorMessage"> Nome accompagnatore non valido</p>
-            )}
+            {!validationForm.keeper.firstName &&
+              validationForm.keeper.firstName !== undefined && (
+                <p className="errorMessage"> Nome accompagnatore non valido</p>
+              )}
           </div>
           <div className="lastName-input inputGroup">
             <label htmlFor="lastName">Cognome accompagnatore</label>
             <input
               type="text"
               id="lastName"
-              className={`${!validationForm.keeper.lastName ? "error" : ""}`}
+              className={`${
+                !validationForm.keeper.lastName &&
+                validationForm.keeper.lastName !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.keeper.lastName}
               required
               onChange={(e) =>
@@ -208,9 +228,12 @@ const AddEvent = () => {
                 }
               }}
             />
-            {!validationForm.keeper.lastName && (
-              <p className="errorMessage">Cognome accompagnatore non valido</p>
-            )}
+            {!validationForm.keeper.lastName &&
+              validationForm.keeper.lastName !== undefined && (
+                <p className="errorMessage">
+                  Cognome accompagnatore non valido
+                </p>
+              )}
           </div>
 
           <div className="codiceFiscale-input inputGroup">
@@ -218,7 +241,12 @@ const AddEvent = () => {
             <input
               type="text"
               id="codiceFiscale"
-              className={`${!validationForm.keeper.cf ? "error" : ""}`}
+              className={`${
+                !validationForm.keeper.cf &&
+                validationForm.keeper.cf !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.keeper.cf}
               required
               onChange={(e) =>
@@ -239,11 +267,12 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci codice fiscale"
             />
-            {!validationForm.keeper.cf && (
-              <p className="errorMessage">
-                Codice fiscale accompagnatore non valido
-              </p>
-            )}
+            {!validationForm.keeper.cf &&
+              validationForm.keeper.cf !== undefined && (
+                <p className="errorMessage">
+                  Codice fiscale accompagnatore non valido
+                </p>
+              )}
           </div>
           <div className="email-input inputGroup">
             <label htmlFor="email">
@@ -252,7 +281,12 @@ const AddEvent = () => {
             <input
               type="email"
               id="email"
-              className={`${!validationForm.keeper.email ? "error" : ""}`}
+              className={`${
+                !validationForm.keeper.email &&
+                validationForm.keeper.email !== undefined
+                  ? "error"
+                  : ""
+              }`}
               required
               value={formData.keeper.email}
               onChange={(e) => {
@@ -274,9 +308,10 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci email"
             />
-            {!validationForm.keeper.email && (
-              <p className="errorMessage">Email accompagnatore non valida</p>
-            )}
+            {!validationForm.keeper.email &&
+              validationForm.keeper.email !== undefined && (
+                <p className="errorMessage">Email accompagnatore non valida</p>
+              )}
           </div>
           <div className="phone-input inputGroup">
             <label htmlFor="phone">
@@ -285,7 +320,12 @@ const AddEvent = () => {
             <input
               type="tel"
               id="phone"
-              className={`${!validationForm.keeper.phone ? "error" : ""}`}
+              className={`${
+                !validationForm.keeper.phone &&
+                validationForm.keeper.phone !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.keeper.phone}
               onChange={(e) =>
                 setFormData((prev) => ({
@@ -306,9 +346,12 @@ const AddEvent = () => {
               placeholder="Inserisci telefono"
               required
             />
-            {!validationForm.keeper.phone && (
-              <p className="errorMessage">Telefono accompagnatore non valido</p>
-            )}
+            {!validationForm.keeper.phone &&
+              validationForm.keeper.phone !== undefined && (
+                <p className="errorMessage">
+                  Telefono accompagnatore non valido
+                </p>
+              )}
           </div>
         </div>
         <div className="organization section">
@@ -318,7 +361,12 @@ const AddEvent = () => {
             <input
               type="text"
               id="organizationName"
-              className={`${!validationForm.organization.name ? "error" : ""}`}
+              className={`${
+                !validationForm.organization.name &&
+                validationForm.organization.name !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.organization.name}
               required
               onChange={(e) =>
@@ -339,9 +387,10 @@ const AddEvent = () => {
                 }
               }}
             />
-            {!validationForm.organization.name && (
-              <p className="errorMessage">Nome organizzazione non valido</p>
-            )}
+            {!validationForm.organization.name &&
+              validationForm.organization.name !== undefined && (
+                <p className="errorMessage">Nome organizzazione non valido</p>
+              )}
           </div>
 
           <div className="organization-type-input inputGroup">
@@ -349,7 +398,12 @@ const AddEvent = () => {
             <select
               name="organizationType"
               id="organizationType"
-              className={`${!validationForm.organization.type ? "error" : ""}`}
+              className={`${
+                !validationForm.organization.type &&
+                validationForm.organization.type !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.organization.type}
               onChange={(e) => {
                 setFormData((prev) => ({
@@ -375,9 +429,12 @@ const AddEvent = () => {
               <option value="scuola">Scuola</option>
               <option value="gruppo">Gruppo</option>
             </select>
-            {!validationForm.organization.type && (
-              <p className="errorMessage">Tipo di organizzazione non valido</p>
-            )}
+            {!validationForm.organization.type &&
+              validationForm.organization.type !== undefined && (
+                <p className="errorMessage">
+                  Tipo di organizzazione non valido
+                </p>
+              )}
           </div>
 
           <div className="organization-address-input inputGroup">
@@ -388,7 +445,10 @@ const AddEvent = () => {
               type="text"
               id="organizationAddress"
               className={`${
-                !validationForm.organization.address ? "error" : ""
+                !validationForm.organization.address &&
+                validationForm.organization.address !== undefined
+                  ? "error"
+                  : ""
               }`}
               value={formData.organization.address}
               required
@@ -410,11 +470,12 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci indirizzo organizzazione"
             />
-            {!validationForm.organization.address && (
-              <p className="errorMessage">
-                Indirizzo organizzazione non valido
-              </p>
-            )}
+            {!validationForm.organization.address &&
+              validationForm.organization.address !== undefined && (
+                <p className="errorMessage">
+                  Indirizzo organizzazione non valido
+                </p>
+              )}
           </div>
 
           <div className="organization-email-input inputGroup">
@@ -425,7 +486,12 @@ const AddEvent = () => {
             <input
               type="email"
               id="organizationEmail"
-              className={`${!validationForm.organization.email ? "error" : ""}`}
+              className={`${
+                !validationForm.organization.email &&
+                validationForm.organization.email !== undefined
+                  ? "error"
+                  : ""
+              }`}
               required
               value={formData.organization.email}
               onChange={(e) =>
@@ -446,9 +512,10 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci email organizzazione"
             />
-            {!validationForm.organization.email && (
-              <p className="errorMessage">Email organizzazione non valida</p>
-            )}
+            {!validationForm.organization.email &&
+              validationForm.organization.email !== undefined && (
+                <p className="errorMessage">Email organizzazione non valida</p>
+              )}
           </div>
 
           <div className="organization-phone-input inputGroup">
@@ -459,7 +526,12 @@ const AddEvent = () => {
             <input
               type="tel"
               id="organizationPhone"
-              className={`${!validationForm.organization.phone ? "error" : ""}`}
+              className={`${
+                !validationForm.organization.phone &&
+                validationForm.organization.phone !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.organization.phone}
               required
               onChange={(e) =>
@@ -480,20 +552,75 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci telefono organizzazione"
             />
-            {!validationForm.organization.phone && (
-              <p className="errorMessage">Telefono organizzazione non valido</p>
-            )}
+            {!validationForm.organization.phone &&
+              validationForm.organization.phone !== undefined && (
+                <p className="errorMessage">
+                  Telefono organizzazione non valido
+                </p>
+              )}
           </div>
         </div>
 
         <div className="journey section">
           <h3>Dati Prenotazione</h3>
+          <div className="adults-input inputGroup">
+            <label htmlFor="adults">Adulti</label>
+            <input
+              type="number"
+              id="adults"
+              className={`${
+                !validationForm.group.adults &&
+                validationForm.group.adults !== undefined
+                  ? "error"
+                  : ""
+              }`}
+              value={formData.group.adults}
+              required
+              min={0}
+              max={40}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  group: {
+                    ...prev.group,
+                    adults: Number(e.target.value),
+                  },
+                }))
+              }
+              onBlur={() => {
+                if (formData.group.adults < 0 || formData.group.adults > 40) {
+                  handleBlur("group", "adults", false);
+                } else if (
+                  formData.group.adults === 0 &&
+                  formData.group.minors === 0
+                ) {
+                  handleBlur("group", "adults", false);
+                  handleBlur("group", "minors", false);
+                } else if (formData.group.adults > 0) {
+                  handleBlur("group", "adults", true);
+                  handleBlur("group", "minors", true);
+                }
+              }}
+              placeholder="Inserisci numero adulti"
+            />
+            {!validationForm.group.adults &&
+              validationForm.group.adults !== undefined && (
+                <p className="errorMessage">
+                  Numero di adulti non valido(0-40)
+                </p>
+              )}
+          </div>
           <div className="minors-input inputGroup">
             <label htmlFor="minors">Minori</label>
             <input
               type="number"
               id="minors"
-              className={`${!validationForm.group.minors ? "error" : ""}`}
+              className={`${
+                !validationForm.group.minors &&
+                validationForm.group.minors !== undefined
+                  ? "error"
+                  : ""
+              }`}
               value={formData.group.minors}
               required
               min={0}
@@ -520,43 +647,12 @@ const AddEvent = () => {
               }}
               placeholder="Inserisci numero minorenni"
             />
-            {!validationForm.group.minors && (
-              <p className="errorMessage">Numero di minori non valido(0-40)</p>
-            )}
-          </div>
-
-          <div className="adults-input inputGroup">
-            <label htmlFor="adults">Adulti</label>
-            <input
-              type="number"
-              id="adults"
-              className={`${!validationForm.group.adults ? "error" : ""}`}
-              value={formData.group.adults}
-              required
-              min={0}
-              max={40}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  group: {
-                    ...prev.group,
-                    adults: Number(e.target.value),
-                  },
-                }))
-              }
-              onBlur={() => {
-                if (formData.group.adults < 0 || formData.group.adults > 40) {
-                  handleBlur("group", "adults", false);
-                } else {
-                  handleBlur("group", "adults", true);
-                  handleBlur("group", "minors", true);
-                }
-              }}
-              placeholder="Inserisci numero adulti"
-            />
-            {!validationForm.group.adults && (
-              <p className="errorMessage">Numero di adulti non valido(0-40)</p>
-            )}
+            {!validationForm.group.minors &&
+              validationForm.group.minors !== undefined && (
+                <p className="errorMessage">
+                  Numero di minori non valido(0-40)
+                </p>
+              )}
           </div>
 
           <div>
@@ -564,7 +660,12 @@ const AddEvent = () => {
             <select
               name="durata"
               id="durata"
-              className={`${!validationForm.journey.duration ? "error" : ""}`}
+              className={`${
+                !validationForm.journey.duration &&
+                validationForm.journey.duration !== undefined
+                  ? "error"
+                  : ""
+              }`}
               onChange={(e) => {
                 setDuration(e.target.value);
               }}
@@ -591,9 +692,10 @@ const AddEvent = () => {
               <option value="3">Tutta la giornata</option>
               <option value="4">Più di un giorno</option>
             </select>
-            {!validationForm.journey.duration && (
-              <p className="errorMessage">Durata non valida</p>
-            )}
+            {!validationForm.journey.duration &&
+              validationForm.journey.duration !== undefined && (
+                <p className="errorMessage">Durata non valida</p>
+              )}
           </div>
 
           <div className="start-date-input inputGroup">
@@ -601,10 +703,15 @@ const AddEvent = () => {
             <input
               type="date"
               id="start"
-              className={`${!validationForm.journey.startDate ? "error" : ""}`}
+              className={`${
+                !validationForm.journey.startDate &&
+                validationForm.journey.startDate !== undefined
+                  ? "error"
+                  : ""
+              }`}
               min={new Date().toISOString().split("T")[0]}
               value={formData.journey.startDate.split("T")[0]}
-              onChange={(e) =>
+              onChange={(e) => {
                 setFormData((prev) => ({
                   ...prev,
                   journey: {
@@ -612,8 +719,10 @@ const AddEvent = () => {
                     startDate: e.target.value,
                     endDate: e.target.value,
                   },
-                }))
-              }
+                }));
+                handleBlur("journey", "startDate", true);
+                handleBlur("journey", "endDate", true);
+              }}
               required
               placeholder="Inserisci data inizio"
               onBlur={() => {
@@ -626,12 +735,14 @@ const AddEvent = () => {
                   handleBlur("journey", "startDate", false);
                 } else {
                   handleBlur("journey", "startDate", true);
+                  handleBlur("journey", "endDate", true);
                 }
               }}
             />
-            {!validationForm.journey.startDate && (
-              <p className="errorMessage">Data non valida</p>
-            )}
+            {!validationForm.journey.startDate &&
+              validationForm.journey.startDate !== undefined && (
+                <p className="errorMessage">Data non valida</p>
+              )}
           </div>
           {+duration === 4 && (
             <div className="end-date-input inputGroup">
@@ -639,7 +750,12 @@ const AddEvent = () => {
               <input
                 type="date"
                 id="end"
-                className={`${!validationForm.journey.endDate ? "error" : ""}`}
+                className={`${
+                  !validationForm.journey.endDate &&
+                  validationForm.journey.endDate !== undefined
+                    ? "error"
+                    : ""
+                }`}
                 min={
                   new Date(formData.journey.startDate)
                     .toISOString()
@@ -672,18 +788,18 @@ const AddEvent = () => {
                 required
                 placeholder="Inserisci data fine"
               />
-              {!validationForm.journey.endDate && (
-                <p className="errorMessage">Data non valida</p>
-              )}
+              {!validationForm.journey.endDate &&
+                validationForm.journey.endDate !== undefined && (
+                  <p className="errorMessage">Data non valida</p>
+                )}
             </div>
           )}
         </div>
         <div className="submitButton">
           <button
             type="submit"
-            disabled={Object.values(validationForm).some((obj) =>
-              Object.values(obj).some((value) => value === false)
-            )}
+            className={mutation.isPending ? "loading-btn" : ""}
+            disabled={!isFormValid}
             title={
               Object.values(validationForm).some((obj) =>
                 Object.values(obj).some((value) => value === false)
@@ -692,11 +808,7 @@ const AddEvent = () => {
                 : "Invia Dati"
             }
             onClick={() => {
-              if (
-                Object.values(validationForm).some((obj) =>
-                  Object.values(obj).every((value) => value === true)
-                )
-              ) {
+              if (isFormValid) {
                 formData.journey.title =
                   formData.keeper.firstName + " " + formData.keeper.lastName;
                 formData.journey.startDate +=
@@ -707,7 +819,7 @@ const AddEvent = () => {
               }
             }}
           >
-            Invia
+            {mutation.isPending ? <span></span> : "Invia"}
           </button>
         </div>
       </form>
