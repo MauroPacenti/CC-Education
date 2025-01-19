@@ -13,6 +13,7 @@ import {
 
 import "./Navbar.css";
 import { NavbarLink } from "../NavbarLink/NavbarLink";
+import { useMutation } from "@tanstack/react-query";
 
 interface NavLinkModel {
   text: string;
@@ -39,6 +40,17 @@ const navLinks: NavLinkModel[] = [
 ];
 
 const Navbar = () => {
+  const logout = useMutation({
+    mutationFn: () => {
+      return fetch("/logout", {
+        method: "POST",
+      });
+    },
+    onSuccess: () => {
+      window.location.pathname = "/sign-in/";
+    },
+  });
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = useCallback(() => {
@@ -66,13 +78,13 @@ const Navbar = () => {
         ))}
 
         <li className="navbar-item navbar-item--actions">
-          <NavLink to="/login" className="navbar-link">
+          <a className="navbar-link" onClick={() => logout.mutate()}>
             <span>
               <LogOut className="icon" aria-hidden="true" />
               Logout
             </span>
             <ChevronRight className="chevron" aria-hidden="true" />
-          </NavLink>
+          </a>
 
           <NavLink to="/dashboard/impostazioni" className="navbar-link">
             <Settings className="icon setting" aria-hidden="true" />

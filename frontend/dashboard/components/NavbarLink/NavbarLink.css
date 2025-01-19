@@ -46,6 +46,7 @@
   border: 2px solid #5932ea;
   color: #5932ea;
   width: min(180px, 300px);
+  cursor: pointer;
 }
 
 .navbar-item:last-of-type > a:first-of-type:hover {
