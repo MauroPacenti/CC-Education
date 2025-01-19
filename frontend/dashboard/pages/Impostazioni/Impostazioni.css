@@ -162,6 +162,7 @@ button.reset:hover {
   color: red;
 }
 
+p.warning-message,
 .email-modal p.warning-message {
   color: red;
   text-align: right;
