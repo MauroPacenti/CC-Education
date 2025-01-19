@@ -640,7 +640,11 @@ const AddEvent = () => {
                 type="date"
                 id="end"
                 className={`${!validationForm.journey.endDate ? "error" : ""}`}
-                min={new Date().toISOString().split("T")[0]}
+                min={
+                  new Date(formData.journey.startDate)
+                    .toISOString()
+                    .split("T")[0]
+                }
                 value={formData.journey.endDate.split("T")[0]}
                 onChange={(e) =>
                   setFormData((prev) => ({

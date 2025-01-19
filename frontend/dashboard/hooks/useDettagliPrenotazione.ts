@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from "react-router";
-import { Booking } from "../models/Booking.model";
 import { DettagliPrenotazioneService } from "../services/DettagliPrenotazione.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import ToastContext from "../context/ToastContext";
 
 const useDettagliPrenotazione = () => {
   const { idPrenotazione } = useParams();
   const navigate = useNavigate();
+  const { toggleToast } = useContext(ToastContext);
 
   const {
     data: bookingDetails,
@@ -20,13 +22,20 @@ const useDettagliPrenotazione = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: (data: Booking) =>
-      DettagliPrenotazioneService.deleteById(data.id),
+    mutationFn: () => DettagliPrenotazioneService.deleteById(+idPrenotazione!),
     onSuccess: () => {
+      toggleToast({
+        type: "success",
+        message: "Richiesta eliminata con successo",
+      });
+
       navigate(-1);
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      toggleToast({
+        type: "error",
+        message: "Si è verificato un errore durante l'eliminazione",
+      });
     },
   });
 
