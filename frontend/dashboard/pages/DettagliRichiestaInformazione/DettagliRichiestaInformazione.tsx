@@ -10,7 +10,6 @@ import ToastContext from "../../context/ToastContext";
 const DettagliRichiestaInformazione = () => {
   const {
     isLoading,
-    error,
     mutation,
     isError,
     requestInformationDetails,
@@ -49,7 +48,7 @@ const DettagliRichiestaInformazione = () => {
         <Buttons.BackButton></Buttons.BackButton>
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
-          richiesta d'informazione: {error?.message}
+          richiesta d'informazione
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import useDettagliPrenotazione from "../../hooks/useDettagliPrenotazione";
 import "./DettagliPrenotazione.css";
 
 const DettagliPrenotazione = () => {
-  const { bookingDetails, mutation, error, isLoading, isError } =
+  const { bookingDetails, mutation, isLoading, isError } =
     useDettagliPrenotazione();
 
   if (isError) {
@@ -12,7 +12,7 @@ const DettagliPrenotazione = () => {
         <Buttons.BackButton></Buttons.BackButton>
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
-          prenotazione: {error?.message}
+          prenotazione
         </div>
       </div>
     );
@@ -130,19 +130,23 @@ const DettagliPrenotazione = () => {
                 </span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">Data inizio disponibilità:</span>
+                <span className="detail-label">Data inizio:</span>
                 <span className="detail-value">
                   {new Date(bookingDetails?.startDate ?? "").toLocaleDateString(
                     "it-IT"
-                  )}
+                  ) +
+                    "-" +
+                    bookingDetails?.startDate?.split("T")[1]}
                 </span>
               </div>
               <div className="detail-item">
-                <span className="detail-label">Data fine disponibilità:</span>
+                <span className="detail-label">Data fine:</span>
                 <span className="detail-value">
                   {new Date(bookingDetails?.endDate ?? "").toLocaleDateString(
                     "it-IT"
-                  )}
+                  ) +
+                    "-" +
+                    bookingDetails?.endDate?.split("T")[1]}
                 </span>
               </div>
             </div>

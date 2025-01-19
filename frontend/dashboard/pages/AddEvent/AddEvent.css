@@ -1,0 +1,84 @@
+.addEventForm {
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 2em;
+}
+.addEventForm h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.addEventForm .section {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+}
+
+.addEventForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.required {
+  color: #ddd;
+  margin-left: 4px;
+}
+
+.addEventForm input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.addEventForm input:focus {
+  border-color: #5932ea;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.errorMessage {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.submitButton {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submitButton button {
+  background-color: #5932ea;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submitButton button:hover {
+  background-color: #0052a3;
+}
+
+.addEventForm select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+}

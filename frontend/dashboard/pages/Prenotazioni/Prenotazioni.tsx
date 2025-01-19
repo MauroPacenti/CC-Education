@@ -13,9 +13,7 @@ import { createEventModalPlugin } from "@schedule-x/event-modal";
 
 import { useState } from "react";
 
-import AddEventModal from "../../components/AddEventModal/AddEventModal";
-import { useNavigate } from "react-router";
-import { CalendarBooking } from "../../models/CalendarBooking.model";
+import { NavLink, useNavigate } from "react-router";
 import { CirclePlus } from "lucide-react";
 import { calendarBookingMapper } from "../../utils/Mapper/CalendarBookingMapper";
 import { useQuery } from "@tanstack/react-query";
@@ -42,10 +40,8 @@ const Prenotazioni = () => {
   const navigate = useNavigate();
   const [eventsService] = useState(() => createEventsServicePlugin());
   // Add Event modal
-  const [isActiveModal, setIsActiveModal] = useState(false);
 
   // event
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["journey"],
     queryFn: () =>
@@ -64,34 +60,6 @@ const Prenotazioni = () => {
           return data;
         }),
   });
-
-  const toggleAddEventModal = () =>
-    setIsActiveModal((isActiveModal) => !isActiveModal);
-
-  const addEventOnCalendar = (newEvent: CalendarBooking) => {
-    const postEvent = async () => {
-      try {
-        const res = await fetch("/api/pub/addJourney", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newEvent),
-        });
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    postEvent();
-
-    eventsService.add({ ...newEvent, id: Date.now() });
-    eventsService.getAll();
-    toggleAddEventModal();
-  };
 
   const calendar = useCalendarApp({
     locale: "it-IT",
@@ -132,18 +100,15 @@ const Prenotazioni = () => {
 
   return (
     <div className="dashboard-calendar">
-      {isActiveModal && (
-        <AddEventModal
-          toggleActiveModal={toggleAddEventModal}
-          addEventOnCalendar={addEventOnCalendar}
-        ></AddEventModal>
-      )}
       <div className="dashboard-calendar-header">
         <h2 className="dashboard-calendar-title">Prenotazioni</h2>
-        <button className="add-event-button" onClick={toggleAddEventModal}>
+        <NavLink
+          to={"/dashboard/prenotazioni/aggiungi-prenotazione"}
+          className="add-event-button"
+        >
           <CirclePlus />
           <span className="booking-btn-text">Aggiungi Prenotazione</span>
-        </button>
+        </NavLink>
       </div>
       <ScheduleXCalendar calendarApp={calendar} />
     </div>

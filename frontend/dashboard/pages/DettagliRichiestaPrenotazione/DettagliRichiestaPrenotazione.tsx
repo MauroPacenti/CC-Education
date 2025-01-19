@@ -9,7 +9,6 @@ import useDettagliRichiestaPrenotazione from "../../hooks/useDettagliRichiestaPr
 const DettagliRichiestaPrenotazione = () => {
   const {
     isLoading,
-    error,
     replyModal,
     handleContact,
     bookingRequestDetails,
@@ -26,7 +25,10 @@ const DettagliRichiestaPrenotazione = () => {
     return (
       <div>
         <Buttons.BackButton></Buttons.BackButton>
-        <p>Error: {error?.message}</p>
+        <p>
+          Si è verificato un errore durante il recupero dei dettagli della
+          richiesta di prenotazione
+        </p>
       </div>
     );
   }

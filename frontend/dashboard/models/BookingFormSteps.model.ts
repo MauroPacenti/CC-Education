@@ -3,22 +3,24 @@ export default interface BookingFormSteps {
     firstName: string;
     lastName: string;
     email: string;
-    codiceFiscale: string;
+    cf: string;
     phone: string;
   };
+  group: {
+    minors: number;
+    adults: number;
+  };
   organization: {
-    isOrganization: boolean | null;
     name: string;
     type: string;
     address: string;
-    email: string;
     phone: string;
+    email: string;
   };
-  bookingDetails: {
-    minors: number;
-    adults: number;
-    start: string;
-    end: string;
-    otherInfo: string;
+  journey: {
+    title: string;
+    annotations: string;
+    startDate: string;
+    endDate: string;
   };
 }

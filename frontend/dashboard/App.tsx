@@ -13,6 +13,7 @@ import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione
 
 import Impostazioni from "./pages/Impostazioni/Impostazioni";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AddEvent from "./pages/AddEvent/AddEvent";
 
 const queryClient = new QueryClient();
 
@@ -24,11 +25,16 @@ function App() {
           <Routes>
             <Route path="dashboard" element={<Dashboard />}>
               <Route index element={<Home />} />
-              <Route path="prenotazioni" element={<Prenotazioni />} />
+              <Route path="prenotazioni" element={<Prenotazioni />}></Route>
+              <Route
+                path="prenotazioni/aggiungi-prenotazione"
+                element={<AddEvent />}
+              />
               <Route
                 path="prenotazioni/:idPrenotazione"
                 element={<DettagliPrenotazione />}
-              />
+              ></Route>
+
               <Route
                 path="richieste-prenotazioni"
                 element={<RichiestePrenotazione />}

@@ -18,7 +18,6 @@ const Home = () => {
     data: bookings,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["bookings"],
     queryFn: (): Promise<Booking[]> =>
@@ -43,7 +42,7 @@ const Home = () => {
     return (
       <div>
         <h2 className="dashboard-title">Bentornato Andrea</h2>
-        Error: {error.message}
+        Si è verificato un errore durante il caricamento dei dati.
       </div>
     );
   }
