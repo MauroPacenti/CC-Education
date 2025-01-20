@@ -1,9 +1,10 @@
 import "./DettagliRichiestaInformazione.css";
-import { MessageSquareReply } from "lucide-react";
+import { ArrowRightFromLine, MessageSquareReply, MoveLeft } from "lucide-react";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
 import Buttons from "../../components/Buttons/Buttons";
+import { useNavigate } from "react-router";
 
 const DettagliRichiestaInformazione = () => {
   const {
@@ -17,7 +18,13 @@ const DettagliRichiestaInformazione = () => {
     isLoadingDelete,
     errorDelete,
     handleDeleteClick,
+    idRichiestaInformazione,
   } = useDettagliRichiestaInformazioni();
+
+  const navigate = useNavigate();
+  const navigateToRichiesteInformazioni = () => {
+    navigate("/dashboard/richieste-informazioni");
+  };
 
   if (errorDelete) {
     return (
@@ -41,7 +48,14 @@ const DettagliRichiestaInformazione = () => {
   if (isError) {
     return (
       <div>
-        <Buttons.BackButton></Buttons.BackButton>
+        <button onClick={navigateToRichiesteInformazioni}>
+          {idRichiestaInformazione ? (
+            <ArrowRightFromLine></ArrowRightFromLine>
+          ) : (
+            <MoveLeft></MoveLeft>
+          )}
+        </button>
+
         <div>
           Si è verificato un errore durante il recupero dei dettagli della
           richiesta d'informazione
@@ -66,7 +80,14 @@ const DettagliRichiestaInformazione = () => {
   if (isLoading) {
     return (
       <div>
-        <Buttons.BackButton></Buttons.BackButton>
+        <button onClick={navigateToRichiesteInformazioni}>
+          {idRichiestaInformazione ? (
+            <ArrowRightFromLine></ArrowRightFromLine>
+          ) : (
+            <MoveLeft></MoveLeft>
+          )}
+        </button>
+
         <div>Caricamento...</div>
       </div>
     );
@@ -88,7 +109,14 @@ const DettagliRichiestaInformazione = () => {
         ></ShowDeleteModal>
       )}
       <div className="info-request-details-buttons">
-        <Buttons.BackButton></Buttons.BackButton>
+        <button onClick={navigateToRichiesteInformazioni}>
+          {idRichiestaInformazione ? (
+            <ArrowRightFromLine></ArrowRightFromLine>
+          ) : (
+            <MoveLeft></MoveLeft>
+          )}
+        </button>
+
         <div>
           <button
             title="Rispondi alla richiesta"

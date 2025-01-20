@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, Outlet, useParams } from "react-router";
 import "./RichiesteInformazioni.css";
 
 import useRichiesteInformazione from "../../hooks/useRichiesteInformazione";
@@ -14,6 +14,8 @@ const RichiesteInformazioni = () => {
     handleDeleteClick,
     isOpenDeleteModal,
   } = useRichiesteInformazione();
+
+  const { idRichiestaInformazione } = useParams();
 
   if (isError) {
     return (
@@ -54,29 +56,36 @@ const RichiesteInformazioni = () => {
       <div>
         <h2>Richieste Informazioni</h2>
 
-        <div className="info-container">
-          {data?.map((request) => (
-            <>
-              <div className="info-card">
-                <NavLink
-                  key={request.id}
-                  to={`/dashboard/richieste-informazioni/${request.id}`}
-                  className="info-link"
-                >
-                  <div className="info-header">
-                    <h3>{request.email}</h3>
-                    <p>{request.date}</p>
-                  </div>
-                  <p className="info-title">{request.title}</p>
-                  <p className="info-message">{request.content}</p>
-                </NavLink>
-                <Buttons.DeleteButton
-                  title="Elimina Richiesta"
-                  onClick={() => toggleDeleteModal(request.id)}
-                ></Buttons.DeleteButton>
-              </div>
-            </>
-          ))}
+        <div className="informations-container">
+          <div
+            className={`info-container ${
+              idRichiestaInformazione ? "activated-outlet" : ""
+            }  `}
+          >
+            {data?.map((request) => (
+              <>
+                <div className="info-card">
+                  <NavLink
+                    key={request.id}
+                    to={`/dashboard/richieste-informazioni/${request.id}`}
+                    className="info-link"
+                  >
+                    <div className="info-header">
+                      <h3>{request.email}</h3>
+                      <p>{request.date}</p>
+                    </div>
+                    <p className="info-title">{request.title}</p>
+                    <p className="info-message">{request.content}</p>
+                  </NavLink>
+                  <Buttons.DeleteButton
+                    title="Elimina Richiesta"
+                    onClick={() => toggleDeleteModal(request.id)}
+                  ></Buttons.DeleteButton>
+                </div>
+              </>
+            ))}
+          </div>
+          <Outlet></Outlet>
         </div>
       </div>
     </>

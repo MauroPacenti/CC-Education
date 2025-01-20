@@ -84,6 +84,7 @@ const useDettagliRichiestaInformazioni = () => {
     errorDelete,
     isError,
     handleDeleteClick,
+    idRichiestaInformazione,
   };
 };
 

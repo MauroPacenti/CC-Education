@@ -46,11 +46,13 @@ function App() {
               <Route
                 path="richieste-informazioni"
                 element={<RichiesteInformazioni />}
-              />
-              <Route
-                path="richieste-informazioni/:idRichiestaInformazione"
-                element={<DettagliRichiestaInformazione />}
-              />
+              >
+                <Route
+                  path=":idRichiestaInformazione"
+                  element={<DettagliRichiestaInformazione />}
+                />
+              </Route>
+
               <Route path="impostazioni" element={<Impostazioni />} />
               <Route path="*" element={<h1>NotFount</h1>} />
             </Route>
