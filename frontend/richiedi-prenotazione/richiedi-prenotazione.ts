@@ -213,7 +213,6 @@ form?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   if (!validateStep(currentPage)) {
-    showToast("Riempire i campi obbligatori prima di inviare i dati", "error");
     submitButton.disabled = true;
   } else {
     submitButton.disabled = false;
@@ -360,6 +359,42 @@ btnPrev.forEach((btn) => {
 // Tipo per rappresentare un input HTML valido
 type ValidatableInput = HTMLInputElement | HTMLTextAreaElement;
 
+function showToast(message: string) {
+  const toast = document.createElement("div");
+  toast.className = "toast-error";
+  toast.textContent = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3000); // Rimuove il toast dopo 3 secondi
+}
+
+function showInputError(input: ValidatableInput, message: string) {
+  let errorElement = input.nextElementSibling as HTMLElement;
+
+  // Se l'elemento di errore non esiste, crealo
+  if (!errorElement || !errorElement.classList.contains("error-message")) {
+    errorElement = document.createElement("p");
+    errorElement.className = "error-message";
+    input.parentNode?.insertBefore(errorElement, input.nextSibling);
+  }
+
+  // Mostra il messaggio di errore
+  errorElement.textContent = message;
+  errorElement.style.display = "block";
+}
+
+function hideInputError(input: ValidatableInput) {
+  const errorElement = input.nextElementSibling as HTMLElement;
+
+  if (errorElement && errorElement.classList.contains("error-message")) {
+    errorElement.style.display = "none";
+  }
+}
+
+
 function validateInput(input: ValidatableInput): boolean {
   const inputValue = input.value.trim();
   const fieldName = input.name;
@@ -368,40 +403,38 @@ function validateInput(input: ValidatableInput): boolean {
     if (!input.classList.contains("error")) {
       input.classList.add("error");
       input.classList.remove("success");
-      showToast("Email non valida", "error");
     }
     return false;
   } else if (fieldName === "phone" && !validatePhone(inputValue)) {
     if (!input.classList.contains("error")) {
       input.classList.add("error");
       input.classList.remove("success");
-      showToast("Numero di telefono non valido", "error");
     }
     return false;
   } else if (fieldName === "cf" && !validateCF(inputValue)) {
     if (!input.classList.contains("error")) {
       input.classList.add("error");
       input.classList.remove("success");
-      showToast("Codice fiscale non valido", "error");
     }
     return false;
   }
   
   // Controlla se l'input è vuoto
   if (!inputValue) {
+    showInputError(input, `Il campo "${input.id}" non può essere vuoto.`);
     // Mostra un toast solo se non c'è già la classe di errore
     if (!input.classList.contains("error")) {
       input.classList.add("error");
       input.classList.remove("success");
-      showToast("Input inserito non valido", "error");
     }
     return false;
   } else {
     if (!input.classList.contains("success")) {
       input.classList.remove("error");
       input.classList.add("success");
-      showToast("Input valido", "success");
     }
+
+    hideInputError(input);
     return true;
   } 
   
@@ -432,30 +465,22 @@ function validateStep(step: number): boolean {
   );
   let isStepValid = true;
 
-  inputs.forEach((input) => {
+  inputs.forEach((input) => { 
+
+    const label = document.querySelector(`label[for="${input.id}"]`);
+    const labelText = label ? label.textContent: label;
   
     if(!validateInput(input)){
       isStepValid = false;
+      showInputError(input, `Il campo ${labelText} è obbligatorio o non valido.`);
+    }
+    else {
+      hideInputError(input);
     }
 
   });
 
   return isStepValid;
-}
-
-function showToast(message: string, type: "success" | "error"): void {
-
-  const toastOptions: any = {
-    text: message,
-    duration: 5000,
-    gravity: "top",
-    position: "center",
-    backgroundColor: type === "error" ? "red" : "green",
-    stopOnFocus: true,
-    closeOnClick: true,
-  };
-
-  Toastify(toastOptions).showToast();
 }
 
 // Funzione per passare allo step successivo
@@ -482,7 +507,7 @@ function nextStep(current: number): void {
 
     currentPage++;
   } else {
-    showToast("Riempire i campi obbligatori per proseguire", "error");
+    showToast("Compila tutti i campi obbligatori correttamente per procedere.");
   }
 }
 
