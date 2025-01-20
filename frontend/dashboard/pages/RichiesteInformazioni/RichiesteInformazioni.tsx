@@ -1,29 +1,11 @@
 import { NavLink } from "react-router";
 import "./RichiesteInformazioni.css";
 import { PropsWithChildren, useEffect, useState } from "react";
-import infoRequestMapper from "../../utils/Mapper/infoRequestMapper";
-import { useQuery } from "@tanstack/react-query";
 
-interface InfoRequest {
-  id: number;
-  email: string;
-  title: string;
-  content: string;
-  date?: string;
-}
+import useRichiesteInformazione from "../../hooks/useRichiesteInformazione";
 
 const RichiesteInformazioni = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["infoRequest"],
-    queryFn: (): Promise<InfoRequest[]> =>
-      fetch("/api/pub/getAllInfoRequest")
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          return infoRequestMapper(data);
-        }),
-  });
+  const { data, isError, isLoading } = useRichiesteInformazione();
 
   if (isError) {
     return (

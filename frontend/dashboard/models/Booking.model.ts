@@ -1,5 +1,7 @@
 export interface Booking {
   id: number;
+  title: string;
+  annotations: string;
   keeper: {
     id: number;
     firstName: string;

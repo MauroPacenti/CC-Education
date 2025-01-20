@@ -1,35 +1,27 @@
 import { ChevronRight } from "lucide-react";
 import "./Impostazioni.css";
-import { useState } from "react";
 
 import PasswordModal from "../../components/PasswordModal/PasswordModal";
 import PasswordCodeModal from "../../components/PasswordModal/PasswordCodeModal";
 import EmailModal from "../../components/EmailModal/EmailModal";
 import EmailCodesModal from "../../components/EmailModal/EmailCodesModal";
+import useImpostazioni from "../../hooks/useImpostazioni";
 
 const Impostazioni = () => {
-  const [isOpenPasswordModal, setIsOpenPasswordModal] = useState(false);
-  const [isOpenEmailModal, setIsOpenEmailModal] = useState(false);
+  const {
+    isOpenPasswordModal,
+    isOpenCodePasswordModal,
+    isOpenEmailModal,
+    isOpenCodeEmailModal,
 
-  const [isOpenCodePasswordModal, setIsOpenCodePasswordModal] = useState(false);
-  const [isOpenCodeEmailModal, setIsOpenCodesEmailModal] = useState(false);
+    togglePasswordModal,
+    toggleCodePasswordModal,
+    toggleEmailModal,
+    toggleCodesEmailModal,
 
-  const togglePasswordModal = () => {
-    setIsOpenPasswordModal((prev) => !prev);
-  };
-
-  const toggleEmailModal = () => {
-    setIsOpenEmailModal((prev) => !prev);
-  };
-
-  const toggleCodePasswordModal = () => {
-    setIsOpenCodePasswordModal((prev) => !prev);
-  };
-
-  const toggleCodesEmailModal = () => {
-    setIsOpenCodesEmailModal((prev) => !prev);
-  };
-
+    setIsOpenCodePasswordModal,
+    setIsOpenCodesEmailModal,
+  } = useImpostazioni();
   return (
     <>
       {isOpenPasswordModal && (

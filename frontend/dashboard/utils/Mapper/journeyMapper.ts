@@ -1,22 +1,7 @@
-interface JourneyRequestData {
-  id: number;
-  keeper: {
-    organization: {
-      type: string;
-      name: string;
-    };
-    group: {
-      minors: number;
-      adults: number;
-    };
-  };
-  annotations: string;
-  startDate: string;
-  endDate: string;
-}
+import { Booking } from "../../models/Booking.model";
 
-const journeyMapper = (data: JourneyRequestData[]) => {
-  return data.map((journey: JourneyRequestData) => ({
+const journeyMapper = (data: Booking[]) => {
+  return data.map((journey: Booking) => ({
     id: journey.id,
     title: journey.annotations || journey.keeper.organization.name,
     startDate: journey.startDate,

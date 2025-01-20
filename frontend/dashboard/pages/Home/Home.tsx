@@ -1,42 +1,13 @@
 import { NavLink } from "react-router";
 import "./Home.css";
 import { BookMarked, NotebookPen } from "lucide-react";
-import journeyMapper from "../../utils/Mapper/journeyMapper";
-import { useQuery } from "@tanstack/react-query";
 
-interface Booking {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  participants: { minor: number; adult: number };
-  organizationType: string;
-}
+import useHome from "../../hooks/useHome";
+import { BookingHome } from "../../models/BookingHome.model";
 
 const Home = () => {
-  const {
-    data: bookings,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["bookings"],
-    queryFn: (): Promise<Booking[]> =>
-      fetch("/api/pub/getAllJourney").then((res) =>
-        res.json().then((data) => journeyMapper(data))
-      ),
-  });
-
-  const { data: infoRequest } = useQuery({
-    queryKey: ["journeyRequest"],
-    queryFn: () =>
-      fetch("/api/pub/getAllInfoRequest").then((res) => res.json()),
-  });
-
-  const { data: journeyRequest } = useQuery({
-    queryKey: ["journeyRequest"],
-    queryFn: () =>
-      fetch("/api/pub/getAllJourneyRequest").then((res) => res.json()),
-  });
+  const { isError, isLoading, bookings, infoRequest, journeyRequest } =
+    useHome();
 
   if (isError) {
     return (
@@ -67,7 +38,7 @@ const Home = () => {
 
           {bookings && bookings.length > 0 ? (
             <div className="bookings">
-              {bookings.map((booking) => (
+              {bookings.map((booking: BookingHome) => (
                 <NavLink
                   to={`/dashboard/prenotazioni/${booking.id}`}
                   key={booking.id}
