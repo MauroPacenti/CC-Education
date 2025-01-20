@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DettagliRichiestaInformazioneService } from "../services/DettagliRichiestaInformazione.service";
 
 import type { InformationRequest } from "../models/InformationRequest.model";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import ToastContext from "../context/ToastContext";
 
 const useDettagliRichiestaInformazioni = () => {
   const { idRichiestaInformazione } = useParams();
   const navigate = useNavigate();
+  const { toggleToast } = useContext(ToastContext);
 
   const {
     data: requestInformationDetails,
@@ -53,6 +55,23 @@ const useDettagliRichiestaInformazioni = () => {
     setShowDeleteModal((prev) => !prev);
   };
 
+  const handleDeleteClick = (
+    requestInformationDetails?: InformationRequest
+  ) => {
+    if (!requestInformationDetails) return;
+    mutation.mutate(requestInformationDetails.id);
+    if (!errorDelete)
+      toggleToast({
+        type: "success",
+        message: "Richiesta eliminata",
+      });
+    else
+      toggleToast({
+        type: "error",
+        message: "Si è verificato un errore durante l'eliminazione",
+      });
+  };
+
   return {
     requestInformationDetails,
     isLoading,
@@ -61,10 +80,10 @@ const useDettagliRichiestaInformazioni = () => {
     showDeleteModal,
     toggleReplyModal,
     toggleDeleteModal,
-    mutation,
     isLoadingDelete,
     errorDelete,
     isError,
+    handleDeleteClick,
   };
 };
 

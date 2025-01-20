@@ -6,8 +6,19 @@ const getAllBookings = async () => {
   return response.json();
 };
 
+const deleteBooking = async (id: number) => {
+  const response = await fetch(`/api/pub/deleteJourney?journeyId=${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+};
+
 const PrenotazioniService = {
   getAllBookings,
+  deleteBooking,
 };
 
 export default PrenotazioniService;

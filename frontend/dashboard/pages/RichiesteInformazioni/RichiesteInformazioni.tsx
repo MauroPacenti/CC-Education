@@ -1,11 +1,19 @@
 import { NavLink } from "react-router";
 import "./RichiesteInformazioni.css";
-import { PropsWithChildren, useEffect, useState } from "react";
 
 import useRichiesteInformazione from "../../hooks/useRichiesteInformazione";
+import Buttons from "../../components/Buttons/Buttons";
+import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 
 const RichiesteInformazioni = () => {
-  const { data, isError, isLoading } = useRichiesteInformazione();
+  const {
+    data,
+    isError,
+    isLoading,
+    toggleDeleteModal,
+    handleDeleteClick,
+    isOpenDeleteModal,
+  } = useRichiesteInformazione();
 
   if (isError) {
     return (
@@ -35,61 +43,44 @@ const RichiesteInformazioni = () => {
   }
 
   return (
-    <div>
-      <h2>Richieste Informazioni</h2>
+    <>
+      {isOpenDeleteModal && (
+        <ShowDeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          onClick={handleDeleteClick}
+          subject="richiesta di informazione"
+        />
+      )}
+      <div>
+        <h2>Richieste Informazioni</h2>
 
-      <div className="info-container">
-        {data?.map((request) => (
-          <NavLink
-            key={request.id}
-            to={`/dashboard/richieste-informazioni/${request.id}`}
-            className="info-card"
-          >
-            <div className="info-header">
-              <h3>{request.email}</h3>
-              <p>{request.date}</p>
-            </div>
-            <p className="info-title">{request.title}</p>
-            <p className="info-message">
-              {<InfoMessage message={request.content}> </InfoMessage>}
-            </p>
-          </NavLink>
-        ))}
+        <div className="info-container">
+          {data?.map((request) => (
+            <>
+              <div className="info-card">
+                <NavLink
+                  key={request.id}
+                  to={`/dashboard/richieste-informazioni/${request.id}`}
+                  className="info-link"
+                >
+                  <div className="info-header">
+                    <h3>{request.email}</h3>
+                    <p>{request.date}</p>
+                  </div>
+                  <p className="info-title">{request.title}</p>
+                  <p className="info-message">{request.content}</p>
+                </NavLink>
+                <Buttons.DeleteButton
+                  title="Elimina Richiesta"
+                  onClick={() => toggleDeleteModal(request.id)}
+                ></Buttons.DeleteButton>
+              </div>
+            </>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
-};
-
-const InfoMessage = ({ message }: PropsWithChildren<{ message: string }>) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const [finalMessage, setFinalMessage] = useState(message);
-
-  useEffect(() => {
-    let newMessage = message;
-    if (windowWidth > 1200) {
-      newMessage = message.length > 55 ? message.slice(0, 55) + "..." : message;
-    } else if (windowWidth > 800) {
-      newMessage = message.length > 45 ? message.slice(0, 45) + "..." : message;
-    } else {
-      newMessage = message.length > 30 ? message.slice(0, 35) + "..." : message;
-    }
-    setFinalMessage(newMessage);
-  }, [windowWidth, message]);
-
-  return <>{finalMessage}</>;
 };
 
 export default RichiesteInformazioni;

@@ -37,28 +37,14 @@ const DettagliPrenotazione = () => {
   return (
     <>
       {isDeteModalOpen && (
-        <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
-          <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Sei sicuro di voler eliminare questa richiesta?</h3>
-            <div className="delete-modal-buttons">
-              <button
-                className="delete-modal-button"
-                onClick={toggleDeleteModal}
-              >
-                Annulla
-              </button>
-              <button
-                className="delete-modal-button delete"
-                onClick={() => {
-                  if (!bookingDetails) return;
-                  mutation.mutate();
-                }}
-              >
-                Elimina
-              </button>
-            </div>
-          </div>
-        </ShowDeleteModal>
+        <ShowDeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          onClick={() => {
+            if (!bookingDetails) return;
+            mutation.mutate();
+          }}
+          subject="prenotazione"
+        />
       )}
       <div className="booking-details">
         <Buttons.BackButton></Buttons.BackButton>

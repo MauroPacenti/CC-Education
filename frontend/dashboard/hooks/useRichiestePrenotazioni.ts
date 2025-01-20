@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BookingRequest } from "../models/BookingRequest.model";
 import journeyRequestMapper from "../utils/Mapper/journeyRequestMapper";
 import { useNavigate } from "react-router";
-import RichiestePrenotazioneService from "../services/RIchiestePrenotazioni.service";
+import RichiestePrenotazioneService from "../services/RichiestePrenotazioni.service";
 
 const useRichiestePrenotazioni = () => {
   const { data, isLoading, isError } = useQuery({

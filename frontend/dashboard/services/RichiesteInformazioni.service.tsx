@@ -6,8 +6,21 @@ const getAllInfoRequest = async () => {
   return response.json();
 };
 
+const deleteInfoRequest = async (id: number) => {
+  const response = await fetch(
+    `/api/pub/deleteInfoRequest?infoRequestId=${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to delete info request");
+  }
+};
+
 const RichiesteInformazioniService = {
   getAllInfoRequest,
+  deleteInfoRequest,
 };
 
 export default RichiesteInformazioniService;

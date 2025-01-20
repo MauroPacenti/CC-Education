@@ -13,7 +13,14 @@ const DeleteButton = ({
   title,
 }: PropsWithChildren<Props>) => {
   return (
-    <button className="delete-button" onClick={onClick} title={title}>
+    <button
+      className="delete-button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      title={title}
+    >
       <Trash /> {children}
     </button>
   );

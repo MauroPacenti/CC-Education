@@ -4,13 +4,10 @@ import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
 import Buttons from "../../components/Buttons/Buttons";
-import { useContext } from "react";
-import ToastContext from "../../context/ToastContext";
 
 const DettagliRichiestaInformazione = () => {
   const {
     isLoading,
-    mutation,
     isError,
     requestInformationDetails,
     showDeleteModal,
@@ -19,9 +16,8 @@ const DettagliRichiestaInformazione = () => {
     toggleReplyModal,
     isLoadingDelete,
     errorDelete,
+    handleDeleteClick,
   } = useDettagliRichiestaInformazioni();
-
-  const { toggleToast } = useContext(ToastContext);
 
   if (errorDelete) {
     return (
@@ -85,39 +81,11 @@ const DettagliRichiestaInformazione = () => {
         ></ShowReplyModal>
       )}
       {showDeleteModal && (
-        <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
-          <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Sei sicuro di voler eliminare questa richiesta?</h3>
-            <div className="delete-modal-buttons">
-              <button
-                className="delete-modal-button"
-                onClick={toggleDeleteModal}
-              >
-                Annulla
-              </button>
-              <button
-                className="delete-modal-button delete"
-                onClick={() => {
-                  if (!requestInformationDetails) return;
-                  mutation.mutate(requestInformationDetails.id);
-                  if (!errorDelete)
-                    toggleToast({
-                      type: "success",
-                      message: "Richiesta eliminata",
-                    });
-                  else
-                    toggleToast({
-                      type: "error",
-                      message:
-                        "Si è verificato un errore durante l'eliminazione",
-                    });
-                }}
-              >
-                Elimina
-              </button>
-            </div>
-          </div>
-        </ShowDeleteModal>
+        <ShowDeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          onClick={() => handleDeleteClick(requestInformationDetails)}
+          subject="richiesta d'informazione"
+        ></ShowDeleteModal>
       )}
       <div className="info-request-details-buttons">
         <Buttons.BackButton></Buttons.BackButton>

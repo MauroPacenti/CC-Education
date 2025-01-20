@@ -159,6 +159,7 @@ const JourneySection = ({
           value={formData.journey.startDate.split("T")[0]}
           onChange={(e) => {
             handleChange("journey", "startDate", e.target.value);
+            handleChange("journey", "endDate", e.target.value);
             handleBlur("journey", "startDate", true);
             handleBlur("journey", "endDate", true);
           }}
