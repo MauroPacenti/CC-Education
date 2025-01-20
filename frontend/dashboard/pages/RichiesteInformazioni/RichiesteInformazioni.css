@@ -15,7 +15,6 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  gap: 1em;
 }
 
 .info-card::before {
@@ -44,6 +43,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 90%;
 }
 
 .info-title {
@@ -52,6 +52,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: 90%;
 }
 
 .info-link {
