@@ -5,15 +5,14 @@ import java.util.List;
 
 import com.novo.dtos.JourneyDto;
 import com.novo.entities.*;
-import com.novo.repos.JourneyRequestRepository;
 import com.novo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
+@RequestMapping("/api")
 public class JourneyController {
 
 	@Autowired
@@ -38,43 +37,55 @@ public class JourneyController {
 	private JourneyRequestService journeyRequestService;
 
 	// Returns all Journeys
-	@GetMapping("/api/pub/getAllJourney")
-	public List<Journey> getAllJourney(
+	@GetMapping("pub/getAllJourney")
+	public ResponseEntity<List<Journey>> getAllJourney(
 			@RequestParam(required = false) String title,
 	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
 	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate) {
 		
-		List<Journey> listJourney = journeyService.filteredJourney(title, startDate, endDate);
-		return listJourney;
+		try {
+			List<Journey> filteredJourney = journeyService.filteredJourney(title, startDate, endDate);
+			return ResponseEntity.ok(filteredJourney);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.noContent().build();
+		}
 	}
 	
 	// Creates a new Journey
-	@PostMapping("/api/pub/createJourney")
+	@PostMapping("pub/createJourney")
 	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat LocalDateTime startDate,
 	        @RequestParam @DateTimeFormat LocalDateTime endDate,
 	        @RequestParam(required = false) String annotations,
 	        @RequestParam int keeperId) {
 	   
-	    Journey savedJourney;
+	    Journey savedJourney = new Journey();
 	    try {
-			savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
-			JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
-			if(journeyRequest != null) {
-				journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
-			}
-			String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
-			String body= "La prenotazione è stata confermata";
-			javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
-			return ResponseEntity.ok(savedJourney);
+	    	if(adminService.validateEmail(savedJourney.getKeeper().getEmail())) {
+	    		throw new Error("L'email nom ha un formato idoneo.");
+	    	}
+				savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+				JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
+				if(journeyRequest != null) {
+					journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
+				}
+	    }catch (Exception e){
+	    	e.printStackTrace();
+	    	return ResponseEntity.badRequest().build();
+	    }
+			try {
+				String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
+				String body= "La prenotazione è stata confermata";
+				javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
         }catch(Exception e) {
-        	new Exception("Error to send email"); // Throws an exception if there is an error sending the email
-			return ResponseEntity.badRequest().build();
+        	e.printStackTrace();
+			return ResponseEntity.internalServerError().build();
         }
-
-	}
-
-	@PostMapping("/api/pub/createJourneyFromAdmin")
+	    return ResponseEntity.ok(savedJourney);
+}
+	
+	@PostMapping("pub/createJourneyFromAdmin")
 	// Creates a new journey from the admin interface
 	public ResponseEntity<Journey> createJourneyFromAdmin(@RequestBody JourneyDto journeyDto){
 		try {
@@ -87,6 +98,9 @@ public class JourneyController {
 			newKeeper.setGroup(group);
 			newKeeper.setOrganization(organization);
 			journeyDto.getJourney().setKeeper(newKeeper);
+		}catch (Exception e){
+			return ResponseEntity.badRequest().build();
+		}
 			Journey journey;
 			try {
 				journey = journeyService.save(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
@@ -94,18 +108,14 @@ public class JourneyController {
 				String body= "La richiesta è stata registrata";
 				javaMailSenderService.sendMail(journeyDto.getKeeper().getEmail(), object, body); // Sends email with journey request
 			}catch(Exception e) {
-				new Exception("Error to send email");
-				return ResponseEntity.badRequest().build();
+				e.printStackTrace();
+				return ResponseEntity.internalServerError().build();
 			}
-
 			return ResponseEntity.ok(journey);
-		}
-		catch (Exception e){
-			return ResponseEntity.badRequest().build();
-		}
 	}
 	
 	// Updates existing Journey
+
 	@PutMapping("/api/pub/updateJourney")
 	public ResponseEntity<Journey> updateJourney(@RequestBody JourneyDto journeyDto){
 		try {
@@ -122,23 +132,29 @@ public class JourneyController {
 				journeyDto.getJourney().setKeeper(newKeeper);
 				journey = journeyService.update(journeyDto.getJourney().getId(), journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
 			}catch(Exception e) {
-				return ResponseEntity.badRequest().build();
+				e.printStackTrace();
+        return ResponseEntity.badRequest().build();
 			}
 
 			return ResponseEntity.ok(journey);
 		}
 		catch (Exception e){
-			return ResponseEntity.badRequest().build();
-		}
+			e.printStackTrace();
+      return ResponseEntity.badRequest().build();
 	}
 
 	// Deletes existing Journey
-	@DeleteMapping("/api/pub/deleteJourney")
-	public boolean deleteJourney(@RequestParam int journeyId) {
-	   boolean deletedJourney = journeyService.delete(journeyId);
-	    
-	    return deletedJourney;
+	@DeleteMapping("pub/deleteJourney")
+	public ResponseEntity<Boolean> deleteJourney(@RequestParam int journeyId) {
+	try {
+		if(!journeyService.delete(journeyId)) {
+			throw new Exception("Richiesta non trovata.");
+		}
+		return ResponseEntity.ok(true);
+	}catch(Exception e) {
+		e.printStackTrace();
+		return ResponseEntity.badRequest().body(false);
 	}
-
+	}
 }
 
