@@ -1,0 +1,43 @@
+.info-request-details-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.info-request-details-buttons div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+
+.reply-button {
+  background-color: #5932ea;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+.reply-button.text-button {
+  margin-top: 2em;
+  display: flex;
+  gap: 0.75em;
+}
+
+.reply-button:hover {
+  background-color: #4a27cc;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #a71d2a;
+}
