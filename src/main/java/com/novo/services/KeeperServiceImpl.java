@@ -48,7 +48,7 @@ public class KeeperServiceImpl implements KeeperService {
     }
 
     @Override
-    public void updateKeeper(int keeperId, Keeper keeper) {
+    public Keeper updateKeeper(int keeperId, Keeper keeper) {
         Keeper edited=keeperRepo.findById(keeperId).get();
         if(!keeper.getFirstName().isEmpty())
             edited.setFirstName(keeper.getFirstName());
@@ -60,7 +60,7 @@ public class KeeperServiceImpl implements KeeperService {
             edited.setCf(keeper.getCf());
         if(!keeper.getPhone().isEmpty())
             edited.setPhone(keeper.getPhone());
-        keeperRepo.save(edited);
+        return keeperRepo.save(edited);
     }
 
     @Override
