@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Richiedi Prenotazione</title>
+    <meta name="author" content="Chiabrero Gabriele">
+    <meta name="description" content="pagina contenitore del form per la prenotazione di una visita presso Cascina Caccia">
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
@@ -17,7 +19,6 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   </head>
   <body>
     <nav class="nav-container">
@@ -28,12 +29,12 @@
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu a tendina" />
             <img
               id="icon-close"
               class="hide"
               src="../img/icon-close.svg"
-              alt="icon close"
+              alt="icona per chiudere il menu a tendina"
             />
           </a>
         </div>
@@ -75,10 +76,10 @@
           
         <div class="progress-bar">
           <div class="icon-container active" id="icon1">
-            <img src="../img/icon-user.svg" alt="icon user" class="icon" />
+            <img src="../img/icon-user.svg" alt="icona accompagnatore" class="icon" />
             <img
               src="../img/icon-done.svg"
-              alt="icon done"
+              alt="icona completamento step del form"
               id="done1"
               class="icon-done hide"
             />
@@ -89,12 +90,12 @@
           <div class="icon-container" id="icon2">
             <img
               src="../img/icon-organization.svg"
-              alt="icon organization"
+              alt="icona organizzazione"
               class="icon"
             />
             <img
               src="../img/icon-done.svg"
-              alt="icon done"
+              alt="icona completamento step del form"
               id="done2"
               class="icon-done hide"
             />
@@ -105,12 +106,12 @@
           <div class="icon-container" id="icon3">
             <img
               src="../img/icon-calendar.svg"
-              alt="icon date"
+              alt="icona prenotazione"
               class="icon"
             />
             <img
               src="../img/icon-done.svg"
-              alt="icon done"
+              alt="icona completamento step del form"
               id="done3"
               class="icon-done hide"
             />
@@ -131,9 +132,6 @@
               id="firstName"
               placeholder="Inserisci il tuo nome"
             />
-            <div class="toast-container">
-
-            </div>
 
             <!-- Cognome -->
             <label for="lastName">Cognome</label>
@@ -173,10 +171,6 @@
 
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
-            </div>
-
-            <div id="toast1" class="hidden">
-              <p>Input errati</p>
             </div>
 
           </div>
@@ -235,9 +229,6 @@
               <button class="btn btn-next" type="button">Avanti</button>
             </div>
 
-            <div id="toast2" class="hidden">
-              <p>Input errati</p>
-            </div>
           </div>
 
           <!-- Dati prenotazione -->
@@ -375,7 +366,5 @@
         <p>cascinacaccia@acmos.net</p>
       </div>
     </footer>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   </body>
 </html>
