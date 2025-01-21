@@ -1,4 +1,5 @@
 /* Style per la pagina Home */
+@import '/laboratori/laboratori.css';
 
 h1,
 h2 {
@@ -8,7 +9,7 @@ h2 {
 header {
   position: relative;
   width: 100%;
-  height: 40rem;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +23,8 @@ header .background {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("img/cascina-caccia-2.jpeg");
+  top: 80px;
+  background-image: url("public/img/img-ottimizzate/home-desktop/cascina-caccia-desktop.avif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -106,7 +108,9 @@ header .contact-us {
 }
 
 main {
-  padding: 10%;
+  padding: 1.5rem;
+  padding-bottom: 7rem;
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,8 +127,13 @@ main span {
 main > h2 {
   font-size: 23pt;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin: 2rem 2rem;
+  margin-top: 0;
   align-self: flex-start;
+}
+
+#valori {
+  margin-top: 2rem;
 }
 
 main > button {
@@ -157,6 +166,7 @@ main > p:nth-of-type(2) {
   width: 100%;
   height: fit-content;
   overflow: hidden;
+  margin: 2rem auto;
 }
 
 .carousel {
@@ -316,7 +326,180 @@ main > p:nth-of-type(2) {
   gap: 10px;
 }
 
+.dichiarazione {
+  display: flex;
+}
+
+#privacy {
+  width: 7rem;
+  margin-right: 2rem;
+}
+
+.privacy-link {
+  font-weight: bold;
+  color: var(--secondario-fucsia);
+}
+
+
+#cookie-banner {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--secondario-verde);
+  z-index: 2;
+  height: fit-content;
+  font-family: 'Neue Machina', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cookie-banner > p {
+  padding: 1rem;
+}
+
+.informativa {
+  display: none;
+}
+
+
+.mostra-informativa {
+  display: block;
+  overflow-y: scroll;
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: var(--background);
+  height: 10rem;
+}
+
+.show-less {
+  display: none;
+  margin: 1rem auto;
+}
+
+.mostra-show-less {
+  display: block;
+  color: var(--secondario-fucsia);
+}
+
+.cookie-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.decline-btn, .accept-btn {
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+
+.show-cookie {
+  font-weight: bold;
+  color: var(--secondario-fucsia);
+}
+
+.accept-btn {
+  background-color: var(--primario);
+  color: white;
+  border-radius: 15px;
+  width: 70%;
+
+}
+
+.accept-btn:focus {
+  background-color: var(--secondario-fucsia);
+}
+
+.decline-btn {
+  background-color: var(--background);
+  border-radius: 15px;
+  width: 70%;
+}
+
+.decline-btn:focus {
+  border: 3px solid var(--secondario-fucsia);
+}
+
+.informativa {
+  padding: 2rem;
+  height: 20rem;
+}
+
+.informativa p {
+  margin-bottom: 1rem;
+}
+.mostra-informativa p {
+  font-size: 16px;
+}
+
+.mostra-informativa h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--secondario-fucsia);
+}
+
+.informativa h4 {
+  color: var(--secondario-fucsia);
+
+}
+
+.mostra-informativa h6 {
+  font-size: 16px;
+  color: var(--secondario-fucsia);
+}
+
+
+/* -------------------PRIVACY PAGE------------------------- */
+.main-privacy {
+  height: fit-content;
+  padding: 3rem;
+  box-sizing: content-box;
+}
+
+.main-privacy h2 {
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}
+
+#privacy-title {
+  margin: 0;
+}
+
+.main-privacy h3 {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.main-privacy ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-privacy ul li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+.main-privacy li h4 {
+  font-weight: bold;
+  color: var(--secondario-fucsia);
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-privacy ol > li {
+  margin-bottom: 1rem;
+}
+
+
+
+
 @media screen and (min-width: 393px) {
+
+
+  .main-privacy {
+    padding: 3rem 5rem 5rem 5rem;
+  }
   header {
     padding: 10%;
   }
@@ -344,6 +527,7 @@ main > p:nth-of-type(2) {
 }
 
 @media screen and (min-width: 834px) {
+
   header h1 {
     font-size: 40px;
   }
@@ -352,8 +536,12 @@ main > p:nth-of-type(2) {
     font-size: 18px;
   }
 
+  #privacy-title {
+    margin-top: 2rem;
+  }
+
   main {
-    padding: 5% 20%;
+    padding: 5rem 7rem 7rem 7rem;
   }
 
   main h2 {
@@ -368,6 +556,10 @@ main > p:nth-of-type(2) {
 
   main .valori .icona:hover {
     transform: scale(1.5);
+  }
+
+  .main-privacy {
+    padding: 4rem 10rem;
   }
 
   .valori {
@@ -407,12 +599,78 @@ main > p:nth-of-type(2) {
   .richiedi-informazioni textarea {
     width: 99%;
   }
+
+  #privacy {
+    width: 4rem;
+    margin-right: 2rem;
+  }
+
+  #cookie-banner {
+    position: fixed;
+    bottom: 3rem;
+    z-index: 2;
+    background-color: var(--secondario-verde);
+    border: 6px solid var(--primario);
+    width: 50%;
+    height: fit-content;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 1rem;
+    font-family: 'Neue Machina', serif;
+  }
+
+  #cookie-banner > p {
+    margin-bottom: 1rem;
+  }
+
+  #cookie-banner .cookie-buttons {
+    /* border: 1px solid black; */
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .cookie-buttons .accept-btn, .cookie-buttons .decline-btn {
+    width: 40%;
+    height: 3rem;
+    border: 1px solid var(--primario);
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+  }
+
+  .cookie-buttons .accept-btn:hover, .cookie-buttons .decline-btn:hover {
+    transform: scale(1.2);
+  }
+
+  .mostra-informativa {
+    display: block;
+    overflow-y: scroll;
+    border-radius: 15px;
+    padding: 1rem;
+    background-color: var(--background);
+    height: 10rem;
+  }
+
+  .show-less {
+    display: none;
+    margin-top: 1rem;
+  }
+
+  .mostra-show-less {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-  main {
-    padding: 5% 20%;
-  }
+
+
 
   header h1 {
     font-size: 50px;

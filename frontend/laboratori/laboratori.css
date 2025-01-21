@@ -1,61 +1,83 @@
 /* Style per la pagina Laboratori */
-h1,
-h2,
-h4 {
+
+h1, h2, h4 {
   font-family: "Poppins", sans-serif;
 }
-
-p,
-.header-text h6 {
+body {
+  height: fit-content;
+}
+p, .header-text h6 {
   font-family: "Neue Machina";
 }
 
 main {
   top: 88px;
   position: relative;
-  padding: 5% 10%;
 }
 
+main section > p {
+  margin: 1rem 3rem;
+}
 main span {
   font-weight: bold;
   color: var(--secondario-fucsia);
 }
 
-main section p {
-  margin-bottom: 2rem;
+.carousel-item h4 {
+  margin-bottom: 1rem;
+}
+
+main > p {
+  margin: 1rem 2rem;
 }
 
 main section {
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  
 }
 
 main h2 {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  /* margin-left: 0 2rem; */
 }
 
 .carousel-container {
   width: 100%;
-  height: 33rem;
+  height: fit-content;
   overflow: hidden;
   position: relative;
   /* margin: 0 auto; */
+  /* margin: 2rem auto; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .carousel-wrapper {
   display: flex;
-  height: 35rem;
+  height: fit-content;
   width: 100%;
   transition: transform 0.5s ease;
 }
 .carousel-item {
-  min-width: 300px;
-  height: 35rem;
+  min-width: 230px;
+  height: 38rem;
   margin: 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   border-radius: 15px;
+}
+
+.carousel-and-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .carousel-item h4 {
@@ -63,11 +85,17 @@ main h2 {
   font-size: 20px;
 }
 
+section {
+  height: fit-content;
+}
+
 .carousel-buttons {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 20px;
+  z-index: 3;
+  /* top: 20rem; */
 }
 
 .btn {
@@ -75,8 +103,17 @@ main h2 {
   cursor: pointer;
 }
 
-#prevBtn,
+#prevBtn {
+  left: -100px;
+}
+
 #nextBtn {
+  right: -100px;
+ 
+  z-index: 100;
+}
+
+#prevBtn, #nextBtn {
   transition: transform 0.2s ease;
 }
 
@@ -88,74 +125,32 @@ main h2 {
   transform: translateX(10px);
 }
 
-.img-carousel {
+.carousel-item picture img {
   width: 100%;
-  height: 15rem;
+  height: 12rem;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  object-fit: cover;
+  object-position: center;
+
 }
 
+article header .testo-voci p {
+  margin-top: 1rem;
+}
 .text-carousel {
   padding: 1.5rem;
-  height: 18rem;
+  height: 27rem;
   border-bottom: 3px solid var(--primario);
   border-left: 3px solid var(--primario);
   border-right: 3px solid var(--primario);
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   transition: background-color 0.5s ease;
-  cursor: pointer;
 }
 
-.text-carousel:hover {
-  background-color: var(--secondario-verde);
-}
 
-.storia-cascina {
-  background-image: url("/img/carosello-laboratori/storia-della-cascina.jpg");
-}
-.bruno-caccia {
-  background-image: url("/img/carosello-laboratori/bruno-caccia.gif");
-}
 
-.regolegalita {
-  background-image: url("/img/carosello-laboratori/regolegalità.jpg");
-}
-
-.beni-confiscati {
-  background-image: url("/img/carosello-laboratori/beni-confiscati.jpg");
-}
-
-.mafie-cibo {
-  background-image: url("/img/carosello-laboratori/Agromafie.jpg");
-}
-
-.miele-api {
-  background-image: url("/img/carosello-laboratori/miele-api.jpg");
-}
-
-.ricicliamo {
-  background-image: url("/img/carosello-laboratori/ricicliamo.jpg");
-}
-
-.mafia-cinema {
-  background-image: url("/img/carosello-laboratori/mafia-cinema.jpg");
-}
-
-.azzardo {
-  background-image: url("/img/carosello-laboratori/azzardo.jpg");
-}
-
-.gioco {
-  background-image: url("/img/carosello-laboratori/gioco.jpg");
-}
-
-article {
-  margin-bottom: 2rem;
-}
 
 header {
   background-color: var(--secondario-verde);
@@ -195,6 +190,15 @@ header img {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 2rem;
+}
+
+#voci {
+  margin-left: 2rem;
+}
+
+section.voci-laboratori {
+  margin-bottom: 9rem;
 }
 
 footer {
@@ -202,9 +206,35 @@ footer {
 }
 
 @media screen and (min-width: 834px) {
+  .carousel-item picture img {
+  width: 100%;
+  height: 12rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+  object-fit: cover;
+  object-position: center;
+
+}
+
+  #voci {
+    margin-left: 3rem;
+  }
   main h2 {
     font-size: 30px;
     font-weight: bold;
+  }
+
+  main section {
+    padding: 5rem;
+  }
+
+  main section > p {
+    margin: 2rem 4rem;
+  }
+
+  .carousel-item {
+    width: 15rem;
   }
 
   main .voci-laboratori {
@@ -229,5 +259,34 @@ footer {
 @media screen and (min-width: 1280px) {
   main h2 {
     font-size: 30px;
+    margin-right: auto;
+    margin-left: 4rem;
   }
+
+  main section {
+    padding: 7rem 10rem;
+  }
+
+  .carousel-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%; 
+  }
+  
+  .carousel-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .carousel-item picture {
+    width: 100%;
+  }
+  
+  /* .carousel-item {
+    flex: 0 0 calc(33.33% - 20px); 
+    margin: 0 10px; 
+    box-sizing: border-box;
+  } */
+  
+
 }

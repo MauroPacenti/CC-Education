@@ -10,7 +10,6 @@
     <script type="module" src="index.js"></script>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="/global/global.css">
-
     <!-- link google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,17 +21,17 @@
   <body>
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente" />
+        <img src="/public/img/logo.png" alt="logo liberamente" />
       </div>
 
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img id="icon-menu" src="./public/img/icon-menu.svg" alt="icona menu" />
             <img
               id="icon-close"
               class="hide"
-              src="../img/icon-close.svg"
+              src="../public/img/icon-close.svg"
               alt="icon close"
             />
           </a>
@@ -98,12 +97,12 @@
             <div class="carousel-item"></div>
             <div class="carousel-item"></div>
           </div>
-        <img src="/img/icons-carousel-prev.svg" class="btn-carousel prev"></img>
+        <img src="/img/icons-carousel-prev.svg" class="btn-carousel prev">
         <img src="/img/icons-carousel-succ.svg" class="btn-carousel next">
       </div>
       <!-- fine carosello -->
 
-      <h2>I nostri valori</h2>
+      <h2 id="valori">I nostri valori</h2>
       <p>Crediamo nell'educazione come strumento di trasformazione sociale, capace di sviluppare una coscienza critica che libera le nuove generazioni dalle logiche oppressive e apre <span>nuove prospettive di futuro</span>.
         <br>Pensiamo che l'educazione sia lo strumento più potente per:</p>
 
@@ -137,6 +136,10 @@
           <input type="tel" placeholder="Telefono" name="phone" id="phone" />
           <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message"></textarea>
         </fieldset>
+        <div class="dichiarazione">
+          <input type="checkbox" name="privacy" id="privacy">
+          <label for="privacy">Dichiaro di aver letto l'<a href="/privacy.html" class="privacy-link">informativa privacy</a> e acconsento al trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)</label>
+        </div>
 
         <div class="buttons-richiedi-info">
           <button type="reset" class="canc">Cancella</button>
@@ -160,23 +163,69 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
       </div>
+
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/laboratori/">Laboratori</a></li>
         <li><a href="/richiedi-prenotazione/">Richiedi Prenotazione</a></li>
         <li><a href="/#contattaci">Contattaci</a></li>
       </ul>
-      <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
+
       <div class="contact">
         <div class="icons-social">
-          <img src="img/icona-instagram.png" alt="" class="social instagram" />
-          <img src="img/icon-facebook.png" alt="" class="social facebook" />
-          <img src="img/icon-tiktok.png" alt="" class="social tiktok" />
+          <picture>
+              <source media="(min-width: 1280px)" srcset="./public/img/icone/icon-instagram-desktop.png">
+              <source media="(max-width: 393px)" srcset="./public/img/icone/icon-instagram-mobile.png">
+              <img src="./public/img/icone/icon-instagram-desktop.png" alt="Instagram" class="social " >
+          </picture>          
+          <picture>
+              <source media="(min-width: 1280px)" srcset="./public/img/icone/icon-facebook-desktop.png">
+              <source media="(max-width: 393px)" srcset="./public/img/icone/icon-facebook-mobile.png">
+              <img src="./public/img/icone/icon-facebook-desktop.png" alt="Facebook" class="social " >
+          </picture>          
+          <picture>
+              <source media="(min-width: 1280px)" srcset="/public/img/icone/icon-tiktok-desktop.png">
+              <source media="(max-width: 393px)" srcset="/public/img/icone/icon-tiktok-mobile.png">
+              <img src="/public/img/icone/icon-tiktok-desktop.png" alt="Tiktok" class="social " >
+          </picture>          
+      
+
         </div>
-        <p>cascinacaccia@acmos.net</p>
+      
+        <p class="email">cascinacaccia@acmos.net</p>
       </div>
     </footer>
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner">
+      <p>Utilizziamo i cookie per migliorare la tua esperienza. Per maggiori informazioni, leggi la nostra <button class="show-cookie">Informativa sui Cookie</button>.</p>
+
+      <div class="informativa">
+        <h3>Informativa sui Cookie</h3>
+        <p>Il presente sito web utilizza i cookie per garantire il corretto funzionamento delle sue funzionalità e per migliorare l’esperienza di navigazione degli utenti. In questa informativa ti spieghiamo cosa sono i cookie, quali tipi utilizziamo e come puoi gestirli.</p>
+        <h4>Cosa sono i cookie?</h4>
+        <p>I cookie sono piccoli file di testo che vengono memorizzati sul tuo dispositivo (computer, tablet, smartphone) quando visiti un sito web. Servono a migliorare l’esperienza utente, a fornire funzionalità essenziali e a raccogliere dati statistici anonimi.</p>
+        <h4>Tipologie di cookie utilizzate</h4>
+        <p>Nel nostro sito utilizziamo le seguenti tipologie di cookie:</p>
+        <h6>Cookie tecnici</h6>
+        <p>Questi cookie sono essenziali per il funzionamento del sito e per consentire agli utenti di navigare e utilizzare le sue funzionalità. Non richiedono il consenso dell’utente.</p>
+        <h6>Cookie analitici (anonimizzati)</h6>
+        <p>Utilizziamo questi cookie per raccogliere informazioni statistiche aggregate e anonime sull’utilizzo del nostro sito (es. numero di visitatori, pagine più visualizzate). Questi dati ci aiutano a migliorare il nostro servizio.
+          Nota: I dati raccolti da questi cookie non consentono di identificare personalmente gli utenti.</p>
+        <h6>Cookie di funzionalità</h6>
+        <p>Questi cookie consentono di ricordare le preferenze scelte dall’utente (es. impostazioni della lingua, layout personalizzato) per migliorare l’esperienza di navigazione.</p>
+      </div>
+
+      <button class="show-less">Mostra meno</button>
+
+      <div class="cookie-buttons">
+        <button class="decline-btn">Rifiuta</button>
+        <button class="accept-btn">Accetta</button>
+      </div>
+
+    </div>
   </body>
 
 </html>
