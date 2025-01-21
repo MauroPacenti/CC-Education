@@ -9,6 +9,6 @@ public interface KeeperService {
     List<Keeper> filteredKeepers(String text);
     Optional<Keeper> getKeeper(int id);
     Keeper addKeeper(Keeper keeper);
-    void updateKeeper(int KeeperId, Keeper keeper);
+    Keeper updateKeeper(int KeeperId, Keeper keeper);
     void deleteKeeper(Keeper keeper);
 }
