@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class InfoRequestController {
     @Autowired
     private InfoRequestService infoRequestService;
@@ -18,8 +19,8 @@ public class InfoRequestController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
-    // Returns all Infos
-    @GetMapping("/api/pub/getAllInfoRequest")
+    // Returns all info requests
+    @GetMapping("pub/getAllInfoRequest")
     public ResponseEntity<List<InfoRequest>> getAllInfoRequest() {
         try {
             List<InfoRequest> listInfoRequest = infoRequestService.getInfoRequests();
@@ -31,10 +32,11 @@ public class InfoRequestController {
     }
 
     // Creates a new InfoRequest
-    @PostMapping("/api/pub/createInfoRequest")
+    @PostMapping("pub/createInfoRequest")
     public ResponseEntity<InfoRequest> createInfoRequest(@RequestParam String email,
                                          @RequestParam String title,
                                          @RequestParam String content) {
+    	
             InfoRequest savedInfoRequest = new InfoRequest();
         try {
             if(adminService.validateEmail(email)){
@@ -60,14 +62,14 @@ public class InfoRequestController {
     }
 
     // Deletes existing InfoRequest
-    @DeleteMapping("/api/pub/deleteInfoRequest")
+    @DeleteMapping("pub/deleteInfoRequest")
     public ResponseEntity<Boolean> deleteInfoRequest(@RequestParam int infoRequestId) {
         try {
-                if(!infoRequestService.deleteInfoRequest(infoRequestId)){
-                    throw new Exception("Richiesta non trovata.");
-                }
-                return ResponseEntity.ok(true);
-        } catch (Exception e) {
+             if(!infoRequestService.deleteInfoRequest(infoRequestId)){
+                throw new Exception("Richiesta non trovata.");
+             }
+             	return ResponseEntity.ok(true);
+        }catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.badRequest().body(false);
         }

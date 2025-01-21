@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class JourneyRequestController {
     @Autowired
     private JourneyRequestService journeyRequestService;
@@ -32,14 +33,19 @@ public class JourneyRequestController {
     private JavaMailSenderService javaMailSenderService;
 
     // Returns all Journeys
-    @GetMapping("/api/pub/getAllJourneyRequest")
-    public List<JourneyRequest> getAllJourneyRequest() {
-        List<JourneyRequest> listJourneyRequest = journeyRequestService.getJourneyRequests();
-        return listJourneyRequest;
+    @GetMapping("pub/getAllJourneyRequest")
+    public ResponseEntity<List<JourneyRequest>> getAllJourneyRequest() {
+    	try {
+    		List<JourneyRequest> listJourneyRequest = journeyRequestService.getJourneyRequests();
+    		return ResponseEntity.ok(listJourneyRequest);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return ResponseEntity.noContent().build();
+    	}
     }
 
     // Creates a new JourneyRequest
-    @PostMapping("/api/pub/createJourneyRequest")
+    @PostMapping("pub/createJourneyRequest")
     public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody JourneyRequestDto journeyRequestDto) {
 
         try {
@@ -52,6 +58,10 @@ public class JourneyRequestController {
             newKeeper.setGroup(group);
             newKeeper.setOrganization(organization);
             journeyRequestDto.getJourneyRequest().setKeeper(newKeeper);
+        }
+            catch (Exception e){
+            	return ResponseEntity.badRequest().build();
+            }
             JourneyRequest journeyRequest;
             try {
                 journeyRequest = journeyRequestService.addJourneyRequest(journeyRequestDto.getJourneyRequest());
@@ -59,38 +69,47 @@ public class JourneyRequestController {
                 String body= "La richiesta è stata registrata";
             	javaMailSenderService.sendMail(journeyRequestDto.getKeeper().getEmail(), object, body); // Sends email with journey request
             }catch(Exception e) {
-            	new Exception("Error to send email");
-                return ResponseEntity.badRequest().build();
+            	e.printStackTrace();
+            	return ResponseEntity.internalServerError().build();
             }
             
             return ResponseEntity.ok(journeyRequest);
         }
-        catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
-    }
 
     // Updates existing JourneyRequest
-    @PutMapping("/api/pub/updateJourneyRequest")
-    public JourneyRequest updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
+    @PutMapping("pub/updateJourneyRequest")
+    public ResponseEntity<JourneyRequest> updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
                                                @RequestParam(required = false) int duration,
                                                @RequestParam(required = false) int keeperId,
                                                @RequestParam int journeyRequestId) {
 
         JourneyRequest updatedJourneyRequest = new JourneyRequest();
-        updatedJourneyRequest.setId(journeyRequestId);
-        updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
-        updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
-        updatedJourneyRequest.setDuration(duration);
-        updatedJourneyRequest.setKeeper(keeperService.getKeeper(keeperId).get());
-        journeyRequestService.updateJourneyRequest(journeyRequestId, updatedJourneyRequest);
-        return updatedJourneyRequest;
+        try {
+        	updatedJourneyRequest.setId(journeyRequestId);
+        	updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
+        	updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
+        	updatedJourneyRequest.setDuration(duration);
+        	updatedJourneyRequest.setKeeper(keeperService.getKeeper(keeperId).get());
+        	journeyRequestService.updateJourneyRequest(journeyRequestId, updatedJourneyRequest);
+        	return ResponseEntity.ok(updatedJourneyRequest);
+       }catch(Exception e) {
+    	   e.printStackTrace();
+    	   return ResponseEntity.badRequest().build();
+       }
     }
 
     // Deletes existing JourneyRequest
-    @DeleteMapping("/api/pub/deleteJourneyRequest")
-    public boolean deleteJourneyRequest(@RequestParam int journeyRequestId) {
-        return journeyRequestService.deleteJourneyRequest(journeyRequestId);
+    @DeleteMapping("pub/deleteJourneyRequest")
+    public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int journeyRequestId) {
+        try {
+        	if(!journeyRequestService.deleteJourneyRequest(journeyRequestId)) {
+        		throw new Exception("Richiesta non trovata.");
+        	}
+        	return ResponseEntity.ok(true);
+        }catch(Exception e) {
+        	e.printStackTrace();
+        	return ResponseEntity.badRequest().body(false);
+        }
     }
 }

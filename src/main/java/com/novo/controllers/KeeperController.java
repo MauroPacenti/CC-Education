@@ -28,13 +28,14 @@ public class KeeperController {
 
     @GetMapping("/pub/getKeepers")
     public ResponseEntity<List<Keeper>> getKeepers(@RequestParam(required = false) String key) {
-        List<Keeper> keepers = keeperService.filteredKeepers(key);
-        if (keepers.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        else {
-            return ResponseEntity.ok(keepers);
-        }
+    	
+    	try {
+    		List<Keeper> keepers = keeperService.filteredKeepers(key);
+    		return ResponseEntity.ok(keepers);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		return ResponseEntity.noContent().build();
+    	}
     }
 
     @PostMapping("/pub/addKeeper")
@@ -54,6 +55,7 @@ public class KeeperController {
             return ResponseEntity.ok(keeper);
         }
         catch (Exception e){
+        	e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -75,6 +77,7 @@ public class KeeperController {
             keeperService.updateKeeper(keeperId, keeper);
             return ResponseEntity.ok(keeperService.getKeeper(keeperId).get());
         } catch (Exception e){
+        	e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -87,6 +90,7 @@ public class KeeperController {
 //            keeperService.deleteKeeper(keeper);
             return ResponseEntity.ok("Cancellazione avvenuta con successo");
         } catch (Exception e){
+        	e.printStackTrace();
             return ResponseEntity.noContent().build();
         }
     }
