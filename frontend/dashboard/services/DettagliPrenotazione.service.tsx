@@ -1,4 +1,5 @@
 import { Booking } from "../models/Booking.model";
+import BookingFormSteps from "../models/BookingFormSteps.model";
 
 const getJourneyById = async (idPrenotazione: number) => {
   if (!idPrenotazione) {
@@ -26,7 +27,22 @@ const deleteById = async (idPrenotazione: number) => {
   return response.json();
 };
 
+const updateJourney = async (body: BookingFormSteps) => {
+  const response = await fetch(`/api/pub/updateJourney`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+};
+
 export const DettagliPrenotazioneService = {
   getJourneyById,
   deleteById,
+  updateJourney,
 };
