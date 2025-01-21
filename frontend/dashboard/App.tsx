@@ -1,0 +1,66 @@
+import "./App.css";
+
+import { BrowserRouter, Route, Routes } from "react-router";
+
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Home from "./pages/Home/Home";
+import Prenotazioni from "./pages/Prenotazioni/Prenotazioni";
+import RichiestePrenotazione from "./pages/RichiestePrenotazione/RichiestePrenotazione";
+import RichiesteInformazioni from "./pages/RichiesteInformazioni/RichiesteInformazioni";
+import DettagliPrenotazione from "./pages/DettagliPrenotazione/DettagliPrenotazione";
+import DettagliRichiestaInformazione from "./pages/DettagliRichiestaInformazione/DettagliRichiestaInformazione";
+import DettagliRichiestaPrenotazione from "./pages/DettagliRichiestaPrenotazione/DettagliRichiestaPrenotazione";
+
+import Impostazioni from "./pages/Impostazioni/Impostazioni";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AddEvent from "./pages/AddEvent/AddEvent";
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="dashboard" element={<Dashboard />}>
+              <Route index element={<Home />} />
+              <Route path="prenotazioni" element={<Prenotazioni />}></Route>
+              <Route
+                path="prenotazioni/aggiungi-prenotazione"
+                element={<AddEvent />}
+              />
+              <Route
+                path="prenotazioni/:idPrenotazione"
+                element={<DettagliPrenotazione />}
+              ></Route>
+
+              <Route
+                path="richieste-prenotazioni"
+                element={<RichiestePrenotazione />}
+              />
+              <Route
+                path="richieste-prenotazioni/:idRichiestaPrenotazione"
+                element={<DettagliRichiestaPrenotazione />}
+              />
+              <Route
+                path="richieste-informazioni"
+                element={<RichiesteInformazioni />}
+              >
+                <Route
+                  path=":idRichiestaInformazione"
+                  element={<DettagliRichiestaInformazione />}
+                />
+              </Route>
+
+              <Route path="impostazioni" element={<Impostazioni />} />
+              <Route path="*" element={<h1>NotFount</h1>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </>
+  );
+}
+
+export default App;
