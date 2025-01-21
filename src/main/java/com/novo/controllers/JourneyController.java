@@ -117,30 +117,30 @@ public class JourneyController {
 	// Updates existing Journey
 
 	@PutMapping("/api/pub/updateJourney")
-	public ResponseEntity<Journey> updateJourney(@RequestBody JourneyDto journeyDto){
+	public ResponseEntity<Journey> updateJourney(@RequestBody JourneyDto journeyDto) {
 		try {
-			if(adminService.validateEmail(journeyDto.getKeeper().getEmail())){
+			if (adminService.validateEmail(journeyDto.getKeeper().getEmail())) {
 				throw new Error("L'email non ha un formato idoneo.");
 			}
 			Journey journey;
 			try {
 				Keeper newKeeper = keeperService.updateKeeper(journeyDto.getKeeper().getId(), journeyDto.getKeeper());
 				Group group = groupService.update(journeyDto.getGroup().getId(), journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
-				Organization organization = organizationService.update(journeyDto.getOrganization().getId(),journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
+				Organization organization = organizationService.update(journeyDto.getOrganization().getId(), journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
 				newKeeper.setGroup(group);
 				newKeeper.setOrganization(organization);
 				journeyDto.getJourney().setKeeper(newKeeper);
 				journey = journeyService.update(journeyDto.getJourney().getId(), journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
-			}catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-        return ResponseEntity.badRequest().build();
+				return ResponseEntity.badRequest().build();
 			}
 
 			return ResponseEntity.ok(journey);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-      return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 	// Deletes existing Journey
