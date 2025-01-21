@@ -27,7 +27,7 @@ const useHome = () => {
   });
 
   const { data: infoRequest } = useQuery({
-    queryKey: ["journeyRequest"],
+    queryKey: ["infoRequest"],
     queryFn: () =>
       RichiesteInformazioniService.getAllInfoRequest().then((res) => res),
   });
