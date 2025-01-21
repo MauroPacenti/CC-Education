@@ -515,9 +515,9 @@ function nextStep(current: number): void {
 function prevStep(current: number): void {
   document.getElementById(`page${current}`)?.classList.remove("active");
   document.getElementById(`page${current - 1}`)?.classList.add("active");
-  document.getElementById(`icon${current}`)?.classList.remove("active");
-  document.getElementById(`icon${current - 1}`)?.classList.replace("done", "active");
-  document.getElementById(`icon${current}`)?.classList.add("active");
+  document.querySelector(`#icon${current}`)?.classList.remove("active");
+  document.querySelector(`#icon${current - 1}`)?.classList.replace("done", "active");
+  // document.getElementById(`icon${current}`)?.classList.add("active");
   document.querySelector(`#icon${current - 1} img`)?.classList.remove("hide");
   document.getElementById(`done${current - 1}`)?.classList.add("hide");
   document.getElementById(`line${current - 1}`)?.classList.remove("line-fill");
