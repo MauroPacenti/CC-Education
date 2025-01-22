@@ -96,24 +96,25 @@
         </ul>
       </div>
     </nav>
-    <h1>Richiedi Prenotazione</h1>
+    <main>
+      <section class="text-box">
+        <h1>Richiedi Prenotazione</h1>
 
-    <section class="text-box">
-      <p>
-        Vuoi far parte del nostro percorso di
-        <span class="highlight"> educazione civile</span>? Compila il form qui
-        sotto per richiedere una prenotazione per un'<span class="highlight"
-          >esperienza formativa</span
-        >
-        a Cascina Caccia. Ogni incontro è un'opportunità per
-        <span class="highlight"> apprendere</span>,
-        <span class="highlight"> riflettere</span> e costruire insieme un futuro
-        di legalità e solidarietà.
-      </p>
-    </section>
+        <p>
+          Scopri i percorsi educativi sulla legalità a Cascina Caccia, bene
+          confiscato alla 'ndrangheta. Organizziamo
+          <span class="highlight">laboratori didattici</span> e
+          <span class="highlight">percorsi formativi</span> per scuole e gruppi,
+          focalizzati su <span class="highlight">educazione civica</span>,
+          antimafia e <span class="highlight">cittadinanza attiva</span>. Le
+          nostre attività promuovono la
+          <span class="highlight">legalità democratica</span>
+          attraverso esperienze dirette e coinvolgenti. Prenota ora la tua
+          visita educativa compilando il form sottostante.
+        </p>
+      </section>
 
-    <div class="form-container">
-      <div class="container">
+      <div class="form-container">
         <div class="progress-bar">
           <div class="icon-container active" id="icon1">
             <img
@@ -169,49 +170,59 @@
           <!-- Dati Accompagnatore -->
           <div class="form-section active" id="page1">
             <!-- Nome -->
-            <label for="firstName">Nome</label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              placeholder="Inserisci il tuo nome"
-            />
+            <div class="input-container">
+              <label for="firstName">Nome</label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="Inserisci il tuo nome"
+              />
+            </div>
 
             <!-- Cognome -->
-            <label for="lastName">Cognome</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              placeholder="Inserisci il tuo cognome"
-            />
+            <div class="input-container">
+              <label for="lastName">Cognome</label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Inserisci il tuo cognome"
+              />
+            </div>
 
             <!-- Email -->
-            <label for="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Inserisci la tua email"
-            />
+            <div class="input-container">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Inserisci la tua email"
+              />
+            </div>
 
             <!-- Codice Fiscale -->
-            <label for="cf">Codice Fiscale</label>
-            <input
-              type="text"
-              name="cf"
-              id="cf"
-              placeholder="Inserisci il tuo codice fiscale"
-            />
+            <div class="input-container">
+              <label for="cf">Codice Fiscale</label>
+              <input
+                type="text"
+                name="cf"
+                id="cf"
+                placeholder="Inserisci il tuo codice fiscale"
+              />
+            </div>
 
             <!-- Telefono -->
-            <label for="phone">Telefono</label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              placeholder="Inserisci un numero di telefono"
-            />
+            <div class="input-container">
+              <label for="phone">Telefono</label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                placeholder="Inserisci un numero di telefono"
+              />
+            </div>
 
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
@@ -221,51 +232,61 @@
           <!-- Dati Organizzazione -->
           <div class="form-section" id="page2">
             <!-- Nome -->
-            <label for="nomeOrganizzazione">Nome Organizzazione</label>
-            <input
-              type="text"
-              name="name"
-              id="nomeOrganizzazione"
-              placeholder="Inserisci il nome dell'organizzazione"
-            />
+            <div class="input-container">
+              <label for="nomeOrganizzazione">Nome Organizzazione</label>
+              <input
+                type="text"
+                name="name"
+                id="nomeOrganizzazione"
+                placeholder="Inserisci il nome dell'organizzazione"
+              />
+            </div>
 
             <!-- Tipologia -->
-            <label for="tipologia">Tipologia Organizzazione</label>
-            <select
-              name="type"
-              id="tipologia"
-              placeholder="Seleziona una tipologia"
-            >
-              <option value="scuola">Scuola</option>
-              <option value="gruppo">Gruppo</option>
-            </select>
+            <div class="input-container">
+              <label for="tipologia">Tipologia Organizzazione</label>
+              <select
+                name="type"
+                id="tipologia"
+                placeholder="Seleziona una tipologia"
+              >
+                <option value="scuola">Scuola</option>
+                <option value="gruppo">Gruppo</option>
+              </select>
+            </div>
 
             <!-- Indirizzo -->
-            <label for="indirizzo">Indirizzo Organizzazione</label>
-            <input
-              type="text"
-              name="address"
-              id="indirizzo"
-              placeholder="Inserisci un indirizzo"
-            />
-
+            <div class="input-container">
+              <label for="indirizzo">Indirizzo Organizzazione</label>
+              <input
+                type="text"
+                name="address"
+                id="indirizzo"
+                placeholder="Inserisci un indirizzo"
+              />
+            </div>
             <!-- Email -->
-            <label for="emailOrganizzazione">Email Organizzazione</label>
-            <input
-              type="email"
-              name="email"
-              id="emailOrganizzazione"
-              placeholder="Inserisci un'email"
-            />
-
+            <div class="input-container">
+              <label for="emailOrganizzazione">Email Organizzazione</label>
+              <input
+                type="email"
+                name="email"
+                id="emailOrganizzazione"
+                placeholder="Inserisci un'email"
+              />
+            </div>
             <!-- Telefono -->
-            <label for="telefonoOrganizzazione">Telefono Organizzazione</label>
-            <input
-              type="tel"
-              name="phone"
-              id="telefonoOrganizzazione"
-              placeholder="Inserisci un numero di telefono"
-            />
+            <div class="input-container">
+              <label for="telefonoOrganizzazione"
+                >Telefono Organizzazione</label
+              >
+              <input
+                type="tel"
+                name="phone"
+                id="telefonoOrganizzazione"
+                placeholder="Inserisci un numero di telefono"
+              />
+            </div>
 
             <div class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
@@ -277,6 +298,7 @@
           <div class="form-section" id="page3">
             <div class="group">
               <!-- Numero di minori -->
+
               <label for="minori">Numero Minori</label>
               <input
                 type="number"
@@ -287,6 +309,7 @@
               />
 
               <!-- Numero di adulti -->
+
               <label for="adulti">Numero Adulti</label>
               <input
                 type="number"
@@ -338,36 +361,36 @@
                 id="info"
                 placeholder="Inserisci ulteriori informazioni"
               ></textarea>
-            </div>
 
-            <div class="container-check">
-              <div class="checkbox-container">
-                <input type="checkbox" name="privacy" id="privacy" />
-                <label for="privacy"
-                  >Sono d'accordo e accetto
-                  <a href="/privacy.html" target="_blank"
-                    >l'Informativa sulla Privacy</a
+              <div class="container-check">
+                <div class="checkbox-container">
+                  <input type="checkbox" name="privacy" id="privacy" />
+                  <label for="privacy"
+                    >Sono d'accordo e accetto
+                    <a href="/privacy.html" target="_blank"
+                      >l'Informativa sulla Privacy</a
+                    >
+                    *</label
                   >
-                  *</label
-                >
+                </div>
+                <div class="checkbox-container">
+                  <input type="checkbox" name="terms" id="terms" />
+                  <label for="terms"
+                    >Sono d'accordo e accetto i
+                    <a href="#" target="_blank">Termini d'Uso</a> *</label
+                  >
+                </div>
               </div>
-              <div class="checkbox-container">
-                <input type="checkbox" name="terms" id="terms" />
-                <label for="terms"
-                  >Sono d'accordo e accetto i
-                  <a href="#" target="_blank">Termini d'Uso</a> *</label
-                >
+
+              <p>
+                * Puoi procedere nell'invio dei dati solo se accetti le
+                condizioni qui sopra
+              </p>
+
+              <div id="btn-last" class="btn-container">
+                <button class="btn btn-prev" type="button">Indietro</button>
+                <button class="btn btn-submit" type="submit">Invia</button>
               </div>
-            </div>
-
-            <p>
-              * Puoi procedere nell'invio dei dati solo se accetti le condizioni
-              qui sopra
-            </p>
-
-            <div id="btn-last" class="btn-container">
-              <button class="btn btn-prev" type="button">Indietro</button>
-              <button class="btn btn-submit" disabled>Invia</button>
             </div>
 
             <div id="toast3" class="hidden">
@@ -396,7 +419,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </main>
 
     <footer>
       <div class="map">
