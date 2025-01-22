@@ -86,7 +86,9 @@
         <!-- carosello -->
         <div class="carousel-container">
           <div class="carousel">
-            <div class="carousel-item active"></div>
+            <div class="carousel-item active">
+              <img src="/public/img/carosello-home/home-carosello1.jpeg" alt="">
+            </div>
             <div class="carousel-item"></div>
             <div class="carousel-item"></div>
             <div class="carousel-item"></div>
@@ -130,14 +132,14 @@
           nostra attività.
         </p>
         <fieldset>
-          <input type="text" placeholder="Nome" id="nome" name="firstName" />
-          <input type="text" placeholder="Cognome" id="cognome" name="lastName" />
-          <input type="email" placeholder="Email" name="email" id="email" />
-          <input type="tel" placeholder="Telefono" name="phone" id="phone" />
-          <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message"></textarea>
+          <input type="text" placeholder="Nome" id="nome" name="firstName" required/>
+          <input type="text" placeholder="Cognome" id="cognome" name="lastName" required/>
+          <input type="email" placeholder="Email" name="email" id="email" required/>
+          <input type="tel" placeholder="Telefono" name="phone" id="phone" required/>
+          <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message" required></textarea>
         </fieldset>
         <div class="dichiarazione">
-          <input type="checkbox" name="privacy" id="privacy">
+          <input type="checkbox" name="privacy" id="privacy" required>
           <label for="privacy">Dichiaro di aver letto l'<a href="/privacy.html" class="privacy-link">informativa privacy</a> e acconsento al trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)</label>
         </div>
 

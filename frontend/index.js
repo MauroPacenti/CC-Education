@@ -4,14 +4,14 @@ const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
 let images = [
-    'public/img/carosello-home/home-carosello1.jpeg',
-    'public/img/carosello-home/home-carosello2.jpg',
-    'public/img/carosello-home/home-carosello4.jpeg',
-    'public/img/carosello-home/home-carosello5.jpeg',
-    'public/img/carosello-home/home-carosello6.jpeg',
-    'public/img/carosello-home/home-carosello7.jpeg',
-    'public/img/carosello-home/home-carosello9.jpeg',
-    'public/img/carosello-home/home-carosello10.jpeg',
+    'img/carosello-home/home-carosello1.jpeg',
+    'img/carosello-home/home-carosello2.jpg',
+    'img/carosello-home/home-carosello4.jpeg',
+    'img/carosello-home/home-carosello5.jpeg',
+    'img/carosello-home/home-carosello6.jpeg',
+    'img/carosello-home/home-carosello7.jpeg',
+    'img/carosello-home/home-carosello9.jpeg',
+    'img/carosello-home/home-carosello10.jpeg',
 ];
 
 //assegna le immagini di sfondo agli elementi del carosello
@@ -161,46 +161,34 @@ function getPositionX(e) {
 }
 
 // ---------------------------GESTIONE COOKIE----------------------//
-// const btnShow = document.querySelector('.show-cookie');
-// const informativa = document.querySelector('.informativa');
-// const btnShowLess = document.querySelector('.show-less');
-// const cookieBanner = document.querySelector('#cookie-banner');
-// const btnAccept = document.querySelector('.accept-btn');
-// const btnDecline = document.querySelector('.decline-btn');
+const btnShow = document.querySelector('.show-cookie');
+const informativa = document.querySelector('.informativa');
+const btnShowLess = document.querySelector('.show-less');
+const cookieBanner = document.querySelector('#cookie-banner');
 
-// btnShow.addEventListener('click', showInfo);
-// btnShowLess.addEventListener('click', hideInfo);
+btnShow.addEventListener('click', showInfo);
+btnShowLess.addEventListener('click', hideInfo);
 
-// function showInfo() {
-//     informativa.classList.add('mostra-informativa');
-//     btnShowLess.classList.add('mostra-show-less'); 
-// }
+function showInfo() {
+    informativa.classList.add('mostra-informativa');
+    btnShowLess.classList.add('mostra-show-less'); 
+}
 
-// function hideInfo() {
-//     informativa.classList.remove('mostra-informativa');
-//     btnShowLess.classList.remove('mostra-show-less');
-// }
+function hideInfo() {
+    informativa.classList.remove('mostra-informativa');
+    btnShowLess.classList.remove('mostra-show-less');
+}
 
-// btnAccept.addEventListener('click', () => {
-//     removeBanner();
-// });
 
-// btnDecline.addEventListener('click', () => {
-//     removeBanner();
-// });
-
-// function removeBanner() {
-//     cookieBanner.remove(); 
-// }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const cookieBanner = document.getElementById("cookie-banner");
+    // const cookieBanner = document.getElementById("cookie-banner");
     const acceptButton = document.querySelector(".accept-btn");
     const declineButton = document.querySelector(".decline-btn");
   
     // Funzione per controllare il localStorage
     const checkCookieConsent = () => {
-      const cookieConsent = localStorage.getItem("cookieConsent");
+    const cookieConsent = localStorage.getItem("cookieConsent");
       if (cookieConsent) {
         // Se c'è già una risposta salvata, nascondi il banner
         cookieBanner.style.display = "none";

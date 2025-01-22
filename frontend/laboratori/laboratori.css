@@ -23,7 +23,7 @@ main span {
   color: var(--secondario-fucsia);
 }
 
-.carousel-item h4 {
+.carousel-item-lab h4 {
   margin-bottom: 1rem;
 }
 
@@ -37,11 +37,10 @@ main section {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  
 }
 
 main h2 {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   /* margin-left: 0 2rem; */
 }
@@ -56,6 +55,7 @@ main h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 .carousel-wrapper {
   display: flex;
@@ -63,8 +63,8 @@ main h2 {
   width: 100%;
   transition: transform 0.5s ease;
 }
-.carousel-item {
-  min-width: 230px;
+.carousel-item-lab {
+  min-width: 15rem;
   height: 38rem;
   margin: 0 10px;
   display: flex;
@@ -74,15 +74,18 @@ main h2 {
   border-radius: 15px;
 }
 
+.carousel-item-lab picture {
+  width: 100%;
+}
 .carousel-and-buttons {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
 
-.carousel-item h4 {
+.carousel-item-lab h4 {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.3rem;
 }
 
 section {
@@ -95,7 +98,6 @@ section {
   justify-content: space-between;
   margin-top: 20px;
   z-index: 3;
-  /* top: 20rem; */
 }
 
 .btn {
@@ -125,14 +127,13 @@ section {
   transform: translateX(10px);
 }
 
-.carousel-item picture img {
+.carousel-item-lab picture img {
   width: 100%;
   height: 12rem;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   object-fit: cover;
   object-position: center;
-
 }
 
 article header .testo-voci p {
@@ -148,9 +149,6 @@ article header .testo-voci p {
   border-bottom-left-radius: 15px;
   transition: background-color 0.5s ease;
 }
-
-
-
 
 header {
   background-color: var(--secondario-verde);
@@ -176,7 +174,7 @@ header img {
 .testo-voci {
   background-color: var(--primario);
   padding: 1rem;
-  font-size: 14px;
+  font-size: 1rem;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   height: fit-content;
@@ -206,22 +204,20 @@ footer {
 }
 
 @media screen and (min-width: 834px) {
-  .carousel-item picture img {
+  .carousel-item-lab picture img {
   width: 100%;
   height: 12rem;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-
   object-fit: cover;
   object-position: center;
-
 }
 
   #voci {
-    margin-left: 3rem;
+    margin-left: 7rem;
   }
   main h2 {
-    font-size: 30px;
+    font-size: 2rem;
     font-weight: bold;
   }
 
@@ -233,15 +229,20 @@ footer {
     margin: 2rem 4rem;
   }
 
-  .carousel-item {
+  .carousel-item-lab {
     width: 15rem;
+  }
+
+  .carousel-item-lab picture {
+    width: 100%;
   }
 
   main .voci-laboratori {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
+    padding: 3rem 7rem;
   }
 
   header {
@@ -252,13 +253,13 @@ footer {
     width: 47%;
   }
   p:not(.text-carousel p) {
-    font-size: 18px;
+    font-size: 1.2rem;
   }
 }
 
 @media screen and (min-width: 1280px) {
   main h2 {
-    font-size: 30px;
+    font-size: 2.5rem;
     margin-right: auto;
     margin-left: 4rem;
   }
@@ -278,15 +279,25 @@ footer {
     transition: transform 0.3s ease-in-out;
   }
 
-  .carousel-item picture {
+  .carousel-item-lab {
+    width: 5rem;
+  }
+
+
+
+  .carousel-item-lab picture {
     width: 100%;
   }
   
-  /* .carousel-item {
-    flex: 0 0 calc(33.33% - 20px); 
-    margin: 0 10px; 
-    box-sizing: border-box;
-  } */
-  
+  #voci {
+    margin-left: 14rem;
+  }
+  .voci-laboratori {
+    padding: 7rem 14rem;
+  }
+
+  .voci-laboratori article {
+    width: 30rem;
+  }
 
 }

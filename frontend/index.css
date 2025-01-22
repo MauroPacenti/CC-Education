@@ -65,9 +65,9 @@ header h2 {
 
 header p {
   margin-bottom: 5rem;
-  font-size: bold;
+  /* font-weight: bold; */
   font-family: "Neue Machina", sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 header button {
@@ -116,7 +116,7 @@ main {
   align-items: center;
   justify-content: center;
   font-family: "Neue Machina";
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 main span {
@@ -125,7 +125,7 @@ main span {
 }
 
 main > h2 {
-  font-size: 23pt;
+  font-size: 1.8rem;
   font-weight: bold;
   margin: 2rem 2rem;
   margin-top: 0;
@@ -134,6 +134,11 @@ main > h2 {
 
 #valori {
   margin-top: 2rem;
+}
+
+.mission {
+  margin: 1.5rem;
+  text-align: left;
 }
 
 main > button {
@@ -157,13 +162,11 @@ main > button:hover {
   transform: scale(1.1);
 }
 
-main > p:nth-of-type(2) {
-  margin-bottom: 2rem;
-}
+
 
 .carousel-container {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: fit-content;
   overflow: hidden;
   margin: 2rem auto;
@@ -177,8 +180,8 @@ main > p:nth-of-type(2) {
 
 .carousel-item {
   min-width: 100%;
-  height: 30rem;
 }
+
 
 .carousel-btn {
   position: absolute;
@@ -215,21 +218,21 @@ main > p:nth-of-type(2) {
 }
 
 .stop {
-  background-image: url("img/icon-stop.png");
+  background-image: url("public/img/icon-stop.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .balance {
-  background-image: url("img/icona-bilancia.png");
+  background-image: url("public/img/icona-bilancia.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .new-generation {
-  background-image: url("img/icona-new-generation.png");
+  background-image: url("public/img/icona-new-generation.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -252,7 +255,7 @@ main > p:nth-of-type(2) {
 
 .richiedi-informazioni > h2 {
   font-weight: bold;
-  font-size: 20pt;
+  font-size: 1.8rem;
   text-align: center;
 }
 
@@ -331,7 +334,7 @@ main > p:nth-of-type(2) {
 }
 
 #privacy {
-  width: 7rem;
+  width: 4rem;
   margin-right: 2rem;
 }
 
@@ -429,22 +432,21 @@ main > p:nth-of-type(2) {
   margin-bottom: 1rem;
 }
 .mostra-informativa p {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .mostra-informativa h3 {
-  font-size: 20px;
+  font-size: 1.6rem;
   font-weight: bold;
   color: var(--secondario-fucsia);
 }
 
 .informativa h4 {
   color: var(--secondario-fucsia);
-
 }
 
 .mostra-informativa h6 {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--secondario-fucsia);
 }
 
@@ -496,6 +498,9 @@ main > p:nth-of-type(2) {
 
 @media screen and (min-width: 393px) {
 
+  .carousel-container {
+    width: 60%;
+  }
 
   .main-privacy {
     padding: 3rem 5rem 5rem 5rem;
@@ -524,17 +529,24 @@ main > p:nth-of-type(2) {
   .richiedi-informazioni textarea {
     width: 100%;
   }
+
+
 }
 
 @media screen and (min-width: 834px) {
 
-  header h1 {
-    font-size: 40px;
+  .carousel-container {
+    width: 70%;
+    height: 30rem;
   }
 
-  p {
-    font-size: 18px;
+  header h1 {
+    font-size: 3.5rem;
   }
+
+  /* p {
+    font-size: 2rem;
+  } */
 
   #privacy-title {
     margin-top: 2rem;
@@ -545,7 +557,7 @@ main > p:nth-of-type(2) {
   }
 
   main h2 {
-    font-size: 24px;
+    font-size: 2rem;
   }
 
   main .valori .icona {
@@ -590,6 +602,7 @@ main > p:nth-of-type(2) {
   .richiedi-informazioni {
     width: 85%;
     padding: 3rem;
+    margin-top: 3rem;
   }
 
   .richiedi-informazioni input {
@@ -601,7 +614,7 @@ main > p:nth-of-type(2) {
   }
 
   #privacy {
-    width: 4rem;
+    width: 3rem;
     margin-right: 2rem;
   }
 
@@ -666,6 +679,10 @@ main > p:nth-of-type(2) {
   .mostra-show-less {
     display: block;
   }
+
+  footer {
+    padding: 7rem;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -673,10 +690,23 @@ main > p:nth-of-type(2) {
 
 
   header h1 {
-    font-size: 50px;
+    font-size: 3.8rem;
   }
 
   main h2 {
-    font-size: 32px;
+    font-size: 2.8rem;
+  }
+
+  .richiedi-informazioni {
+    margin-top: 3rem;
+  }
+
+  .richiedi-informazioni h2 {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  #privacy {
+    width: 2rem;
   }
 }
