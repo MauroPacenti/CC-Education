@@ -10,25 +10,98 @@ body.no-scroll {
 }
 
 /* MODAL */
-.close-button {
-  color: #aaa;
-  position: absolute; /* Change to absolute positioning */
-  top: 10px; /* Position at the top */
-  right: 20px; /* Position at the right */
-  font-size: 28px;
-  font-weight: bold;
-}
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 /* START MAIN PAGE */
+
+/* Progress Bar Style ending */
+
+/* Date Picker */
+
+/* Checkbox ending */
+
+/* Media Query */
+
+/* ////////////////////////////////////////////////////// */
+/* Styles for success modal */
+#successModal .modal-content {
+  border: 2px solid green;
+}
+
+#successModal .modal-content h2 {
+  color: green;
+}
+
+/* Styles for error modal */
+#errorModal .modal-content {
+  border: 2px solid red;
+}
+
+#errorModal .modal-content h2 {
+  color: red;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+input.error {
+  border-color: #ff4d4d;
+  transition: all 0.3s ease-in-out;
+}
+
+input.error:hover {
+  border-color: #e60000;
+}
+
+input.error:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+}
+
+p.error-message {
+  color: red;
+  font-size: 0.875rem;
+  text-align: left;
+  display: none;
+}
+
+.toast-error {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  z-index: 1000;
+  animation: fade-in-out 3s ease-in-out;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* ////////////////////////////////////////////////////// */
+
+/* ////////////////////////////////////////////////////// */
+/* START MAIN */
 main {
   position: relative;
   top: 80px;
+  margin-bottom: 120px;
 }
 
 .text-box {
@@ -41,6 +114,13 @@ h1 {
   font-weight: bold;
   font-size: 1.5rem;
 }
+.required {
+  color: red;
+}
+
+/* END MAIN */
+/* ////////////////////////////////////////////////////// */
+/* START FORM */
 
 .form-container {
   /* background-color: var(--background); */
@@ -55,6 +135,21 @@ h1 {
   text-align: center;
   font-size: 1.5rem;
   font-family: "Neue Machina", sans-serif;
+}
+.form-section {
+  display: none;
+}
+
+.form-section.active {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
 }
 
 label {
@@ -125,6 +220,7 @@ option {
   background-color: var(--primario);
   color: var(--secondary-text-color);
   transform: translateY(0);
+  border: 2px solid var(--primario);
 }
 
 .btn-container:has(.btn-prev) {
@@ -136,8 +232,9 @@ option {
 }
 
 .btn-next:hover {
-  background-color: var(--background);
+  background-color: transparent;
   color: var(--primario);
+  border: 2px solid var(--primario);
 }
 
 .btn-prev {
@@ -145,9 +242,19 @@ option {
   border: 2px solid var(--primario);
 }
 
+.btn-prev:hover {
+  background-color: var(--primario);
+  color: var(--secondary-text-color);
+}
+
 .btn-submit {
   background-color: var(--secondario-fucsia);
   color: var(--secondary-text-color);
+}
+.btn-submit:hover {
+  background-color: transparent;
+  color: var(--secondario-fucsia);
+  border: 2px solid var(--secondario-fucsia);
 }
 
 .btn-submit[disabled] {
@@ -158,268 +265,6 @@ option {
 #btn-last {
   margin-top: -9px;
 }
-
-footer {
-  top: 80px;
-  position: relative;
-}
-
-/* Progress Bar Style ending */
-
-/* Date Picker */
-
-.hidden {
-  display: none;
-}
-
-.date-field.start.max {
-  max-width: 50%;
-}
-
-/* Checkbox */
-
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-size: 14px;
-  color: #333;
-}
-
-.checkbox-container input[type="checkbox"] {
-  align-items: center;
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.checkbox-container label,
-label a {
-  font-size: 0.7rem;
-  margin: 0;
-}
-
-label a {
-  text-decoration: underline;
-  color: blue;
-}
-
-/* Checkbox ending */
-
-/* Media Query */
-
-@media screen and (min-width: 768px) {
-  main {
-    padding: 0 4em;
-  }
-  .progress-bar {
-    max-width: 60%;
-    margin: 0 auto;
-  }
-  .date-container {
-    display: flex;
-    justify-content: space-between;
-    row-gap: 1em;
-  }
-  .date-field {
-    width: 48%;
-  }
-  .group {
-    display: flex;
-    justify-content: space-between;
-  }
-  .group div {
-    width: 48%;
-  }
-}
-
-@media screen and (min-width: 968px) {
-  .progress-bar {
-    max-width: 40%;
-    margin: 0 auto;
-  }
-  .form-section {
-    max-width: 60%;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  main {
-    padding: 0 10em;
-  }
-  .text-box {
-    font-size: 1.25rem;
-  }
-}
-
-/* ////////////////////////////////////////////////////// */
-/* Styles for success modal */
-#successModal .modal-content {
-  border: 2px solid green;
-}
-
-#successModal .modal-content h2 {
-  color: green;
-}
-
-/* Styles for error modal */
-#errorModal .modal-content {
-  border: 2px solid red;
-}
-
-#errorModal .modal-content h2 {
-  color: red;
-}
-
-/* Stile per la modale di caricamento */
-#modal-loading {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-#modal-loading.active {
-  display: flex;
-}
-
-#modal-loading .spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-top: 5px solid var(--primario);
-  border-radius: 50%;
-  background-color: var(--background);
-  margin: 5px auto;
-  animation: spin 6s infinite linear;
-}
-
-.modal-content p {
-  font-size: 1.6rem;
-}
-
-#modal-loading p {
-  color: var(--background);
-  font-size: 1.8rem;
-  padding: 10px;
-}
-
-.modal {
-  display: none; /* Nascondi la modale di default */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-  position: relative;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(720deg);
-  }
-  100% {
-    transform: rotate(1440deg);
-  }
-}
-/* END MODAL */
-
-/* ////////////////////////////////////////////////////// */
-
-/* Form */
-.form-section {
-  display: none;
-}
-
-.form-section.active {
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5em;
-}
-
-/* End Form */
-
-/* ////////////////////////////////////////////////////// */
-
-/* Toast durante la validazione */
-
-.error {
-  border: 1px solid red;
-}
-
-input.error {
-  border-color: #ff4d4d;
-  transition: all 0.3s ease-in-out;
-}
-
-input.error:hover {
-  border-color: #e60000;
-}
-
-input.error:focus {
-  border-color: #ff0000;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
-}
-
-p.error-message {
-  color: red;
-  font-size: 0.875rem;
-  text-align: left;
-  display: none;
-}
-
-.toast-error {
-  position: fixed;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ff4d4d;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
-  z-index: 1000;
-  animation: fade-in-out 3s ease-in-out;
-}
-
-@keyframes fade-in-out {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-/* ////////////////////////////////////////////////////// */
 
 /* Progress Bar Style */
 
@@ -526,4 +371,189 @@ p.error-message {
 
 .icon-container.done {
   background-color: var(--background);
+}
+
+.hidden {
+  display: none;
+}
+
+.date-field.start.max {
+  max-width: 50%;
+}
+
+/* Checkbox */
+
+.checkbox-container {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: flex-end;
+}
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkbox-container label,
+label a {
+  font-size: 0.7rem;
+  margin: 0;
+}
+
+label a {
+  text-decoration: underline;
+  color: blue;
+}
+
+/* END FORM */
+/* ////////////////////////////////////////////////////// */
+/* START MODAL */
+.close-button {
+  color: #aaa;
+  position: absolute; /* Change to absolute positioning */
+  top: 10px; /* Position at the top */
+  right: 20px; /* Position at the right */
+  font-size: 28px;
+  font-weight: bold;
+}
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal-loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal-loading.active {
+  display: flex;
+}
+
+#modal-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid var(--primario);
+  border-radius: 50%;
+  background-color: var(--background);
+  margin: 5px auto;
+  animation: spin 6s infinite linear;
+}
+
+.modal-content p {
+  font-size: 1.6rem;
+}
+
+#modal-loading p {
+  color: var(--background);
+  font-size: 1.8rem;
+  padding: 10px;
+}
+
+.modal {
+  display: none; /* Nascondi la modale di default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  position: relative;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(720deg);
+  }
+  100% {
+    transform: rotate(1440deg);
+  }
+}
+/* END MODAL */
+/* ////////////////////////////////////////////////////// */
+/* media query */
+@media screen and (min-width: 768px) {
+  main {
+    padding: 0 4em;
+  }
+  .progress-bar {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+  .date-container {
+    display: flex;
+    justify-content: space-between;
+    row-gap: 1em;
+  }
+  .date-field {
+    width: 48%;
+  }
+  .group {
+    display: flex;
+    justify-content: space-between;
+  }
+  .group div {
+    width: 48%;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .progress-bar {
+    max-width: 40%;
+    margin: 0 auto;
+  }
+  .form-section {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+  .btn-container {
+    justify-content: flex-end;
+  }
+  .btn-next {
+    max-width: 200px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main {
+    padding: 0 10em;
+  }
+  .text-box {
+    font-size: 1.25rem;
+  }
+
+  .row {
+    flex-direction: row;
+    column-gap: 1em;
+  }
+  .row div {
+    width: 50%;
+  }
 }

@@ -170,30 +170,36 @@
           <!-- Dati Accompagnatore -->
           <div class="form-section active" id="page1">
             <!-- Nome -->
-            <div class="input-container">
-              <label for="firstName">Nome</label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="Inserisci il tuo nome"
-              />
-            </div>
+            <div class="row">
+              <div class="input-container">
+                <label for="firstName"
+                  >Nome <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="Inserisci il tuo nome"
+                />
+              </div>
 
-            <!-- Cognome -->
-            <div class="input-container">
-              <label for="lastName">Cognome</label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Inserisci il tuo cognome"
-              />
+              <!-- Cognome -->
+              <div class="input-container">
+                <label for="lastName"
+                  >Cognome <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Inserisci il tuo cognome"
+                />
+              </div>
             </div>
 
             <!-- Email -->
             <div class="input-container">
-              <label for="email">Email</label>
+              <label for="email">Email <span class="required">*</span></label>
               <input
                 type="email"
                 name="email"
@@ -204,7 +210,9 @@
 
             <!-- Codice Fiscale -->
             <div class="input-container">
-              <label for="cf">Codice Fiscale</label>
+              <label for="cf"
+                >Codice Fiscale <span class="required">*</span></label
+              >
               <input
                 type="text"
                 name="cf"
@@ -215,7 +223,9 @@
 
             <!-- Telefono -->
             <div class="input-container">
-              <label for="phone">Telefono</label>
+              <label for="phone"
+                >Telefono <span class="required">*</span></label
+              >
               <input
                 type="tel"
                 name="phone"
@@ -232,32 +242,41 @@
           <!-- Dati Organizzazione -->
           <div class="form-section" id="page2">
             <!-- Nome -->
-            <div class="input-container">
-              <label for="nomeOrganizzazione">Nome Organizzazione</label>
-              <input
-                type="text"
-                name="name"
-                id="nomeOrganizzazione"
-                placeholder="Inserisci il nome dell'organizzazione"
-              />
-            </div>
+            <div class="row">
+              <div class="input-container">
+                <label for="nomeOrganizzazione"
+                  >Nome Organizzazione <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="name"
+                  id="nomeOrganizzazione"
+                  placeholder="Inserisci il nome dell'organizzazione"
+                />
+              </div>
 
-            <!-- Tipologia -->
-            <div class="input-container">
-              <label for="tipologia">Tipologia Organizzazione</label>
-              <select
-                name="type"
-                id="tipologia"
-                placeholder="Seleziona una tipologia"
-              >
-                <option value="scuola">Scuola</option>
-                <option value="gruppo">Gruppo</option>
-              </select>
+              <!-- Tipologia -->
+              <div class="input-container">
+                <label for="tipologia"
+                  >Tipologia Organizzazione
+                  <span class="required">*</span></label
+                >
+                <select
+                  name="type"
+                  id="tipologia"
+                  placeholder="Seleziona una tipologia"
+                >
+                  <option value="scuola">Scuola</option>
+                  <option value="gruppo">Gruppo</option>
+                </select>
+              </div>
             </div>
 
             <!-- Indirizzo -->
             <div class="input-container">
-              <label for="indirizzo">Indirizzo Organizzazione</label>
+              <label for="indirizzo"
+                >Indirizzo Organizzazione <span class="required">*</span></label
+              >
               <input
                 type="text"
                 name="address"
@@ -265,9 +284,12 @@
                 placeholder="Inserisci un indirizzo"
               />
             </div>
+
             <!-- Email -->
             <div class="input-container">
-              <label for="emailOrganizzazione">Email Organizzazione</label>
+              <label for="emailOrganizzazione"
+                >Email Organizzazione <span class="required">*</span></label
+              >
               <input
                 type="email"
                 name="email"
@@ -278,7 +300,7 @@
             <!-- Telefono -->
             <div class="input-container">
               <label for="telefonoOrganizzazione"
-                >Telefono Organizzazione</label
+                >Telefono Organizzazione <span class="required">*</span></label
               >
               <input
                 type="tel"
@@ -299,7 +321,9 @@
             <div class="group">
               <!-- Numero di minori -->
               <div class="input-container">
-                <label for="minori">Numero Minori</label>
+                <label for="minori"
+                  >Numero Minori <span class="required">*</span></label
+                >
                 <input
                   type="number"
                   name="minors"
@@ -312,7 +336,9 @@
               <!-- Numero di adulti -->
 
               <div class="input-container">
-                <label for="adulti">Numero Adulti</label>
+                <label for="adulti"
+                  >Numero Adulti <span class="required">*</span></label
+                >
                 <input
                   type="number"
                   name="adults"
@@ -325,7 +351,7 @@
 
             <div class="journey">
               <!-- Durata -->
-              <label for="durata">Durata</label>
+              <label for="durata">Durata <span class="required">*</span></label>
               <select name="duration" id="durata">
                 <option value="1">Mattina</option>
                 <option value="2">Pomeriggio</option>
@@ -336,7 +362,9 @@
               <div class="date-container">
                 <div class="date-field start">
                   <!-- Data Inizio -->
-                  <label class="date-label" for="dataInizio">Data Inizio</label>
+                  <label class="date-label" for="dataInizio"
+                    >Data Inizio <span class="required">*</span></label
+                  >
                   <input
                     type="date"
                     name="startAvailabilityDate"
@@ -347,7 +375,9 @@
 
                 <div class="date-field end">
                   <!-- Data Fine -->
-                  <label class="date-label" for="dataFine">Data Fine</label>
+                  <label class="date-label" for="dataFine"
+                    >Data Fine <span class="required">*</span></label
+                  >
                   <input
                     type="date"
                     name="endAvailabilityDate"

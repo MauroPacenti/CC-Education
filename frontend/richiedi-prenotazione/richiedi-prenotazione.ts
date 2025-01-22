@@ -29,15 +29,17 @@ const durationEnd = (duration?: number) => {
 };
 
 // Selezioniamo i campi data
-const startDateInput = document.getElementById('dataInizio') as HTMLInputElement;
-const endDateInput = document.getElementById('dataFine') as HTMLInputElement;
-const durationSelect = document.getElementById('durata') as HTMLSelectElement;
+const startDateInput = document.getElementById(
+  "dataInizio"
+) as HTMLInputElement;
+const endDateInput = document.getElementById("dataFine") as HTMLInputElement;
+const durationSelect = document.getElementById("durata") as HTMLSelectElement;
 
 // Impostiamo la data minima (data attuale) per i due campi
 const today = new Date();
 const minDate = new Date(today);
 minDate.setDate(today.getDate()); // Il minimo per la data di inizio deve essere il giorno successivo
-const minDateStr = minDate.toISOString().split('T')[0]; // Otteniamo la data in formato YYYY-MM-DD
+const minDateStr = minDate.toISOString().split("T")[0]; // Otteniamo la data in formato YYYY-MM-DD
 startDateInput.min = minDateStr; // Impostiamo la data minima della data di inizio
 endDateInput.min = minDateStr; // Impostiamo la data minima anche per la data di fine
 
@@ -49,32 +51,30 @@ function toggleDateFields() {
   const dateStartContainer = document.querySelector(".date-field.start");
   const dataLabel = document.querySelector("label[for='dataInizio']");
 
-  if (duration === '4') {
+  if (duration === "4") {
     // Quando la durata è 4, la data finale può essere selezionata separatamente
     endDateInput.disabled = false;
-    dateEndContainer?.classList.remove('hidden');
-    dateStartContainer?.classList.remove('max');
-    if(dataLabel)
-      dataLabel.textContent = "Data Inizio";
+    dateEndContainer?.classList.remove("hidden");
+    dateStartContainer?.classList.remove("max");
+    if (dataLabel) dataLabel.textContent = "Data Inizio";
     // La data finale può essere diversa dalla data iniziale
   } else {
     // Quando la durata è diversa da 4, la data finale è sincronizzata con la data di inizio
     endDateInput.disabled = true;
-    dateEndContainer?.classList.add('hidden');
+    dateEndContainer?.classList.add("hidden");
     dateStartContainer?.classList.add("max");
-    if(dataLabel)
-      dataLabel.textContent = "Data";
+    if (dataLabel) dataLabel.textContent = "Data";
     endDateInput.value = startDateInput.value; // Sincronizza la data finale con la data di inizio
   }
 }
 
 // Funzione per sincronizzare le date
-startDateInput.addEventListener('change', function () {
+startDateInput.addEventListener("change", function () {
   const startDate = new Date(startDateInput.value);
   const duration = durationSelect.value; // Ottieni la durata selezionata
 
   // Se la durata è diversa da 4
-  if (duration !== '4') {
+  if (duration !== "4") {
     // La data finale deve essere sincronizzata con la data di inizio
     endDateInput.value = startDateInput.value;
   } else {
@@ -83,46 +83,43 @@ startDateInput.addEventListener('change', function () {
   }
 
   // Impostiamo la data minima della data di fine in base alla data di inizio
-  endDateInput.min = startDate.toISOString().split('T')[0]; // La data finale non può essere anteriore alla data di inizio
+  endDateInput.min = startDate.toISOString().split("T")[0]; // La data finale non può essere anteriore alla data di inizio
 });
 
 // Se la data finale cambia, assicuriamoci che non sia prima della data di inizio
-endDateInput.addEventListener('change', function () {
+endDateInput.addEventListener("change", function () {
   const startDate = new Date(startDateInput.value);
   const endDate = new Date(endDateInput.value);
 
   if (endDate < startDate) {
-    alert('La data di fine non può essere precedente alla data di inizio');
+    alert("La data di fine non può essere precedente alla data di inizio");
     endDateInput.value = startDateInput.value; // Imposta la data finale uguale alla data di inizio
   }
 });
 
 // Ascoltiamo il cambiamento nel campo durata per abilitare o disabilitare la data finale
-durationSelect.addEventListener('change', function () {
+durationSelect.addEventListener("change", function () {
   toggleDateFields(); // Toggle tra le due modalità (1 data o 2 date)
 });
 
 // Inizializza lo stato del campo data finale in base alla durata selezionata all'inizio
 toggleDateFields();
 
-const privacyCheckbox = document.getElementById('privacy') as HTMLInputElement;
-const termsCheckbox = document.getElementById('terms') as HTMLInputElement;
-const submitButton = document.querySelector('.btn-submit') as HTMLButtonElement;
+const privacyCheckbox = document.getElementById("privacy") as HTMLInputElement;
+const termsCheckbox = document.getElementById("terms") as HTMLInputElement;
+const submitButton = document.querySelector(".btn-submit") as HTMLButtonElement;
 
-  function updateSubmitButtonState(): void {
-    if(privacyCheckbox.checked && termsCheckbox.checked){
-      submitButton.disabled = false;
-    } else {
-      submitButton.disabled = true;
-    }
+function updateSubmitButtonState(): void {
+  if (privacyCheckbox.checked && termsCheckbox.checked) {
+    submitButton.disabled = false;
+  } else {
+    submitButton.disabled = true;
   }
-  
-  // Aggiungi un evento di ascolto ai checkbox
-  privacyCheckbox.addEventListener('change', updateSubmitButtonState);
-  termsCheckbox.addEventListener('change', updateSubmitButtonState);
+}
 
-
-
+// Aggiungi un evento di ascolto ai checkbox
+privacyCheckbox.addEventListener("change", updateSubmitButtonState);
+termsCheckbox.addEventListener("change", updateSubmitButtonState);
 
 const form = document.querySelector<HTMLFormElement>(".appointment-form");
 
@@ -196,10 +193,14 @@ const getVisibleFormData = (section: Element) => {
 const clearFormFields = (section: Element) => {
   const inputs = section.querySelectorAll<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  >("input, select, textarea");
+  >("input, select, textarea, checkbox");
 
   inputs.forEach((input) => {
-    input.value = "";
+    if (input instanceof HTMLInputElement && input.type === "checkbox") {
+      input.checked = false;
+    } else {
+      input.value = "";
+    }
   });
 };
 
@@ -207,7 +208,6 @@ const successModal = document.getElementById("successModal");
 const errorModal = document.getElementById("errorModal");
 const closeButtons = document.querySelectorAll(".close-button");
 const modalLoading = document.querySelector("#modal-loading");
-
 
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -250,7 +250,7 @@ form?.addEventListener("submit", async (e) => {
   const endpoint = "/api/pub/createJourneyRequest";
 
   modalLoading?.classList.add("active");
-  document.body.classList.add('no-scroll');
+  document.body.classList.add("no-scroll");
 
   try {
     const response = await fetch(endpoint, {
@@ -262,11 +262,11 @@ form?.addEventListener("submit", async (e) => {
     });
 
     setTimeout(() => {
-      modalLoading?.classList.remove('active');
+      modalLoading?.classList.remove("active");
     }, 10000);
-  
+
     console.log(formData);
-  
+
     if (response.ok) {
       const json = await response.json();
       if (successModal !== null) {
@@ -280,50 +280,50 @@ form?.addEventListener("submit", async (e) => {
         setTimeout(() => {
           errorModal.style.display = "block";
         }, 5000);
-        
       }
     }
   } catch (error) {
     console.log("Errore nella richiesta di prenotazione", error);
     modalLoading?.classList.remove("active");
 
-    if(errorModal !== null){
+    if (errorModal !== null) {
       errorModal.style.display = "block";
     }
   }
-  
+
   clearFormFields(section1);
   clearFormFields(section2);
   clearFormFields(groupSelect);
   clearFormFields(journeySelect);
+  if (containerCheckbox) clearFormFields(containerCheckbox);
 
   setTimeout(() => {
-    modalLoading?.classList.remove('active');
+    modalLoading?.classList.remove("active");
   }, 5000);
 });
 
 closeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     if (successModal !== null) successModal.style.display = "none";
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove("no-scroll");
     if (errorModal !== null) errorModal.style.display = "none";
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove("no-scroll");
   });
 });
 
 window.addEventListener("click", (event) => {
   if (event.target === successModal) {
     if (successModal !== null) successModal.style.display = "none";
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove("no-scroll");
   }
   if (event.target === errorModal) {
     if (errorModal !== null) errorModal.style.display = "none";
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove("no-scroll");
   }
 });
 
 // Gestione cambio pagine del form
-let currentPage = 0;
+let currentPage = 1;
 const btnNext = document.querySelectorAll(".btn-next");
 const btnPrev = document.querySelectorAll(".btn-prev");
 const section1 = document.querySelector("#page1");
@@ -331,24 +331,17 @@ const section2 = document.querySelector("#page2");
 const title = document.querySelector(".form-title");
 const groupSelect = document.querySelector(".group");
 const journeySelect = document.querySelector(".journey");
-
+const containerCheckbox = document.querySelector(".container-check");
 
 btnNext.forEach((btn) => {
   btn.addEventListener("click", () => {
-
-      nextStep(currentPage);
-
-    }
-  );
+    nextStep(currentPage);
+  });
 });
-
-
 
 btnPrev.forEach((btn) => {
   btn.addEventListener("click", () => {
-
     prevStep(currentPage);
-    
   });
 });
 
@@ -394,7 +387,6 @@ function hideInputError(input: ValidatableInput) {
   }
 }
 
-
 function validateInput(input: ValidatableInput): boolean {
   const inputValue = input.value.trim();
   const fieldName = input.name;
@@ -418,7 +410,7 @@ function validateInput(input: ValidatableInput): boolean {
     }
     return false;
   }
-  
+
   // Controlla se l'input è vuoto
   if (!inputValue) {
     showInputError(input, `Il campo "${input.id}" non può essere vuoto.`);
@@ -436,8 +428,7 @@ function validateInput(input: ValidatableInput): boolean {
 
     hideInputError(input);
     return true;
-  } 
-  
+  }
 }
 
 // Funzione di validazione per l'email
@@ -448,7 +439,8 @@ function validateEmail(email: string): boolean {
 
 // Funzione di validazione per il telefono
 function validatePhone(phone: string): boolean {
-  const phoneRegex = /^(\+?[1-9]{1,4}[\s-]?)?(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{6,15}$/;
+  const phoneRegex =
+    /^(\+?[1-9]{1,4}[\s-]?)?(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{6,15}$/;
   return phoneRegex.test(phone);
 }
 
@@ -463,21 +455,22 @@ function validateStep(step: number): boolean {
   const inputs = document.querySelectorAll<ValidatableInput>(
     `#page${step} input`
   );
+  console.log("Inputs:", inputs);
   let isStepValid = true;
 
-  inputs.forEach((input) => { 
-
+  inputs.forEach((input) => {
     const label = document.querySelector(`label[for="${input.id}"]`);
-    const labelText = label ? label.textContent: label;
-  
-    if(!validateInput(input)){
+    const labelText = label ? label.textContent : label;
+
+    if (!validateInput(input)) {
       isStepValid = false;
-      showInputError(input, `Il campo ${labelText} è obbligatorio o non valido.`);
-    }
-    else {
+      showInputError(
+        input,
+        `Il campo ${labelText} è obbligatorio o non valido.`
+      );
+    } else {
       hideInputError(input);
     }
-
   });
 
   return isStepValid;
@@ -488,18 +481,20 @@ function nextStep(current: number): void {
   if (validateStep(current)) {
     document.getElementById(`page${current}`)?.classList.remove("active");
     document.getElementById(`page${current + 1}`)?.classList.add("active");
-    document.getElementById(`icon${current}`)?.classList.replace("active", "done");
+    document
+      .getElementById(`icon${current}`)
+      ?.classList.replace("active", "done");
     document.getElementById(`icon${current + 1}`)?.classList.add("active");
     document.getElementById(`done${current}`)?.classList.add("check-animation");
     document.getElementById(`line${current}`)?.classList.add("line-fill");
     document.querySelector(`#icon${current} img`)?.classList.add("hide");
     document.getElementById(`done${current}`)?.classList.remove("hide");
 
-    if(currentPage === 1){
+    if (currentPage === 1) {
       if (title !== null) {
         title.textContent = "Dati Organizzazione";
       }
-    } else if(currentPage === 2) {
+    } else if (currentPage === 2) {
       if (title !== null) {
         title.textContent = "Dati Prenotazione";
       }
@@ -516,7 +511,9 @@ function prevStep(current: number): void {
   document.getElementById(`page${current}`)?.classList.remove("active");
   document.getElementById(`page${current - 1}`)?.classList.add("active");
   document.querySelector(`#icon${current}`)?.classList.remove("active");
-  document.querySelector(`#icon${current - 1}`)?.classList.replace("done", "active");
+  document
+    .querySelector(`#icon${current - 1}`)
+    ?.classList.replace("done", "active");
   // document.getElementById(`icon${current}`)?.classList.add("active");
   document.querySelector(`#icon${current - 1} img`)?.classList.remove("hide");
   document.getElementById(`done${current - 1}`)?.classList.add("hide");
@@ -536,6 +533,8 @@ function prevStep(current: number): void {
 }
 
 // Aggiunge il listener per validare gli input in tempo reale
-document.querySelectorAll<ValidatableInput>("input, textarea").forEach((input) => {
-  input.addEventListener("input", () => validateInput(input));
-});
+document
+  .querySelectorAll<ValidatableInput>("input, textarea, select")
+  .forEach((input) => {
+    input.addEventListener("input", () => validateInput(input));
+  });
