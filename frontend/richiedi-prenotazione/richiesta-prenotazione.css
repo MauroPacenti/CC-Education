@@ -503,6 +503,9 @@ label a {
   main {
     padding: 0 4em;
   }
+  h1 {
+    font-size: 1.75rem;
+  }
   .progress-bar {
     max-width: 60%;
     margin: 0 auto;
@@ -525,6 +528,9 @@ label a {
 }
 
 @media screen and (min-width: 968px) {
+  h1 {
+    font-size: 2rem;
+  }
   .progress-bar {
     max-width: 40%;
     margin: 0 auto;
@@ -544,6 +550,9 @@ label a {
 @media screen and (min-width: 1280px) {
   main {
     padding: 0 10em;
+  }
+  h1 {
+    font-size: 2.5rem;
   }
   .text-box {
     font-size: 1.25rem;

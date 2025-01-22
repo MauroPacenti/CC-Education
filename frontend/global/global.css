@@ -147,7 +147,11 @@ body {
 
 /* media query */
 
-@media screen and (min-width: 835px) {
+@media screen and (min-width: 834px) {
+  p:not(.text-carousel p) {
+    font-size: 1.2rem;
+  }
+
   .menu-icon {
     display: none;
   }
@@ -245,14 +249,14 @@ footer .contact {
   width: 1.5rem;
 }
 
-@media screen and (min-width: 835px) {
-
+@media screen and (min-width: 834px) {
   footer {
     display: grid;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;   
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     height: 20rem;
+    padding: 7rem;
   }
 
   footer ul {
@@ -264,7 +268,8 @@ footer .contact {
     text-align: left;
   }
 
-  footer .contact p, .email{
+  footer .contact p,
+  .email {
     text-align: left;
     width: 100%;
   }
@@ -289,6 +294,4 @@ footer .contact {
   footer {
     padding: 7rem;
   }
-
-
 }
