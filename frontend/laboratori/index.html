@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laboratori</title>
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-    <script src="../global/global.ts" type="module"></script>
-    <script type="module" src="./laboratori.ts"></script>
-    <script type="module" src="/laboratori/laboratori.js"></script>
+    <meta name="robots" content="index, follow" />
+    <title>Laboratori Educativi sulla Legalità | Cascina Caccia</title>
+    <meta
+      name="description"
+      content="Scopri i laboratori educativi di Cascina Caccia: percorsi sulla legalità, cittadinanza attiva e giustizia sociale per giovani. Dalla storia della mafia al riutilizzo sociale dei beni confiscati."
+    />
+    <meta name="author" content="NOVO - Barbara Pisano" />
+    <meta property="og:title" content="Laboratori Educativi - Cascina Caccia" />
+    <meta
+      property="og:description"
+      content="Percorsi educativi sulla legalità e cittadinanza attiva per giovani presso Cascina Caccia, bene confiscato alla mafia."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://www.cascinacaccia.it/educazione/laboratori/"
+    />
+    <meta
+      property="og:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
+    <meta
+      name="twitter:title"
+      content="Laboratori Educativi - Cascina Caccia"
+    />
+    <meta
+      name="twitter:description"
+      content="Percorsi educativi sulla legalità e cittadinanza attiva per giovani presso Cascina Caccia, bene confiscato alla mafia."
+    />
+    <meta
+      name="twitter:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
 
-    <link rel="stylesheet" href="/laboratori/laboratori.css" />
-    <link rel="stylesheet" href="/global/global.css" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <script src="/global/global.ts" type="module"></script>
+    <script type="module" src="./laboratori.ts"></script>
+    <script type="module" src="./laboratori.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,20 +49,21 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/public/img/logo.png" alt="logo liberamente" />
+        <img src="/img/logo.png" alt="logo liberamente" />
       </div>
 
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../public/img/icon-menu.svg" alt="icona menu" />
+            <img id="icon-menu" src="/img/icon-menu.svg" alt="icona menu" />
             <img
               id="icon-close"
               class="hide"
-              src="../public/img/icon-close.svg"
+              src="/img/icon-close.svg"
               alt="icon close"
             />
           </a>
@@ -64,220 +95,340 @@
           <span>percorso di crescita</span>
           sulla legalità, cittadinanza attiva e giustizia sociale.
         </p>
-    <!-- -------------------------------- -->
+        <!-- -------------------------------- -->
 
-    <div class="carousel-and-buttons">
-      <button class="btn" id="prevBtn">
-        <img src="/public/img/icons-carousel-prev.svg" alt="bottone succ" />
-      </button>
+        <div class="carousel-and-buttons">
+          <button class="btn" id="prevBtn">
+            <img src="/img/icons-carousel-prev.svg" alt="bottone succ" />
+          </button>
 
-      <div class="carousel-container">
+          <div class="carousel-container">
+            <div class="carousel-wrapper" id="carouselWrapper">
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    class="img-carousel"
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.webp
+                    "
+                  />
+                  <source
+                    class="img-carousel"
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/storia-della-cascina.webp
+                    "
+                  />
+                  <img
+                    src="/img/carosello-laboratori/storia-della-cascina.jpg"
+                    alt="storia della cascina"
+                  />
+                </picture>
 
+                <div class="text-carousel">
+                  <h4>Storia della Cascina</h4>
+                  <p>
+                    Percorso che esplora la storia della cascina e il riutilizzo
+                    sociale. Include l'omicidio di Bruno Caccia, la condanna di
+                    Domenico Belfiore e la confisca del bene, approfondendo i
+                    temi di legalità.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/bruno-caccia.gif"
+                    alt="Bruno Caccia"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Bruno Caccia</h4>
+                  <p>
+                    Laboratorio che analizza il magistrato Bruno Caccia,
+                    attraverso un documentario e testimonianze. Esplora la sua
+                    figura, il contesto del suo omicidio e gli sviluppi
+                    giudiziari recenti.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/regolegalità.jpg"
+                    alt="Regolegalità"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>RegoLegalità</h4>
+                  <p>
+                    Percorso educativo per bambini sulle regole come fondamento
+                    della convivenza civile. Obiettivi: valore delle regole,
+                    rapporto tra libertà personale e regole, promozione della
+                    cultura della legalità.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/beni-confiscati.jpg"
+                    alt="Beni confiscati"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>I beni confiscati</h4>
+                  <p>
+                    Laboratorio che tratta l’evoluzione della legislazione sui
+                    beni confiscati, analizzando il loro significato sociale.
+                    Include mappature ludiche e un focus su Cascina Caccia e il
+                    riutilizzo sociale.
+                  </p>
+                </div>
+              </div>
 
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/Agromafie.jpg"
+                    alt="agromafie"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Le Mafie & il Cibo</h4>
+                  <p>
+                    Analisi delle agromafie e del caporalato nella filiera
+                    alimentare. Promuove il ruolo del consumatore contro le
+                    mafie e presenta esempi di riscatto come Cascina Caccia.
+                  </p>
+                </div>
+              </div>
 
-        <div class="carousel-wrapper" id="carouselWrapper">
-
-          <div class="carousel-item-lab">
-            <picture >
-              <source class="img-carousel" media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.webp">
-              <source class="img-carousel" media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/storia-della-cascina.webp">
-              <img  src="/public/img/carosello-laboratori/storia-della-cascina.jpg" alt="storia della cascina">
-            </picture>
-
-
-
-            <div class="text-carousel">
-              <h4>Storia della Cascina</h4>
-              <p>
-                Percorso che esplora la storia della cascina e il riutilizzo
-                sociale. Include l'omicidio di Bruno Caccia, la condanna di
-                Domenico Belfiore e la confisca del bene, approfondendo i temi
-                di legalità.
-              </p>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/miele-api.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/miele-api.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/miele-api.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/miele-api.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/miele-api.jpg"
+                    alt="miele e api"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Miele & Api</h4>
+                  <p>
+                    Laboratorio di apicoltura che collega natura, etica e
+                    imprenditorialità. Confronta la società umana con quella
+                    delle api e riflette su etica del lavoro e opportunità
+                    sociali.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/ricicliamo.jpg"
+                    alt="Ricicliamo"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Ricicliamo</h4>
+                  <p>
+                    Attività artistiche di riuso per ragazzi, mirate a
+                    sviluppare creatività, coesione di gruppo e sensibilità
+                    ambientale, includendo manutenzione degli spazi e laboratori
+                    manuali.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/mafia-cinema.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/mafia-cinema.jpg"
+                    alt="Mafia e Cinema"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>La Mafia attraverso il cinema</h4>
+                  <p>
+                    Percorso che analizza criticamente la rappresentazione
+                    cinematografica delle mafie, confrontandola con la realtà
+                    sociale per sviluppare una comprensione più critica.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/azzardo.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/azzardo.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/azzardo.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/azzardo.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/azzardo.jpg"
+                    alt="Gioco d'azzardo"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Il gioco non è un azzardo</h4>
+                  <p>
+                    Laboratorio per bambini che insegna a distinguere giochi
+                    costruttivi da quelli nocivi, enfatizzando il divertimento
+                    positivo e la consapevolezza.
+                  </p>
+                </div>
+              </div>
+              <div class="carousel-item-lab">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/gioco.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/gioco.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/gioco.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/gioco.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/gioco.jpg"
+                    alt="Gioco"
+                  />
+                </picture>
+                <div class="text-carousel">
+                  <h4>Chi non gioca vince</h4>
+                  <p>
+                    Percorso per adolescenti sui rischi del gioco d’azzardo, con
+                    focus su dipendenze e consapevolezza critica dei
+                    comportamenti a rischio.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/bruno-caccia.gif" alt="Bruno Caccia">
-            </picture>
-            <div class="text-carousel">
-              <h4>Bruno Caccia</h4>
-              <p>
-                Laboratorio che analizza il magistrato Bruno Caccia,
-                attraverso un documentario e testimonianze. Esplora la sua
-                figura, il contesto del suo omicidio e gli sviluppi giudiziari
-                recenti.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/regolegalità.jpg" alt="Regolegalità">
-            </picture>
-            <div class="text-carousel">
-              <h4>RegoLegalità</h4>
-              <p>
-                Percorso educativo per bambini sulle regole come fondamento
-                della convivenza civile. Obiettivi: valore delle regole,
-                rapporto tra libertà personale e regole, promozione della
-                cultura della legalità.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/beni-confiscati.jpg" alt="Beni confiscati">
-            </picture>
-            <div class="text-carousel">
-              <h4>I beni confiscati</h4>
-              <p>
-                Laboratorio che tratta l’evoluzione della legislazione sui
-                beni confiscati, analizzando il loro significato sociale.
-                Include mappature ludiche e un focus su Cascina Caccia e il
-                riutilizzo sociale.
-              </p>
-            </div>
-          </div>
-
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/Agromafie.jpg" alt="agromafie">
-            </picture>
-            <div class="text-carousel">
-              <h4>Le Mafie & il Cibo</h4>
-              <p>
-                Analisi delle agromafie e del caporalato nella filiera
-                alimentare. Promuove il ruolo del consumatore contro le mafie
-                e presenta esempi di riscatto come Cascina Caccia.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/miele-api.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/miele-api.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/miele-api.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/miele-api.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/miele-api.jpg" alt="miele e api">
-            </picture>
-            <div class="text-carousel">
-              <h4>Miele & Api</h4>
-              <p>
-                Laboratorio di apicoltura che collega natura, etica e
-                imprenditorialità. Confronta la società umana con quella
-                delle api e riflette su etica del lavoro e opportunità
-                sociali.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/ricicliamo.jpg" alt="Ricicliamo">
-            </picture>
-            <div class="text-carousel">
-              <h4>Ricicliamo</h4>
-              <p>
-                Attività artistiche di riuso per ragazzi, mirate a sviluppare
-                creatività, coesione di gruppo e sensibilità ambientale,
-                includendo manutenzione degli spazi e laboratori manuali.
-              </p>
-            </div>
-          </div>
-          <div class="carousel-item-lab">
-            <picture>
-            <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.avif, 
-            /public/img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.webp">
-            <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/mafia-cinema.webp,
-            /public/img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.avif">
-            <img class="img-carousel" src="/public/img/carosello-laboratori/mafia-cinema.jpg" alt="Mafia e Cinema">
-          </picture>
-            <div class="text-carousel">
-              <h4>La Mafia attraverso il cinema</h4>
-              <p>
-                Percorso che analizza criticamente la rappresentazione
-                cinematografica delle mafie, confrontandola con la realtà
-                sociale per sviluppare una comprensione più critica.
-              </p>
-            </div>
-          </div>
-            <div class="carousel-item-lab">
-              <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/azzardo.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/azzardo.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/azzardo.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/azzardo.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/azzardo.jpg" alt="Gioco d'azzardo">
-            </picture>
-            <div class="text-carousel">
-              <h4>Il gioco non è un azzardo</h4>
-              <p>
-                Laboratorio per bambini che insegna a distinguere giochi
-                costruttivi da quelli nocivi, enfatizzando il divertimento
-                positivo e la consapevolezza.
-              </p>
-            </div>
-          
-          </div>
-          <div class="carousel-item-lab">
-            <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-desktop/gioco.avif, 
-              /public/img/img-ottimizzate/carosello-laboratori-desktop/gioco.webp">
-              <source media="(max-width: 393px)" srcset="/public/img/img-ottimizzate/carosello-laboratori-mobile/gioco.webp,
-              /public/img/img-ottimizzate/carosello-laboratori-mobile/gioco.avif">
-              <img class="img-carousel" src="/public/img/carosello-laboratori/gioco.jpg" alt="Gioco">
-            </picture>
-            <div class="text-carousel">
-              <h4>Chi non gioca vince</h4>
-              <p>
-                Percorso per adolescenti sui rischi del gioco d’azzardo, con
-                focus su dipendenze e consapevolezza critica dei comportamenti
-                a rischio.
-              </p>
-            </div>
-          </div>
-
-        
-        
-      </div>
-      
-
-      
-    </div>
-    <button class="btn" id="nextBtn">
-      <img src="/public/img/icons-carousel-succ.svg" alt="bottone next" />
-    </button>
-
-    <!-- -------------------------------- -->
-
-        <!-- <div class="carousel-buttons"> -->
-
-        <!-- </div> -->
-
-
-
+          <button class="btn" id="nextBtn">
+            <img src="/img/icons-carousel-succ.svg" alt="bottone next" />
+          </button>
+        </div>
       </section>
 
       <!-- ----------------------voci laboratori -------------------------- -->
@@ -286,7 +437,7 @@
       <section class="voci-laboratori">
         <article>
           <header>
-            <img src="/public/img/classroom1.webp" alt="" />
+            <img src="/img/classroom1.webp" alt="" />
             <div class="header-text">
               <h4>Un Luogo di Rinascita</h4>
               <h6>4°B Scuola: Liceo "Galileo Ferraris"</h6>
@@ -303,7 +454,7 @@
 
         <article>
           <header>
-            <img src="/public/img/classroom2.webp" alt="" />
+            <img src="/img/classroom2.webp" alt="" />
             <div class="header-text">
               <h4>Memoria e Futuro</h4>
               <h6>3°C Scuola: "Alessandro Manzoni"</h6>
@@ -320,7 +471,7 @@
 
         <article>
           <header>
-            <img src="/public/img/classroom3.webp" alt="" />
+            <img src="/img/classroom3.webp" alt="" />
             <div class="header-text">
               <h4>Cittadini Consapevoli</h4>
               <h6>5°A Scuola: "Vittorio Emanuele III"</h6>
@@ -337,7 +488,7 @@
 
         <article>
           <header>
-            <img src="/public/img/classroom3.webp" alt="" />
+            <img src="/img/classroom3.webp" alt="" />
             <div class="header-text">
               <h4>Cittadini Consapevoli</h4>
               <h6>5°A Scuola: "Vittorio Emanuele III"</h6>
@@ -375,24 +526,52 @@
       <div class="contact">
         <div class="icons-social">
           <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/icone/icon-instagram-desktop.png">
-              <source media="(max-width: 393px)" srcset="/public/img/icone/icon-instagram-mobile.png">
-              <img src="/public/img/icone/icon-instagram-desktop.png" alt="Instagram" class="social " >
-          </picture>          
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-instagram-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-instagram-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-instagram-desktop.png"
+              alt="Instagram"
+              class="social"
+            />
+          </picture>
           <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/icone/icon-facebook-desktop.png">
-              <source media="(max-width: 393px)" srcset="/public/img/icone/icon-facebook-mobile.png">
-              <img src="/public/img/icone/icon-facebook-desktop.png" alt="Facebook" class="social " >
-          </picture>          
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-facebook-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-facebook-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-facebook-desktop.png"
+              alt="Facebook"
+              class="social"
+            />
+          </picture>
           <picture>
-              <source media="(min-width: 1280px)" srcset="/public/img/icone/icon-tiktok-desktop.png">
-              <source media="(max-width: 393px)" srcset="/public/img/icone/icon-tiktok-mobile.png">
-              <img src="/public/img/icone/icon-tiktok-desktop.png" alt="Tiktok" class="social " >
-          </picture>          
-      
-
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-tiktok-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-tiktok-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-tiktok-desktop.png"
+              alt="Tiktok"
+              class="social"
+            />
+          </picture>
         </div>
-      
+
         <p class="email">cascinacaccia@acmos.net</p>
       </div>
     </footer>

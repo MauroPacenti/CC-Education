@@ -3,14 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Richiedi Prenotazione</title>
-    <meta name="author" content="Chiabrero Gabriele">
-    <meta name="description" content="pagina contenitore del form per la prenotazione di una visita presso Cascina Caccia">
+    <meta name="robots" content="index, follow" />
+
+    <title>
+      Prenota la tua visita | Cascina Caccia | Esperienze educative di legalità
+    </title>
+
+    <meta name="author" content="NOVO - Chiabrero Gabriele" />
+    <meta
+      name="description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+
+    <meta
+      property="og:title"
+      content="Prenota la tua visita | Cascina Caccia"
+    />
+    <meta
+      property="og:description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://www.cascinacaccia.it/educazione/richiedi-prenotazione/"
+    />
+    <meta
+      property="og:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
+    <meta
+      name="twitter:title"
+      content="Prenota la tua visita | Cascina Caccia"
+    />
+    <meta
+      name="twitter:description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+    <meta
+      name="twitter:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <script type="module" src="/global/global.ts"></script>
     <script type="module" src="./richiedi-prenotazione.ts"></script>
-    <script type="module" src="../global/global.ts"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +56,6 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-
   </head>
   <body>
     <nav class="nav-container">
@@ -29,11 +66,15 @@
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu a tendina" />
+            <img
+              id="icon-menu"
+              src="/img/icon-menu.svg"
+              alt="icona menu a tendina"
+            />
             <img
               id="icon-close"
               class="hide"
-              src="../img/icon-close.svg"
+              src="/img/icon-close.svg"
               alt="icona per chiudere il menu a tendina"
             />
           </a>
@@ -73,12 +114,15 @@
 
     <div class="form-container">
       <div class="container">
-          
         <div class="progress-bar">
           <div class="icon-container active" id="icon1">
-            <img src="../img/icon-user.svg" alt="icona accompagnatore" class="icon" />
             <img
-              src="../img/icon-done.svg"
+              src="/img/icon-user.svg"
+              alt="icona accompagnatore"
+              class="icon"
+            />
+            <img
+              src="/img/icon-done.svg"
               alt="icona completamento step del form"
               id="done1"
               class="icon-done hide"
@@ -89,12 +133,12 @@
           </div>
           <div class="icon-container" id="icon2">
             <img
-              src="../img/icon-organization.svg"
+              src="/img/icon-organization.svg"
               alt="icona organizzazione"
               class="icon"
             />
             <img
-              src="../img/icon-done.svg"
+              src="/img/icon-done.svg"
               alt="icona completamento step del form"
               id="done2"
               class="icon-done hide"
@@ -105,19 +149,19 @@
           </div>
           <div class="icon-container" id="icon3">
             <img
-              src="../img/icon-calendar.svg"
+              src="/img/icon-calendar.svg"
               alt="icona prenotazione"
               class="icon"
             />
             <img
-              src="../img/icon-done.svg"
+              src="/img/icon-done.svg"
               alt="icona completamento step del form"
               id="done3"
               class="icon-done hide"
             />
           </div>
         </div>
-        
+
         <h2 class="form-title">Dati Accompagnatore</h2>
 
         <!-- form -->
@@ -172,7 +216,6 @@
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
             </div>
-
           </div>
 
           <!-- Dati Organizzazione -->
@@ -228,7 +271,6 @@
               <button class="btn btn-prev" type="button">Indietro</button>
               <button class="btn btn-next" type="button">Avanti</button>
             </div>
-
           </div>
 
           <!-- Dati prenotazione -->
@@ -280,7 +322,12 @@
                 <div class="date-field end">
                   <!-- Data Fine -->
                   <label class="date-label" for="dataFine">Data Fine</label>
-                  <input type="date" name="endAvailabilityDate" id="dataFine" class="date-picker" />
+                  <input
+                    type="date"
+                    name="endAvailabilityDate"
+                    id="dataFine"
+                    class="date-picker"
+                  />
                 </div>
               </div>
 
@@ -295,16 +342,26 @@
 
             <div class="container-check">
               <div class="checkbox-container">
-                <input type="checkbox" name="privacy" id="privacy">
-                <label for="privacy">Sono d'accordo e accetto <a href="#" target="_blank">l'Informativa sulla Privacy</a> *</label>
+                <input type="checkbox" name="privacy" id="privacy" />
+                <label for="privacy"
+                  >Sono d'accordo e accetto
+                  <a href="#" target="_blank">l'Informativa sulla Privacy</a>
+                  *</label
+                >
               </div>
               <div class="checkbox-container">
-                <input type="checkbox" name="terms" id="terms">
-                <label for="terms">Sono d'accordo e accetto i <a href="#" target="_blank">Termini d'Uso</a> *</label>
+                <input type="checkbox" name="terms" id="terms" />
+                <label for="terms"
+                  >Sono d'accordo e accetto i
+                  <a href="#" target="_blank">Termini d'Uso</a> *</label
+                >
               </div>
             </div>
 
-            <p>* Puoi procedere nell'invio dei dati solo se accetti le condizioni qui sopra</p>
+            <p>
+              * Puoi procedere nell'invio dei dati solo se accetti le condizioni
+              qui sopra
+            </p>
 
             <div id="btn-last" class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
@@ -339,8 +396,6 @@
       </div>
     </div>
 
-    
-
     <footer>
       <div class="map">
         <iframe
@@ -349,21 +404,66 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
       </div>
+
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/laboratori/">Laboratori</a></li>
         <li><a href="/richiedi-prenotazione/">Richiedi Prenotazione</a></li>
         <li><a href="/#contattaci">Contattaci</a></li>
       </ul>
-      <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
+
       <div class="contact">
         <div class="icons-social">
-          <img src="img/icona-instagram.png" alt="" class="social instagram" />
-          <img src="img/icon-facebook.png" alt="" class="social facebook" />
-          <img src="img/icon-tiktok.png" alt="" class="social tiktok" />
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-instagram-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-instagram-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-instagram-desktop.png"
+              alt="Instagram"
+              class="social"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-facebook-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-facebook-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-facebook-desktop.png"
+              alt="Facebook"
+              class="social"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-tiktok-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-tiktok-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-tiktok-desktop.png"
+              alt="Tiktok"
+              class="social"
+            />
+          </picture>
         </div>
-        <p>cascinacaccia@acmos.net</p>
+
+        <p class="email">cascinacaccia@acmos.net</p>
       </div>
     </footer>
   </body>

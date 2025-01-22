@@ -1,5 +1,5 @@
 /* Style per la pagina Home */
-@import '/laboratori/laboratori.css';
+@import "/laboratori/laboratori.css";
 
 h1,
 h2 {
@@ -24,7 +24,7 @@ header .background {
   width: 100%;
   height: 100%;
   top: 80px;
-  background-image: url("public/img/img-ottimizzate/home-desktop/cascina-caccia-desktop.avif");
+  background-image: url("/img/img-ottimizzate/home-desktop/cascina-caccia-desktop.avif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -162,8 +162,6 @@ main > button:hover {
   transform: scale(1.1);
 }
 
-
-
 .carousel-container {
   position: relative;
   width: 80%;
@@ -181,7 +179,6 @@ main > button:hover {
 .carousel-item {
   min-width: 100%;
 }
-
 
 .carousel-btn {
   position: absolute;
@@ -218,21 +215,21 @@ main > button:hover {
 }
 
 .stop {
-  background-image: url("public/img/icon-stop.png");
+  background-image: url("/img/icon-stop.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .balance {
-  background-image: url("public/img/icona-bilancia.png");
+  background-image: url("/img/icona-bilancia.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .new-generation {
-  background-image: url("public/img/icona-new-generation.png");
+  background-image: url("/img/icona-new-generation.png");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -343,14 +340,13 @@ main > button:hover {
   color: var(--secondario-fucsia);
 }
 
-
 #cookie-banner {
   position: fixed;
   bottom: 0;
   background-color: var(--secondario-verde);
   z-index: 2;
   height: fit-content;
-  font-family: 'Neue Machina', serif;
+  font-family: "Neue Machina", serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -363,7 +359,6 @@ main > button:hover {
 .informativa {
   display: none;
 }
-
 
 .mostra-informativa {
   display: block;
@@ -391,7 +386,8 @@ main > button:hover {
   align-items: center;
 }
 
-.decline-btn, .accept-btn {
+.decline-btn,
+.accept-btn {
   height: 3rem;
   margin-bottom: 1rem;
 }
@@ -406,7 +402,6 @@ main > button:hover {
   color: white;
   border-radius: 15px;
   width: 70%;
-
 }
 
 .accept-btn:focus {
@@ -450,7 +445,6 @@ main > button:hover {
   color: var(--secondario-fucsia);
 }
 
-
 /* -------------------PRIVACY PAGE------------------------- */
 .main-privacy {
   height: fit-content;
@@ -460,7 +454,7 @@ main > button:hover {
 
 .main-privacy h2 {
   font-weight: bold;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 #privacy-title {
@@ -468,7 +462,7 @@ main > button:hover {
 }
 
 .main-privacy h3 {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -486,18 +480,14 @@ main > button:hover {
 .main-privacy li h4 {
   font-weight: bold;
   color: var(--secondario-fucsia);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .main-privacy ol > li {
   margin-bottom: 1rem;
 }
 
-
-
-
 @media screen and (min-width: 393px) {
-
   .carousel-container {
     width: 60%;
   }
@@ -529,12 +519,9 @@ main > button:hover {
   .richiedi-informazioni textarea {
     width: 100%;
   }
-
-
 }
 
 @media screen and (min-width: 834px) {
-
   .carousel-container {
     width: 70%;
     height: 30rem;
@@ -633,7 +620,7 @@ main > button:hover {
     justify-content: center;
     border-radius: 15px;
     padding: 1rem;
-    font-family: 'Neue Machina', serif;
+    font-family: "Neue Machina", serif;
   }
 
   #cookie-banner > p {
@@ -650,7 +637,8 @@ main > button:hover {
     justify-content: space-evenly;
   }
 
-  .cookie-buttons .accept-btn, .cookie-buttons .decline-btn {
+  .cookie-buttons .accept-btn,
+  .cookie-buttons .decline-btn {
     width: 40%;
     height: 3rem;
     border: 1px solid var(--primario);
@@ -658,7 +646,8 @@ main > button:hover {
     transition: transform 0.2s ease;
   }
 
-  .cookie-buttons .accept-btn:hover, .cookie-buttons .decline-btn:hover {
+  .cookie-buttons .accept-btn:hover,
+  .cookie-buttons .decline-btn:hover {
     transform: scale(1.2);
   }
 
@@ -686,9 +675,6 @@ main > button:hover {
 }
 
 @media screen and (min-width: 1280px) {
-
-
-
   header h1 {
     font-size: 3.8rem;
   }
