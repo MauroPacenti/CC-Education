@@ -1,6 +1,6 @@
 @import "./preflight.css";
 @font-face {
-  font-family: "Neue Machina";
+  font-family: "Neue Machina", sans-serif;
   src: url("frontend\fonts\Neue Machina - Free for Personal Use\NeueMachina-Regular.otf");
 }
 :root {
@@ -199,7 +199,7 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  font-family: "Neue Machina", serif;
+  font-family: "Neue Machina", sans-serif;
 }
 
 iframe {

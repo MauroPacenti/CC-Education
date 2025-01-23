@@ -5,36 +5,41 @@ h1,
 h2 {
   font-family: "Poppins", sans-serif;
 }
+body.body-home {
+  font-family: "Poppins", sans-serif;
+}
 
 header.header-home {
   position: relative;
   width: 100%;
-  height: 90vh;
-  height: 90dvh;
+
+  height: 80dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
-  padding-inline: 2.5em;
-  text-wrap: pretty;
-  margin-bottom: 4rem;
+  padding-inline: 2em;
+  margin-bottom: 10rem;
+  top: 80px;
 }
 
 header.header-home .background {
   position: absolute;
-  inset: 0;
-  top: 80px;
+  width: 100%;
+  height: 100%;
   background-image: url("/img/img-ottimizzate/home-desktop/cascina-caccia-desktop.avif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(2px) brightness(0.4);
-  z-index: 0;
+  filter: blur(4px) brightness(0.4);
+  /* transform: scale(1.2); */
+  overflow: hidden;
 }
 
 header.header-home .content {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -135,6 +140,7 @@ main.main-home > h2 {
 
 .mission {
   text-align: left;
+  margin-right: auto;
   margin-bottom: 2rem;
 }
 
@@ -144,7 +150,7 @@ main.main-home > button {
   color: white;
   width: 245px;
   height: 44px;
-  margin: 3rem;
+  margin: 1em 0 3em 0;
   border-radius: 15px;
   transition: transform 0.2s ease;
 }
@@ -165,6 +171,7 @@ div.carousel-container {
   width: 100%;
   margin-bottom: 2rem;
   aspect-ratio: 16/9;
+  max-height: 50vh;
 }
 
 .carousel {
@@ -176,10 +183,12 @@ div.carousel-container {
 .carousel-item {
   flex-shrink: 0;
   aspect-ratio: 16/9;
+  width: 100%;
 }
 
 .carousel-item img {
   object-fit: contain;
+  /* -o-object-fit: contain; */
 }
 
 .carousel-btn {
@@ -230,6 +239,10 @@ div.carousel-container {
   flex-direction: column;
   gap: 0.5em;
 }
+.valore-body {
+  display: flex;
+  flex-direction: column;
+}
 
 .valore .icona {
   width: 3em;
@@ -243,6 +256,7 @@ div.carousel-container {
   font-size: 1em;
   font-weight: bold;
 }
+
 .valore-description {
   font-size: 0.85;
   color: #797979;
@@ -295,7 +309,8 @@ div.carousel-container {
   text-align: center;
 }
 
-.richiedi-informazioni input {
+.richiedi-informazioni
+  input:not(.richiedi-informazioni input[type="checkbox"]) {
   border: 1px solid var(--primario);
   padding: 1em;
   border-radius: 0.5em;
@@ -371,9 +386,10 @@ div.carousel-container {
 }
 
 #privacy {
-  width: 5em;
-  height: 5em;
+  min-width: 2em;
+  min-height: 2em;
 }
+
 #privacy:checked {
   accent-color: var(--secondario-fucsia);
 }
@@ -389,7 +405,7 @@ div.carousel-container {
   background-color: var(--secondario-verde);
   z-index: 2;
   height: fit-content;
-  font-family: "Neue Machina", serif;
+  font-family: "Neue Machina", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -564,6 +580,12 @@ div.carousel-container {
   }
 } */
 
+@media screen and (min-width: 534px) {
+  header .header-buttons {
+    flex-direction: row;
+  }
+}
+
 @media screen and (min-width: 834px) {
   .carousel-container {
     width: 70%;
@@ -583,7 +605,7 @@ div.carousel-container {
   }
 
   main.main-home {
-    padding: 5rem 7rem 7rem 7rem;
+    padding: 0 4em;
   }
 
   main.main-home h2 {
@@ -600,14 +622,12 @@ div.carousel-container {
     transform: scale(1.5);
   }
 
-  .main-privacy {
-    padding: 4rem 10rem;
+  .valori {
+    margin-right: auto;
   }
 
-  .valori {
-    width: 100%;
-    height: auto;
-    margin-bottom: 2rem;
+  .main-privacy {
+    padding: 4rem 10rem;
   }
 
   .btn-carousel {
@@ -656,7 +676,7 @@ div.carousel-container {
     justify-content: center;
     border-radius: 15px;
     padding: 1rem;
-    font-family: "Neue Machina", serif;
+    font-family: "Neue Machina", sans-serif;
   }
 
   #cookie-banner > p {
@@ -711,6 +731,13 @@ div.carousel-container {
     font-size: 3.8rem;
   }
 
+  .main-home {
+    padding: 0 12rem !important  ;
+  }
+  #valori ~ p {
+    margin-bottom: 5rem;
+  }
+
   main.main-home h2 {
     font-size: 2.8rem;
   }
@@ -726,5 +753,34 @@ div.carousel-container {
 
   #privacy {
     width: 2rem;
+  }
+
+  .valori {
+    width: 100%;
+    margin-bottom: 2rem;
+    flex-direction: row;
+    column-gap: 2em;
+    justify-content: space-evenly;
+  }
+
+  .valore-header {
+    flex-direction: row;
+    align-items: center;
+    /* column-gap: 1em; */
+  }
+  .valore-header P {
+    font-size: 1.15em !important;
+  }
+
+  .valore-header .icona {
+    flex-shrink: 0;
+  }
+
+  .valore-body {
+    row-gap: 1em !important;
+  }
+
+  p.valore-description {
+    font-size: 1.25em !important;
   }
 }
