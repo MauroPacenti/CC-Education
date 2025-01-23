@@ -1,102 +1,78 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.getElementById('carouselWrapper');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const container = document.querySelector('.carousel-container');
+const wrapper = document.querySelector(".wrapper");
+const carousel = document.querySelector(".carousel");
+const arrowBtns = document.querySelectorAll(".wrapper button");
+const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+const carouselChildrens = [...carousel.children];
 
-    let isDragging = false;
-    let startX = 0; //posizione iniziale del tocco
-    let currentTranslateX = 0; //posizione corrente
-    let previousTranslateX = 0; //posizione prima del trascinamento
+let isDragging = false,
+  startX,
+  startScrollLeft,
+  timeoutId;
 
-    /**
-     * Sets the horizontal transformation of the carousel wrapper.
-     * Moves carousel elements horizontally using the CSS transform property.
-     * Allows smooth sliding of carousel items by changing their horizontal position.
-     * @param {*} translateX - Horizontal translation value in pixels
-     */
-    function setTranslateX(translateX) {
-        wrapper.style.transform = `translateX(${translateX}px)`; //permette di spostare gli elementi orizzontalmente
-    }
+let cardsPerView = Math.round(carousel.offsetWidth / firstCardWidth);
 
-    // GESTIONE EVENTI TOUCH
-    container.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].clientX; //posizione iniziale del tocco: touches[0] rappresenta il primo punto di contatto e 
-                                        // clientX restituisce la posizione orizzontale del tocco rispetto al bordo sinistro della finestra
-        previousTranslateX = currentTranslateX; //memorizza la traduzione corrente
-    });
+// insert copie of the last few cards to beginning of carousel for infinite scrolling
+carouselChildrens
+  .slice(-cardsPerView)
+  .reverse()
+  .forEach((card) => {
+    carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+  });
 
-    container.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-
-        const currentX = e.touches[0].clientX; //posizione corrente del tocco
-        const diffX = currentX - startX; //calcola lo spostamento
-
-        currentTranslateX = previousTranslateX + diffX; //aggiorna la traduzione
-        setTranslateX(currentTranslateX);
-    });
-
-    container.addEventListener('touchend', () => {
-        isDragging = false;
-
-        applyBounds(); //per assicurarsi che il movimento rimanga entro i limiti
-    });
-
-    /**
-     * Applies movement constraints to the carousel to prevent it from moving beyond the edges.
-     * If the movement goes beyond the left edge (0), resets the position to 0
-     * If the movement goes beyond the right edge, locks it to the maximum allowed width
-     */
-    function applyBounds() {
-        const containerWidth = container.offsetWidth; //larghezza del contenitore visibile
-        const wrapperWidth = wrapper.scrollWidth; //larghezza del contenitore
-
-        if (currentTranslateX > 0) { //se supera il limite a sinistra viene riportata a 0
-            currentTranslateX = 0; 
-        } else if (currentTranslateX < containerWidth - wrapperWidth) {
-            currentTranslateX = containerWidth - wrapperWidth;
-        }
-
-        setTranslateX(currentTranslateX);
-    }
-
-    // PULSANTI AVANTI E INDIETRO
-    const itemWidth = 320; //larghezza elemento + margine
-    let itemsToScroll = 3; //numero di elementi da scorrere a clic
-    let currentPosition = 0; //indice degli elementi
-    const totalItems = wrapper.children.length; //numero tot di elementi nel carosello
-    const maxPosition = totalItems - itemsToScroll; //massima posizione raggiungibile
-
-    /**
-     * Dynamically updates the number of items to scroll based on the width of the screen.
-     */
-    function updateItemsToScroll() {
-        itemsToScroll = window.innerWidth <= 1024 ? 1 : 3; //scorre 1 elemento alla volta per schermi più piccoli di 1024
-    }
-
-    updateItemsToScroll();
-    window.addEventListener('resize', updateItemsToScroll); //ricalcola il numero di elementi da scorrere quando la finestra viene ridimensionata
-
-    nextBtn.addEventListener('click', () => {
-        if (currentPosition < maxPosition) {
-            currentPosition += itemsToScroll; //incremeneta la posizione attuale di elementi da scorrere
-            currentPosition = Math.min(currentPosition, maxPosition); //ci si assicura che la posizione attuale non superi la massima
-        } else {
-            currentPosition = 0; //se è alla fine torna all'inizio
-        }
-        currentTranslateX = -currentPosition * itemWidth; //sposta gli elementi verso sinistra
-        setTranslateX(currentTranslateX); //aggiorna la posizione
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (currentPosition > 0) {
-            currentPosition -= itemsToScroll; //descrementa la posizione attuale di elementi
-            currentPosition = Math.max(currentPosition, 0); //per assicurarsi che la posizione attuale non scenda sotto lo 0
-        } else {
-            currentPosition = maxPosition; //se è all'inizio torna alla fine
-        }
-        currentTranslateX = -currentPosition * itemWidth;
-        setTranslateX(currentTranslateX);
-    });
+carouselChildrens.slice(0, cardsPerView).forEach((card) => {
+  carousel.insertAdjacentHTML("beforeend", card.outerHTML);
 });
+
+arrowBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    carousel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+  });
+});
+
+const dragStart = (e) => {
+  isDragging = true;
+  carousel.classList.add("dragging");
+  startX = e.pageX;
+  startScrollLeft = carousel.scrollLeft;
+};
+
+const dragging = (e) => {
+  if (!isDragging) return;
+  carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+};
+
+const dragStop = () => {
+  isDragging = false;
+  carousel.classList.remove("dragging");
+};
+
+const autoPlay = () => {
+  if (window.innerWidth < 800) return;
+
+  timeoutId = setTimeout(() => (carousel.scrollLeft += firstCardWidth), 2500);
+};
+autoPlay();
+
+const infiniteScroll = () => {
+  if (carousel.scrollLeft === 0) {
+    carousel.classList.add("no-transition");
+    carousel.scrollLeft = carousel.scrollWidth - 2 * carousel.offsetWidth;
+    carousel.classList.remove("no-transition");
+  } else if (
+    Math.ceil(carousel.scrollLeft) ===
+    carousel.scrollWidth - carousel.offsetWidth
+  ) {
+    carousel.classList.add("no-transition");
+    carousel.scrollLeft = carousel.offsetWidth;
+    carousel.classList.remove("no-transition");
+  }
+  clearTimeout(timeoutId);
+  if (!wrapper.matches(":hover")) autoPlay();
+};
+
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("mousemove", dragging);
+document.addEventListener("mouseup", dragStop);
+carousel.addEventListener("scroll", infiniteScroll);
+wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+wrapper.addEventListener("mouseleave", autoPlay);

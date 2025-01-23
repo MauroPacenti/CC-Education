@@ -2,12 +2,9 @@
 
 h1,
 h2,
+h3,
 h4 {
   font-family: "Poppins", sans-serif;
-}
-
-body {
-  height: fit-content;
 }
 
 p,
@@ -15,25 +12,34 @@ p,
   font-family: "Neue Machina";
 }
 
+.main-laboratori h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  margin-right: auto;
+}
+
+.main-laboratori h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  margin-right: auto;
+}
+.main-laboratori h3 {
+  font-size: 1.25rem;
+  margin: 1rem 0;
+  margin-right: auto;
+}
+
 main.main-laboratori {
   top: 88px;
   position: relative;
+  padding: 0 2rem;
 }
 
-main.main-laboratori section > p {
-  margin: 1rem 3rem;
-}
 main.main-laboratori span {
   font-weight: bold;
   color: var(--secondario-fucsia);
-}
-
-.carousel-item-lab h4 {
-  margin-bottom: 1rem;
-}
-
-main.main-laboratori > p {
-  margin: 1rem 2rem;
 }
 
 main.main-laboratori section {
@@ -44,116 +50,8 @@ main.main-laboratori section {
   justify-content: space-between;
 }
 
-main.main-laboratori h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  /* margin-left: 0 2rem; */
-}
-
-.carousel-container {
-  width: 100%;
-  height: fit-content;
-  overflow: hidden;
-  position: relative;
-  /* margin: 0 auto; */
-  /* margin: 2rem auto; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-.carousel-wrapper {
-  display: flex;
-  height: fit-content;
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-.carousel-item-lab {
-  min-width: 15rem;
-  height: 38rem;
-  margin: 0 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 15px;
-}
-
-.carousel-item-lab picture {
-  width: 100%;
-}
-.carousel-and-buttons {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.carousel-item-lab h4 {
-  font-weight: bold;
-  font-size: 1.3rem;
-}
-
-.main-laboratori section {
-  height: fit-content;
-}
-
-.carousel-buttons {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 20px;
-  z-index: 3;
-}
-
-.btn {
-  margin: 0 1rem;
-  cursor: pointer;
-}
-
-#prevBtn {
-  left: -100px;
-}
-
-#nextBtn {
-  right: -100px;
-
-  z-index: 100;
-}
-
-#prevBtn,
-#nextBtn {
-  transition: transform 0.2s ease;
-}
-
-#prevBtn:hover {
-  transform: translateX(-10px);
-}
-
-#nextBtn:hover {
-  transform: translateX(10px);
-}
-
-.carousel-item-lab picture img {
-  width: 100%;
-  height: 12rem;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  object-fit: cover;
-  object-position: center;
-}
-
-article header .testo-voci p {
-  margin-top: 1rem;
-}
-.text-carousel {
-  padding: 1.5rem;
-  height: 27rem;
-  border-bottom: 3px solid var(--primario);
-  border-left: 3px solid var(--primario);
-  border-right: 3px solid var(--primario);
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  transition: background-color 0.5s ease;
+section.laboratori > p {
+  margin-bottom: 3rem;
 }
 
 .body-laboratori header {
@@ -163,7 +61,6 @@ article header .testo-voci p {
   border-top-right-radius: 15px;
   padding: 1rem;
   align-items: center;
-  justify-content: space-around;
 }
 
 .header-text h4 {
@@ -190,19 +87,13 @@ article header .testo-voci p {
   margin-bottom: 0;
 }
 
-.voci-laboratori {
+section.voci-laboratori {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 2rem;
-}
-
-#voci {
-  margin-left: 2rem;
-}
-
-section.voci-laboratori {
-  margin-bottom: 9rem;
+  /* padding: 2rem; */
+  margin: 2rem 0;
+  margin-bottom: 10em !important;
 }
 
 footer {
@@ -210,37 +101,17 @@ footer {
 }
 
 @media screen and (min-width: 834px) {
-  .carousel-item-lab picture img {
-    width: 100%;
-    height: 12rem;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    object-fit: cover;
-    object-position: center;
+  main.main-laboratori {
+    padding: 0 4rem;
   }
-
-  #voci {
-    margin-left: 7rem;
-  }
-  main.main-laboratori h2 {
+  .main-laboratori h1 {
     font-size: 2rem;
     font-weight: bold;
   }
 
-  main.main-laboratori section {
-    padding: 5rem;
-  }
-
-  main.main-laboratori section > p {
-    margin: 2rem 4rem;
-  }
-
-  .carousel-item-lab {
-    width: 15rem;
-  }
-
-  .carousel-item-lab picture {
-    width: 100%;
+  main.main-laboratori h2 {
+    font-size: 2rem;
+    font-weight: bold;
   }
 
   main.main-laboratori .voci-laboratori {
@@ -248,59 +119,125 @@ footer {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 3rem 7rem;
+    gap: 1rem;
   }
 
-  header {
+  .voci-laboratori header {
     justify-content: center;
   }
 
-  article {
-    width: 47%;
+  .voci-laboratori article {
+    width: calc(100% / 2 - 1rem);
   }
-  p:not(.text-carousel p) {
+
+  .voci-laboratori p:not(.text-carousel p) {
     font-size: 1.2rem;
   }
 }
 
 @media screen and (min-width: 1280px) {
-  main.main-laboratori h2 {
+  main.main-laboratori {
+    padding: 0 12rem;
+  }
+  main.main-laboratori h1 {
     font-size: 2.5rem;
     margin-right: auto;
-    margin-left: 4rem;
   }
 
-  main.main-laboratori section {
-    padding: 7rem 10rem;
+  main.main-laboratori h2 {
+    font-size: 2.5rem;
   }
+}
 
-  .carousel-container {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
+/* ----CARROUSEL---- */
 
-  .carousel-wrapper {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
-  }
+.wrapper {
+  max-width: 1100px;
+  width: 80%;
+  position: relative;
+}
 
-  .carousel-item-lab {
-    width: 5rem;
-  }
+.wrapper .carousel {
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-auto-flow: column;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
 
-  .carousel-item-lab picture {
-    width: 100%;
-  }
+.carousel::-webkit-scrollbar {
+  display: none;
+}
 
-  #voci {
-    margin-left: 14rem;
-  }
-  .voci-laboratori {
-    padding: 7rem 14rem;
-  }
+.wrapper button {
+  height: 50px;
+  width: 50px;
+  background-color: #fff;
+  border-radius: 50%;
 
-  .voci-laboratori article {
-    width: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+
+  transform: translateY(-50%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.wrapper button:first-child {
+  left: -22px;
+}
+.wrapper button:last-child {
+  right: -22px;
+}
+
+.carousel.no-transition {
+  scroll-behavior: auto;
+}
+.carousel.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+.carousel.dragging .card {
+  cursor: grab;
+  user-select: none;
+}
+
+.carousel .card {
+  scroll-snap-align: start;
+  height: 500px;
+  list-style: none;
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  padding-bottom: 15px;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card .img img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.card span {
+  color: #6a6d78;
+  font-size: 1.31rem;
+}
+
+@media screen and (min-width: 734px) {
+  .wrapper .carousel {
+    grid-auto-columns: calc((100% / 2) - 9px);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .wrapper .carousel {
+    grid-auto-columns: calc((100% / 3) - 12px);
   }
 }

@@ -54,7 +54,8 @@ header .header-buttons {
 }
 
 header.header-home h1 {
-  font-size: 2rem;
+  font-size: clamp(1.8rem, calc(7vw + 1rem), 5rem);
+  line-height: 1.15;
   font-weight: bold;
 }
 
@@ -551,40 +552,6 @@ div.carousel-container {
   margin-bottom: 1rem;
 }
 
-/* @media screen and (min-width: 393px) {
-  .carousel-container {
-    width: 60%;
-  }
-
-  .main-privacy {
-    padding: 3rem 5rem 5rem 5rem;
-  }
-  header {
-    padding: 10%;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  header .header-buttons {
-    display: block;
-  }
-
-  .btn-carousel {
-    width: 1.8rem;
-  }
-
-  .richiedi-informazioni input {
-    width: 100%;
-    margin-bottom: 7px;
-  }
-
-  .richiedi-informazioni textarea {
-    width: 100%;
-  }
-} */
-
 .row {
   display: flex;
   flex-direction: column;
@@ -604,12 +571,8 @@ div.carousel-container {
   }
 
   header h1 {
-    font-size: 3.5rem;
+    /* font-size: 3.5rem; */
   }
-
-  /* p {
-    font-size: 2rem;
-  } */
 
   #privacy-title {
     margin-top: 2rem;
@@ -736,7 +699,7 @@ div.carousel-container {
 
 @media screen and (min-width: 1280px) {
   header.header-home h1 {
-    font-size: 3.8rem;
+    /* font-size: 3.8rem; */
     font-family: "Poppins", sans-serif;
   }
 
