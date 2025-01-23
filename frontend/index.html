@@ -56,7 +56,12 @@
   <body class="body-home">
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente" />
+        <img
+          src="/img/logo.png"
+          alt="logo liberamente"
+          width="45"
+          height="64"
+        />
       </div>
 
       <div class="menu-container">
@@ -211,46 +216,62 @@
           nostra attività.
         </p>
         <fieldset>
-          <label for="nome">Nome <span class="required">*</span></label>
-          <input
-            type="text"
-            placeholder="Inserisci nome"
-            id="nome"
-            name="firstName"
-            required
-          />
-          <label for="cognome">Cognome <span class="required">*</span></label>
-          <input
-            type="text"
-            placeholder="Inserisci cognome"
-            id="cognome"
-            name="lastName"
-            required
-          />
-          <label for="email">Email <span class="required">*</span></label>
-          <input
-            type="email"
-            placeholder="Inserisci email"
-            name="email"
-            id="email"
-            required
-          />
-          <label for="phone">Telefono <span class="required">*</span></label>
-          <input
-            type="tel"
-            placeholder="Inserisci numero telefono"
-            name="phone"
-            id="phone"
-            required
-          />
-          <label for="message">Messagio <span class="required">*</span> </label>
-          <textarea
-            placeholder="Scrivi un messaggio..."
-            rows="4"
-            id="message"
-            name="message"
-            required
-          ></textarea>
+          <div class="row">
+            <div class="input-container">
+              <label for="nome">Nome <span class="required">*</span></label>
+              <input
+                type="text"
+                placeholder="Inserisci nome"
+                id="nome"
+                name="firstName"
+                required
+              />
+            </div>
+            <div class="input-container">
+              <label for="cognome"
+                >Cognome <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                placeholder="Inserisci cognome"
+                id="cognome"
+                name="lastName"
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label for="email">Email <span class="required">*</span></label>
+            <input
+              type="email"
+              placeholder="Inserisci email"
+              name="email"
+              id="email"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="phone">Telefono <span class="required">*</span></label>
+            <input
+              type="tel"
+              placeholder="Inserisci numero telefono"
+              name="phone"
+              id="phone"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="message"
+              >Messagio <span class="required">*</span>
+            </label>
+            <textarea
+              placeholder="Scrivi un messaggio..."
+              rows="4"
+              id="message"
+              name="message"
+              required
+            ></textarea>
+          </div>
         </fieldset>
         <div class="dichiarazione">
           <input type="checkbox" name="privacy" id="privacy" required />

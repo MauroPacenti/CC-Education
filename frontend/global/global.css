@@ -199,7 +199,7 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  font-family: "Neue Machina", sans-serif;
+  font-family: "Neue Machina", sans-serif !important;
 }
 
 iframe {
@@ -245,13 +245,14 @@ footer .contact {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid #dfdfdf;
   padding-bottom: 2em;
 }
 
-.copyright {
-  padding: 1.5em 2em;
-  padding-top: 0;
+p.copyright {
+  border-top: 1px solid #dfdfdf;
+  padding: 2em 1.5em;
+  width: 100%;
+  text-align: center;
 }
 
 .social {
@@ -262,45 +263,23 @@ footer .contact {
   footer {
     display: grid;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    height: 20rem;
-    padding: 7rem;
-  }
-
-  footer ul {
-    width: 70%;
-    margin-left: 7rem;
-  }
-
-  footer li {
-    text-align: left;
-  }
-
-  footer .contact p,
-  .email {
-    text-align: left;
-    width: 100%;
-  }
-
-  footer .icons-social {
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  footer .icons-social .social {
-    margin-right: 2rem;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    grid-template-rows: 1fr 0.5fr;
+    height: min-content;
   }
 
   footer iframe {
     margin-bottom: 1rem;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
     height: auto;
+    border-radius: 1em;
   }
 
-  footer {
-    padding: 7rem;
+  .copyright {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    padding: 0;
+    padding-top: 1.5em;
+    border-top: 1px solid #dfdfdf;
+    width: 100%;
   }
 }
