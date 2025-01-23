@@ -197,25 +197,22 @@ footer {
   background-color: var(--footer);
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  gap: 2rem;
   font-family: "Neue Machina", serif;
-  padding: 2rem;
-  height: 35rem;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
 }
 
 iframe {
   width: 100%;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
   margin-bottom: 1rem;
+  border-radius: 0.25em;
 }
+
 .map {
-  border-radius: 15px;
   overflow: hidden;
   width: 100%;
+  padding: 2em;
+  padding-bottom: 0;
 }
 
 footer ul {
@@ -224,6 +221,10 @@ footer ul {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+footer ul a:hover {
+  color: white;
 }
 
 footer p {
@@ -240,11 +241,19 @@ footer .icons-social {
 }
 
 footer .contact {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 2em;
 }
+
+.copyright {
+  padding: 1.5em 2em;
+  padding-top: 0;
+}
+
 .social {
   width: 1.5rem;
 }

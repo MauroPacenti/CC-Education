@@ -1,24 +1,29 @@
 /* Style per la pagina Laboratori */
 
-h1, h2, h4 {
+h1,
+h2,
+h4 {
   font-family: "Poppins", sans-serif;
 }
+
 body {
   height: fit-content;
 }
-p, .header-text h6 {
+
+p,
+.header-text h6 {
   font-family: "Neue Machina";
 }
 
-main {
+main.main-laboratori {
   top: 88px;
   position: relative;
 }
 
-main section > p {
+main.main-laboratori section > p {
   margin: 1rem 3rem;
 }
-main span {
+main.main-laboratori span {
   font-weight: bold;
   color: var(--secondario-fucsia);
 }
@@ -27,11 +32,11 @@ main span {
   margin-bottom: 1rem;
 }
 
-main > p {
+main.main-laboratori > p {
   margin: 1rem 2rem;
 }
 
-main section {
+main.main-laboratori section {
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
@@ -39,7 +44,7 @@ main section {
   justify-content: space-between;
 }
 
-main h2 {
+main.main-laboratori h2 {
   font-size: 1.8rem;
   font-weight: bold;
   /* margin-left: 0 2rem; */
@@ -88,7 +93,7 @@ main h2 {
   font-size: 1.3rem;
 }
 
-section {
+.main-laboratori section {
   height: fit-content;
 }
 
@@ -111,11 +116,12 @@ section {
 
 #nextBtn {
   right: -100px;
- 
+
   z-index: 100;
 }
 
-#prevBtn, #nextBtn {
+#prevBtn,
+#nextBtn {
   transition: transform 0.2s ease;
 }
 
@@ -150,7 +156,7 @@ article header .testo-voci p {
   transition: background-color 0.5s ease;
 }
 
-header {
+.body-laboratori header {
   background-color: var(--secondario-verde);
   display: flex;
   border-top-left-radius: 15px;
@@ -164,7 +170,7 @@ header {
   font-weight: bold;
 }
 
-header img {
+.body-laboratori header img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -205,27 +211,27 @@ footer {
 
 @media screen and (min-width: 834px) {
   .carousel-item-lab picture img {
-  width: 100%;
-  height: 12rem;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  object-fit: cover;
-  object-position: center;
-}
+    width: 100%;
+    height: 12rem;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    object-fit: cover;
+    object-position: center;
+  }
 
   #voci {
     margin-left: 7rem;
   }
-  main h2 {
+  main.main-laboratori h2 {
     font-size: 2rem;
     font-weight: bold;
   }
 
-  main section {
+  main.main-laboratori section {
     padding: 5rem;
   }
 
-  main section > p {
+  main.main-laboratori section > p {
     margin: 2rem 4rem;
   }
 
@@ -237,7 +243,7 @@ footer {
     width: 100%;
   }
 
-  main .voci-laboratori {
+  main.main-laboratori .voci-laboratori {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -258,22 +264,22 @@ footer {
 }
 
 @media screen and (min-width: 1280px) {
-  main h2 {
+  main.main-laboratori h2 {
     font-size: 2.5rem;
     margin-right: auto;
     margin-left: 4rem;
   }
 
-  main section {
+  main.main-laboratori section {
     padding: 7rem 10rem;
   }
 
   .carousel-container {
     overflow: hidden;
     position: relative;
-    width: 100%; 
+    width: 100%;
   }
-  
+
   .carousel-wrapper {
     display: flex;
     transition: transform 0.3s ease-in-out;
@@ -283,12 +289,10 @@ footer {
     width: 5rem;
   }
 
-
-
   .carousel-item-lab picture {
     width: 100%;
   }
-  
+
   #voci {
     margin-left: 14rem;
   }
@@ -299,5 +303,4 @@ footer {
   .voci-laboratori article {
     width: 30rem;
   }
-
 }

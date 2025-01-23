@@ -91,14 +91,14 @@
 
     <!-- fine navbar -->
 
-    <header>
+    <header class="header-home">
       <div class="background"></div>
       <div class="content">
-        <h1>Cascina Caccia</h1>
-        <h2>Memoria, Educazione e Legalità</h2>
+        <h1>Cascina Caccia - Educazione alla Legalità e Memoria</h1>
+        <h2>Centro Educativo per la Legalità e Memoria</h2>
         <p>
-          Un luogo di rinascita dove la storia diventa opportunità di crescita
-          sociale
+          Un centro educativo dedicato alla memoria di Bruno Caccia dove la
+          legalità diventa strumento di cambiamento sociale
         </p>
         <div class="header-buttons">
           <button class="contact-us">
@@ -111,7 +111,7 @@
       </div>
     </header>
 
-    <main>
+    <main class="main-home">
       <h2>La nostra missione educativa</h2>
       <p class="mission">
         La nostra cascina è un laboratorio permanente dove la storia incontra il
@@ -162,19 +162,46 @@
       </p>
 
       <div class="valori">
-        <div class="valore1">
-          <div class="icona stop"></div>
-          <p>Contrastare le logiche mafiose</p>
+        <div class="valore valore1">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona stop"></div>
+              <p>Contrastare le logiche mafiose</p>
+            </div>
+            <p class="valore-description">
+              Aiutiamo a identificare e opporsi alle dinamiche mafiose nella
+              società.
+            </p>
+          </div>
         </div>
 
-        <div class="valore2">
-          <div class="icona balance"></div>
-          <p>Promuovere valori di legalità e solidarietà</p>
+        <div class="valore valore2">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona balance"></div>
+              <p>Promuovere valori di legalità e solidarietà</p>
+            </div>
+            <p class="valore-description">
+              Educhiamo a legalità e solidarietà per costruire una società
+              migliore
+            </p>
+          </div>
         </div>
 
-        <div class="valore3">
-          <div class="icona new-generation"></div>
-          <p>Costruire una coscienza critica nelle nuove generazioni</p>
+        <div class="valore valore3">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona new-generation"></div>
+              <p>Costruire una coscienza critica nelle nuove generazioni</p>
+            </div>
+            <p class="valore-description">
+              Promuoviamo il pensiero critico nelle nuove generazioni per
+              comprendere la società
+            </p>
+          </div>
         </div>
       </div>
 
@@ -185,34 +212,39 @@
           nostra attività.
         </p>
         <fieldset>
+          <label for="nome">Nome <span class="required">*</span></label>
           <input
             type="text"
-            placeholder="Nome"
+            placeholder="Inserisci nome"
             id="nome"
             name="firstName"
             required
           />
+          <label for="cognome">Cognome <span class="required">*</span></label>
           <input
             type="text"
-            placeholder="Cognome"
+            placeholder="Inserisci cognome"
             id="cognome"
             name="lastName"
             required
           />
+          <label for="email">Email <span class="required">*</span></label>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Inserisci email"
             name="email"
             id="email"
             required
           />
+          <label for="phone">Telefono <span class="required">*</span></label>
           <input
             type="tel"
-            placeholder="Telefono"
+            placeholder="Inserisci numero telefono"
             name="phone"
             id="phone"
             required
           />
+          <label for="message">Messagio <span class="required">*</span> </label>
           <textarea
             placeholder="Scrivi un messaggio..."
             rows="4"
@@ -315,6 +347,9 @@
 
         <p class="email">cascinacaccia@acmos.net</p>
       </div>
+      <p class="copyright">
+        Copyright © 2025 Cascina Caccia. Tutti i diritti riservati.
+      </p>
     </footer>
 
     <!-- COOKIE BANNER -->

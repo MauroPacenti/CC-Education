@@ -6,111 +6,108 @@ h2 {
   font-family: "Poppins", sans-serif;
 }
 
-header {
+header.header-home {
   position: relative;
   width: 100%;
-  height: 80vh;
+  height: 90vh;
+  height: 90dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 5%;
   color: white;
+  padding-inline: 2.5em;
+  text-wrap: pretty;
+  margin-bottom: 4rem;
 }
 
-header .background {
+header.header-home .background {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   top: 80px;
   background-image: url("/img/img-ottimizzate/home-desktop/cascina-caccia-desktop.avif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(2px) brightness(0.6);
+  filter: blur(2px) brightness(0.4);
   z-index: 0;
 }
 
-.content {
-  position: relative;
-  top: 88px;
+header.header-home .content {
+  height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-header h1,
-header h2,
-header p,
-header .header-buttons {
   z-index: 1;
-}
-
-header .header-buttons {
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-header h1 {
+header .header-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+header.header-home h1 {
   font-size: 2rem;
   font-weight: bold;
 }
 
-header h2 {
-  font-size: 1.2rem;
+header.header-home h2 {
+  font-size: 1.3rem;
   margin-bottom: 2rem;
   font-weight: bold;
 }
 
-header p {
+header.header-home p {
   margin-bottom: 5rem;
   /* font-weight: bold; */
   font-family: "Neue Machina", sans-serif;
   font-size: 1rem;
 }
 
-header button {
+header.header-home button {
   font-family: "Poppins", sans-serif;
   margin-bottom: 1rem;
-  width: 144px;
-  height: 42px;
-  border-radius: 15px;
+  border-radius: 1em;
   background-color: var(--secondario-fucsia);
   margin-right: 1rem;
+  padding: 1em 2.5em;
 }
 
-header .contact-us {
-  background-color: var(--background);
-  color: var(--secondario-fucsia);
-  border: 3px solid var(--secondario-fucsia);
-}
-
-header .contact-us:active {
-  background-color: var(--secondario-fucsia);
+header.header-home .contact-us {
   color: white;
+  border: 3px solid white;
+  background-color: transparent;
 }
 
-header .book:active {
+header.header-home .contact-us:hover {
+  background-color: var(--secondario-fucsia);
+}
+
+header.header-home .book:hover {
+  background-color: white;
+  color: var(--secondario-fucsia);
+}
+
+header.header-home .book:active {
   border: 3px solid var(--secondario-fucsia);
   background-color: white;
   color: var(--secondario-fucsia);
 }
 
-header .book:hover,
-header .contact-us:hover {
+header.header-home .book:hover,
+header.header-home .contact-us:hover {
   transform: scale(1.1);
 }
 
-header .book,
-header .contact-us {
+header.header-home .book,
+header.header-home .contact-us {
   transition: transform 0.2s ease;
 }
 
-main {
-  padding: 1.5rem;
-  padding-bottom: 7rem;
-  padding-top: 5rem;
+main.main-home {
+  padding-inline: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,29 +116,29 @@ main {
   font-size: 1rem;
 }
 
-main span {
+main.main-home span {
   font-weight: bold;
   color: var(--secondario-fucsia);
 }
 
-main > h2 {
+main.main-home > h2 {
   font-size: 1.8rem;
   font-weight: bold;
-  margin: 2rem 2rem;
+  /* margin: 2rem 2rem; */
   margin-top: 0;
   align-self: flex-start;
 }
 
-#valori {
-  margin-top: 2rem;
+#valori ~ p {
+  margin-bottom: 2rem;
 }
 
 .mission {
-  margin: 1.5rem;
   text-align: left;
+  margin-bottom: 2rem;
 }
 
-main > button {
+main.main-home > button {
   background-color: var(--secondario-fucsia);
   font-family: "Poppins", sans-serif;
   color: white;
@@ -152,32 +149,37 @@ main > button {
   transition: transform 0.2s ease;
 }
 
-main > button:active {
+main.main-home > button:active {
   border: 3px solid var(--secondario-fucsia);
   background-color: white;
   color: var(--secondario-fucsia);
 }
 
-main > button:hover {
+main.main-home > button:hover {
   transform: scale(1.1);
 }
 
-.carousel-container {
+div.carousel-container {
   position: relative;
-  width: 80%;
-  height: fit-content;
   overflow: hidden;
-  margin: 2rem auto;
+  width: 100%;
+  margin-bottom: 2rem;
+  aspect-ratio: 16/9;
 }
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  height: fit-content;
+  width: 100%;
 }
 
 .carousel-item {
-  min-width: 100%;
+  flex-shrink: 0;
+  aspect-ratio: 16/9;
+}
+
+.carousel-item img {
+  object-fit: contain;
 }
 
 .carousel-btn {
@@ -196,27 +198,59 @@ main > button:hover {
 }
 
 .valori {
-  width: 70%;
-  height: 550px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  text-align: center;
-  margin: 1rem;
+  row-gap: 1em;
+  margin-bottom: 3em;
 }
 
-.icona {
-  margin: 1rem auto;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.valore {
+  display: flex;
+  gap: 1em;
+  cursor: pointer;
+  padding: 0.5em 0;
+  transition: all 0.2s ease;
+  border-radius: 0.5em;
+}
+.valore:hover {
+  background-color: #f5f5f5;
+}
+
+.line {
+  width: 4px;
+  border-radius: 2em;
+  background-color: var(--secondario-fucsia);
+}
+.valore-body {
+  width: 100%;
+}
+
+.valore-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.valore .icona {
+  width: 3em;
+  height: 3rem;
   background-color: var(--primario);
+  border-radius: 100%;
+  background-size: 60%;
+}
+
+.valore-header p {
+  font-size: 1em;
+  font-weight: bold;
+}
+.valore-description {
+  font-size: 0.85;
+  color: #797979;
 }
 
 .stop {
   background-image: url("/img/icon-stop.png");
-  background-size: 40%;
+  background-size: 60%;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -248,6 +282,7 @@ main > button:hover {
   padding: 2rem;
   gap: 20px;
   position: relative;
+  /* font-family: sans-serif; */
 }
 
 .richiedi-informazioni > h2 {
@@ -262,8 +297,8 @@ main > button:hover {
 
 .richiedi-informazioni input {
   border: 1px solid var(--primario);
-  padding: 12px;
-  border-radius: 15px;
+  padding: 1em;
+  border-radius: 0.5em;
   height: 44px;
   width: 100%;
   margin: 5px 0;
@@ -326,13 +361,21 @@ main > button:hover {
   gap: 10px;
 }
 
+.required {
+  color: red;
+}
+
 .dichiarazione {
   display: flex;
+  column-gap: 2em;
 }
 
 #privacy {
-  width: 4rem;
-  margin-right: 2rem;
+  width: 5em;
+  height: 5em;
+}
+#privacy:checked {
+  accent-color: var(--secondario-fucsia);
 }
 
 .privacy-link {
@@ -487,7 +530,7 @@ main > button:hover {
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 393px) {
+/* @media screen and (min-width: 393px) {
   .carousel-container {
     width: 60%;
   }
@@ -519,7 +562,7 @@ main > button:hover {
   .richiedi-informazioni textarea {
     width: 100%;
   }
-}
+} */
 
 @media screen and (min-width: 834px) {
   .carousel-container {
@@ -539,21 +582,21 @@ main > button:hover {
     margin-top: 2rem;
   }
 
-  main {
+  main.main-home {
     padding: 5rem 7rem 7rem 7rem;
   }
 
-  main h2 {
+  main.main-home h2 {
     font-size: 2rem;
   }
 
-  main .valori .icona {
+  main.main-home .valori .icona {
     width: 3.2rem;
     height: 3.2rem;
     transition: transform 0.5s ease;
   }
 
-  main .valori .icona:hover {
+  main.main-home .valori .icona:hover {
     transform: scale(1.5);
   }
 
@@ -562,18 +605,11 @@ main > button:hover {
   }
 
   .valori {
-    flex-direction: row;
     width: 100%;
     height: auto;
     margin-bottom: 2rem;
   }
 
-  .valore1,
-  .valore2,
-  .valore3 {
-    height: 12rem;
-    width: 160px;
-  }
   .btn-carousel {
     width: 2.5rem;
   }
@@ -675,7 +711,7 @@ main > button:hover {
     font-size: 3.8rem;
   }
 
-  main h2 {
+  main.main-home h2 {
     font-size: 2.8rem;
   }
 
