@@ -150,7 +150,7 @@ const content = [
   },
   {
     id: 10,
-    title: "Chi non gioca vincei",
+    title: "Chi non gioca vince",
     image: "/img/carosello-laboratori/gioco.jpg",
     description:
       "Unisciti al nostro percorso formativo specificamente progettato per adolescenti sui pericoli del gioco d'azzardo. Esplora le dinamiche delle dipendenze e sviluppa una consapevolezza critica sui comportamenti a rischio, attraverso attività interattive e discussioni guidate.",
@@ -164,24 +164,25 @@ const modalFactory = function (event) {
 
   const singleContent = content[numberBtn - 1];
   const modal = document.createElement("div");
+  modal.classList.add("modal-overlay"); // Add modal class
   modal.classList.add("show-modal"); // Add modal class
 
   modal.innerHTML = `
-    <div class="modal-content">
-      <div class="modal-header">
-        <img src="${singleContent?.image}" alt=""/> 
-      </div>
-      <div class="modal-body">
-        <div class="modal-left">
-          <h4>${singleContent?.title}</h4> 
-          <p>${singleContent?.description}</p>
-        </div>
-        <div class="modal-right">
-          <button class="modal-close">Chiudi</button> 
-          <a href="/richiedi-prenotazione/"> Richiedi Prenotazione </a>
-        </div>
-      </div>
-    </div>       
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="${singleContent?.image}" alt="Modal Image">
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+                    <h4>${singleContent?.title}</h4>
+                    <p>${singleContent?.description}</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-modal btn-close">Chiudi</button>
+                    <a href="/richiedi-prenotazione/" class="btn-modal btn-primary">Richiedi Prenotazione</a>
+                </div>
+            </div>
+        </div>     
   `;
 
   body.appendChild(modal);
@@ -195,7 +196,7 @@ const modalFactory = function (event) {
     }
   });
 
-  const modalClose = modal.querySelector(".modal-close");
+  const modalClose = modal.querySelector(".btn-close");
   modalClose.addEventListener(
     "click",
     function () {
