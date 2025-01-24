@@ -1,0 +1,115 @@
+/* Style per la pagina richiesta Info ricevuta */
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: url('https://path-to-your-fonts/neue-machina.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.header img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.content strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.social-icons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.social-icons a {
+    text-decoration: none;
+}
+
+.social-icons img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+}
+
+.footer {
+    background-color: #d99441;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 20px;
+}
+
+.footer #email {
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer #email:hover {
+    text-decoration: underline;
+}
+
+footer #telefono {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.content img#party, .content img#heart {
+    vertical-align: middle;
+    margin-left: 3px;
+}
+
+/* Media query per schermi grossi */
+@media screen and (min-width: 834px) {
+    
+    .container {
+    width: 600px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+    color: #333;
+    }
+
+    .content {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    }
+
+    .footer {
+    text-align: center;
+    font-size: 14px;
+    }
+}
