@@ -7,9 +7,13 @@ h4 {
   font-family: "Poppins", sans-serif;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 p,
 .header-text h6 {
-  font-family: "Neue Machina";
+  font-family: "Neue Machina", sans-serif;
 }
 
 .main-laboratori h1 {
@@ -172,9 +176,10 @@ footer {
   display: none;
 }
 
-.wrapper button {
-  height: 50px;
-  width: 50px;
+.wrapper #left,
+.wrapper #right {
+  height: 44px;
+  width: 44px;
   background-color: #fff;
   border-radius: 50%;
 
@@ -188,11 +193,13 @@ footer {
   transform: translateY(-50%);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.wrapper button:first-child {
-  left: -22px;
+
+.wrapper #left {
+  left: -55px;
 }
-.wrapper button:last-child {
-  right: -22px;
+
+.wrapper #right {
+  right: -55px;
 }
 
 .carousel.no-transition {
@@ -209,7 +216,6 @@ footer {
 
 .carousel .card {
   scroll-snap-align: start;
-  height: 500px;
   list-style: none;
   background-color: #fff;
   border-radius: 8px;
@@ -218,6 +224,7 @@ footer {
   padding-bottom: 15px;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .card .img img {
@@ -226,9 +233,21 @@ footer {
   object-fit: cover;
 }
 
-.card span {
-  color: #6a6d78;
-  font-size: 1.31rem;
+.card h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  margin: 1em auto;
+}
+
+.card button {
+  background-color: var(--secondario-fucsia);
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
 }
 
 @media screen and (min-width: 734px) {
@@ -240,4 +259,82 @@ footer {
   .wrapper .carousel {
     grid-auto-columns: calc((100% / 3) - 12px);
   }
+}
+
+/* modal */
+
+.show-modal {
+  position: fixed;
+  inset: 0;
+  top: 50px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 1em;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  height: min-content;
+  overflow: hidden;
+}
+
+.modal-header {
+  width: 100%;
+  height: 150px;
+}
+
+.modal-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-body {
+  padding: 1.25em;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body h4 {
+  font-size: 1.25em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.modal-body p {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+.modal-body .modal-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1em;
+}
+
+button.modal-close {
+  color: var(--secondario-fucsia);
+  border: 2px solid var(--secondario-fucsia);
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.modal-body a {
+  background-color: var(--secondario-fucsia);
+  border: 2px solid var(--secondario-fucsia);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
 }
