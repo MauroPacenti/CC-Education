@@ -510,48 +510,6 @@ div.carousel-container {
   color: var(--secondario-fucsia);
 }
 
-/* -------------------PRIVACY PAGE------------------------- */
-.main-privacy {
-  height: fit-content;
-  padding: 3rem;
-  box-sizing: content-box;
-}
-
-.main-privacy h2 {
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-}
-
-#privacy-title {
-  margin: 0;
-}
-
-.main-privacy h3 {
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.main-privacy ul {
-  display: flex;
-  flex-direction: column;
-}
-
-.main-privacy ul li {
-  list-style-type: disc;
-  margin-left: 2rem;
-}
-
-.main-privacy li h4 {
-  font-weight: bold;
-  color: var(--secondario-fucsia);
-  font-family: "Poppins", sans-serif;
-}
-
-.main-privacy ol > li {
-  margin-bottom: 1rem;
-}
-
 .row {
   display: flex;
   flex-direction: column;

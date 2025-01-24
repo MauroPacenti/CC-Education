@@ -1,0 +1,61 @@
+/* -------------------PRIVACY PAGE------------------------- */
+.main-privacy {
+  position: relative;
+  top: 80px;
+  height: fit-content;
+  padding: 2rem;
+  box-sizing: content-box;
+  margin-bottom: 5em;
+  font-family: "Neue Machina", sans-serif;
+}
+
+.main-privacy h2 {
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8em;
+}
+
+#privacy-title {
+  margin: 0;
+}
+
+.main-privacy h3 {
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.main-privacy ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-privacy ul li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+.main-privacy li h4 {
+  font-weight: bold;
+  color: var(--secondario-fucsia);
+  font-family: "Poppins", sans-serif;
+}
+
+.main-privacy ol > li {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 834px) {
+  .main-privacy {
+    padding: 3rem 10rem;
+  }
+
+  .main-privacy h2 {
+    font-size: 2.5rem;
+  }
+  .main-privacy h3,
+  .main-privacy li,
+  .main-privacy p {
+    font-size: 1.2rem;
+  }
+}
