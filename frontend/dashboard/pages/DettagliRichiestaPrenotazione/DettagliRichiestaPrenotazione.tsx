@@ -5,6 +5,8 @@ import Details from "../../components/Details/Details";
 import Buttons from "../../components/Buttons/Buttons";
 import useDettagliRichiestaPrenotazione from "../../hooks/useDettagliRichiestaPrenotazione";
 import { CalendarSearch, Trash } from "lucide-react";
+import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
+import { useState } from "react";
 
 const DettagliRichiestaPrenotazione = () => {
   const {
@@ -19,6 +21,17 @@ const DettagliRichiestaPrenotazione = () => {
     selectedDate,
     keeperId,
   } = useDettagliRichiestaPrenotazione();
+
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const toggleDeleteModal = () => {
+    setDeleteModal(!deleteModal);
+    if (!deleteModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
+  };
 
   if (isError) {
     return (
@@ -48,13 +61,7 @@ const DettagliRichiestaPrenotazione = () => {
       <h2>Dettagli Richiesta Prenotazione</h2>
 
       <div className="buttons-container">
-        <button
-          className="button reject"
-          onClick={() => {
-            if (!keeperId) return;
-            deleteMutation.mutate(keeperId);
-          }}
-        >
+        <button className="button reject" onClick={toggleDeleteModal}>
           <span>
             {" "}
             <Trash width={20} height={20} /> Rifiuta
@@ -84,15 +91,12 @@ const DettagliRichiestaPrenotazione = () => {
                 ).toLocaleDateString()}
               </p>
               <p className="duration-text">
-                Durata richiesta:{" "}
-                {durationText(bookingRequestDetails?.duration)}
+                Durata richiesta: {bookingRequestDetails?.duration} giorni
               </p>
             </div>
 
             <div className="date-selection">
-              {bookingRequestDetails?.duration === 1 ||
-              bookingRequestDetails?.duration === 2 ||
-              bookingRequestDetails?.duration === 3 ? (
+              {bookingRequestDetails?.duration === 1 ? (
                 <div className="single-date-input">
                   <label className="date-label" htmlFor="single-date">
                     Seleziona giorno della prenotazione
@@ -105,10 +109,7 @@ const DettagliRichiestaPrenotazione = () => {
                       bookingRequestDetails?.startAvailabilityDate ??
                       new Date().toISOString().split("T")[0]
                     }
-                    max={
-                      bookingRequestDetails?.endAvailabilityDate ??
-                      new Date().toISOString().split("T")[0]
-                    }
+                    max={bookingRequestDetails?.endAvailabilityDate}
                     onClick={(e) => {
                       console.log(e.currentTarget.value);
                       e.currentTarget.showPicker();
@@ -161,7 +162,7 @@ const DettagliRichiestaPrenotazione = () => {
                       }
                       onChange={handleChange}
                       name="endDate"
-                      value={selectedDate.endDate}
+                      value={selectedDate?.startDate}
                       onClick={(e) => {
                         e.currentTarget.showPicker();
                       }}
@@ -180,6 +181,13 @@ const DettagliRichiestaPrenotazione = () => {
             </button>
           </div>
         </Modal>
+      )}
+      {deleteModal && (
+        <ShowDeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          onClick={() => deleteMutation.mutate(keeperId)}
+          subject="richiesta di prenotazione"
+        />
       )}
 
       <div className="details-container">
@@ -257,26 +265,13 @@ const DettagliRichiestaPrenotazione = () => {
             ></Details.DetailItem>
             <Details.DetailItem
               label="Durata"
-              value={durationText(bookingRequestDetails?.duration)}
+              value={bookingRequestDetails?.duration + " giorni"}
             ></Details.DetailItem>
           </Details.DetailsGrid>
         </Details.DetailsSection>
       </div>
     </div>
   );
-};
-
-const durationText = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "Mattina";
-    case 2:
-      return "Pomeriggio";
-    case 3:
-      return "Intera giornata";
-    case 4:
-      return "Più giorni";
-  }
 };
 
 export default DettagliRichiestaPrenotazione;

@@ -149,7 +149,9 @@ const DettagliRichiestaInformazione = () => {
       <h2>{requestInformationDetails?.title}</h2>
       <p className="request-info-email">{requestInformationDetails?.email}</p>
       <p className="request-info-date">{requestInformationDetails?.date}</p>
-      <p>{requestInformationDetails?.content}</p>
+      <p className="request-info-content">
+        {requestInformationDetails?.content}
+      </p>
       <button className="reply-button text-button" onClick={toggleReplyModal}>
         <MessageSquareReply /> Rispondi
       </button>

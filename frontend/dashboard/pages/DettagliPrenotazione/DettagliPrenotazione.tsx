@@ -23,6 +23,11 @@ const DettagliPrenotazione = () => {
   const [isDeteModalOpen, setIsDeteModalOpen] = useState(false);
   const toggleDeleteModal = () => {
     setIsDeteModalOpen((prev) => !prev);
+    if (!isDeteModalOpen) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   if (isError) {

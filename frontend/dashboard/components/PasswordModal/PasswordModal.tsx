@@ -184,6 +184,15 @@ const PasswordModal = ({
                 verifyPassword(passwords.password);
                 setIsOnBlurPassword(true);
               }}
+              className={`${
+                isOnBlurPassword &&
+                !requirements.hasUppercase &&
+                !requirements.hasLowercase &&
+                !requirements.hasNumber &&
+                !requirements.hasSpecialChar &&
+                !requirements.hasMinLength &&
+                "error-input"
+              }`}
             />
             <p className="error-message">
               {isOnBlurPassword &&
@@ -207,6 +216,11 @@ const PasswordModal = ({
               onBlur={() => {
                 setIsOnBlurRepeatPassword(true);
               }}
+              className={`${
+                isOnBlurRepeatPassword &&
+                passwords.password !== passwords.repeatPassword &&
+                "error-input"
+              }`}
             />
             <p className="error-message">
               {isOnBlurRepeatPassword &&

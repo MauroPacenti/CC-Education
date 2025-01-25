@@ -7,8 +7,23 @@
   margin: 0 4em;
 }
 
-.delete-modal h3 {
-  font-size: 1.15em;
+.delete-modal-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.1em;
+  border-radius: 50%;
+  background-color: #f443363a;
+  border: 3px solid #f44336;
+  margin: 0 auto;
+  margin-bottom: 2em;
+}
+
+.delete-modal p {
+  text-align: center;
+  font-size: 1.1em;
   margin-bottom: 1em;
 }
 
@@ -20,7 +35,7 @@
 }
 
 .delete-modal-buttons button {
-  background-color: #f0f0f0;
+  background-color: transparent;
   color: #5932ea;
   border: 2px solid #5932ea;
   padding: 0.75em 1em;

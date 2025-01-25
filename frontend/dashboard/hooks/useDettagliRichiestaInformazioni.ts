@@ -62,12 +62,22 @@ const useDettagliRichiestaInformazioni = () => {
 
   const toggleReplyModal = () => {
     setShowReplyModal((prev) => !prev);
+    if (!showReplyModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   const toggleDeleteModal = () => {
     setErrorDelete(null);
     setIsLoadingDelete(false);
     setShowDeleteModal((prev) => !prev);
+    if (!showDeleteModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   const handleDeleteClick = (
