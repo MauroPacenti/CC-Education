@@ -2,6 +2,8 @@ package com.novo.services;
 
 import com.novo.entities.JourneyRequest;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,4 +14,5 @@ public interface JourneyRequestService {
     boolean deleteJourneyRequest(int journeyRequestId);
     JourneyRequest getKeeper(int keeperId);
     void updateJourneyRequest(int journeyRequestId, JourneyRequest journeyRequest);
+    boolean dateCheck(LocalDate startDate, LocalDate endDate);
 }

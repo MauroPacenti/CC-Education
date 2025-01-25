@@ -6,6 +6,7 @@ import com.novo.repos.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,29 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
         journeyRequestRepo.save(edited);
     }
 
-	@Override
+    @Override
+    public boolean dateCheck(LocalDate startDate, LocalDate endDate) {
+        // Ensure both dates are provided
+        if (startDate == null || endDate == null) {
+            return false;
+        }
+
+        // Get the current date
+        LocalDate today = LocalDate.now();
+
+        // Check if startDate is today or in the future
+        if (startDate.isBefore(today)) {
+            return false;
+        }
+
+        // Ensure endDate is after startDate
+        if (!endDate.isAfter(startDate)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
 	public JourneyRequest getKeeper(int keeperId) {
 		return journeyRequestRepo.findByKeeperId(keeperId);
 	}
