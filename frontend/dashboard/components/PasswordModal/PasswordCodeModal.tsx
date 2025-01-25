@@ -118,6 +118,7 @@ const PasswordCodeModal = ({
               className="reset"
               onClick={() => {
                 setCode(["", "", "", "", "", "", "", "", ""]);
+                toggleCodePasswordModal();
               }}
             >
               Cancella

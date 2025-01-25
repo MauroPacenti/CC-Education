@@ -163,6 +163,7 @@ const EmailCodesModal = ({
               onClick={() => {
                 setOldCode(["", "", "", "", "", "", "", "", ""]);
                 setNewCode(["", "", "", "", "", "", "", "", ""]);
+                toggleCodesEmailModal();
               }}
             >
               Cancella
