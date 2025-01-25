@@ -62,7 +62,7 @@ public class JourneyController {
 	   
 	    Journey savedJourney = new Journey();
 	    try {
-	    	if(adminService.validateEmail(savedJourney.getKeeper().getEmail())) {
+	    	if(adminService.validateEmail(keeperService.getKeeper(keeperId).get().getEmail())) {
 	    		throw new Error("L'email nom ha un formato idoneo.");
 	    	}
 				savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
