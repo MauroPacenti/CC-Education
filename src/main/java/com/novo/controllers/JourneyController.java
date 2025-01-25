@@ -79,7 +79,11 @@ public class JourneyController {
 	    }
 			try {
 				String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
-				String body= "La prenotazione è stata confermata";
+				String body= "Gentile " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName()
+						+ ",<br>" +
+						"La sua prenotazione è stata confermata" +
+						"<h3>Dettagli</h3>"
+						+ savedJourney.details();
 				javaMailSenderService.sendMail(savedJourney.getKeeper().getEmail(), object, body); // Sends email with journey
         }catch(Exception e) {
         	e.printStackTrace();
@@ -111,7 +115,11 @@ public class JourneyController {
 			try {
 				journey = journeyService.save(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
 				String object= "Richiesta prenotazione: " + journey.getKeeper().getFirstName() + " " + journey.getKeeper().getLastName();
-				String body= "La richiesta è stata registrata";
+				String body= "Gentile " + journeyDto.getKeeper().getFirstName() + " " + journeyDto.getKeeper().getLastName()
+						+ ",<br>" +
+						"La sua prenotazione è stata confermata" +
+						"<h3>Dettagli</h3>"
+						+ journeyDto.getJourney().details();
 				javaMailSenderService.sendMail(journeyDto.getKeeper().getEmail(), object, body); // Sends email with journey request
 			}catch(Exception e) {
 				e.printStackTrace();

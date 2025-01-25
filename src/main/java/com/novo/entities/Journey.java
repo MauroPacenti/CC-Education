@@ -36,6 +36,20 @@ public class Journey {
 	@JoinColumn(name = "keeper_id", referencedColumnName = "id")
 	private Keeper keeper;
 
+	public String details() {
+		return "<table border='1' cellspacing='0' cellpadding='5'>" +
+				"<tr><th colspan='2'>Dettagli</th></tr>" +
+				"<tr><td><b>Titolo</b></td><td>" + this.title + "</td></tr>" +
+				"<tr><td><b>Responsabile</b></td><td>" + this.keeper.getFirstName() + " " + this.keeper.getLastName() + "</td></tr>" +
+				"<tr><td><b>Gruppo</b></td><td>Minori: " + this.keeper.getGroup().getMinors() +
+				", Adulti: " + this.keeper.getGroup().getAdults() + "</td></tr>" +
+				"<tr><td><b>Organizzazione</b></td><td>" + this.keeper.getOrganization().getName() + "</td></tr>" +
+				"<tr><td><b>Data Inizio</b></td><td>" + this.startDate + "</td></tr>" +
+				"<tr><td><b>Data Fine</b></td><td>" + this.endDate + "</td></tr>" +
+				"<tr><td><b>Annotazioni</b></td><td>" + this.annotations + "</td></tr>" +
+				"</table>";
+	}
+
 	public int getId() {
 		return id;
 	}
