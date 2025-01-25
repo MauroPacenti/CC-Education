@@ -39,6 +39,21 @@ const useDettagliRichiestaInformazioni = () => {
     },
   });
 
+  const sendEmailMutation = useMutation({
+    mutationFn: (data: { to: string; subject: string; body: string }) =>
+      DettagliRichiestaInformazioneService.replyRequest(data),
+    onSuccess: () => {
+      toggleToast({
+        type: "success",
+        message: "Email inviata con successo!",
+      });
+      setShowReplyModal(false);
+    },
+    onError: (error) => {
+      setErrorDelete(error.message);
+    },
+  });
+
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -85,6 +100,7 @@ const useDettagliRichiestaInformazioni = () => {
     isError,
     handleDeleteClick,
     idRichiestaInformazione,
+    sendEmailMutation,
   };
 };
 

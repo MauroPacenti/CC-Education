@@ -1,5 +1,4 @@
 import "./DettagliRichiestaPrenotazione.css";
-import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import Modal from "../../components/Modal/Modal";
 
 import Details from "../../components/Details/Details";
@@ -10,8 +9,6 @@ import { CalendarSearch, Trash } from "lucide-react";
 const DettagliRichiestaPrenotazione = () => {
   const {
     isLoading,
-    replyModal,
-    handleContact,
     bookingRequestDetails,
     approveMutation,
     deleteMutation,
@@ -45,12 +42,6 @@ const DettagliRichiestaPrenotazione = () => {
 
   return (
     <div>
-      {replyModal && (
-        <ShowReplyModal
-          toggleReplyModal={handleContact}
-          email={bookingRequestDetails?.keeper?.email}
-        />
-      )}
       <Buttons.BackButton></Buttons.BackButton>
 
       <h2>Dettagli Richiesta Prenotazione</h2>

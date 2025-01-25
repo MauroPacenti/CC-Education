@@ -29,7 +29,28 @@ const deleteRequest = async (id?: number) => {
   }
 };
 
+const replyRequest = async (data: {
+  to: string;
+  subject: string;
+  body: string;
+}) => {
+  const response = await fetch(
+    `/api/pub/sendMail?to=${data.to}&subject=${data.subject}&body=${data.body}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
+
 export const DettagliRichiestaInformazioneService = {
   getRequest,
   deleteRequest,
+  replyRequest,
 };
