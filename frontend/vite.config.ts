@@ -4,13 +4,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    // legacy({
-    //   targets: ["ie >= 11"],
-    //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
-    // }),
-  ],
+  plugins: [react()],
 
   build: {
     outDir: "../src/main/resources/static", // Cartella di output
@@ -20,7 +14,8 @@ export default defineConfig({
         laboratori: "./laboratori/index.html", // Pagina "Laboratori"
         richiediPrenotazione: "./richiedi-prenotazione/index.html", // Pagina "Richiedi Prenotazione"
         "sign-in": "./sign-in/index.html", // Pagina "Login"
-        dashboard: "./dashboard/index.html", // Pagina "Laboratori"
+        dashboard: "./dashboard/index.html", // Pagina "Laboratori",
+        privacy: "./privacy/index.html", // Pagina "Privacy"
       },
     },
   },

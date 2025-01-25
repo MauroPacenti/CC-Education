@@ -5,6 +5,7 @@ import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaInformazioni";
 import Buttons from "../../components/Buttons/Buttons";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 const DettagliRichiestaInformazione = () => {
   const {
@@ -18,13 +19,26 @@ const DettagliRichiestaInformazione = () => {
     isLoadingDelete,
     errorDelete,
     handleDeleteClick,
-    idRichiestaInformazione,
+    sendEmailMutation,
   } = useDettagliRichiestaInformazioni();
 
   const navigate = useNavigate();
   const navigateToRichiesteInformazioni = () => {
     navigate("/dashboard/richieste-informazioni");
   };
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [windowWidth]);
 
   if (errorDelete) {
     return (
@@ -49,7 +63,7 @@ const DettagliRichiestaInformazione = () => {
     return (
       <div>
         <button onClick={navigateToRichiesteInformazioni}>
-          {idRichiestaInformazione ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>
@@ -81,7 +95,7 @@ const DettagliRichiestaInformazione = () => {
     return (
       <div>
         <button onClick={navigateToRichiesteInformazioni}>
-          {idRichiestaInformazione ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>
@@ -94,11 +108,12 @@ const DettagliRichiestaInformazione = () => {
   }
 
   return (
-    <div>
+    <div className="info-request-details">
       {showReplyModal && (
         <ShowReplyModal
           toggleReplyModal={toggleReplyModal}
           email={requestInformationDetails?.email}
+          sendEmail={sendEmailMutation.mutate}
         ></ShowReplyModal>
       )}
       {showDeleteModal && (
@@ -110,7 +125,7 @@ const DettagliRichiestaInformazione = () => {
       )}
       <div className="info-request-details-buttons">
         <button onClick={navigateToRichiesteInformazioni}>
-          {idRichiestaInformazione ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>
@@ -134,7 +149,6 @@ const DettagliRichiestaInformazione = () => {
       <h2>{requestInformationDetails?.title}</h2>
       <p className="request-info-email">{requestInformationDetails?.email}</p>
       <p className="request-info-date">{requestInformationDetails?.date}</p>
-      <hr />
       <p>{requestInformationDetails?.content}</p>
       <button className="reply-button text-button" onClick={toggleReplyModal}>
         <MessageSquareReply /> Rispondi

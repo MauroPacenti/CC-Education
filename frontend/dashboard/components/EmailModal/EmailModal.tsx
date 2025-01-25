@@ -161,6 +161,7 @@ const EmailModal = ({
               className="reset"
               onClick={() => {
                 setEmails({ email: "", repeatEmail: "" });
+                toggleEmailModal();
               }}
             >
               Cancella

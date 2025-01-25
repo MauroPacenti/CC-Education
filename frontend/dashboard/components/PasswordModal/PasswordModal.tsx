@@ -221,6 +221,7 @@ const PasswordModal = ({
               className="reset"
               onClick={() => {
                 setPasswords({ password: "", repeatPassword: "" });
+                togglePasswordModal();
               }}
             >
               Cancella

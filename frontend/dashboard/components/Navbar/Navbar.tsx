@@ -64,7 +64,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <NavLink to="/dashboard/" className="logo" onClick={closeMenu}>
-        <img src="/img/logo.png" alt="Logo" />
+        <img src="/img/logo.png" alt="Logo" width="45" height="64" />
       </NavLink>
 
       <ul className={`navbar-list ${isMenuOpen ? "active" : ""}`}>

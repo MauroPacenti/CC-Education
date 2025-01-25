@@ -1,16 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laboratori</title>
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-    <script src="../global/global.ts" type="module"></script>
-    <script type="module" src="./laboratori.ts"></script>
-    <script type="module" src="/laboratori/laboratori.js"></script>
+    <meta name="robots" content="index, follow" />
+    <title>Laboratori Educativi sulla Legalità | Cascina Caccia</title>
+    <meta
+      name="description"
+      content="Scopri i laboratori educativi di Cascina Caccia: percorsi sulla legalità, cittadinanza attiva e giustizia sociale per giovani. Dalla storia della mafia al riutilizzo sociale dei beni confiscati."
+    />
+    <meta name="author" content="NOVO - Barbara Pisano" />
+    <meta property="og:title" content="Laboratori Educativi - Cascina Caccia" />
+    <meta
+      property="og:description"
+      content="Percorsi educativi sulla legalità e cittadinanza attiva per giovani presso Cascina Caccia, bene confiscato alla mafia."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://www.cascinacaccia.it/educazione/laboratori/"
+    />
+    <meta
+      property="og:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
+    <meta
+      name="twitter:title"
+      content="Laboratori Educativi - Cascina Caccia"
+    />
+    <meta
+      name="twitter:description"
+      content="Percorsi educativi sulla legalità e cittadinanza attiva per giovani presso Cascina Caccia, bene confiscato alla mafia."
+    />
+    <meta
+      name="twitter:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
 
-    <link rel="stylesheet" href="/laboratori/laboratori.css" />
-    <link rel="stylesheet" href="/global/global.css" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <script src="/global/global.ts" type="module"></script>
+    <script type="module" src="./laboratori.ts"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,20 +48,26 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+
+  <body class="body-laboratori">
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente" />
+        <img
+          src="/img/logo.png"
+          alt="logo liberamente"
+          width="45"
+          height="64"
+        />
       </div>
 
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img id="icon-menu" src="/img/icon-menu.svg" alt="icona menu" />
             <img
               id="icon-close"
               class="hide"
-              src="../img/icon-close.svg"
+              src="/img/icon-close.svg"
               alt="icon close"
             />
           </a>
@@ -48,153 +83,338 @@
           <li class="menu-item">
             <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
           </li>
-          <li class="menu-item">
-            <a href="/sign-in/">Area riservata</a>
-          </li>
         </ul>
       </div>
     </nav>
 
-    <main>
-      <section>
-        <h2>I laboratori</h2>
+    <main class="main-laboratori">
+      <section class="laboratori">
+        <h1>I laboratori</h1>
         <p>
-          I nostri laboratori trasformano la storia della sopraffazione in
-          un'opportunità educativa, offrendo ai giovani un
-          <span>percorso di crescita</span>
-          sulla legalità, cittadinanza attiva e giustizia sociale.
+          Esplora i nostri laboratori didattici sulla legalità e l'antimafia:
+          percorsi formativi interattivi per studenti e giovani. Attraverso
+          testimonianze, documenti storici e attività pratiche, trasformiamo la
+          memoria in <span>strumenti educativi</span> per promuovere la
+          cittadinanza attiva, la giustizia sociale e la cultura della legalità
+          democratica. Un'esperienza formativa unica per comprendere e
+          contrastare le mafie.
         </p>
-        <div class="carousel-container">
-          <div class="carousel-wrapper" id="carouselWrapper">
-            <div class="carousel-item">
-              <div class="img-carousel storia-cascina"></div>
-              <div class="text-carousel">
-                <h4>Storia della Cascina</h4>
-                <p>
-                  Percorso che esplora la storia della cascina e il riutilizzo
-                  sociale. Include l'omicidio di Bruno Caccia, la condanna di
-                  Domenico Belfiore e la confisca del bene, approfondendo i temi
-                  di legalità.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel bruno-caccia"></div>
-              <div class="text-carousel">
-                <h4>Bruno Caccia</h4>
-                <p>
-                  Laboratorio che analizza il magistrato Bruno Caccia,
-                  attraverso un documentario e testimonianze. Esplora la sua
-                  figura, il contesto del suo omicidio e gli sviluppi giudiziari
-                  recenti.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel regolegalita"></div>
-              <div class="text-carousel">
-                <h4>RegoLegalità</h4>
-                <p>
-                  Percorso educativo per bambini sulle regole come fondamento
-                  della convivenza civile. Obiettivi: valore delle regole,
-                  rapporto tra libertà personale e regole, promozione della
-                  cultura della legalità.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel beni-confiscati"></div>
-              <div class="text-carousel">
-                <h4>I beni confiscati</h4>
-                <p>
-                  Laboratorio che tratta l’evoluzione della legislazione sui
-                  beni confiscati, analizzando il loro significato sociale.
-                  Include mappature ludiche e un focus su Cascina Caccia e il
-                  riutilizzo sociale.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel mafie-cibo"></div>
-              <div class="text-carousel">
-                <h4>Le Mafie & il Cibo</h4>
-                <p>
-                  Analisi delle agromafie e del caporalato nella filiera
-                  alimentare.  Promuove il ruolo del consumatore contro le mafie
-                  e presenta esempi di riscatto come Cascina Caccia.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel miele-api"></div>
-              <div class="text-carousel">
-                <h4>Miele & Api</h4>
-                <p>
-                  Laboratorio di apicoltura che collega natura, etica e
-                  imprenditorialità.  Confronta la società umana con quella
-                  delle api e riflette su etica del lavoro e opportunità
-                  sociali.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel ricicliamo"></div>
-              <div class="text-carousel">
-                <h4>Ricicliamo</h4>
-                <p>
-                  Attività artistiche di riuso per ragazzi, mirate a sviluppare
-                  creatività, coesione di gruppo e sensibilità ambientale,
-                  includendo manutenzione degli spazi e laboratori manuali.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel mafia-cinema"></div>
-              <div class="text-carousel">
-                <h4>La Mafia attraverso il cinema</h4>
-                <p>
-                  Percorso che analizza criticamente la rappresentazione
-                  cinematografica delle mafie, confrontandola con la realtà
-                  sociale per sviluppare una comprensione più critica.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel azzardo"></div>
-              <div class="text-carousel">
-                <h4>Il gioco non è un azzardo</h4>
-                <p>
-                  Laboratorio per bambini che insegna a distinguere giochi
-                  costruttivi da quelli nocivi, enfatizzando il divertimento
-                  positivo e la consapevolezza.
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img-carousel gioco"></div>
-              <div class="text-carousel">
-                <h4>Chi non gioca vince</h4>
-                <p>
-                  Percorso per adolescenti sui rischi del gioco d’azzardo, con
-                  focus su dipendenze e consapevolezza critica dei comportamenti
-                  a rischio.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-buttons">
-          <button class="btn" id="prevBtn">
-            <img src="/img/icons-carousel-prev.svg" alt="" />
+        <!-- -------------------------------- -->
+        <div class="wrapper">
+          <button id="left">
+            <img src="/img/icons-carousel-prev.svg" alt="bottone succ" />
           </button>
-          <button class="btn" id="nextBtn">
-            <img src="/img/icons-carousel-succ.svg" alt="" />
+
+          <ul class="carousel">
+            <li class="card">
+              <div class="img">
+                <picture draggable="false">
+                  <source
+                    class="img-carousel"
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/storia-della-cascina.webp
+                    "
+                    draggable="false"
+                  />
+                  <source
+                    class="img-carousel"
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/storia-della-cascina.webp
+                    "
+                    draggable="false"
+                  />
+                  <img
+                    src="/img/carosello-laboratori/storia-della-cascina.jpg"
+                    alt="storia della cascina"
+                    draggable="false"
+                  />
+                </picture>
+              </div>
+              <h3>Storia della Cascina</h3>
+              <button class="showModalBtn" data-content="1">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture draggable="false">
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/bruno-caccia.webp
+                    "
+                    draggable="false"
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.avif
+                    "
+                    draggable="false"
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/bruno-caccia.gif"
+                    alt="Bruno Caccia"
+                    draggable="false"
+                  />
+                </picture>
+              </div>
+              <h3>Bruno Caccia</h3>
+              <button class="showModalBtn" data-content="2">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture draggable="false">
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/regolegalità.webp
+                    "
+                    draggable="false"
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/regolegalità.avif
+                    "
+                    draggable="false"
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/regolegalità.jpg"
+                    alt="Regolegalità"
+                    draggable="false"
+                  />
+                </picture>
+              </div>
+              <h3>RegoLegalità</h3>
+              <button class="showModalBtn" data-content="3">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/beni-confiscati.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/beni-confiscati.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/beni-confiscati.jpg"
+                    alt="Beni confiscati"
+                  />
+                </picture>
+                <h3>I beni confiscati</h3>
+              </div>
+              <button class="showModalBtn" data-content="4">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/Agromafie.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/Agromafie.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/Agromafie.jpg"
+                    alt="agromafie"
+                  />
+                </picture>
+              </div>
+              <h3>Le Mafie & il Cibo</h3>
+              <button class="showModalBtn" data-content="5">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/miele-api.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/miele-api.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/miele-api.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/miele-api.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/miele-api.jpg"
+                    alt="miele e api"
+                  />
+                </picture>
+              </div>
+              <h3>Miele & Api</h3>
+              <button class="showModalBtn" data-content="6">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/ricicliamo.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/ricicliamo.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/ricicliamo.jpg"
+                    alt="Ricicliamo"
+                  />
+                </picture>
+              </div>
+              <h3>Ricicliamo</h3>
+              <button class="showModalBtn" data-content="7">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/mafia-cinema.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/mafia-cinema.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/mafia-cinema.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/mafia-cinema.jpg"
+                    alt="Mafia e Cinema"
+                  />
+                </picture>
+              </div>
+              <h3>La Mafia attraverso il cinema</h3>
+              <button class="showModalBtn" data-content="8">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/azzardo.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/azzardo.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/azzardo.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/azzardo.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/azzardo.jpg"
+                    alt="Gioco d'azzardo"
+                  />
+                </picture>
+              </div>
+              <h3>Il gioco non è un azzardo</h3>
+              <button class="showModalBtn" data-content="9">
+                Vai ai dettagli
+              </button>
+            </li>
+            <li class="card">
+              <div class="img">
+                <picture>
+                  <source
+                    media="(min-width: 1280px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-desktop/gioco.avif,
+                      /img/img-ottimizzate/carosello-laboratori-desktop/gioco.webp
+                    "
+                  />
+                  <source
+                    media="(max-width: 393px)"
+                    srcset="
+                      /img/img-ottimizzate/carosello-laboratori-mobile/gioco.webp,
+                      /img/img-ottimizzate/carosello-laboratori-mobile/gioco.avif
+                    "
+                  />
+                  <img
+                    class="img-carousel"
+                    src="/img/carosello-laboratori/gioco.jpg"
+                    alt="Gioco"
+                  />
+                </picture>
+              </div>
+              <h3>Chi non gioca vince</h3>
+              <button class="showModalBtn" data-content="10">
+                Vai ai dettagli
+              </button>
+            </li>
+          </ul>
+          <button id="right">
+            <img src="/img/icons-carousel-succ.svg" alt="bottone next" />
           </button>
         </div>
       </section>
 
-      <h2>Voci dai laboratori</h2>
+      <!-- ----------------------voci laboratori -------------------------- -->
+
+      <h2 id="voci">Voci dai laboratori</h2>
       <section class="voci-laboratori">
         <article>
           <header>
@@ -206,9 +426,9 @@
           </header>
           <div class="testo-voci">
             <p>
-              Un laboratorio che mi ha fatto capire la legalità come impegno
+              Laboratorio che mi ha fatto capire la legalità come impegno
               quotidiano, vedendo un bene confiscato trasformato in centro
-              educativo e riflettendo sul valore della cittadinanza attiva.
+              educativo e riflettendo sul valore della legalità .
             </p>
           </div>
         </article>
@@ -274,22 +494,88 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
       </div>
+
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/laboratori/">Laboratori</a></li>
         <li><a href="/richiedi-prenotazione/">Richiedi Prenotazione</a></li>
         <li><a href="/#contattaci">Contattaci</a></li>
       </ul>
-      <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
+
       <div class="contact">
         <div class="icons-social">
-          <img src="/img/icona-instagram.png" alt="" class="social instagram" />
-          <img src="/img/icon-facebook.png" alt="" class="social facebook" />
-          <img src="/img/icon-tiktok.png" alt="" class="social tiktok" />
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-instagram-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-instagram-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-instagram-desktop.png"
+              alt="Instagram"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-facebook-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-facebook-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-facebook-desktop.png"
+              alt="Facebook"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-tiktok-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-tiktok-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-tiktok-desktop.png"
+              alt="Tiktok"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
         </div>
-        <p>cascinacaccia@acmos.net</p>
+
+        <p class="email">cascinacaccia@acmos.net</p>
       </div>
+      <p class="copyright">
+        Copyright © 2025 Cascina Caccia. Tutti i diritti riservati.
+      </p>
     </footer>
   </body>
 </html>

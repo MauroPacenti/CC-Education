@@ -1,17 +1,98 @@
 import "./Details.css";
 import { PropsWithChildren } from "react";
 
-const DetailItem = ({
-  label,
-  value,
-}: {
+import React from "react";
+
+type InputKey = "keeper" | "group" | "organization" | "journey";
+type InputType = "text" | "date" | "select" | "number";
+
+interface DetailItemProps {
   label: string;
   value?: string | number;
+  isEditable?: boolean;
+  inputName?: string;
+  inputKey?: InputKey;
+  inputType?: InputType;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    key: "keeper" | "group" | "organization" | "journey"
+  ) => void;
+  selectOptions?: string[];
+  startDate?: string | null;
+}
+
+const DetailItem: React.FC<DetailItemProps> = ({
+  label,
+  value,
+  isEditable = false,
+  inputName,
+  inputKey,
+  inputType = "text",
+  onChange,
+  selectOptions = [],
+  startDate,
 }) => {
+  const renderInput = () => {
+    if (!isEditable) return <span className="detail-value">{value}</span>;
+    const parseDate = (dateString: string) => {
+      const [datePart] = dateString.split("-");
+      console.log(datePart);
+      const [day, month, year] = datePart.split("/");
+      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    };
+
+    switch (inputType) {
+      case "date":
+        return (
+          <input
+            type="date"
+            className="detail-value editable"
+            min={
+              startDate
+                ? startDate
+                : parseDate(new Date().toLocaleDateString("it-IT"))
+            }
+            value={startDate ? startDate : parseDate(String(value))}
+            onChange={(e) => onChange && onChange(e, inputKey!)}
+            name={inputName}
+          />
+        );
+
+      case "select":
+        return (
+          <select
+            className="detail-value editable"
+            onChange={(e) => onChange && onChange(e, inputKey!)}
+            name={inputName}
+          >
+            <option value="" disabled selected>
+              {value}
+            </option>
+            {selectOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        );
+
+      default:
+        return (
+          <input
+            type={inputType}
+            className="detail-value editable"
+            value={value}
+            onChange={(e) => onChange && onChange(e, inputKey!)}
+            name={inputName}
+          />
+        );
+    }
+  };
+
   return (
     <div className="detail-item">
       <span className="detail-label">{label}:</span>
-      <span className="detail-value">{value}</span>
+      {renderInput()}
     </div>
   );
 };

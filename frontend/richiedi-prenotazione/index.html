@@ -3,11 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Richiedi Prenotazione</title>
+    <meta name="robots" content="index, follow" />
+
+    <title>
+      Prenota la tua visita | Cascina Caccia | Esperienze educative di legalità
+    </title>
+
+    <meta name="author" content="NOVO - Chiabrero Gabriele" />
+    <meta
+      name="description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+
+    <meta
+      property="og:title"
+      content="Prenota la tua visita | Cascina Caccia"
+    />
+    <meta
+      property="og:description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://www.cascinacaccia.it/educazione/richiedi-prenotazione/"
+    />
+    <meta
+      property="og:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
+    <meta
+      name="twitter:title"
+      content="Prenota la tua visita | Cascina Caccia"
+    />
+    <meta
+      name="twitter:description"
+      content="Prenota la tua visita a Cascina Caccia. Compila il form per organizzare un'esperienza educativa di legalità e cittadinanza attiva per scuole e gruppi."
+    />
+    <meta
+      name="twitter:image"
+      content="/img/img-ottimizzate/carosello-laboratori-mobile/bruno-caccia.webp"
+    />
 
     <!-- Fav Icon -->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
-    <script type="module" src="../global/global.ts"></script>
+    <script type="module" src="/global/global.ts"></script>
     <script type="module" src="./richiedi-prenotazione.ts"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,18 +60,27 @@
   <body>
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente" />
+        <img
+          src="/img/logo.png"
+          alt="logo liberamente"
+          width="45"
+          height="64"
+        />
       </div>
 
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img
+              id="icon-menu"
+              src="/img/icon-menu.svg"
+              alt="icona menu a tendina"
+            />
             <img
               id="icon-close"
               class="hide"
-              src="../img/icon-close.svg"
-              alt="icon close"
+              src="/img/icon-close.svg"
+              alt="icona per chiudere il menu a tendina"
             />
           </a>
         </div>
@@ -46,122 +95,146 @@
           <li class="menu-item active">
             <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
           </li>
-          <li class="menu-item">
-            <a href="/sign-in/">Area riservata</a>
-          </li>
         </ul>
       </div>
     </nav>
-    <h1>Richiedi Prenotazione</h1>
+    <main>
+      <section class="text-box">
+        <h1>Richiedi Prenotazione</h1>
 
-    <div class="text-box">
-      <p>
-        Vuoi far parte del nostro percorso di
-        <span class="highlight"> educazione civile</span>? Compila il form qui
-        sotto per richiedere una prenotazione per un'<span class="highlight"
-          >esperienza formativa</span
-        >
-        a Cascina Caccia. Ogni incontro è un'opportunità per
-        <span class="highlight"> apprendere</span>,
-        <span class="highlight"> riflettere</span> e costruire insieme un futuro
-        di legalità e solidarietà.
-      </p>
-    </div>
+        <p>
+          Scopri i percorsi educativi sulla legalità a Cascina Caccia, bene
+          confiscato alla 'ndrangheta. Organizziamo
+          <span class="highlight">laboratori didattici</span> e
+          <span class="highlight">percorsi formativi</span> per scuole e gruppi,
+          focalizzati su <span class="highlight">educazione civica</span>,
+          antimafia e <span class="highlight">cittadinanza attiva</span>. Le
+          nostre attività promuovono la
+          <span class="highlight">legalità democratica</span>
+          attraverso esperienze dirette e coinvolgenti. Prenota ora la tua
+          visita educativa compilando il form sottostante.
+        </p>
+      </section>
 
-    <div class="form-container">
-      <div class="container">
-        <div class="content-box">
-          <div class="background"></div>
-          <div class="progress-bar">
-            <div class="icon-container active" id="icon1">
-              <img src="../img/icon-user.svg" alt="icon user" class="icon" />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done1"
-                class="icon-done hide"
-              />
-            </div>
-            <div class="line-break"></div>
-            <div class="icon-container" id="icon2">
-              <img
-                src="../img/icon-organization.svg"
-                alt="icon organization"
-                class="icon"
-              />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done2"
-                class="icon-done hide"
-              />
-            </div>
-            <div class="line-break"></div>
-            <div class="icon-container" id="icon3">
-              <img
-                src="../img/icon-calendar.svg"
-                alt="icon date"
-                class="icon"
-              />
-              <img
-                src="../img/icon-done.svg"
-                alt="icon done"
-                id="done3"
-                class="icon-done hide"
-              />
-            </div>
+      <div class="form-container">
+        <div class="progress-bar">
+          <div class="icon-container active" id="icon1">
+            <img
+              src="/img/icon-user.svg"
+              alt="icona accompagnatore"
+              class="icon"
+            />
+            <img
+              src="/img/icon-done.svg"
+              alt="icona completamento step del form"
+              id="done1"
+              class="icon-done hide"
+            />
           </div>
-          <h2 class="form-title">Dati Accompagnatore</h2>
+          <div class="line-break">
+            <div id="line1"></div>
+          </div>
+          <div class="icon-container" id="icon2">
+            <img
+              src="/img/icon-organization.svg"
+              alt="icona organizzazione"
+              class="icon"
+            />
+            <img
+              src="/img/icon-done.svg"
+              alt="icona completamento step del form"
+              id="done2"
+              class="icon-done hide"
+            />
+          </div>
+          <div class="line-break">
+            <div id="line2"></div>
+          </div>
+          <div class="icon-container" id="icon3">
+            <img
+              src="/img/icon-calendar.svg"
+              alt="icona prenotazione"
+              class="icon"
+            />
+            <img
+              src="/img/icon-done.svg"
+              alt="icona completamento step del form"
+              id="done3"
+              class="icon-done hide"
+            />
+          </div>
         </div>
+
+        <h2 class="form-title">Dati Accompagnatore</h2>
 
         <!-- form -->
         <form method="post" class="appointment-form">
           <!-- Dati Accompagnatore -->
           <div class="form-section active" id="page1">
             <!-- Nome -->
-            <label for="firstName">Nome</label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              placeholder="Inserisci il tuo nome"
-            />
+            <div class="row">
+              <div class="input-container">
+                <label for="firstName"
+                  >Nome <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="Inserisci il tuo nome"
+                />
+              </div>
 
-            <!-- Cognome -->
-            <label for="lastName">Cognome</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              placeholder="Inserisci il tuo cognome"
-            />
+              <!-- Cognome -->
+              <div class="input-container">
+                <label for="lastName"
+                  >Cognome <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Inserisci il tuo cognome"
+                />
+              </div>
+            </div>
 
             <!-- Email -->
-            <label for="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Inserisci la tua email"
-            />
+            <div class="input-container">
+              <label for="email">Email <span class="required">*</span></label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Inserisci la tua email"
+              />
+            </div>
 
             <!-- Codice Fiscale -->
-            <label for="cf">Codice Fiscale</label>
-            <input
-              type="text"
-              name="cf"
-              id="cf"
-              placeholder="Inserisci il tuo codice fiscale"
-            />
+            <div class="input-container">
+              <label for="cf"
+                >Codice Fiscale <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                name="cf"
+                id="cf"
+                placeholder="Inserisci il tuo codice fiscale"
+              />
+            </div>
 
             <!-- Telefono -->
-            <label for="phone">Telefono</label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              placeholder="Inserisci un numero di telefono"
-            />
+            <div class="input-container">
+              <label for="phone"
+                >Telefono <span class="required">*</span></label
+              >
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                placeholder="Inserisci un numero di telefono"
+              />
+            </div>
 
             <div class="btn-container">
               <button class="btn btn-next" type="button">Avanti</button>
@@ -171,51 +244,73 @@
           <!-- Dati Organizzazione -->
           <div class="form-section" id="page2">
             <!-- Nome -->
-            <label for="nomeOrganizzazione">Nome Organizzazione</label>
-            <input
-              type="text"
-              name="name"
-              id="nomeOrganizzazione"
-              placeholder="Inserisci il nome dell'organizzazione"
-            />
+            <div class="row">
+              <div class="input-container">
+                <label for="nomeOrganizzazione"
+                  >Nome Organizzazione <span class="required">*</span></label
+                >
+                <input
+                  type="text"
+                  name="name"
+                  id="nomeOrganizzazione"
+                  placeholder="Inserisci il nome dell'organizzazione"
+                />
+              </div>
 
-            <!-- Tipologia -->
-            <label for="tipologia">Tipologia Organizzazione</label>
-            <select
-              name="type"
-              id="tipologia"
-              placeholder="Seleziona una tipologia"
-            >
-              <option value="scuola">Scuola</option>
-              <option value="gruppo">Gruppo</option>
-            </select>
+              <!-- Tipologia -->
+              <div class="input-container">
+                <label for="tipologia"
+                  >Tipologia Organizzazione
+                  <span class="required">*</span></label
+                >
+                <select
+                  name="type"
+                  id="tipologia"
+                  placeholder="Seleziona una tipologia"
+                >
+                  <option value="scuola">Scuola</option>
+                  <option value="gruppo">Gruppo</option>
+                </select>
+              </div>
+            </div>
 
             <!-- Indirizzo -->
-            <label for="indirizzo">Indirizzo Organizzazione</label>
-            <input
-              type="text"
-              name="address"
-              id="indirizzo"
-              placeholder="Inserisci un indirizzo"
-            />
+            <div class="input-container">
+              <label for="indirizzo"
+                >Indirizzo Organizzazione <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                name="address"
+                id="indirizzo"
+                placeholder="Inserisci un indirizzo"
+              />
+            </div>
 
             <!-- Email -->
-            <label for="emailOrganizzazione">Email Organizzazione</label>
-            <input
-              type="email"
-              name="email"
-              id="emailOrganizzazione"
-              placeholder="Inserisci un'email"
-            />
-
+            <div class="input-container">
+              <label for="emailOrganizzazione"
+                >Email Organizzazione <span class="required">*</span></label
+              >
+              <input
+                type="email"
+                name="email"
+                id="emailOrganizzazione"
+                placeholder="Inserisci un'email"
+              />
+            </div>
             <!-- Telefono -->
-            <label for="telefonoOrganizzazione">Telefono Organizzazione</label>
-            <input
-              type="tel"
-              name="phone"
-              id="telefonoOrganizzazione"
-              placeholder="Inserisci un numero di telefono"
-            />
+            <div class="input-container">
+              <label for="telefonoOrganizzazione"
+                >Telefono Organizzazione <span class="required">*</span></label
+              >
+              <input
+                type="tel"
+                name="phone"
+                id="telefonoOrganizzazione"
+                placeholder="Inserisci un numero di telefono"
+              />
+            </div>
 
             <div class="btn-container">
               <button class="btn btn-prev" type="button">Indietro</button>
@@ -227,27 +322,38 @@
           <div class="form-section" id="page3">
             <div class="group">
               <!-- Numero di minori -->
-              <label for="minori">Numero Minori</label>
-              <input
-                type="number"
-                name="minors"
-                id="minori"
-                placeholder="Inserisci il numero di minori"
-              />
+              <div class="input-container">
+                <label for="minori"
+                  >Numero Minori <span class="required">*</span></label
+                >
+                <input
+                  type="number"
+                  name="minors"
+                  id="minori"
+                  placeholder="Inserisci il numero di minori"
+                  min="0"
+                />
+              </div>
 
               <!-- Numero di adulti -->
-              <label for="adulti">Numero Adulti</label>
-              <input
-                type="number"
-                name="adults"
-                id="adulti"
-                placeholder="Inserisci il numero di adulti"
-              />
+
+              <div class="input-container">
+                <label for="adulti"
+                  >Numero Adulti <span class="required">*</span></label
+                >
+                <input
+                  type="number"
+                  name="adults"
+                  id="adulti"
+                  placeholder="Inserisci il numero di adulti"
+                  min="1"
+                />
+              </div>
             </div>
 
             <div class="journey">
               <!-- Durata -->
-              <label for="durata">Durata</label>
+              <label for="durata">Durata <span class="required">*</span></label>
               <select name="duration" id="durata">
                 <option value="1">Mattina</option>
                 <option value="2">Pomeriggio</option>
@@ -258,18 +364,28 @@
               <div class="date-container">
                 <div class="date-field start">
                   <!-- Data Inizio -->
-                  <label class="date-label" for="dataInizio">Data Inizio</label>
+                  <label class="date-label" for="dataInizio"
+                    >Data Inizio <span class="required">*</span></label
+                  >
                   <input
                     type="date"
                     name="startAvailabilityDate"
                     id="dataInizio"
+                    class="date-picker"
                   />
                 </div>
 
                 <div class="date-field end">
                   <!-- Data Fine -->
-                  <label class="date-label" for="dataFine">Data Fine</label>
-                  <input type="date" name="endAvailabilityDate" id="dataFine" />
+                  <label class="date-label" for="dataFine"
+                    >Data Fine <span class="required">*</span></label
+                  >
+                  <input
+                    type="date"
+                    name="endAvailabilityDate"
+                    id="dataFine"
+                    class="date-picker"
+                  />
                 </div>
               </div>
 
@@ -280,36 +396,65 @@
                 id="info"
                 placeholder="Inserisci ulteriori informazioni"
               ></textarea>
+
+              <div class="container-check">
+                <div class="checkbox-container">
+                  <input type="checkbox" name="privacy" id="privacy" />
+                  <label for="privacy"
+                    >Sono d'accordo e accetto
+                    <a href="/privacy/" target="_blank"
+                      >l'Informativa sulla Privacy</a
+                    >
+                    *</label
+                  >
+                </div>
+                <div class="checkbox-container">
+                  <input type="checkbox" name="terms" id="terms" />
+                  <label for="terms"
+                    >Sono d'accordo e accetto i
+                    <a href="#" target="_blank">Termini d'Uso</a> *</label
+                  >
+                </div>
+              </div>
+
+              <p>
+                * Puoi procedere nell'invio dei dati solo se accetti le
+                condizioni qui sopra
+              </p>
+
+              <div id="btn-last" class="btn-container">
+                <button class="btn btn-prev" type="button">Indietro</button>
+                <button class="btn btn-submit" type="submit">Invia</button>
+              </div>
             </div>
 
-            <div id="btn-last" class="btn-container">
-              <button class="btn btn-prev" type="button">Indietro</button>
-              <button type="submit" class="btn btn-submit">Invia</button>
+            <div id="toast3" class="hidden">
+              <p>Input errati</p>
             </div>
           </div>
-          <div class="modal">
+          <!-- Modali -->
+          <div id="modal-loading" class="modal">
+            <div>
+              <div class="spinner"></div>
+              <p>Invio dati prenotazione in corso...</p>
+            </div>
+          </div>
+          <div id="successModal" class="modal">
             <div class="modal-content">
-              <p>Caricamento...</p>
+              <span class="close-button">&times;</span>
+              <p>Prenotazione effettuata con successo!</p>
+            </div>
+          </div>
+
+          <div id="errorModal" class="modal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <p>Errore in fase di Prenotazione!</p>
             </div>
           </div>
         </form>
       </div>
-    </div>
-
-    <!-- Modale -->
-    <div id="successModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <p>Prenotazione effettuata con successo!</p>
-      </div>
-    </div>
-
-    <div id="errorModal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <p>Errore in fase di Prenotazione!</p>
-      </div>
-    </div>
+    </main>
 
     <footer>
       <div class="map">
@@ -319,22 +464,70 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
       </div>
+
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/laboratori/">Laboratori</a></li>
         <li><a href="/richiedi-prenotazione/">Richiedi Prenotazione</a></li>
         <li><a href="/#contattaci">Contattaci</a></li>
       </ul>
-      <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
+
       <div class="contact">
         <div class="icons-social">
-          <img src="img/icona-instagram.png" alt="" class="social instagram" />
-          <img src="img/icon-facebook.png" alt="" class="social facebook" />
-          <img src="img/icon-tiktok.png" alt="" class="social tiktok" />
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-instagram-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-instagram-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-instagram-desktop.png"
+              alt="Instagram"
+              class="social"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-facebook-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-facebook-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-facebook-desktop.png"
+              alt="Facebook"
+              class="social"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-tiktok-desktop.png"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-tiktok-mobile.png"
+            />
+            <img
+              src="/img/icone/icon-tiktok-desktop.png"
+              alt="Tiktok"
+              class="social"
+            />
+          </picture>
         </div>
-        <p>cascinacaccia@acmos.net</p>
+
+        <p class="email">cascinacaccia@acmos.net</p>
       </div>
+      <p class="copyright">
+        Copyright © 2025 Cascina Caccia. Tutti i diritti riservati.
+      </p>
     </footer>
   </body>
 </html>

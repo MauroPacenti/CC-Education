@@ -1,6 +1,10 @@
 /* Style per la pagina Login */
 
-main {
+.sign-in {
+  font-family: "Poppins", sans-serif;
+}
+
+.sign-in main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,10 +13,9 @@ main {
   height: 100dvh;
   position: relative;
   overflow: hidden;
-  font-family: "Poppins", sans-serif;
 }
 
-main::after {
+.sign-in main::after {
   content: "";
   position: absolute;
   top: 0;
@@ -20,11 +23,11 @@ main::after {
   width: 100%;
   height: 100%;
   background-color: #5932ea;
-  transform: skewX(-45deg) translateX(50%);
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
   z-index: -1;
 }
 
-.login-form {
+.sign-in .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +39,7 @@ main::after {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.login-form input {
+.sign-in .login-form input {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -45,17 +48,17 @@ main::after {
   background-color: #f2f2f2;
 }
 
-.login-form input::placeholder {
-  color: black;
+.error input {
+  outline: 1px solid red;
 }
 
-.login-form label {
+.sign-in .login-form label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.login-form button {
+.sign-in .login-form button {
   width: 100%;
   padding: 10px;
   background-color: #5932ea;
@@ -63,8 +66,119 @@ main::after {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-form button:hover {
+.sign-in .login-form button:hover {
   background-color: #4a27cc;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 5px solid #5932ea;
+  border-radius: 50%;
+  display: none;
+}
+
+.loading {
+  display: block;
+  animation: spinner 1.5s linear infinite;
+}
+
+.loading ~ .text-btn {
+  display: none;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast-item {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-item.success {
+  border-left: 4px solid #2ecc71;
+}
+
+.toast-item.error {
+  border-left: 4px solid #e74c3c;
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.toast-item.error .toast-icon {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.toast-content {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.toast-content h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.toast-content p {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 10px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

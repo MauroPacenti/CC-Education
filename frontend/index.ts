@@ -1,5 +1,7 @@
 import "./index.css";
 
+const spinner = document.querySelector(".spinner");
+
 // Gestione API POST per il form richiesta informazioni
 
 const form = document.querySelector<HTMLFormElement>(".richiedi-informazioni");
@@ -16,7 +18,8 @@ form?.addEventListener("submit", async (e) => {
 
   const endpoint = "/api/pub/createInfoRequest";
   try {
-    modal?.classList.toggle("active");
+    // modal?.classList.toggle("active");
+    spinner?.classList.add("loading");
     const response = await fetch(
       endpoint +
         `?email=${data.email}&title=${data.title}&content=${data.content}`,
@@ -39,5 +42,7 @@ form?.addEventListener("submit", async (e) => {
     form.reset();
   } catch (err) {
     console.error(err);
+  } finally {
+    spinner?.classList.remove("loading");
   }
 });

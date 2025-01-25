@@ -1,16 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <meta name="robots" content="index, follow" />
+
+    <title>
+      Cascina Caccia - Centro Educativo per la Legalità e la Memoria
+    </title>
+    <meta
+      name="description"
+      content="Cascina Caccia: un centro educativo dedicato alla legalità e alla memoria di Bruno Caccia. Offriamo laboratori e attività per promuovere cittadinanza attiva e valori civici."
+    />
+
+    <!-- open graph -->
+    <meta name="author" content="NOVO - Barbara Pisano" />
+    <meta
+      property="og:title"
+      content="Cascina Caccia - Educazione alla Legalità"
+    />
+    <meta
+      property="og:description"
+      content="Centro educativo dedicato alla memoria e alla legalità, con laboratori e attività per giovani."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.cascinacaccia.it/educazione" />
+    <meta
+      property="og:image"
+      content="/img/img-ottimizzate/carosello-home-mobile/home-carosello10.avif"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Cascina Caccia - Educazione alla Legalità"
+    />
+    <meta
+      name="twitter:description"
+      content="Centro educativo dedicato alla memoria e alla legalità, con laboratori e attività per giovani."
+    />
+
+    <!-- ICON -->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+
     <script src="./global/global.ts" type="module"></script>
     <script type="module" src="./index.ts"></script>
-    <script type="module" src="index.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="/global/global.css">
-
+    <script type="module" src="./index.js"></script>
     <!-- link google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,20 +53,25 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="body-home">
     <nav class="nav-container">
       <div class="logo-container">
-        <img src="/img/logo.png" alt="logo liberamente" />
+        <img
+          src="/img/logo.png"
+          alt="logo liberamente"
+          width="45"
+          height="64"
+        />
       </div>
 
       <div class="menu-container">
         <div class="menu-btn">
           <a href="#" class="menu-icon">
-            <img id="icon-menu" src="../img/icon-menu.svg" alt="icona menu" />
+            <img id="icon-menu" src="/img/icon-menu.svg" alt="icona menu" />
             <img
               id="icon-close"
               class="hide"
-              src="../img/icon-close.svg"
+              src="/img/icon-close.svg"
               alt="icon close"
             />
           </a>
@@ -48,79 +87,126 @@
           <li class="menu-item">
             <a href="/richiedi-prenotazione/">Richiedi Prenotazione</a>
           </li>
-          <li class="menu-item">
-            <a href="/sign-in/">Area riservata</a>
-          </li>
         </ul>
       </div>
     </nav>
-    
+
     <!-- fine navbar -->
 
-    <header>
+    <header class="header-home">
       <div class="background"></div>
       <div class="content">
         <h1>Cascina Caccia</h1>
-        <h2>Memoria, Educazione e Legalità</h2>
+        <h2>Centro Educativo per la Legalità e Memoria</h2>
         <p>
-          Un luogo di rinascita dove la storia diventa opportunità di crescita
-          sociale
+          Un luogo dove la legalità e la memoria di Bruno Caccia diventano
+          strumenti di cambiamento sociale
         </p>
         <div class="header-buttons">
-          <button class="contact-us"><a href="/#contattaci">Contattaci</a></button>
-          <button class="book"><a href="/richiedi-prenotazione/">Prenota ora</a></button>
+          <button class="contact-us">
+            <a href="/#contattaci">Contattaci</a>
+          </button>
+          <button class="book">
+            <a href="/richiedi-prenotazione/">Prenota ora</a>
+          </button>
         </div>
       </div>
     </header>
 
-    <main>
+    <main class="main-home">
       <h2>La nostra missione educativa</h2>
-      <p class="mission">La nostra cascina è un laboratorio permanente dove la storia incontra il presente, 
-        dove i <span> valori della legalità</span>, del <span>rispetto</span> e della <span>cittadinanza attiva</span> prendono <span>forma 
-        concreta</span>, permettendo alle nuove generazioni di diventare protagonisti di un cambiamento possibile e necessario.</p>
-      
-      <button><a href="/laboratori/">Scopri i nostri laboratori</a></button>
-      <p class="mission">Cascina Caccia è molto più di un luogo: è un simbolo vivo di rinascita sociale e memoria attiva, dedicato a <span> Bruno Caccia</span>, 
-        il magistrato ucciso dalla 'ndrangheta nel 1983. <br> Qui, ogni giorno, trasformiamo il dolore in speranza attraverso l'<span>educazione civile</span>, 
-        coinvolgendo i giovani in un percorso di consapevolezza e impegno. </p>
+      <p class="mission">
+        La nostra cascina è un laboratorio permanente dove la storia incontra il
+        presente, dove i <span> valori della legalità</span>, del
+        <span>rispetto</span> e della <span>cittadinanza attiva</span> prendono
+        <span>forma concreta</span>, permettendo alle nuove generazioni di
+        diventare protagonisti di un cambiamento possibile e necessario.
+      </p>
 
-        <!-- carosello -->
-        <div class="carousel-container">
-          <div class="carousel">
-            <div class="carousel-item active"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
-            <div class="carousel-item"></div>
+      <button><a href="/laboratori/">Scopri i nostri laboratori</a></button>
+      <p class="mission">
+        Cascina Caccia è molto più di un luogo: è un simbolo vivo di rinascita
+        sociale e memoria attiva, dedicato a <span> Bruno Caccia</span>, il
+        magistrato ucciso dalla 'ndrangheta nel 1983. <br />
+        Qui, ogni giorno, trasformiamo il dolore in speranza attraverso l'<span
+          >educazione civile</span
+        >, coinvolgendo i giovani in un percorso di consapevolezza e impegno.
+      </p>
+
+      <!-- carosello -->
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="carousel-item active">
+            <img
+              src="/img/carosello-home/home-carosello1.jpeg"
+              loading="lazy"
+              alt=""
+            />
           </div>
-        <img src="/img/icons-carousel-prev.svg" class="btn-carousel prev"></img>
-        <img src="/img/icons-carousel-succ.svg" class="btn-carousel next">
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+          <div class="carousel-item"></div>
+        </div>
+        <img src="/img/icons-carousel-prev.svg" class="btn-carousel prev" />
+        <img src="/img/icons-carousel-succ.svg" class="btn-carousel next" />
       </div>
       <!-- fine carosello -->
 
-      <h2>I nostri valori</h2>
-      <p>Crediamo nell'educazione come strumento di trasformazione sociale, capace di sviluppare una coscienza critica che libera le nuove generazioni dalle logiche oppressive e apre <span>nuove prospettive di futuro</span>.
-        <br>Pensiamo che l'educazione sia lo strumento più potente per:</p>
+      <h2 id="valori">I nostri valori</h2>
+      <p>
+        Crediamo nell'educazione come strumento di trasformazione sociale,
+        capace di sviluppare una coscienza critica che libera le nuove
+        generazioni dalle logiche oppressive e apre
+        <span>nuove prospettive di futuro</span>. <br />Pensiamo che
+        l'educazione sia lo strumento più potente per:
+      </p>
 
       <div class="valori">
-        <div class="valore1">
-          <div class="icona stop"></div>
-          <p>Contrastare le logiche mafiose</p>
+        <div class="valore valore1">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona stop"></div>
+              <p>Contrastare le logiche mafiose</p>
+            </div>
+            <p class="valore-description">
+              Aiutiamo a identificare e opporsi alle dinamiche mafiose nella
+              società.
+            </p>
+          </div>
         </div>
 
-        <div class="valore2">
-          <div class="icona balance"></div>
-          <p>Promuovere valori di legalità e solidarietà</p>
+        <div class="valore valore2">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona balance"></div>
+              <p>Promuovere valori civici</p>
+            </div>
+            <p class="valore-description">
+              Educhiamo a legalità e solidarietà per costruire una società
+              migliore
+            </p>
+          </div>
         </div>
 
-        <div class="valore3">
-          <div class="icona new-generation"></div>
-          <p>Costruire una coscienza critica nelle nuove generazioni</p>
+        <div class="valore valore3">
+          <div class="line"></div>
+          <div class="valore-body">
+            <div class="valore-header">
+              <div class="icona new-generation"></div>
+              <p>Stimolare pensiero critico</p>
+            </div>
+            <p class="valore-description">
+              Sviluppiamo il pensiero critico per capire la società
+            </p>
+          </div>
         </div>
       </div>
 
@@ -131,26 +217,83 @@
           nostra attività.
         </p>
         <fieldset>
-          <input type="text" placeholder="Nome" id="nome" name="firstName" />
-          <input type="text" placeholder="Cognome" id="cognome" name="lastName" />
-          <input type="email" placeholder="Email" name="email" id="email" />
-          <input type="tel" placeholder="Telefono" name="phone" id="phone" />
-          <textarea placeholder="Scrivi un messaggio..." rows="4" id="message" name="message"></textarea>
+          <div class="row">
+            <div class="input-container">
+              <label for="nome">Nome <span class="required">*</span></label>
+              <input
+                type="text"
+                placeholder="Inserisci nome"
+                id="nome"
+                name="firstName"
+                required
+              />
+            </div>
+            <div class="input-container">
+              <label for="cognome"
+                >Cognome <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                placeholder="Inserisci cognome"
+                id="cognome"
+                name="lastName"
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label for="email">Email <span class="required">*</span></label>
+            <input
+              type="email"
+              placeholder="Inserisci email"
+              name="email"
+              id="email"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="phone">Telefono <span class="required">*</span></label>
+            <input
+              type="tel"
+              placeholder="Inserisci numero telefono"
+              name="phone"
+              id="phone"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="message"
+              >Messagio <span class="required">*</span>
+            </label>
+            <textarea
+              placeholder="Scrivi un messaggio..."
+              rows="4"
+              id="message"
+              name="message"
+              required
+            ></textarea>
+          </div>
         </fieldset>
+        <div class="dichiarazione">
+          <input type="checkbox" name="privacy" id="privacy" required />
+          <label for="privacy"
+            >Dichiaro di aver letto l'<a href="/privacy/" class="privacy-link"
+              >informativa privacy</a
+            >
+            e acconsento al trattamento dei miei dati personali ai sensi del
+            Regolamento UE 2016/679 (GDPR)</label
+          >
+        </div>
 
         <div class="buttons-richiedi-info">
           <button type="reset" class="canc">Cancella</button>
-          <button type="submit" class="send">Invia</button>
-        </div>
-        <div class="modal">
-          <div class="modal-content">
-            <p >Caricamento...</p>
-          </div>
+          <button type="submit" class="send">
+            <span class="spinner"></span>
+            <span class="text-btn">Invia</span>
+          </button>
         </div>
       </form>
     </main>
-
-    
 
     <footer>
       <div class="map">
@@ -160,23 +303,143 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
       </div>
+
       <ul>
         <li><a href="/index.html">Home</a></li>
         <li><a href="/laboratori/">Laboratori</a></li>
         <li><a href="/richiedi-prenotazione/">Richiedi Prenotazione</a></li>
         <li><a href="/#contattaci">Contattaci</a></li>
       </ul>
-      <p class="indirizzo">Via Serra Alta, 6, San Sebastiano da Po (TO)</p>
+
       <div class="contact">
         <div class="icons-social">
-          <img src="img/icona-instagram.png" alt="" class="social instagram" />
-          <img src="img/icon-facebook.png" alt="" class="social facebook" />
-          <img src="img/icon-tiktok.png" alt="" class="social tiktok" />
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-instagram-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-instagram-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-instagram-desktop.png"
+              alt="Instagram"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-facebook-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-facebook-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-facebook-desktop.png"
+              alt="Facebook"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
+          <picture>
+            <source
+              media="(min-width: 1280px)"
+              srcset="/img/icone/icon-tiktok-desktop.png"
+              width="24"
+              height="24"
+            />
+            <source
+              media="(max-width: 393px)"
+              srcset="/img/icone/icon-tiktok-mobile.png"
+              width="24"
+              height="24"
+            />
+            <img
+              src="/img/icone/icon-tiktok-desktop.png"
+              alt="Tiktok"
+              class="social"
+              width="24"
+              height="24"
+            />
+          </picture>
         </div>
-        <p>cascinacaccia@acmos.net</p>
-      </div>
-    </footer>
-  </body>
 
+        <p class="email">cascinacaccia@acmos.net</p>
+      </div>
+      <p class="copyright">
+        Copyright © 2025 Cascina Caccia. Tutti i diritti riservati.
+      </p>
+    </footer>
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner">
+      <p>
+        Utilizziamo i cookie per migliorare la tua esperienza. Per maggiori
+        informazioni, leggi la nostra
+        <button class="show-cookie">Informativa sui Cookie</button>.
+      </p>
+
+      <div class="informativa">
+        <h3>Informativa sui Cookie</h3>
+        <p>
+          Il presente sito web utilizza i cookie per garantire il corretto
+          funzionamento delle sue funzionalità e per migliorare l’esperienza di
+          navigazione degli utenti. In questa informativa ti spieghiamo cosa
+          sono i cookie, quali tipi utilizziamo e come puoi gestirli.
+        </p>
+        <h4>Cosa sono i cookie?</h4>
+        <p>
+          I cookie sono piccoli file di testo che vengono memorizzati sul tuo
+          dispositivo (computer, tablet, smartphone) quando visiti un sito web.
+          Servono a migliorare l’esperienza utente, a fornire funzionalità
+          essenziali e a raccogliere dati statistici anonimi.
+        </p>
+        <h4>Tipologie di cookie utilizzate</h4>
+        <p>Nel nostro sito utilizziamo le seguenti tipologie di cookie:</p>
+        <h6>Cookie tecnici</h6>
+        <p>
+          Questi cookie sono essenziali per il funzionamento del sito e per
+          consentire agli utenti di navigare e utilizzare le sue funzionalità.
+          Non richiedono il consenso dell’utente.
+        </p>
+        <h6>Cookie analitici (anonimizzati)</h6>
+        <p>
+          Utilizziamo questi cookie per raccogliere informazioni statistiche
+          aggregate e anonime sull’utilizzo del nostro sito (es. numero di
+          visitatori, pagine più visualizzate). Questi dati ci aiutano a
+          migliorare il nostro servizio. Nota: I dati raccolti da questi cookie
+          non consentono di identificare personalmente gli utenti.
+        </p>
+        <h6>Cookie di funzionalità</h6>
+        <p>
+          Questi cookie consentono di ricordare le preferenze scelte dall’utente
+          (es. impostazioni della lingua, layout personalizzato) per migliorare
+          l’esperienza di navigazione.
+        </p>
+      </div>
+
+      <button class="show-less">Mostra meno</button>
+
+      <div class="cookie-buttons">
+        <button class="decline-btn">Rifiuta</button>
+        <button class="accept-btn">Accetta</button>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: 
+
+User-agent: *
+Disallow: /dashboard/
+Disallow: /sign-in/
+
+Sitemap: http://nome-dominio:8080/sitemap.xml

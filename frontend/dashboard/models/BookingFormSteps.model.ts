@@ -1,5 +1,6 @@
 export default interface BookingFormSteps {
   keeper: {
+    id?: number;
     firstName: string;
     lastName: string;
     email: string;
@@ -7,10 +8,12 @@ export default interface BookingFormSteps {
     phone: string;
   };
   group: {
+    id?: number;
     minors: number;
     adults: number;
   };
   organization: {
+    id?: number;
     name: string;
     type: string;
     address: string;
@@ -18,6 +21,7 @@ export default interface BookingFormSteps {
     email: string;
   };
   journey: {
+    id?: number;
     title: string;
     annotations: string;
     startDate: string;

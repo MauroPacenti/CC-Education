@@ -3,10 +3,22 @@ import Buttons from "../../components/Buttons/Buttons";
 import useDettagliPrenotazione from "../../hooks/useDettagliPrenotazione";
 import "./DettagliPrenotazione.css";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
+import Details from "../../components/Details/Details";
+import { CheckCheck, Pencil, Trash } from "lucide-react";
 
 const DettagliPrenotazione = () => {
-  const { bookingDetails, mutation, isLoading, isError } =
-    useDettagliPrenotazione();
+  const {
+    bookingDetails,
+    mutation,
+    isLoading,
+    isError,
+    initialData,
+    isEditable,
+    toggleEditMode,
+    handleChange,
+    hours,
+    startDate,
+  } = useDettagliPrenotazione();
 
   const [isDeteModalOpen, setIsDeteModalOpen] = useState(false);
   const toggleDeleteModal = () => {
@@ -55,120 +67,163 @@ const DettagliPrenotazione = () => {
             className="button reject"
             onClick={() => setIsDeteModalOpen(true)}
           >
-            Rimuovi
+            <span>
+              <Trash width={20} height={20} />
+              Rimuovi
+            </span>
+          </button>
+          <button className="button edit" onClick={() => toggleEditMode()}>
+            <span>
+              {isEditable ? <CheckCheck /> : <Pencil width={20} height={20} />}
+
+              {isEditable ? "Salva" : "Modifica"}
+            </span>
           </button>
         </div>
         {bookingDetails ? (
           <div className="details-container">
-            <section className="details-section">
-              <h3 className="section-title">Dati Accompagnatore</h3>
-              <div className="details-grid">
-                <div className="detail-item">
-                  <span className="detail-label">Nome:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.firstName}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Cognome:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.lastName}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Email:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.email}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">CF:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.cf}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Telefono:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.phone}
-                  </span>
-                </div>
-              </div>
-            </section>
+            <Details.DetailsSection title="Dati Accompagnatore">
+              <Details.DetailsGrid>
+                <Details.DetailItem
+                  label="Nome"
+                  value={initialData?.keeper.firstName}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="firstName"
+                  inputKey="keeper"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Cognome"
+                  value={initialData?.keeper.lastName}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="lastName"
+                  inputKey="keeper"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Email"
+                  value={initialData?.keeper.email}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="email"
+                  inputKey="keeper"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Codice Fiscale"
+                  value={initialData?.keeper.cf}
+                  isEditable={isEditable}
+                  inputName="cf"
+                  inputKey="keeper"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Telefono"
+                  value={initialData?.keeper.phone}
+                  isEditable={isEditable}
+                  inputName="phone"
+                  inputKey="keeper"
+                ></Details.DetailItem>
+              </Details.DetailsGrid>
+            </Details.DetailsSection>
 
-            <section className="details-section">
-              <h3 className="section-title">Dati Organizzazione</h3>
-              <div className="details-grid">
-                <div className="detail-item">
-                  <span className="detail-label">Nome:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.organization?.name}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Tipo:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.organization?.type}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Indirizzo:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.organization?.address}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Telefono:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.organization?.phone}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Email:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.organization?.email}
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <section className="details-section">
-              <h3 className="section-title">Dati Prenotazione</h3>
-              <div className="details-grid">
-                <div className="detail-item">
-                  <span className="detail-label">Minori nel Gruppo:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.group?.minors}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Adulti:</span>
-                  <span className="detail-value">
-                    {bookingDetails?.keeper?.group?.adults}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Data inizio:</span>
-                  <span className="detail-value">
-                    {new Date(
-                      bookingDetails?.startDate ?? ""
-                    ).toLocaleDateString("it-IT") +
-                      "-" +
-                      bookingDetails?.startDate?.split("T")[1]}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <span className="detail-label">Data fine:</span>
-                  <span className="detail-value">
-                    {new Date(bookingDetails?.endDate ?? "").toLocaleDateString(
-                      "it-IT"
-                    ) +
-                      "-" +
-                      bookingDetails?.endDate?.split("T")[1]}
-                  </span>
-                </div>
-              </div>
-            </section>
+            <Details.DetailsSection title="Dati Organizzazione">
+              <Details.DetailsGrid>
+                <Details.DetailItem
+                  label="Nome organizzazione"
+                  value={initialData?.organization.name}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="name"
+                  inputKey="organization"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Tipo organizzazione"
+                  value={initialData?.organization.type}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="type"
+                  inputKey="organization"
+                  inputType="select"
+                  selectOptions={["scuola", "gruppo"]}
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Indirizzo organizzazione"
+                  value={initialData?.organization.address}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="address"
+                  inputKey="organization"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Telefono organizzazione"
+                  value={initialData?.organization.phone}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="phone"
+                  inputKey="organization"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Email organizzazione"
+                  value={initialData?.organization.email}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="email"
+                  inputKey="organization"
+                ></Details.DetailItem>
+              </Details.DetailsGrid>
+            </Details.DetailsSection>
+            <Details.DetailsSection title="Dati Prenotazione">
+              <Details.DetailsGrid>
+                <Details.DetailItem
+                  label="Minori nel gruppo"
+                  value={initialData?.group.minors}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="minors"
+                  inputKey="group"
+                  inputType="number"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Adulti nel gruppo"
+                  value={initialData?.group.adults}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="adults"
+                  inputKey="group"
+                  inputType="number"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Data inizio prenotazione"
+                  value={new Date(
+                    initialData?.journey.startDate ?? ""
+                  ).toLocaleDateString("it-IT")}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputName="startDate"
+                  inputKey="journey"
+                  inputType="date"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Ora inizio prenotazione"
+                  value={hours.startHour}
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Data fine prenotazione"
+                  value={new Date(
+                    initialData?.journey.endDate ?? ""
+                  ).toLocaleDateString("it-IT")}
+                  isEditable={isEditable}
+                  onChange={handleChange}
+                  inputType="date"
+                  inputName="endDate"
+                  inputKey="journey"
+                  startDate={startDate}
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Ora fine prenotazione"
+                  value={hours.endHour}
+                ></Details.DetailItem>
+              </Details.DetailsGrid>
+            </Details.DetailsSection>
           </div>
         ) : (
           <p>Nessun dettaglio disponibile</p>
