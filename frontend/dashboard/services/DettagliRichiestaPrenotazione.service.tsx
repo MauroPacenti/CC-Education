@@ -22,15 +22,12 @@ const approveRequest = async (data: {
 };
 
 const deleteRequest = async (id?: number) => {
-  const response = await fetch(
-    `/api/pub/deleteJourneyRequest?journeyRequestId=${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch(`/api/pub/deleteJourneyRequest?keeperId=${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

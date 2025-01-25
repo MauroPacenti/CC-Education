@@ -35,6 +35,7 @@ const useDettagliRichiestaPrenotazione = () => {
   const navigate = useNavigate();
 
   const { toggleToast } = useContext(ToastContext);
+  const [keeperId, setKeeperId] = useState<number>();
 
   const {
     data: bookingRequestDetails,
@@ -46,7 +47,10 @@ const useDettagliRichiestaPrenotazione = () => {
     queryFn: (): Promise<BookingRequestDetails> => {
       return DettagliRichiestaPrenotazioneService.getRequest(
         +idRichiestaPrenotazione!
-      );
+      ).then((data) => {
+        setKeeperId(data.keeper.id);
+        return data;
+      });
     },
   });
 
@@ -81,10 +85,8 @@ const useDettagliRichiestaPrenotazione = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (idRichiestaPrenotazione: number) => {
-      return DettagliRichiestaPrenotazioneService.deleteRequest(
-        +idRichiestaPrenotazione!
-      );
+    mutationFn: (idKeeper?: number) => {
+      return DettagliRichiestaPrenotazioneService.deleteRequest(idKeeper!);
     },
     onSuccess: () => {
       toggleToast({
@@ -108,52 +110,6 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const [replyModal, setReplyModal] = useState(false);
   const [approveModal, setApproveModal] = useState(false);
-
-  // const handleApprove = () => {
-  //   const data = {
-  //     startDate: `${selectedDate.startDate}T${durationStart(
-  //       bookingRequestDetails?.duration
-  //     )}:00`,
-  //     endDate: `${selectedDate.endDate ?? selectedDate.startDate}T${durationEnd(
-  //       bookingRequestDetails?.duration
-  //     )}:00`,
-  //     keeperId: bookingRequestDetails?.keeper.id,
-  //     title: bookingRequestDetails?.keeper.organization.name,
-  //   };
-  //   setIsLoading(true);
-  //   try {
-  //     DettagliRichiestaPrenotazioneService.approveRequest(data).then(() => {
-  //       navigate("/dashboard/prenotazioni");
-  //       setIsLoading(false);
-  //     });
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     setError(
-  //       err instanceof Error
-  //         ? err.message
-  //         : "Si è verificato un errore durante il caricamento dei dati."
-  //     );
-  //   }
-  // };
-
-  // const handleReject = () => {
-  //   try {
-  //     setIsLoading(true);
-  //     DettagliRichiestaPrenotazioneService.deleteRequest(
-  //       bookingRequestDetails?.id
-  //     ).then(() => {
-  //       navigate("/dashboard/richieste-prenotazioni");
-  //       setIsLoading(false);
-  //     });
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     setError(
-  //       err instanceof Error
-  //         ? err.message
-  //         : "Si è verificato un errore durante il caricamento dei dati."
-  //     );
-  //   }
-  // };
 
   const handleContact = () => {
     setReplyModal((prev) => !prev);
@@ -191,6 +147,7 @@ const useDettagliRichiestaPrenotazione = () => {
     selectedDate,
     toggleToast,
     idRichiestaPrenotazione,
+    keeperId,
   };
 };
 

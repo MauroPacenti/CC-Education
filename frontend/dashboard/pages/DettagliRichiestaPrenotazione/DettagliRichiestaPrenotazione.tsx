@@ -17,6 +17,7 @@ const DettagliRichiestaPrenotazione = () => {
     toggleAproveModal,
     handleChange,
     selectedDate,
+    keeperId,
   } = useDettagliRichiestaPrenotazione();
 
   if (isError) {
@@ -50,8 +51,8 @@ const DettagliRichiestaPrenotazione = () => {
         <button
           className="button reject"
           onClick={() => {
-            if (!bookingRequestDetails?.id) return;
-            deleteMutation.mutate(bookingRequestDetails?.id);
+            if (!keeperId) return;
+            deleteMutation.mutate(keeperId);
           }}
         >
           <span>

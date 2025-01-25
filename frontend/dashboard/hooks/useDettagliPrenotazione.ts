@@ -13,6 +13,10 @@ const useDettagliPrenotazione = () => {
   const [isEditable, setIsEditable] = useState(false);
 
   const [initialData, setInitialData] = useState<BookingFormSteps>();
+  const [hours, setHours] = useState({
+    startHour: "",
+    endHour: "",
+  });
 
   const toggleEditMode = () => {
     if (isEditable) {
@@ -23,10 +27,18 @@ const useDettagliPrenotazione = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     key: "keeper" | "group" | "organization" | "journey"
   ) => {
     const { name, value } = e.target;
+    let newValue = value;
+    if (name === "startDate") {
+      newValue = value + "T" + hours.startHour + ":00";
+    }
+
+    if (name === "endDate") {
+      newValue = value + "T" + hours.endHour + ":00";
+    }
 
     setInitialData((prevData?: BookingFormSteps) => {
       if (!prevData) return prevData;
@@ -34,7 +46,7 @@ const useDettagliPrenotazione = () => {
         ...prevData,
         [key]: {
           ...prevData[key],
-          [name]: name === "minors" || name === "adults" ? +value : value,
+          [name]: name === "minors" || name === "adults" ? +newValue : newValue,
         },
       };
     });
@@ -81,6 +93,10 @@ const useDettagliPrenotazione = () => {
           startDate: bookingDetails.startDate,
           endDate: bookingDetails.endDate,
         },
+      });
+      setHours({
+        startHour: bookingDetails.startDate.split("T")[1].slice(0, 5),
+        endHour: bookingDetails.endDate.split("T")[1].slice(0, 5),
       });
       return bookingDetails;
     },
@@ -131,6 +147,7 @@ const useDettagliPrenotazione = () => {
     isEditable,
     toggleEditMode,
     handleChange,
+    hours,
   };
 };
 

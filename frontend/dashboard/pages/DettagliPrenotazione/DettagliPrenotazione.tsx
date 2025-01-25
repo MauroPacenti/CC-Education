@@ -16,6 +16,7 @@ const DettagliPrenotazione = () => {
     isEditable,
     toggleEditMode,
     handleChange,
+    hours,
   } = useDettagliPrenotazione();
 
   const [isDeteModalOpen, setIsDeteModalOpen] = useState(false);
@@ -140,6 +141,8 @@ const DettagliPrenotazione = () => {
                   onChange={handleChange}
                   inputName="type"
                   inputKey="organization"
+                  inputType="select"
+                  selectOptions={["scuola", "gruppo"]}
                 ></Details.DetailItem>
                 <Details.DetailItem
                   label="Indirizzo organizzazione"
@@ -176,6 +179,7 @@ const DettagliPrenotazione = () => {
                   onChange={handleChange}
                   inputName="minors"
                   inputKey="group"
+                  inputType="number"
                 ></Details.DetailItem>
                 <Details.DetailItem
                   label="Adulti nel gruppo"
@@ -184,34 +188,37 @@ const DettagliPrenotazione = () => {
                   onChange={handleChange}
                   inputName="adults"
                   inputKey="group"
+                  inputType="number"
                 ></Details.DetailItem>
                 <Details.DetailItem
                   label="Data inizio prenotazione"
-                  value={
-                    new Date(
-                      initialData?.journey.startDate ?? ""
-                    ).toLocaleDateString("it-IT") +
-                    "-" +
-                    initialData?.journey.startDate?.split("T")[1]
-                  }
+                  value={new Date(
+                    initialData?.journey.startDate ?? ""
+                  ).toLocaleDateString("it-IT")}
                   isEditable={isEditable}
                   onChange={handleChange}
                   inputName="startDate"
                   inputKey="journey"
+                  inputType="date"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Ora inizio prenotazione"
+                  value={hours.startHour}
                 ></Details.DetailItem>
                 <Details.DetailItem
                   label="Data fine prenotazione"
-                  value={
-                    new Date(
-                      initialData?.journey.endDate ?? ""
-                    ).toLocaleDateString("it-IT") +
-                    "-" +
-                    initialData?.journey.endDate?.split("T")[1]
-                  }
+                  value={new Date(
+                    initialData?.journey.endDate ?? ""
+                  ).toLocaleDateString("it-IT")}
                   isEditable={isEditable}
                   onChange={handleChange}
+                  inputType="date"
                   inputName="endDate"
                   inputKey="journey"
+                ></Details.DetailItem>
+                <Details.DetailItem
+                  label="Ora fine prenotazione"
+                  value={hours.endHour}
                 ></Details.DetailItem>
               </Details.DetailsGrid>
             </Details.DetailsSection>
