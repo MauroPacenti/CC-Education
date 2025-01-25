@@ -64,8 +64,14 @@ public class KeeperServiceImpl implements KeeperService {
     }
 
     @Override
-    @Transactional
-    public void deleteKeeper(Keeper keeper) {
-        keeperRepo.delete(keeper);
+//    @Transactional
+    public boolean deleteKeeper(Keeper keeper) {
+        try{
+            keeperRepo.delete(keeper);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
