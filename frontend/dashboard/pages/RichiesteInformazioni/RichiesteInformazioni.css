@@ -72,7 +72,7 @@
   display: none;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1240px) {
   .informations-container {
     display: flex;
     gap: 3rem;

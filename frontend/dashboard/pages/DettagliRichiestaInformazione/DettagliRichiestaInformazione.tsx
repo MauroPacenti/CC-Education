@@ -63,7 +63,7 @@ const DettagliRichiestaInformazione = () => {
     return (
       <div>
         <button onClick={navigateToRichiesteInformazioni}>
-          {windowWidth ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>
@@ -95,7 +95,7 @@ const DettagliRichiestaInformazione = () => {
     return (
       <div>
         <button onClick={navigateToRichiesteInformazioni}>
-          {windowWidth ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>
@@ -125,7 +125,7 @@ const DettagliRichiestaInformazione = () => {
       )}
       <div className="info-request-details-buttons">
         <button onClick={navigateToRichiesteInformazioni}>
-          {windowWidth > 1024 ? (
+          {windowWidth > 1240 ? (
             <ArrowRightFromLine></ArrowRightFromLine>
           ) : (
             <MoveLeft></MoveLeft>

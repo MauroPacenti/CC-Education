@@ -4,7 +4,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
-  position: relative;
 }
 
 .info-request-details-buttons {
@@ -81,6 +80,9 @@
   color: #666;
   margin-bottom: 1em;
   font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 768px) {
