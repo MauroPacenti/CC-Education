@@ -1,39 +1,12 @@
 import "./richiesta-prenotazione.css";
-// import Toastify from 'toastify-js';
 
 // Interazione con l'api per la richiesta di prenotazione
-
-const durationStart = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "08:00";
-    case 2:
-      return "13:00";
-    case 3:
-      return "08:00";
-    case 4:
-      return "08:00";
-  }
-};
-const durationEnd = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "12:00";
-    case 2:
-      return "19:00";
-    case 3:
-      return "19:00";
-    case 4:
-      return "12:00";
-  }
-};
 
 // Selezioniamo i campi data
 const startDateInput = document.getElementById(
   "dataInizio"
 ) as HTMLInputElement;
 const endDateInput = document.getElementById("dataFine") as HTMLInputElement;
-const durationSelect = document.getElementById("durata") as HTMLSelectElement;
 
 // Impostiamo la data minima (data attuale) per i due campi
 const today = new Date();
@@ -44,44 +17,10 @@ startDateInput.min = minDateStr; // Impostiamo la data minima della data di iniz
 endDateInput.min = minDateStr; // Impostiamo la data minima anche per la data di fine
 
 // Funzione per abilitare/disabilitare la data finale e sincronizzarla con la data iniziale
-function toggleDateFields() {
-  const duration = durationSelect.value; // Ottieni la durata selezionata
-
-  const dateEndContainer = document.querySelector(".date-field.end");
-  const dateStartContainer = document.querySelector(".date-field.start");
-  const dataLabel = document.querySelector("label[for='dataInizio']");
-
-  if (duration === "4") {
-    // Quando la durata è 4, la data finale può essere selezionata separatamente
-    endDateInput.disabled = false;
-    dateEndContainer?.classList.remove("hidden");
-    dateStartContainer?.classList.remove("max");
-    if (dataLabel) dataLabel.textContent = "Data Inizio";
-    // La data finale può essere diversa dalla data iniziale
-  } else {
-    // Quando la durata è diversa da 4, la data finale è sincronizzata con la data di inizio
-    endDateInput.disabled = true;
-    dateEndContainer?.classList.add("hidden");
-    dateStartContainer?.classList.add("max");
-    if (dataLabel) dataLabel.textContent = "Data";
-    endDateInput.value = startDateInput.value; // Sincronizza la data finale con la data di inizio
-  }
-}
 
 // Funzione per sincronizzare le date
 startDateInput.addEventListener("change", function () {
   const startDate = new Date(startDateInput.value);
-  const duration = durationSelect.value; // Ottieni la durata selezionata
-
-  // Se la durata è diversa da 4
-  if (duration !== "4") {
-    // La data finale deve essere sincronizzata con la data di inizio
-    endDateInput.value = startDateInput.value;
-  } else {
-    // Se la durata è 4, lascia che la data finale sia separata
-    // Non fare nulla
-  }
-
   // Impostiamo la data minima della data di fine in base alla data di inizio
   endDateInput.min = startDate.toISOString().split("T")[0]; // La data finale non può essere anteriore alla data di inizio
 });
@@ -97,13 +36,7 @@ endDateInput.addEventListener("change", function () {
   }
 });
 
-// Ascoltiamo il cambiamento nel campo durata per abilitare o disabilitare la data finale
-durationSelect.addEventListener("change", function () {
-  toggleDateFields(); // Toggle tra le due modalità (1 data o 2 date)
-});
-
 // Inizializza lo stato del campo data finale in base alla durata selezionata all'inizio
-toggleDateFields();
 
 const privacyCheckbox = document.getElementById("privacy") as HTMLInputElement;
 const termsCheckbox = document.getElementById("terms") as HTMLInputElement;
@@ -239,13 +172,6 @@ form?.addEventListener("submit", async (e) => {
   formData.group.minors = Number(formData.group.minors);
   formData.group.adults = Number(formData.group.adults);
   formData.journeyRequest.duration = Number(formData.journeyRequest.duration);
-  formData.journeyRequest.startAvailabilityDate = `${
-    formData.journeyRequest.startAvailabilityDate
-  }T${durationStart(formData.journeyRequest.duration)}:00`;
-
-  formData.journeyRequest.endAvailabilityDate = `${
-    formData.journeyRequest.endAvailabilityDate
-  }T${durationEnd(formData.journeyRequest.duration)}:00`;
 
   const endpoint = "/api/pub/createJourneyRequest";
 
@@ -270,36 +196,45 @@ form?.addEventListener("submit", async (e) => {
     if (response.ok) {
       const json = await response.json();
       if (successModal !== null) {
-        setTimeout(() => {
-          successModal.style.display = "block";
-        }, 5000);
+        successModal.style.display = "block";
       }
     } else {
-      console.error("Errore nella richiesta di prenotazione");
       if (errorModal !== null) {
-        setTimeout(() => {
-          errorModal.style.display = "block";
-        }, 5000);
+        errorModal.style.display = "block";
       }
     }
   } catch (error) {
-    console.log("Errore nella richiesta di prenotazione", error);
     modalLoading?.classList.remove("active");
 
     if (errorModal !== null) {
       errorModal.style.display = "block";
     }
-  }
+  } finally {
+    clearFormFields(section1);
+    clearFormFields(section2);
+    clearFormFields(groupSelect);
+    clearFormFields(journeySelect);
+    if (containerCheckbox) clearFormFields(containerCheckbox);
 
-  clearFormFields(section1);
-  clearFormFields(section2);
-  clearFormFields(groupSelect);
-  clearFormFields(journeySelect);
-  if (containerCheckbox) clearFormFields(containerCheckbox);
-
-  setTimeout(() => {
     modalLoading?.classList.remove("active");
-  }, 5000);
+
+    currentPage = 1;
+    document.getElementById(`page3`)?.classList.remove("active");
+    document.getElementById(`page2`)?.classList.remove("active");
+    document.getElementById(`page1`)?.classList.add("active");
+
+    document.querySelector(`#icon3`)?.classList.remove("active");
+    document.querySelector(`#icon2`)?.classList.remove("active");
+    document.querySelector(`#icon1`)?.classList.replace("done", "active");
+
+    document.querySelector(`#icon1 img`)?.classList.remove("hide");
+    document.querySelector(`#icon2 img`)?.classList.remove("hide");
+
+    document.getElementById(`done1`)?.classList.add("hide");
+    document.getElementById(`done2`)?.classList.add("hide");
+    document.getElementById(`line1`)?.classList.remove("line-fill");
+    document.getElementById(`line2`)?.classList.remove("line-fill");
+  }
 });
 
 closeButtons.forEach((button) => {
@@ -455,7 +390,6 @@ function validateStep(step: number): boolean {
   const inputs = document.querySelectorAll<ValidatableInput>(
     `#page${step} input`
   );
-  console.log("Inputs:", inputs);
   let isStepValid = true;
 
   inputs.forEach((input) => {
