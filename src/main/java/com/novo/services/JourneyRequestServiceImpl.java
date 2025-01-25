@@ -74,7 +74,7 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
         }
 
         // Ensure endDate is after startDate
-        if (!endDate.isAfter(startDate)) {
+        if (!endDate.isAfter(startDate) && !startDate.isEqual(endDate)) {
             return false;
         }
         return true;

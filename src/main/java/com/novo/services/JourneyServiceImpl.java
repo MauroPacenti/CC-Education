@@ -140,7 +140,7 @@ public class JourneyServiceImpl implements JourneyService {
 		}
 
 		// Ensure endDate is after startDate
-		if (endDate.isBefore(startDate) || endDate.isEqual(startDate)) {
+		if (!endDate.isAfter(startDate) && !startDate.isEqual(endDate)) {
 			return false;
 		}
 		return true;
