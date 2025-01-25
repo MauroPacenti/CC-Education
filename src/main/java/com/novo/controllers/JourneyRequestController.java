@@ -2,6 +2,7 @@ package com.novo.controllers;
 
 import com.novo.dtos.JourneyRequestDto;
 import com.novo.entities.*;
+import com.novo.repos.KeeperRepository;
 import com.novo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,9 @@ public class JourneyRequestController {
     
     @Autowired
     private KeeperService keeperService;
+
+    @Autowired
+    private KeeperRepository keeperRepo;
 
     @Autowired
     private AdminService adminService;
@@ -101,12 +105,11 @@ public class JourneyRequestController {
 
     // Deletes existing JourneyRequest
     @DeleteMapping("pub/deleteJourneyRequest")
-    public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int journeyRequestId) {
+    public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int keeperId) {
         try {
-        	if(!journeyRequestService.deleteJourneyRequest(journeyRequestId)) {
-        		throw new Exception("Richiesta non trovata.");
-        	}
-        	return ResponseEntity.ok(true);
+            Keeper keeper = keeperService.getKeeper(keeperId).get();
+            keeperRepo.delete(keeper);
+            return ResponseEntity.ok(true);
         }catch(Exception e) {
         	e.printStackTrace();
         	return ResponseEntity.badRequest().body(false);

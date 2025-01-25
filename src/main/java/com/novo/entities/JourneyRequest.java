@@ -15,8 +15,8 @@ public class JourneyRequest {
     private int id;
 
     @Schema(hidden = true)
-    @ManyToOne
-    @JoinColumn(name = "keeper_id")
+    @OneToOne
+    @JoinColumn(name = "keeper_id", referencedColumnName = "id")
     private Keeper keeper; // Foreign key for "keeper_id" column
 
     @Column(name = "start_availability_date") // "start_availability_date" column 

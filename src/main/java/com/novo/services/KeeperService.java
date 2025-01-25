@@ -10,5 +10,5 @@ public interface KeeperService {
     Optional<Keeper> getKeeper(int id);
     Keeper addKeeper(Keeper keeper);
     Keeper updateKeeper(int KeeperId, Keeper keeper);
-    void deleteKeeper(Keeper keeper);
+    boolean deleteKeeper(Keeper keeper);
 }
