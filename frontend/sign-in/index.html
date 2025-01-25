@@ -7,7 +7,7 @@
     <script type="module" src="./sign-in.ts"></script>
     <script type="module" src="../global/global.ts"></script>
   </head>
-  <body>
+  <body class="sign-in">
     <main>
       <form class="login-form">
         <label for="username">Username</label>
@@ -24,8 +24,12 @@
           name="password"
           placeholder="Inserisci la tua password"
         />
-        <button type="submit">Login</button>
+        <button type="submit" class="login-btn">
+          <span class="spinner"></span>
+          <span class="text-btn">Login</span>
+        </button>
       </form>
     </main>
+    <div class="toast-container"></div>
   </body>
 </html>

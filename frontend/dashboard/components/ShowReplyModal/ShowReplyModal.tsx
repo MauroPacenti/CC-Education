@@ -5,39 +5,15 @@ import { useState } from "react";
 interface Props {
   toggleReplyModal: () => void;
   email?: string;
+  sendEmail: (data: { to: string; subject: string; body: string }) => void;
 }
 
-const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
+const ShowReplyModal = ({ toggleReplyModal, email, sendEmail }: Props) => {
   const [response, setResponse] = useState({
-    email: email,
-    title: "",
-    content: "",
+    to: email,
+    subject: "",
+    body: "",
   });
-  const [err, setErr] = useState<string | null>(null);
-
-  const handleReply = async () => {
-    try {
-      const email = {
-        to: response.email,
-        subject: response.title,
-        text: response.content,
-      };
-
-      // Using mailto to open default email client
-      const mailtoLink = `mailto:${email.to}?subject=${encodeURIComponent(
-        email.subject
-      )}&body=${encodeURIComponent(email.text)}`;
-
-      window.location.href = mailtoLink;
-      toggleReplyModal();
-    } catch (error) {
-      setErr("Errore nell'invio dell'email: " + error);
-    }
-  };
-
-  if (err) {
-    return <div>Errore nel inviare la risposta</div>;
-  }
 
   return (
     <div className="reply-modal" onClick={toggleReplyModal}>
@@ -49,7 +25,16 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
           <X />
         </button>
         <h3>Rispondi alla richiesta</h3>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (response.to) {
+              sendEmail(
+                response as { to: string; subject: string; body: string }
+              );
+            }
+          }}
+        >
           <div className="reply-modal-email-input">
             <label htmlFor="">A: </label>
             <input
@@ -67,7 +52,7 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
               type="text"
               placeholder="Inserisci l'oggetto della risposta"
               onChange={(e) =>
-                setResponse((prev) => ({ ...prev, title: e.target.value }))
+                setResponse((prev) => ({ ...prev, subject: e.target.value }))
               }
             />
           </div>
@@ -78,7 +63,7 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
               className="reply-modal-textarea"
               placeholder="Scrivi qui la tua risposta..."
               onChange={(e) =>
-                setResponse((prev) => ({ ...prev, content: e.target.value }))
+                setResponse((prev) => ({ ...prev, body: e.target.value }))
               }
             ></textarea>
           </div>
@@ -89,7 +74,7 @@ const ShowReplyModal = ({ toggleReplyModal, email }: Props) => {
             >
               Annulla
             </button>
-            <button className="reply-modal-button send" onClick={handleReply}>
+            <button className="reply-modal-button send" type="submit">
               Invia
             </button>
           </div>

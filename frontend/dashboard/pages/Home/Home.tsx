@@ -57,10 +57,9 @@ const Home = () => {
             {bookings && bookings.length > 0 ? (
               <div className="bookings">
                 {bookings.map((booking: BookingHome) => (
-                  <div className="booking-item">
+                  <div className="booking-item" key={booking.id}>
                     <NavLink
                       to={`/dashboard/prenotazioni/${booking.id}`}
-                      key={booking.id}
                       className="booking-link"
                     >
                       <p className="booking-time">

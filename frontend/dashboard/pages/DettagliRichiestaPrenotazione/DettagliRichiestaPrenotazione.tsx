@@ -1,16 +1,14 @@
 import "./DettagliRichiestaPrenotazione.css";
-import ShowReplyModal from "../../components/ShowReplyModal/ShowReplyModal";
 import Modal from "../../components/Modal/Modal";
 
 import Details from "../../components/Details/Details";
 import Buttons from "../../components/Buttons/Buttons";
 import useDettagliRichiestaPrenotazione from "../../hooks/useDettagliRichiestaPrenotazione";
+import { CalendarSearch, Trash } from "lucide-react";
 
 const DettagliRichiestaPrenotazione = () => {
   const {
     isLoading,
-    replyModal,
-    handleContact,
     bookingRequestDetails,
     approveMutation,
     deleteMutation,
@@ -44,12 +42,6 @@ const DettagliRichiestaPrenotazione = () => {
 
   return (
     <div>
-      {replyModal && (
-        <ShowReplyModal
-          toggleReplyModal={handleContact}
-          email={bookingRequestDetails?.keeper?.email}
-        />
-      )}
       <Buttons.BackButton></Buttons.BackButton>
 
       <h2>Dettagli Richiesta Prenotazione</h2>
@@ -62,11 +54,17 @@ const DettagliRichiestaPrenotazione = () => {
             deleteMutation.mutate(bookingRequestDetails?.id);
           }}
         >
-          Rifiuta
+          <span>
+            {" "}
+            <Trash width={20} height={20} /> Rifiuta
+          </span>
         </button>
 
         <button className="button approve" onClick={toggleAproveModal}>
-          Seleziona data
+          <span>
+            {" "}
+            <CalendarSearch /> Seleziona data
+          </span>
         </button>
       </div>
 

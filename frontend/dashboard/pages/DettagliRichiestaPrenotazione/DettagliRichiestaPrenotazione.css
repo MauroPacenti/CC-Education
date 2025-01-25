@@ -21,6 +21,13 @@
   transition: all 0.2s ease-in-out;
 }
 
+.button span {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  justify-content: center;
+}
+
 .button:hover {
   transform: translateY(-2px);
 }
