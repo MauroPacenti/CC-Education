@@ -17,6 +17,7 @@ const DettagliPrenotazione = () => {
     toggleEditMode,
     handleChange,
     hours,
+    startDate,
   } = useDettagliPrenotazione();
 
   const [isDeteModalOpen, setIsDeteModalOpen] = useState(false);
@@ -215,6 +216,7 @@ const DettagliPrenotazione = () => {
                   inputType="date"
                   inputName="endDate"
                   inputKey="journey"
+                  startDate={startDate}
                 ></Details.DetailItem>
                 <Details.DetailItem
                   label="Ora fine prenotazione"

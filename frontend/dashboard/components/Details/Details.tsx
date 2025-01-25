@@ -18,6 +18,7 @@ interface DetailItemProps {
     key: "keeper" | "group" | "organization" | "journey"
   ) => void;
   selectOptions?: string[];
+  startDate?: string | null;
 }
 
 const DetailItem: React.FC<DetailItemProps> = ({
@@ -29,11 +30,13 @@ const DetailItem: React.FC<DetailItemProps> = ({
   inputType = "text",
   onChange,
   selectOptions = [],
+  startDate,
 }) => {
   const renderInput = () => {
     if (!isEditable) return <span className="detail-value">{value}</span>;
     const parseDate = (dateString: string) => {
       const [datePart] = dateString.split("-");
+      console.log(datePart);
       const [day, month, year] = datePart.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     };
@@ -44,8 +47,12 @@ const DetailItem: React.FC<DetailItemProps> = ({
           <input
             type="date"
             className="detail-value editable"
-            min={parseDate(String(new Date().toLocaleDateString("it-IT")))}
-            value={parseDate(String(value))}
+            min={
+              startDate
+                ? startDate
+                : parseDate(new Date().toLocaleDateString("it-IT"))
+            }
+            value={startDate ? startDate : parseDate(String(value))}
             onChange={(e) => onChange && onChange(e, inputKey!)}
             name={inputName}
           />

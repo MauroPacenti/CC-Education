@@ -18,6 +18,8 @@ const useDettagliPrenotazione = () => {
     endHour: "",
   });
 
+  const [startDate, setStartDate] = useState<string | null>("");
+
   const toggleEditMode = () => {
     if (isEditable) {
       console.log(initialData);
@@ -31,12 +33,15 @@ const useDettagliPrenotazione = () => {
     key: "keeper" | "group" | "organization" | "journey"
   ) => {
     const { name, value } = e.target;
+    console.log(name, value);
     let newValue = value;
     if (name === "startDate") {
+      setStartDate(newValue);
       newValue = value + "T" + hours.startHour + ":00";
     }
 
     if (name === "endDate") {
+      setStartDate(null);
       newValue = value + "T" + hours.endHour + ":00";
     }
 
@@ -50,6 +55,7 @@ const useDettagliPrenotazione = () => {
         },
       };
     });
+    console.log(initialData);
   };
 
   const {
@@ -148,6 +154,7 @@ const useDettagliPrenotazione = () => {
     toggleEditMode,
     handleChange,
     hours,
+    startDate,
   };
 };
 
