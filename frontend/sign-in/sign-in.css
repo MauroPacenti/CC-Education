@@ -89,6 +89,7 @@
   display: block;
   animation: spinner 1.5s linear infinite;
 }
+
 .loading ~ .text-btn {
   display: none;
 }
