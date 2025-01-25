@@ -68,7 +68,7 @@ public class JourneyController {
 			if(!journeyService.dateTimeCheck(startDate, endDate)) {
 				throw new Error("Le date non sono valide.");
 			}
-				savedJourney = journeyService.save(title, annotations, startDate, endDate, keeperId);
+				savedJourney = journeyService.addJourney(title, annotations, startDate, endDate, keeperId);
 				JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
 				if(journeyRequest != null) {
 					journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
@@ -103,8 +103,8 @@ public class JourneyController {
 				throw new Error("Le date non sono valide.");
 			}
 			Keeper newKeeper = keeperService.addKeeper(journeyDto.getKeeper());
-			Group group = groupService.save(journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
-			Organization organization = organizationService.save(journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
+			Group group = groupService.addGroup(journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
+			Organization organization = organizationService.addOrganization(journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
 			newKeeper.setGroup(group);
 			newKeeper.setOrganization(organization);
 			journeyDto.getJourney().setKeeper(newKeeper);
@@ -113,7 +113,7 @@ public class JourneyController {
 		}
 			Journey journey;
 			try {
-				journey = journeyService.save(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
+				journey = journeyService.addJourney(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
 				String object= "Richiesta prenotazione: " + journey.getKeeper().getFirstName() + " " + journey.getKeeper().getLastName();
 				String body= "Gentile " + journeyDto.getKeeper().getFirstName() + " " + journeyDto.getKeeper().getLastName()
 						+ ",<br>" +
@@ -142,12 +142,12 @@ public class JourneyController {
 			Journey journey;
 			try {
 				Keeper newKeeper = keeperService.updateKeeper(journeyDto.getKeeper().getId(), journeyDto.getKeeper());
-				Group group = groupService.update(journeyDto.getGroup().getId(), journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
-				Organization organization = organizationService.update(journeyDto.getOrganization().getId(), journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
+				Group group = groupService.updateGroup(journeyDto.getGroup().getId(), journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
+				Organization organization = organizationService.updateOrganization(journeyDto.getOrganization().getId(), journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
 				newKeeper.setGroup(group);
 				newKeeper.setOrganization(organization);
 				journeyDto.getJourney().setKeeper(newKeeper);
-				journey = journeyService.update(journeyDto.getJourney().getId(), journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
+				journey = journeyService.updateJourney(journeyDto.getJourney().getId(), journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
 			} catch (Exception e) {
 				e.printStackTrace();
 				return ResponseEntity.badRequest().build();
@@ -164,7 +164,7 @@ public class JourneyController {
 	@DeleteMapping("pub/deleteJourney")
 	public ResponseEntity<Boolean> deleteJourney(@RequestParam int journeyId) {
 	try {
-		if(!journeyService.delete(journeyId)) {
+		if(!journeyService.deleteJourney(journeyId)) {
 			throw new Exception("Richiesta non trovata.");
 		}
 		return ResponseEntity.ok(true);

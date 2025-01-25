@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InfoRequestService {
+	
     List<InfoRequest> getInfoRequests();
     Optional<InfoRequest> getInfoRequest(int infoRequestId);
     void addInfoRequest(InfoRequest infoRequest);

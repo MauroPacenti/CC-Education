@@ -43,7 +43,7 @@ public class OrganizationController {
 										   @RequestParam int keeperId,
 										   @RequestParam int organizationId ) {
 		try {
-			Organization updatedOrganization = organizationService.update(organizationId, name, type, address, phone, email, organizationId);
+			Organization updatedOrganization = organizationService.updateOrganization(organizationId, name, type, address, phone, email, organizationId);
 			return ResponseEntity.ok(updatedOrganization);
 		}catch(Exception e) {
 			e.printStackTrace();

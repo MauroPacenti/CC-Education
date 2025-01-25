@@ -8,7 +8,7 @@ public interface GroupService {
 
 	List<Group> findALL();
 	Group findById(int groupId);
-	Group save(int minors, int adults, int keeperId);
-	Group update(int groupId, int minors, int adults, int keeperId);
-	boolean delete(int groupId);
+	Group addGroup(int minors, int adults, int keeperId);
+	Group updateGroup(int groupId, int minors, int adults, int keeperId);
+	boolean deleteGroup(int groupId);
 }

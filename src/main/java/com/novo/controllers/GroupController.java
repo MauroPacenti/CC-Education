@@ -39,7 +39,7 @@ public class GroupController {
 											 @RequestParam int keeperId,
 											 @RequestParam int groupId) {
 		try{
-			Group updatedGroup = groupService.update(groupId, minors, adults, keeperId);
+			Group updatedGroup = groupService.updateGroup(groupId, minors, adults, keeperId);
 			return ResponseEntity.ok(updatedGroup);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -60,8 +60,8 @@ public class JourneyRequestController {
                 throw new Error("Le date non sono valide.");
             }
             Keeper newKeeper = keeperService.addKeeper(journeyRequestDto.getKeeper());
-            Group group = groupService.save(journeyRequestDto.getGroup().getMinors(), journeyRequestDto.getGroup().getAdults(), newKeeper.getId());
-            Organization organization = organizationService.save(journeyRequestDto.getOrganization().getName(), journeyRequestDto.getOrganization().getType(), journeyRequestDto.getOrganization().getAddress(), journeyRequestDto.getOrganization().getPhone(), journeyRequestDto.getOrganization().getEmail(), newKeeper.getId());
+            Group group = groupService.addGroup(journeyRequestDto.getGroup().getMinors(), journeyRequestDto.getGroup().getAdults(), newKeeper.getId());
+            Organization organization = organizationService.addOrganization(journeyRequestDto.getOrganization().getName(), journeyRequestDto.getOrganization().getType(), journeyRequestDto.getOrganization().getAddress(), journeyRequestDto.getOrganization().getPhone(), journeyRequestDto.getOrganization().getEmail(), newKeeper.getId());
             newKeeper.setGroup(group);
             newKeeper.setOrganization(organization);
             journeyRequestDto.getJourneyRequest().setKeeper(newKeeper);

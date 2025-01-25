@@ -2,8 +2,7 @@ package com.novo.services;
 
 import jakarta.mail.MessagingException;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.Map;
 
 public interface JavaMailSenderService {
