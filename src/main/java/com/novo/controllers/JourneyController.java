@@ -37,7 +37,7 @@ public class JourneyController {
 	private JourneyRequestService journeyRequestService;
 
 	// Returns all Journeys
-	@GetMapping("pub/getAllJourney")
+	@GetMapping("/auth/getAllJourney")
 	public ResponseEntity<List<Journey>> getAllJourney(
 			@RequestParam(required = false) String title,
 	        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
@@ -53,7 +53,7 @@ public class JourneyController {
 	}
 	
 	// Creates a new Journey
-	@PostMapping("pub/createJourney")
+	@PostMapping("/pub/createJourney")
 	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat LocalDateTime startDate,
 	        @RequestParam @DateTimeFormat LocalDateTime endDate,
@@ -92,7 +92,7 @@ public class JourneyController {
 	    return ResponseEntity.ok(savedJourney);
 }
 	
-	@PostMapping("pub/createJourneyFromAdmin")
+	@PostMapping("/auth/createJourneyFromAdmin")
 	// Creates a new journey from the admin interface
 	public ResponseEntity<Journey> createJourneyFromAdmin(@RequestBody JourneyDto journeyDto){
 		try {
@@ -130,7 +130,7 @@ public class JourneyController {
 	
 	// Updates existing Journey
 
-	@PutMapping("/api/pub/updateJourney")
+	@PutMapping("/auth/updateJourney")
 	public ResponseEntity<Journey> updateJourney(@RequestBody JourneyDto journeyDto) {
 		try {
 			if (adminService.validateEmail(journeyDto.getKeeper().getEmail())) {
@@ -161,7 +161,7 @@ public class JourneyController {
 	}
 
 	// Deletes existing Journey
-	@DeleteMapping("pub/deleteJourney")
+	@DeleteMapping("/auth/deleteJourney")
 	public ResponseEntity<Boolean> deleteJourney(@RequestParam int journeyId) {
 	try {
 		if(!journeyService.delete(journeyId)) {

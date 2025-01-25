@@ -37,7 +37,7 @@ public class JourneyRequestController {
     private JavaMailSenderService javaMailSenderService;
 
     // Returns all Journeys
-    @GetMapping("pub/getAllJourneyRequest")
+    @GetMapping("/auth/getAllJourneyRequest")
     public ResponseEntity<List<JourneyRequest>> getAllJourneyRequest() {
     	try {
     		List<JourneyRequest> listJourneyRequest = journeyRequestService.getJourneyRequests();
@@ -49,7 +49,7 @@ public class JourneyRequestController {
     }
 
     // Creates a new JourneyRequest
-    @PostMapping("pub/createJourneyRequest")
+    @PostMapping("/pub/createJourneyRequest")
     public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody JourneyRequestDto journeyRequestDto) {
 
         try {
@@ -84,7 +84,7 @@ public class JourneyRequestController {
         }
 
     // Updates existing JourneyRequest
-    @PutMapping("pub/updateJourneyRequest")
+    @PutMapping("/auth/updateJourneyRequest")
     public ResponseEntity<JourneyRequest> updateJourneyRequest(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startAvailabilityDate,
                                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endAvailabilityDate,
                                                @RequestParam(required = false) int duration,
@@ -110,7 +110,7 @@ public class JourneyRequestController {
     }
 
     // Deletes existing JourneyRequest
-    @DeleteMapping("pub/deleteJourneyRequest")
+    @DeleteMapping("/auth/deleteJourneyRequest")
     public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int keeperId) {
         try {
             Keeper keeper = keeperService.getKeeper(keeperId).get();
