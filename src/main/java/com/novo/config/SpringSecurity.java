@@ -38,6 +38,13 @@ public class SpringSecurity {
                                 .requestMatchers("/webjars/**").permitAll()
                                 .requestMatchers("/api/pub/**").permitAll()
                                 .requestMatchers("/api/auth/**").authenticated()
+                                .requestMatchers("/dashboard/**").authenticated()
+                                .requestMatchers("/laboratori/").permitAll()
+                                .requestMatchers("/richiedi-prenotazione/").permitAll()
+                                .requestMatchers("/sign-in/").permitAll()
+                                .requestMatchers("/privacy/").permitAll()
+                                .requestMatchers("/assets/").permitAll()
+                                .requestMatchers("/img/").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/")
