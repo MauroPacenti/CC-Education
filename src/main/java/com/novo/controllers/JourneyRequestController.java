@@ -56,6 +56,9 @@ public class JourneyRequestController {
             if(adminService.validateEmail(journeyRequestDto.getKeeper().getEmail())){
                 throw new Error("L'email non ha un formato idoneo.");
             }
+            if(!journeyRequestService.dateCheck(journeyRequestDto.getJourneyRequest().getStartAvailabilityDate(), journeyRequestDto.getJourneyRequest().getEndAvailabilityDate())) {
+                throw new Error("Le date non sono valide.");
+            }
             Keeper newKeeper = keeperService.addKeeper(journeyRequestDto.getKeeper());
             Group group = groupService.save(journeyRequestDto.getGroup().getMinors(), journeyRequestDto.getGroup().getAdults(), newKeeper.getId());
             Organization organization = organizationService.save(journeyRequestDto.getOrganization().getName(), journeyRequestDto.getOrganization().getType(), journeyRequestDto.getOrganization().getAddress(), journeyRequestDto.getOrganization().getPhone(), journeyRequestDto.getOrganization().getEmail(), newKeeper.getId());
@@ -88,6 +91,9 @@ public class JourneyRequestController {
                                                @RequestParam(required = false) int keeperId,
                                                @RequestParam int journeyRequestId) {
 
+        if(!journeyRequestService.dateCheck(startAvailabilityDate, endAvailabilityDate)){
+            throw new Error("Le date non sono valide.");
+        }
         JourneyRequest updatedJourneyRequest = new JourneyRequest();
         try {
         	updatedJourneyRequest.setId(journeyRequestId);

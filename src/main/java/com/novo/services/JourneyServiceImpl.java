@@ -123,5 +123,27 @@ public class JourneyServiceImpl implements JourneyService {
     		return false;
     	}
     }
+
+	@Override
+	public boolean dateTimeCheck(LocalDateTime startDate, LocalDateTime endDate) {
+		// Ensure both dates are provided
+		if (startDate == null || endDate == null) {
+			return false;
+		}
+
+		// Get the current date-time
+		LocalDateTime now = LocalDateTime.now();
+
+		// Check if startDate is today or in the future
+		if (startDate.isBefore(now)) {
+			return false;
+		}
+
+		// Ensure endDate is after startDate
+		if (endDate.isBefore(startDate) || endDate.isEqual(startDate)) {
+			return false;
+		}
+		return true;
+	}
 }
  
