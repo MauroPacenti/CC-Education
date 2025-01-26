@@ -32,7 +32,7 @@ public class GroupServiceImpl implements GroupService {
 
 	// Saves a group by requested parameters
 	@Override
-	public Group save(int minors, int adults, int keeperId) {
+	public Group addGroup(int minors, int adults, int keeperId) {
 	  Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
 	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
 	   );
@@ -49,7 +49,7 @@ public class GroupServiceImpl implements GroupService {
 
 	// Updates an existing Group by requested parameters
 	@Override
-	public Group update(int groupId, int minors, int adults, int keeperId) {
+	public Group updateGroup(int groupId, int minors, int adults, int keeperId) {
 		 Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
 	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
 	   );
@@ -69,7 +69,7 @@ public class GroupServiceImpl implements GroupService {
 
 	// Deletes an existing Group
 	@Override
-	public boolean delete(int groupId) {
+	public boolean deleteGroup(int groupId) {
 		if(groupRepo.existsById(groupId)) {
 			groupRepo.deleteById(groupId);
 			return true;

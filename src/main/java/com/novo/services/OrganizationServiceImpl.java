@@ -26,7 +26,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Organization save(String name, String type, String address, String phone, String email, int keeperId) {
+    public Organization addOrganization(String name, String type, String address, String phone, String email, int keeperId) {
         Keeper keeper = keeperRepository.findById(keeperId).orElseThrow(() -> new RuntimeException("Keeper not found with id: " + keeperId));
 
         Organization organization = new Organization();
@@ -42,7 +42,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Organization update(int id, String name, String type, String address, String phone, String email, int keeperId) {
+    public Organization updateOrganization(int id, String name, String type, String address, String phone, String email, int keeperId) {
         Organization existingOrganization = organizationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
         
@@ -59,7 +59,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public void delete(int id) {
+    public void deleteOrganization(int id) {
         organizationRepository.deleteById(id);
     }
 }

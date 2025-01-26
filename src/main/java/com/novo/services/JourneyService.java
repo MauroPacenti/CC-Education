@@ -10,9 +10,9 @@ public interface JourneyService {
 	List<Journey> findALL();
 	List<Journey> filteredJourney(String title, LocalDateTime startDate, LocalDateTime endDate);
 	Journey findById(int JourneyId);
-	Journey save(String title, String annotations, LocalDateTime startdate, LocalDateTime endDate, int keeperId);
-	Journey update(int journeyId, String title, String annotations, LocalDateTime startdate, LocalDateTime endDate, int keeperId);
-	boolean delete(int JourneyId);
+	Journey addJourney(String title, String annotations, LocalDateTime startdate, LocalDateTime endDate, int keeperId);
+	Journey updateJourney(int journeyId, String title, String annotations, LocalDateTime startdate, LocalDateTime endDate, int keeperId);
+	boolean deleteJourney(int JourneyId);
 	boolean dateTimeCheck(LocalDateTime startDate, LocalDateTime endDate);
 
 }

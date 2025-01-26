@@ -59,7 +59,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Saves Journey by requested parameters
     @Override
-    public Journey save(String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
+    public Journey addJourney(String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
     	
     	if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
@@ -84,7 +84,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Updates existing Journey by requested parameters
     @Override
-    public Journey update(int journeyId, String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
+    public Journey updateJourney(int journeyId, String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
     	
     	Journey journey = journeyRepo.findById(journeyId).orElseThrow(() -> 
         	new IllegalArgumentException("Journey with ID " + journeyId + " not found.")
@@ -115,7 +115,7 @@ public class JourneyServiceImpl implements JourneyService {
     
     // Delete Journey by its ID
     @Override
-    public boolean delete(int journeyId) {
+    public boolean deleteJourney(int journeyId) {
     	if(journeyRepo.existsById(journeyId)) {
     		journeyRepo.deleteById(journeyId);
     		return true;
