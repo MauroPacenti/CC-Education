@@ -2,6 +2,7 @@ package com.novo.dtos;
 
 import com.novo.entities.*;
 
+// Container that passes objects to the Journey controller
 public class JourneyDto {
     private Keeper keeper;
     private Group group;

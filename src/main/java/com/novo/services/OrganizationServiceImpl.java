@@ -15,18 +15,22 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Autowired
     private KeeperRepository keeperRepository;
 
+	// Returns all Organizations
     @Override
     public List<Organization> findAll() {
         return organizationRepository.findAll();
     }
-
+    
+	// Returns Organization by its id, if it does not exist, throws an exception
     @Override
     public Organization findById(int id) {
         return organizationRepository.findById(id).orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
     }
 
+	// Adds a Organization by requested parameters
     @Override
     public Organization addOrganization(String name, String type, String address, String phone, String email, int keeperId) {
+    	// If the id keeper is not found, it throws an exception.
         Keeper keeper = keeperRepository.findById(keeperId).orElseThrow(() -> new RuntimeException("Keeper not found with id: " + keeperId));
 
         Organization organization = new Organization();
@@ -40,12 +44,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<Organization> newOrganizations = organizationRepository.findAll();
         return newOrganizations.get(newOrganizations.size() - 1);
     }
-
+ 
+    // Updates an existing organization by requested parameters
     @Override
     public Organization updateOrganization(int id, String name, String type, String address, String phone, String email, int keeperId) {
+  	    // If the organization is not found, it throws an exception.
         Organization existingOrganization = organizationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
-        
+  	    // If the keeper is not found, it throws an exception.
         Keeper keeper = keeperRepository.findById(keeperId)
                 .orElseThrow(() -> new RuntimeException("Keeper not found with id: " + keeperId));
 
@@ -58,6 +64,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationRepository.save(existingOrganization);
     }
 
+	// Deletes an existing Organization
     @Override
     public void deleteOrganization(int id) {
         organizationRepository.deleteById(id);

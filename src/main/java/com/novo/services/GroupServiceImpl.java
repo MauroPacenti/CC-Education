@@ -19,20 +19,22 @@ public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private KeeperRepository keeperRepo;
 	
+	// Returns all groups
 	@Override
 	public List<Group> findALL() {
-		return groupRepo.findAll(); // Returns all groups
+		return groupRepo.findAll();
 	}
 
-	// Returns group by its id
+	// Returns group by its id, if it doesn't find it, it returns null
 	@Override
 	public Group findById(int groupId) {
 		return groupRepo.findById(groupId).orElse(null);
 	}
 
-	// Saves a group by requested parameters
+	// Adds a group by requested parameters
 	@Override
 	public Group addGroup(int minors, int adults, int keeperId) {
+	  // If the keeper is not found, it throws an exception.
 	  Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
 	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
 	   );
@@ -50,10 +52,12 @@ public class GroupServiceImpl implements GroupService {
 	// Updates an existing Group by requested parameters
 	@Override
 	public Group updateGroup(int groupId, int minors, int adults, int keeperId) {
+	     // If the keeper is not found, it throws an exception.
 		 Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
 	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
 	   );
-	   
+		 
+		 // If the group is not found, it throws an exception.
 		 Group group = groupRepo.findById(groupId).orElseThrow(() -> 
 	      new IllegalArgumentException("Group with ID " + groupId + " not found.")
 	   );
@@ -67,7 +71,7 @@ public class GroupServiceImpl implements GroupService {
 	   
 	   }
 
-	// Deletes an existing Group
+	// Deletes an existing Group, if it does not exist, throws an exception
 	@Override
 	public boolean deleteGroup(int groupId) {
 		if(groupRepo.existsById(groupId)) {

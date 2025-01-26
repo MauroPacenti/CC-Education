@@ -3,7 +3,7 @@ package com.novo.entities;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
-
+// Entity that refers to info_request table in DB using Springboot dependencies
 @Entity
 @Table(name = "info_requests")
 public class InfoRequest {

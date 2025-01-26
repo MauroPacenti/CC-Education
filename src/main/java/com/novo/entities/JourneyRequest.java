@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+// Entity that refers to journey_requests table in DB using Springboot dependencies
 @Entity
 @Table(name = "journey_requests")
 public class JourneyRequest {

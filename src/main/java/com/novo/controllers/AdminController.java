@@ -22,6 +22,7 @@ public class AdminController {
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    // Return an admin
     @GetMapping("/auth/getAdmin")
     public ResponseEntity<Admin> getAdmin() {
         Admin admin = adminService.getAdmin();
@@ -30,7 +31,8 @@ public class AdminController {
 
     @PostMapping("/auth/saveChanges")
     public ResponseEntity<String> saveChanges(@RequestParam String oldEmailCode, @RequestParam(required = false) String newEmailCode) {
-        //sets newEmail code to empty string if null
+    	
+        // Sets newEmail code to empty string if null
         if(newEmailCode == null)
             newEmailCode = "";
         if(securityCheckService.codeSecurityCheck(oldEmailCode,newEmailCode)){
@@ -45,19 +47,21 @@ public class AdminController {
     @PutMapping("/auth/saveTemp")
     public ResponseEntity<Admin> saveTemp(@RequestParam(required = false) String email, @RequestParam(required = false) String password) {
         try {
-            //turns null values to empty strings
+        	
+            // Turns null values to empty strings
             if(email == null){
                 email = "";
             }
             if(password == null){
                 password = "";
             }
-            //verifies which values are empty and decides how to fill temporary information
+            // Verifies which values are empty and decides how to fill temporary information
             if(email.isEmpty() && password.isEmpty()){
                 throw new Error("I campi sono entrambi vuoti");
             }
             else if(email.isEmpty() || email.equals(adminService.getAdmin().getEmail())) {
-                //password validation
+            	
+                // Password validation
                 if(adminService.validatePassword(password)){
                     throw new Error("La password non rispetta i criteri di sicurezza." +
                             "\nSono necessari almeno:" +
@@ -72,7 +76,8 @@ public class AdminController {
                 javaMailSenderService.sendVerificationMail(code, adminService.getAdmin().getEmail());
             }
             else if(password.isEmpty()) {
-                //email validation
+            	
+                // Email validation
                 if(adminService.validateEmail(email)){
                     throw new Error("L'email non ha un formato idoneo.");
                 }
@@ -84,7 +89,8 @@ public class AdminController {
                 javaMailSenderService.sendVerificationMail(codeNew, email);
             }
             else {
-                //password validation
+            	
+                // Password validation
                 if(adminService.validatePassword(password)){
                     throw new Error("La password non rispetta i criteri di sicurezza." +
                             "\nSono necessari almeno:" +
@@ -93,7 +99,7 @@ public class AdminController {
                             "\nun numero;" +
                             "\nun carattere speciale;");
                 }
-                //email validation
+                // Email validation
                 if(adminService.validateEmail(email)){
                     throw new Error("L'email non ha un formato idoneo.");
                 }

@@ -23,22 +23,24 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    	
         // Password from the login form
         String password = authentication.getCredentials().toString();
 
-        //fetch admin from the database
+        // Fetch admin from the database
         Admin admin = adminRepository.findById("admin")
                 .orElseThrow(() -> new BadCredentialsException("Errore durante il recupero dell'amministratore"));
 
-        //validate password
+        // Validate password
         if (!passwordEncoder.matches(password, admin.getPassword())) {
             throw new BadCredentialsException("Password non valida");
         }
 
-        //return authenticated token
+        // Return authenticated token
         return new UsernamePasswordAuthenticationToken(admin.getUsername(), null, null);
     }
 
+    // Return true if authenticationProvider supports the authentication object
     @Override
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);

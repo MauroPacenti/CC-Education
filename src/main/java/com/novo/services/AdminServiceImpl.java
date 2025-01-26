@@ -15,7 +15,7 @@ public class AdminServiceImpl implements AdminService {
     // Saves temporary credentials into temp
     @Override
     public void saveTemporaryCredentials(String newPassword, String newEmail) {
-        Admin temp = adminRepo.findById("temp").get();
+    	Admin temp = adminRepo.findById("temp").get();
         temp.setPassword(newPassword);
         temp.setEmail(newEmail);
         adminRepo.save(temp);
@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
     // Transfers temp credentials to admin and completes changes
     @Override
     public void saveNewCredentials() {
-        Admin temp = adminRepo.findById("temp").get();
+    	Admin temp = adminRepo.findById("temp").get();
         Admin admin = adminRepo.findById("admin").get();
         admin.setEmail(temp.getEmail());
         admin.setPassword(temp.getPassword());
@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
     // Responsable to validate password changes
     @Override
     public boolean validatePassword(String password) {
-        // Regex pattern for validation (at least a number, a special char, an upper char and a lower char)
+    	// Regex pattern for validation (at least a number, a special char, an upper char and a lower char)
         String regex = "(?=.*[0-9])(?=.*[!@#$%^&*.\\-_])(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9!@#$%^&*.\\-_]{12,}$";
         Pattern pattern = Pattern.compile(regex);
         return !pattern.matcher(password).matches();
@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
     // Responsable to validate email changes
     @Override
     public boolean validateEmail(String email) {
-        // Regex pattern for email validation
+    	// Regex pattern for email validation
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(regex);
         return !pattern.matcher(email).matches();

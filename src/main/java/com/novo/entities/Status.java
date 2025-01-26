@@ -3,6 +3,7 @@ package com.novo.entities;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
+// Entity that refers to statuses table in DB using Springboot dependencies
 @Entity
 @Table(name = "statuses")
 public class Status {

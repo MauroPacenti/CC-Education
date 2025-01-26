@@ -3,6 +3,7 @@ package com.novo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Allows to run the application
 @SpringBootApplication
 public class CcEducationApplication {
 

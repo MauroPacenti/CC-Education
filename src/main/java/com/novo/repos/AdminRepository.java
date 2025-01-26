@@ -4,6 +4,7 @@ import com.novo.entities.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+// Repository for the admin using jpaRepository
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, String> {
 }

@@ -17,15 +17,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity {
-    //uses class Admin to authenticate
+	
+    // Uses class Admin to authenticate
     @Autowired
     private AdminRepository adminRepository;
 
+    // Interface for encoding passwords
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    // Defines a filter chain which is matched against an HttpServletRequest
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -67,7 +70,8 @@ public class SpringSecurity {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //uses custom AdminAuthenticationProvider to authenticate with password only
+    	
+        // Uses custom AdminAuthenticationProvider to authenticate with password only
         auth.authenticationProvider(new AdminAuthenticationProvider(adminRepository, passwordEncoder()));
     }
 }

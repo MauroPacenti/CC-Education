@@ -5,6 +5,7 @@ import com.novo.entities.JourneyRequest;
 import com.novo.entities.Keeper;
 import com.novo.entities.Organization;
 
+// Container that passes objects to the JourneyRequest controller
 public class JourneyRequestDto {
     private Keeper keeper;
     private Group group;

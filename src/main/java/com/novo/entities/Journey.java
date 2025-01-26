@@ -1,6 +1,5 @@
 package com.novo.entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+// Entity that refers to journeys table in DB using Springboot dependencies
 @Entity
 @Table(name = "`journeys`")
 public class Journey {

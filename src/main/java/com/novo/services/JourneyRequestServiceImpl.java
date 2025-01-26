@@ -17,16 +17,19 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
     @Autowired
     private StatusRepository statusRepository;
 
+    // Returns all journeyRequests
     @Override
     public List<JourneyRequest> getJourneyRequests() {
         return journeyRequestRepo.findAll();
     }
 
+	// Returns the id if present otherwise returns false
     @Override
     public Optional<JourneyRequest> getJourneyRequest(int journeyRequestId) {
         return journeyRequestRepo.findById(journeyRequestId);
     }
 
+    // Adds an journeyRequest by requested parameters
     @Override
     public JourneyRequest addJourneyRequest(JourneyRequest journeyRequest) {
         journeyRequest.setStatus(statusRepository.findById(1).get());
@@ -35,6 +38,7 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
         return newjourneyRequests.get(newjourneyRequests.size()-1);
     }
 
+    // Deletes an existing journeyRequest, if it does not exist, throws an exception
     @Override
     public boolean deleteJourneyRequest(int journeyRequestId) {
         try {
@@ -46,15 +50,24 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
 
     }
 
+    // Updates an existing journeyRequest by requested parameters
     @Override
     public void updateJourneyRequest(int journeyRequestId, JourneyRequest journeyRequest) {
+    	
         JourneyRequest edited=journeyRequestRepo.findById(journeyRequestId).get();
+        
+        // Ensure startDate is provided
         if(journeyRequest.getStartAvailabilityDate() != null)
             edited.setStartAvailabilityDate(journeyRequest.getStartAvailabilityDate());
+        
+        // Ensure endDate is provided
         if(journeyRequest.getEndAvailabilityDate() != null)
             edited.setEndAvailabilityDate(journeyRequest.getEndAvailabilityDate());
+        
+        // Ensure duration is provided
         if(journeyRequest.getDuration() != 0)
             edited.setDuration(journeyRequest.getDuration());
+        
         journeyRequestRepo.save(edited);
     }
 
@@ -79,7 +92,8 @@ public class JourneyRequestServiceImpl implements JourneyRequestService {
         }
         return true;
     }
-
+    
+    // Gets the journeyRequest via the keeper id
     @Override
 	public JourneyRequest getKeeper(int keeperId) {
 		return journeyRequestRepo.findByKeeperId(keeperId);

@@ -14,6 +14,7 @@ public class Mailer {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
+    // Allows to manage and send emails
     @PostMapping("/pub/sendMail")
     public ResponseEntity<Boolean> sendMail(@RequestParam String to, @RequestParam String subject, @RequestParam String body){
         try {
