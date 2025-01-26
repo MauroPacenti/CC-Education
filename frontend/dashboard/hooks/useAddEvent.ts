@@ -10,7 +10,7 @@ const useAddEvent = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (newEvent: BookingFormSteps) => {
-      const response = await fetch("/api/pub/createJourneyFromAdmin", {
+      const response = await fetch("/api/auth/createJourneyFromAdmin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

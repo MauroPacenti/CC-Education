@@ -55,7 +55,7 @@ const AddEvent = () => {
           <button
             type="submit"
             className={mutation.isPending ? "loading-btn" : ""}
-            disabled={!isFormValid}
+            disabled={!isFormValid || mutation.isPending}
             title={
               Object.values(validationForm).some((obj) =>
                 Object.values(obj).some((value) => value === false)

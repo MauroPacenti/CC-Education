@@ -169,6 +169,7 @@ const EmailModal = ({
             <button
               className={mutation.isPending ? "loading-btn" : ""}
               type="submit"
+              disabled={mutation.isPending}
             >
               {mutation.isPending ? <span></span> : "Invia"}
             </button>

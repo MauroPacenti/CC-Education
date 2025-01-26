@@ -1,5 +1,5 @@
 const getAllInfoRequest = async () => {
-  const response = await fetch("/api/pub/getAllInfoRequest");
+  const response = await fetch("/api/auth/getAllInfoRequest");
   if (!response.ok) {
     throw new Error("Failed to fetch info requests");
   }
@@ -8,7 +8,7 @@ const getAllInfoRequest = async () => {
 
 const deleteInfoRequest = async (id: number) => {
   const response = await fetch(
-    `/api/pub/deleteInfoRequest?infoRequestId=${id}`,
+    `/api/auth/deleteInfoRequest?infoRequestId=${id}`,
     {
       method: "DELETE",
     }

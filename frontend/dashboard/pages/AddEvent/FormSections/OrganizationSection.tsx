@@ -126,9 +126,7 @@ const OrganizationSection = ({
       </div>
 
       <div className="organization-email-input inputGroup">
-        <label htmlFor="organizationEmail">
-          Email organizzazione <span className="required">(obligatorio)</span>
-        </label>
+        <label htmlFor="organizationEmail">Email organizzazione</label>
         <input
           type="email"
           id="organizationEmail"
@@ -159,10 +157,7 @@ const OrganizationSection = ({
       </div>
 
       <div className="organization-phone-input inputGroup">
-        <label htmlFor="organizationPhone">
-          Telefono organizzazione{" "}
-          <span className="required">(obligatorio)</span>
-        </label>
+        <label htmlFor="organizationPhone">Telefono organizzazione </label>
         <input
           type="tel"
           id="organizationPhone"

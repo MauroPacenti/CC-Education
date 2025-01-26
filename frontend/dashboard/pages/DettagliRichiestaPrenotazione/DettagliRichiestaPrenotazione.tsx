@@ -176,6 +176,7 @@ const DettagliRichiestaPrenotazione = () => {
                 approveMutation.isPending ? "loading-btn" : ""
               }`}
               onClick={() => approveMutation.mutate()}
+              disabled={approveMutation.isPending}
             >
               {approveMutation.isPending ? <span></span> : "Approva"}
             </button>

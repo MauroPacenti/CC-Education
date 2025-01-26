@@ -5,7 +5,7 @@ const getJourneyById = async (idPrenotazione: number) => {
   if (!idPrenotazione) {
     throw new Error("No journey ID provided");
   }
-  const response = await fetch(`/api/pub/getAllJourney`);
+  const response = await fetch(`/api/auth/getAllJourney`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -16,7 +16,7 @@ const getJourneyById = async (idPrenotazione: number) => {
 const deleteById = async (idPrenotazione: number) => {
   if (!idPrenotazione) return;
   const response = await fetch(
-    `/api/pub/deleteJourney?journeyId=${idPrenotazione}`,
+    `/api/auth/deleteJourney?journeyId=${idPrenotazione}`,
     {
       method: "DELETE",
     }
@@ -28,7 +28,7 @@ const deleteById = async (idPrenotazione: number) => {
 };
 
 const updateJourney = async (body: BookingFormSteps) => {
-  const response = await fetch(`/api/pub/updateJourney`, {
+  const response = await fetch(`/api/auth/updateJourney`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
