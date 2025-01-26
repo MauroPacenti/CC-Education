@@ -7,7 +7,7 @@ const approveRequest = async (data: {
   keeperId?: number;
 }) => {
   const response = await fetch(
-    `/api/pub/createJourney?startDate=${data.startDate}&endDate=${data.endDate}&title=${data.title}&keeperId=${data.keeperId}`,
+    `/api/auth/createJourney?startDate=${data.startDate}&endDate=${data.endDate}&title=${data.title}&keeperId=${data.keeperId}`,
     {
       method: "POST",
       headers: {
@@ -22,19 +22,22 @@ const approveRequest = async (data: {
 };
 
 const deleteRequest = async (id?: number) => {
-  const response = await fetch(`/api/pub/deleteJourneyRequest?keeperId=${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `/api/auth/deleteJourneyRequest?keeperId=${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 };
 
 const getRequest = async (id?: number) => {
-  const response = await fetch(`/api/pub/getAllJourneyRequest`);
+  const response = await fetch(`/api/auth/getAllJourneyRequest`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
