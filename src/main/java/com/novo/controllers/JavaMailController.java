@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class Mailer {
+public class JavaMailController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
-    @PostMapping("/pub/sendMail")
+    @PostMapping("/auth/sendMail")
     public ResponseEntity<Boolean> sendMail(@RequestParam String to, @RequestParam String subject, @RequestParam String body){
         try {
             javaMailSenderService.sendMail(to, subject, body);
