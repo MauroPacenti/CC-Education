@@ -22,7 +22,7 @@ const Home = () => {
   if (isError) {
     return (
       <div>
-        <h2 className="dashboard-title">Bentornato Andrea</h2>
+        <h2 className="dashboard-title">Bentornato Admin</h2>
         Si è verificato un errore durante il caricamento dei dati.
       </div>
     );
@@ -31,7 +31,7 @@ const Home = () => {
   if (isLoading) {
     return (
       <div>
-        <h2 className="dashboard-title">Bentornato Andrea</h2>
+        <h2 className="dashboard-title">Bentornato Admin</h2>
         Loading...
       </div>
     );
@@ -47,7 +47,7 @@ const Home = () => {
         />
       )}
       <div className="dashboard-home">
-        <h2 className="dashboard-title">Bentornato Andrea</h2>
+        <h2 className="dashboard-title">Bentornato Admin</h2>
         <div className="dashboard-main">
           <div className="dashboard-bookings">
             <h3 className="dashboard-subtitle">Prenotazioni accettate</h3>

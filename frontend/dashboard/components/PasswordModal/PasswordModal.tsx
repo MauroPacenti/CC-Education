@@ -37,7 +37,7 @@ const PasswordModal = ({
       }
     );
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.statusText}`);
+      throw new Error(`Password non salvata correttamente`);
     }
     return response.json();
   };

@@ -16,8 +16,6 @@ const DettagliRichiestaInformazione = () => {
     toggleDeleteModal,
     showReplyModal,
     toggleReplyModal,
-    isLoadingDelete,
-    errorDelete,
     handleDeleteClick,
     sendEmailMutation,
   } = useDettagliRichiestaInformazioni();
@@ -40,25 +38,6 @@ const DettagliRichiestaInformazione = () => {
     };
   }, [windowWidth]);
 
-  if (errorDelete) {
-    return (
-      <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
-        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-          <p>Si è verificato un errore durante l'eliminazione: {errorDelete}</p>
-          <button
-            className="delete-modal-button"
-            onClick={() => {
-              console.log("click");
-              toggleDeleteModal();
-            }}
-          >
-            Chiudi
-          </button>
-        </div>
-      </ShowDeleteModal>
-    );
-  }
-
   if (isError) {
     return (
       <div>
@@ -75,19 +54,6 @@ const DettagliRichiestaInformazione = () => {
           richiesta d'informazione
         </div>
       </div>
-    );
-  }
-
-  if (isLoadingDelete) {
-    return (
-      <ShowDeleteModal toggleDeleteModal={toggleDeleteModal}>
-        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-          <p>Caricamento...</p>
-          <button className="delete-modal-button" onClick={toggleDeleteModal}>
-            Chiudi
-          </button>
-        </div>
-      </ShowDeleteModal>
     );
   }
 
