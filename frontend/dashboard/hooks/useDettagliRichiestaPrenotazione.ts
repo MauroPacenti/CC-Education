@@ -88,6 +88,14 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    setSelectedDate((prev) => {
+      return {
+        ...prev,
+        endDate: value,
+      };
+    });
+
     setSelectedDate(
       (prevSelectedDate: {
         startDate: string | undefined;

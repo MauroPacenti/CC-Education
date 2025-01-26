@@ -162,7 +162,7 @@ const DettagliRichiestaPrenotazione = () => {
                       }
                       onChange={handleChange}
                       name="endDate"
-                      value={selectedDate?.startDate}
+                      value={selectedDate?.endDate}
                       onClick={(e) => {
                         e.currentTarget.showPicker();
                       }}
