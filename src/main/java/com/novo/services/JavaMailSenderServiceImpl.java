@@ -59,7 +59,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     // Loads email templates from src/main/resources/email-template.html
     @Override
     public String loadTemplate(Map<String, String> placeholders) throws Exception {
-        String content = new String(Files.readAllBytes(Paths.get("src/main/resources/email-template.html")));
+        String content = new String(Files.readAllBytes(Paths.get("src/main/resources/static/email-template/index.html")));
 
         // Replace placeholders like {{title}} and {{content}}
         for (Map.Entry<String, String> entry : placeholders.entrySet()) {
