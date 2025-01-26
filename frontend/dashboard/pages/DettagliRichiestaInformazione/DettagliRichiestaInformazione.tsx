@@ -80,6 +80,7 @@ const DettagliRichiestaInformazione = () => {
           toggleReplyModal={toggleReplyModal}
           email={requestInformationDetails?.email}
           sendEmail={sendEmailMutation.mutate}
+          isLoading={sendEmailMutation.isPending}
         ></ShowReplyModal>
       )}
       {showDeleteModal && (

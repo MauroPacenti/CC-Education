@@ -6,9 +6,15 @@ interface Props {
   toggleReplyModal: () => void;
   email?: string;
   sendEmail: (data: { to: string; subject: string; body: string }) => void;
+  isLoading: boolean;
 }
 
-const ShowReplyModal = ({ toggleReplyModal, email, sendEmail }: Props) => {
+const ShowReplyModal = ({
+  toggleReplyModal,
+  email,
+  sendEmail,
+  isLoading,
+}: Props) => {
   const [response, setResponse] = useState({
     to: email,
     subject: "",
@@ -74,8 +80,14 @@ const ShowReplyModal = ({ toggleReplyModal, email, sendEmail }: Props) => {
             >
               Annulla
             </button>
-            <button className="reply-modal-button send" type="submit">
-              Invia
+            <button
+              className={`reply-modal-button send ${
+                isLoading ? "loading-btn" : ""
+              }`}
+              disabled={isLoading}
+              type="submit"
+            >
+              {isLoading ? <span></span> : "Invia"}
             </button>
           </div>
         </form>
