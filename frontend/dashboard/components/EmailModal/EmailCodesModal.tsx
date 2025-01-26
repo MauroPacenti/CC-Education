@@ -75,7 +75,7 @@ const EmailCodesModal = ({
       }
     );
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.statusText}`);
+      throw new Error("Codice non valido");
     }
   };
 
@@ -90,10 +90,14 @@ const EmailCodesModal = ({
         type: "success",
       });
     },
-    onError: () => {
+    onError: (error) => {
       // toast errore
       toggleToast({
-        message: "Errore durante la modifica dell'email",
+        message: `${
+          error instanceof Error
+            ? error.message
+            : "Errore durante la modifica dell'email"
+        }`,
         type: "error",
       });
     },

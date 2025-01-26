@@ -358,7 +358,8 @@ div.carousel-container {
   align-items: center;
 }
 
-.richiedi-informazioni button:hover {
+.richiedi-informazioni
+  button:hover:not(.richiedi-informazioni button:disabled) {
   transform: scale(1.1);
 }
 
@@ -376,6 +377,21 @@ div.carousel-container {
 .richiedi-informazioni .send:active {
   background-color: white;
   color: var(--secondario-fucsia);
+}
+
+button.send {
+  padding: 15px !important;
+
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button.send:disabled {
+  cursor: not-allowed;
+  background-color: #999;
 }
 
 .buttons-richiedi-info {
@@ -743,18 +759,6 @@ div.carousel-container {
   }
 }
 
-button.send {
-  /* width: 200px !important; */
-  padding: 15px !important;
-
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .spinner {
   width: 20px;
   height: 20px;
@@ -783,5 +787,104 @@ button.send {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.toast-container {
+  position: fixed;
+  top: 80px;
+  right: 1.5em;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast-item {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-width: 300px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-item.success {
+  border-left: 4px solid #2ecc71;
+}
+
+.toast-item.error {
+  border-left: 4px solid #e74c3c;
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  background-color: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.toast-item.error .toast-icon {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.toast-content {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.toast-content h4 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.toast-content p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #999;
+  cursor: pointer;
+  margin-top: -0.15em;
+  margin-inline: 0.5em;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 834px) {
+  .toast-item {
+    gap: 1em;
+  }
+
+  .toast-content h4 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .toast-content p {
+    margin: 0;
+    font-size: 1rem !important;
+    color: #666;
   }
 }

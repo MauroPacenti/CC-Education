@@ -51,7 +51,7 @@ const PasswordCodeModal = ({
       }
     );
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.statusText}`);
+      throw new Error(`Codice non valido`);
     }
   };
 
@@ -71,7 +71,7 @@ const PasswordCodeModal = ({
         message: `${
           error instanceof Error
             ? error.message
-            : "Errore durante l'invio del codice"
+            : "Errore durante la modifica della password"
         }`,
         type: "error",
       });

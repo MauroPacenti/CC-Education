@@ -27,7 +27,7 @@ const EmailModal = ({
       method: "PUT",
     });
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.statusText}`);
+      throw new Error(`Email non salvata correttamente`);
     }
     return response.json();
   };

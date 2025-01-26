@@ -514,6 +514,7 @@ label a {
     display: flex;
     justify-content: space-between;
     row-gap: 1em;
+    margin-block: 0.5em;
   }
   .date-field {
     width: 48%;

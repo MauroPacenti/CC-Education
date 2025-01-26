@@ -25,7 +25,7 @@ const deleteRequest = async (id?: number) => {
   );
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Errore durante l'eliminazione della richiesta");
   }
 };
 
@@ -44,7 +44,7 @@ const replyRequest = async (data: {
     }
   );
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Errore durante l'invio della risposta");
   }
   return response.json();
 };

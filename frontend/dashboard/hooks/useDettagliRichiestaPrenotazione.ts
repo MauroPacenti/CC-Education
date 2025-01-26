@@ -5,31 +5,6 @@ import type { BookingRequestDetails } from "../models/BookingRequestDetails.mode
 import ToastContext from "../context/ToastContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-const durationStart = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "08:00";
-    case 2:
-      return "13:00";
-    case 3:
-      return "08:00";
-    case 4:
-      return "08:00";
-  }
-};
-const durationEnd = (duration?: number) => {
-  switch (duration) {
-    case 1:
-      return "12:00";
-    case 2:
-      return "19:00";
-    case 3:
-      return "19:00";
-    case 4:
-      return "12:00";
-  }
-};
-
 const useDettagliRichiestaPrenotazione = () => {
   const { idRichiestaPrenotazione } = useParams();
   const navigate = useNavigate();
@@ -57,12 +32,8 @@ const useDettagliRichiestaPrenotazione = () => {
   const approveMutation = useMutation({
     mutationFn: () => {
       const data = {
-        startDate: `${selectedDate.startDate}T${durationStart(
-          bookingRequestDetails?.duration
-        )}:00`,
-        endDate: `${
-          selectedDate.endDate ?? selectedDate.startDate
-        }T${durationEnd(bookingRequestDetails?.duration)}:00`,
+        startDate: `${selectedDate.startDate}T09:00:00`,
+        endDate: `${selectedDate.endDate ?? selectedDate.startDate}T19:00:00`,
         keeperId: bookingRequestDetails?.keeper.id,
         title: bookingRequestDetails?.keeper.organization.name,
       };
@@ -117,6 +88,14 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    setSelectedDate((prev) => {
+      return {
+        ...prev,
+        endDate: value,
+      };
+    });
+
     setSelectedDate(
       (prevSelectedDate: {
         startDate: string | undefined;
@@ -130,6 +109,11 @@ const useDettagliRichiestaPrenotazione = () => {
 
   const toggleAproveModal = () => {
     setApproveModal((prev) => !prev);
+    if (!approveModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   return {

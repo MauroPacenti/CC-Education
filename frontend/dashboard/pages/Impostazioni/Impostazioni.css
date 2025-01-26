@@ -158,8 +158,10 @@ button.reset:hover {
   line-height: 1.5;
 }
 
-.email-modal p.error-message {
+.email-modal p.error-message,
+.settings-modal p.error-message {
   color: red;
+  font-size: 0.9rem;
 }
 
 p.warning-message,

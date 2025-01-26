@@ -71,7 +71,10 @@
 .informations-container > div.activated-outlet {
   display: none;
 }
-
+.info-request-details {
+  width: 100%;
+  height: calc(90vh - 10em);
+}
 @media screen and (min-width: 1240px) {
   .informations-container {
     display: flex;

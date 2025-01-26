@@ -54,15 +54,19 @@ form?.addEventListener("submit", (e) => {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Errore nella richiesta");
+        throw new Error("Dati non validi");
       }
       const responseData = response.json();
       console.log(responseData);
       window.location.href = "/dashboard/";
     })
     .catch((error) => {
-      console.error(error);
-      toggleToast("Errore nella richiesta", "error");
+      toggleToast(
+        error instanceof Error
+          ? error.message
+          : "La richiesta non è andata a buon fine",
+        "error"
+      );
     })
     .finally(() => {
       spinner?.classList.remove("loading");

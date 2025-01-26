@@ -32,10 +32,22 @@ const useDettagliRichiestaInformazioni = () => {
     mutationFn: (id: number) =>
       DettagliRichiestaInformazioneService.deleteRequest(id),
     onSuccess: () => {
+      toggleToast({
+        type: "success",
+        message: "Richiesta eliminata con successo",
+      });
+
       navigate("/dashboard/richieste-informazioni");
     },
     onError: (error) => {
-      setErrorDelete(error.message);
+      toggleToast({
+        type: "error",
+        message: `${
+          error instanceof Error
+            ? error.message
+            : "Si è verificato un errore durante l'eliminazione"
+        }`,
+      });
     },
   });
 
@@ -50,24 +62,36 @@ const useDettagliRichiestaInformazioni = () => {
       setShowReplyModal(false);
     },
     onError: (error) => {
-      setErrorDelete(error.message);
+      toggleToast({
+        type: "error",
+        message: `${
+          error instanceof Error
+            ? error.message
+            : "Si è verificato un errore durante l'invio dell'email"
+        }`,
+      });
     },
   });
 
   const [showReplyModal, setShowReplyModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
-  const [errorDelete, setErrorDelete] = useState<string | null>(null);
-
   const toggleReplyModal = () => {
     setShowReplyModal((prev) => !prev);
+    if (!showReplyModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   const toggleDeleteModal = () => {
-    setErrorDelete(null);
-    setIsLoadingDelete(false);
     setShowDeleteModal((prev) => !prev);
+    if (!showDeleteModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   const handleDeleteClick = (
@@ -75,16 +99,6 @@ const useDettagliRichiestaInformazioni = () => {
   ) => {
     if (!requestInformationDetails) return;
     mutation.mutate(requestInformationDetails.id);
-    if (!errorDelete)
-      toggleToast({
-        type: "success",
-        message: "Richiesta eliminata",
-      });
-    else
-      toggleToast({
-        type: "error",
-        message: "Si è verificato un errore durante l'eliminazione",
-      });
   };
 
   return {
@@ -95,8 +109,6 @@ const useDettagliRichiestaInformazioni = () => {
     showDeleteModal,
     toggleReplyModal,
     toggleDeleteModal,
-    isLoadingDelete,
-    errorDelete,
     isError,
     handleDeleteClick,
     idRichiestaInformazione,
