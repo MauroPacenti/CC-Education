@@ -53,7 +53,7 @@ public class JourneyController {
 	}
 	
 	// Creates a new Journey
-	@PostMapping("/pub/createJourney")
+	@PostMapping("/auth/createJourney")
 	public ResponseEntity<Journey> createJourney(@RequestParam(required = false) String title,
 	        @RequestParam @DateTimeFormat LocalDateTime startDate,
 	        @RequestParam @DateTimeFormat LocalDateTime endDate,

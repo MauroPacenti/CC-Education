@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Buttons from "../../components/Buttons/Buttons";
 import useDettagliPrenotazione from "../../hooks/useDettagliPrenotazione";
 import "./DettagliPrenotazione.css";
@@ -23,12 +23,15 @@ const DettagliPrenotazione = () => {
   const [isDeteModalOpen, setIsDeteModalOpen] = useState(false);
   const toggleDeleteModal = () => {
     setIsDeteModalOpen((prev) => !prev);
-    if (!isDeteModalOpen) {
+  };
+
+  useEffect(() => {
+    if (isDeteModalOpen) {
       document.body.classList.add("open-modal");
     } else {
       document.body.classList.remove("open-modal");
     }
-  };
+  }, [isDeteModalOpen]);
 
   if (isError) {
     return (

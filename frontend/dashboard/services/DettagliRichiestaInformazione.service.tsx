@@ -1,7 +1,7 @@
 import type { InformationRequest } from "../models/InformationRequest.model";
 
 const getRequest = async (id?: number) => {
-  const response = await fetch(`/api/pub/getAllInfoRequest`);
+  const response = await fetch(`/api/auth/getAllInfoRequest`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -15,7 +15,7 @@ const getRequest = async (id?: number) => {
 
 const deleteRequest = async (id?: number) => {
   const response = await fetch(
-    `/api/pub/deleteInfoRequest?infoRequestId=${id}`,
+    `/api/auth/deleteInfoRequest?infoRequestId=${id}`,
     {
       method: "DELETE",
       headers: {
@@ -35,7 +35,7 @@ const replyRequest = async (data: {
   body: string;
 }) => {
   const response = await fetch(
-    `/api/pub/sendMail?to=${data.to}&subject=${data.subject}&body=${data.body}`,
+    `/api/auth/sendMail?to=${data.to}&subject=${data.subject}&body=${data.body}`,
     {
       method: "POST",
       headers: {

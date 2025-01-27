@@ -1,5 +1,5 @@
 const getAllBookings = async () => {
-  const response = await fetch("/api/pub/getAllJourney");
+  const response = await fetch("/api/auth/getAllJourney");
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -7,7 +7,7 @@ const getAllBookings = async () => {
 };
 
 const deleteBooking = async (id: number) => {
-  const response = await fetch(`/api/pub/deleteJourney?journeyId=${id}`, {
+  const response = await fetch(`/api/auth/deleteJourney?journeyId=${id}`, {
     method: "DELETE",
   });
   if (!response.ok) {

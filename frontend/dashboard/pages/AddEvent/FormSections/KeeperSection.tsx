@@ -117,9 +117,7 @@ const KeeperSection = ({
           )}
       </div>
       <div className="email-input inputGroup">
-        <label htmlFor="email">
-          Email <span className="required">(obbligatorio)</span>
-        </label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -150,9 +148,7 @@ const KeeperSection = ({
           )}
       </div>
       <div className="phone-input inputGroup">
-        <label htmlFor="phone">
-          Telefono <span className="required">(obbligatorio)</span>
-        </label>
+        <label htmlFor="phone">Telefono</label>
         <input
           type="tel"
           id="phone"

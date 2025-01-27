@@ -23,3 +23,8 @@ h2 {
     display: flex;
   }
 }
+
+button.loading-btn:disabled:has(span) {
+  cursor: not-allowed;
+  background-color: #5932ea;
+}
