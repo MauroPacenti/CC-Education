@@ -15,7 +15,7 @@ public class Mailer {
     private JavaMailSenderService javaMailSenderService;
 
     // Allows to manage and send emails
-    @PostMapping("/pub/sendMail")
+    @PostMapping("/auth/sendMail")
     public ResponseEntity<Boolean> sendMail(@RequestParam String to, @RequestParam String subject, @RequestParam String body){
         try {
             javaMailSenderService.sendMail(to, subject, body);
