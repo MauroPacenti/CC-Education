@@ -11,7 +11,16 @@ interface InfoRequest {
   content: string;
   date?: string;
 }
-
+/**
+ * Custom hook for managing information requests
+ * @returns {Object} An object containing:
+ * @returns {InfoRequest[]} data - Array of information requests
+ * @returns {boolean} isLoading - Loading state of the query
+ * @returns {boolean} isError - Error state of the query
+ * @returns {(id?: number) => void} toggleDeleteModal - Function to toggle delete modal
+ * @returns {() => void} handleDeleteClick - Function to handle delete action
+ * @returns {boolean} isOpenDeleteModal - State of delete modal
+ */
 const useRichiesteInformazione = () => {
   const { toggleToast } = useContext(ToastContext);
   const queryClient = useQueryClient();

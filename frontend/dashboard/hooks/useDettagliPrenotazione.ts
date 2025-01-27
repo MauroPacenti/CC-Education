@@ -22,7 +22,6 @@ const useDettagliPrenotazione = () => {
 
   const toggleEditMode = () => {
     if (isEditable) {
-      console.log(initialData);
       updateMutation.mutate(initialData!);
     }
     setIsEditable((prev) => !prev);
@@ -33,7 +32,7 @@ const useDettagliPrenotazione = () => {
     key: "keeper" | "group" | "organization" | "journey"
   ) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     let newValue = value;
     if (name === "startDate") {
       setStartDate(newValue);
@@ -55,7 +54,6 @@ const useDettagliPrenotazione = () => {
         },
       };
     });
-    console.log(initialData);
   };
 
   const {

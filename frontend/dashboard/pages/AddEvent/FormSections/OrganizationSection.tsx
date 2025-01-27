@@ -19,7 +19,15 @@ interface OrganizationSectionProps {
     isValid: boolean
   ) => void;
 }
-
+/**
+ * OrganizationSection component for collecting organization details in a form
+ * @param {Object} props - Component props
+ * @param {ValidationModel} props.validationForm - Validation state for form fields
+ * @param {BookingFormSteps} props.formData - Form data containing organization details
+ * @param {Function} props.handleChange - Handler for form field changes
+ * @param {Function} props.handleBlur - Handler for form field blur events
+ * @returns {JSX.Element} Organization section form component
+ */
 const OrganizationSection = ({
   validationForm,
   formData,

@@ -39,6 +39,10 @@ const navLinks: NavLinkModel[] = [
   },
 ];
 
+/**
+ * Navigation bar component that displays logo, navigation links, logout button and settings
+ * @returns {JSX.Element} The navbar component
+ */
 const Navbar = () => {
   const logout = useMutation({
     mutationFn: () => {
@@ -53,10 +57,16 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  /**
+   * Closes the mobile menu
+   */
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
   }, []);
 
+  /**
+   * Toggles the mobile menu state
+   */
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);

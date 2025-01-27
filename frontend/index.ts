@@ -71,7 +71,12 @@ form?.addEventListener("submit", async (e) => {
     spinner?.classList.remove("loading");
   }
 });
-
+/**
+ * Creates a toast notification element with the specified message and type
+ * @param {string} message - The message to display in the toast
+ * @param {string} type - The type of toast ('success' or 'error')
+ * @returns {string} HTML string for the toast element
+ */
 const createToast = (message: string, type: string) => {
   const toast = `<div class="toast-item ${
     type === "success" ? "success" : "error"
@@ -87,6 +92,11 @@ const createToast = (message: string, type: string) => {
   return toast;
 };
 
+/**
+ * Displays a toast notification and handles its removal
+ * @param {string} message - The message to display in the toast
+ * @param {string} type - The type of toast ('success' or 'error')
+ */
 const toggleToast = (message: string, type: string) => {
   form?.classList.add("error");
   const toastContainer = document.querySelector(".toast-container");

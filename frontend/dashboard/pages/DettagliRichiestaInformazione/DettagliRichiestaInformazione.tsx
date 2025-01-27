@@ -6,7 +6,12 @@ import useDettagliRichiestaInformazioni from "../../hooks/useDettagliRichiestaIn
 import Buttons from "../../components/Buttons/Buttons";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-
+/**
+ * Component for displaying detailed information about an information request.
+ * Includes functionality for replying to and deleting requests, as well as responsive navigation.
+ *
+ * @returns {JSX.Element} The rendered component displaying request details, reply and delete options
+ */
 const DettagliRichiestaInformazione = () => {
   const {
     isLoading,
@@ -86,7 +91,10 @@ const DettagliRichiestaInformazione = () => {
       {showDeleteModal && (
         <ShowDeleteModal
           toggleDeleteModal={toggleDeleteModal}
-          onClick={() => handleDeleteClick(requestInformationDetails)}
+          onClick={() => {
+            toggleDeleteModal();
+            handleDeleteClick(requestInformationDetails);
+          }}
           subject="richiesta d'informazione"
         ></ShowDeleteModal>
       )}

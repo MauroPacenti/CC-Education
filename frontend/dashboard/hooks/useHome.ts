@@ -6,7 +6,18 @@ import { useContext, useState } from "react";
 import ToastContext from "../context/ToastContext";
 import RichiestePrenotazioneService from "../services/RichiestePrenotazioni.service";
 import RichiesteInformazioniService from "../services/RichiesteInformazioni.service";
-
+/**
+ * Custom hook for managing home page functionality
+ * @returns {Object} Object containing:
+ * @returns {Array} bookings - List of mapped booking data
+ * @returns {boolean} isLoading - Loading state for bookings query
+ * @returns {boolean} isError - Error state for bookings query
+ * @returns {Array} infoRequest - List of information requests
+ * @returns {Array} journeyRequest - List of journey requests
+ * @returns {boolean} isOpenDeleteModal - State for delete modal visibility
+ * @returns {Function} toggleDeleteModal - Function to toggle delete modal state
+ * @returns {Function} handleDeleteClick - Function to handle booking deletion
+ */
 const useHome = () => {
   const { toggleToast } = useContext(ToastContext);
   const queryClient = useQueryClient();
@@ -46,14 +57,13 @@ const useHome = () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
       toggleToast({
         type: "success",
-        message: "Richiesta di informazione eliminata con successo",
+        message: "Prenotazione eliminata con successo",
       });
     },
     onError: () => {
       toggleToast({
         type: "error",
-        message:
-          "Errore durante l'eliminazione della richiesta di informazione",
+        message: "Errore durante l'eliminazione della prenotazione",
       });
     },
   });
@@ -72,6 +82,11 @@ const useHome = () => {
       setSelectedBooking(id);
     }
     setIsOpenDeleteModal((prev) => !prev);
+    if (!isOpenDeleteModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   return {

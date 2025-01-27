@@ -2,7 +2,13 @@ import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import Modal from "../Modal/Modal";
 import ToastContext from "../../context/ToastContext";
-
+/**
+ * Modal component for password modification
+ * @param {Object} props - Component props
+ * @param {() => void} props.togglePasswordModal - Function to toggle the password modal visibility
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsOpenCodePasswordModal - State setter for code password modal visibility
+ * @returns {JSX.Element} Password modal component
+ */
 const PasswordModal = ({
   togglePasswordModal,
   setIsOpenCodePasswordModal,
@@ -29,6 +35,11 @@ const PasswordModal = ({
   const [timerId, setTimerId] = useState<number | undefined>(undefined);
   const [hasProblems, setHasProblems] = useState(false);
 
+  /**
+   * Updates the password by making an API call
+   * @returns {Promise<any>} API response
+   * @throws {Error} If password update fails
+   */
   const updatePassword = async () => {
     const response = await fetch(
       `/api/auth/saveTemp?password=${passwords.password}`,
@@ -59,6 +70,9 @@ const PasswordModal = ({
     },
   });
 
+  /**
+   * Handles password submission and validation
+   */
   const onSubmitPassword = async () => {
     verifyPassword(passwords.password);
     setIsOnBlurPassword(true);
@@ -81,6 +95,9 @@ const PasswordModal = ({
     setTimerId(newTimerId);
   };
 
+  /**
+   * Resets password state to initial values
+   */
   const resetPasswordState = () => {
     setPasswords({ password: "", repeatPassword: "" });
     setIsOnBlurPassword(false);
@@ -93,11 +110,19 @@ const PasswordModal = ({
     });
   };
 
+  /**
+   * Handles password input changes
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Change event
+   */
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswords((prev) => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Verifies password against security requirements
+   * @param {string} password - Password to verify
+   */
   const verifyPassword = (password: string) => {
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);

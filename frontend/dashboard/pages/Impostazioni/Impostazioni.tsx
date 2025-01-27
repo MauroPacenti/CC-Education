@@ -6,7 +6,11 @@ import PasswordCodeModal from "../../components/PasswordModal/PasswordCodeModal"
 import EmailModal from "../../components/EmailModal/EmailModal";
 import EmailCodesModal from "../../components/EmailModal/EmailCodesModal";
 import useImpostazioni from "../../hooks/useImpostazioni";
-
+/**
+ * Impostazioni (Settings) component that provides user settings management interface
+ * Allows users to modify their password and email through modal interfaces
+ * @returns {JSX.Element} Settings page component with password and email modification options
+ */
 const Impostazioni = () => {
   const {
     isOpenPasswordModal,

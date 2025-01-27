@@ -17,7 +17,17 @@ interface JourneySectionProps {
     isValid: boolean
   ) => void;
 }
-
+/**
+ * Component for the journey section of the booking form
+ * @param {Object} props - Component props
+ * @param {ValidationModel} props.validationForm - Form validation state
+ * @param {BookingFormSteps} props.formData - Form data state
+ * @param {string} props.duration - Selected duration value
+ * @param {React.Dispatch<React.SetStateAction<string>>} props.setDuration - Function to update duration
+ * @param {Function} props.handleChange - Function to handle form field changes
+ * @param {Function} props.handleBlur - Function to handle form field blur events
+ * @returns {JSX.Element} Journey section component
+ */
 const JourneySection = ({
   validationForm,
   formData,

@@ -111,7 +111,6 @@ const DettagliRichiestaPrenotazione = () => {
                     }
                     max={bookingRequestDetails?.endAvailabilityDate}
                     onClick={(e) => {
-                      console.log(e.currentTarget.value);
                       e.currentTarget.showPicker();
                     }}
                     name="startDate"
@@ -186,7 +185,10 @@ const DettagliRichiestaPrenotazione = () => {
       {deleteModal && (
         <ShowDeleteModal
           toggleDeleteModal={toggleDeleteModal}
-          onClick={() => deleteMutation.mutate(keeperId)}
+          onClick={() => {
+            toggleDeleteModal();
+            deleteMutation.mutate(keeperId);
+          }}
           subject="richiesta di prenotazione"
         />
       )}

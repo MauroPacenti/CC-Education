@@ -1,5 +1,14 @@
 import type { BookingRequestDetails } from "../models/BookingRequestDetails.model";
-
+/**
+ * Approves a journey request by creating a new journey
+ * @param {Object} data - The journey data
+ * @param {string} [data.startDate] - Start date of the journey
+ * @param {string} [data.endDate] - End date of the journey
+ * @param {string} [data.title] - Title of the journey
+ * @param {number} [data.keeperId] - ID of the keeper
+ * @returns {Promise<any>} The created journey data
+ * @throws {Error} If the HTTP request fails
+ */
 const approveRequest = async (data: {
   startDate?: string;
   endDate?: string;
@@ -21,6 +30,11 @@ const approveRequest = async (data: {
   return response.json();
 };
 
+/**
+ * Deletes a journey request
+ * @param {number} [id] - The keeper ID of the request to delete
+ * @throws {Error} If the HTTP request fails
+ */
 const deleteRequest = async (id?: number) => {
   const response = await fetch(
     `/api/auth/deleteJourneyRequest?keeperId=${id}`,
@@ -36,6 +50,12 @@ const deleteRequest = async (id?: number) => {
   }
 };
 
+/**
+ * Retrieves a specific journey request
+ * @param {number} [id] - The ID of the request to retrieve
+ * @returns {Promise<BookingRequestDetails|undefined>} The booking request details if found
+ * @throws {Error} If the HTTP request fails
+ */
 const getRequest = async (id?: number) => {
   const response = await fetch(`/api/auth/getAllJourneyRequest`);
   if (!response.ok) {

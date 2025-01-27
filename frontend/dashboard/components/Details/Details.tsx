@@ -6,21 +6,39 @@ import React from "react";
 type InputKey = "keeper" | "group" | "organization" | "journey";
 type InputType = "text" | "date" | "select" | "number";
 
+/**
+ * Props interface for DetailItem component
+ * @interface DetailItemProps
+ */
 interface DetailItemProps {
+  /** Label text for the detail item */
   label: string;
+  /** Value to display */
   value?: string | number;
+  /** Whether the item is editable */
   isEditable?: boolean;
+  /** Name attribute for the input element */
   inputName?: string;
+  /** Key identifier for the input */
   inputKey?: InputKey;
+  /** Type of input element */
   inputType?: InputType;
+  /** Change event handler */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     key: "keeper" | "group" | "organization" | "journey"
   ) => void;
+  /** Options for select input type */
   selectOptions?: string[];
+  /** Start date for date input type */
   startDate?: string | null;
 }
 
+/**
+ * Component for rendering a single detail item
+ * @param {DetailItemProps} props - Component props
+ * @returns {React.ReactElement} DetailItem component
+ */
 const DetailItem: React.FC<DetailItemProps> = ({
   label,
   value,
@@ -32,11 +50,19 @@ const DetailItem: React.FC<DetailItemProps> = ({
   selectOptions = [],
   startDate,
 }) => {
+  /**
+   * Renders the appropriate input element based on type
+   * @returns {React.ReactElement} Input element
+   */
   const renderInput = () => {
     if (!isEditable) return <span className="detail-value">{value}</span>;
+    /**
+     * Parses date string to required format
+     * @param {string} dateString - Date string to parse
+     * @returns {string} Formatted date string
+     */
     const parseDate = (dateString: string) => {
       const [datePart] = dateString.split("-");
-      console.log(datePart);
       const [day, month, year] = datePart.split("/");
       return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
     };
@@ -97,10 +123,20 @@ const DetailItem: React.FC<DetailItemProps> = ({
   );
 };
 
+/**
+ * Grid container for detail items
+ * @param {PropsWithChildren} props - Component props
+ * @returns {React.ReactElement} DetailsGrid component
+ */
 const DetailsGrid = ({ children }: PropsWithChildren) => {
   return <div className="details-grid">{children}</div>;
 };
 
+/**
+ * Section container for grouped detail items
+ * @param {PropsWithChildren<{ title: string }>} props - Component props
+ * @returns {React.ReactElement} DetailsSection component
+ */
 const DetailsSection = ({
   title,
   children,

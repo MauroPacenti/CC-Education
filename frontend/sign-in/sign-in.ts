@@ -1,7 +1,12 @@
 import "./sign-in.css";
 const form = document.querySelector<HTMLFormElement>(".login-form");
 const spinner = document.querySelector(".spinner");
-
+/**
+ * Creates a toast notification element with the specified message and type
+ * @param {string} message - The message to display in the toast
+ * @param {string} type - The type of toast ('success' or 'error')
+ * @returns {string} HTML string for the toast element
+ */
 const createToast = (message: string, type: string) => {
   const toast = `<div class="toast-item ${
     type === "success" ? "success" : "error"
@@ -17,6 +22,11 @@ const createToast = (message: string, type: string) => {
   return toast;
 };
 
+/**
+ * Displays a toast notification and handles its lifecycle
+ * @param {string} message - The message to display in the toast
+ * @param {string} type - The type of toast ('success' or 'error')
+ */
 const toggleToast = (message: string, type: string) => {
   form?.classList.add("error");
   const toastContainer = document.querySelector(".toast-container");
@@ -57,7 +67,7 @@ form?.addEventListener("submit", (e) => {
         throw new Error("Dati non validi");
       }
       const responseData = response.json();
-      console.log(responseData);
+
       window.location.href = "/dashboard/";
     })
     .catch((error) => {

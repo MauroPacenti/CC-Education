@@ -31,7 +31,13 @@ interface Journey {
   endDate: string;
   duration: number;
 }
-
+/**
+ * Custom hook for managing prenotazioni (bookings) with calendar integration
+ * @returns {Object} An object containing:
+ * - calendar: Calendar instance from @schedule-x/react
+ * - isLoading: Boolean indicating if data is being fetched
+ * - isError: Boolean indicating if there was an error fetching data
+ */
 const usePrenotazioni = () => {
   const navigate = useNavigate();
   const [eventsService] = useState(() => createEventsServicePlugin());

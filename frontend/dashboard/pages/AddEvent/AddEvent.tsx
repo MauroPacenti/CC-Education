@@ -4,7 +4,10 @@ import KeeperSection from "./FormSections/KeeperSection";
 import OrganizationSection from "./FormSections/OrganizationSection";
 import JourneySection from "./FormSections/JourneySection";
 import useAddEvent from "../../hooks/useAddEvent";
-
+/**
+ * AddEvent component for creating new event/booking entries
+ * @returns {JSX.Element} The AddEvent form component
+ */
 const AddEvent = () => {
   const {
     duration,

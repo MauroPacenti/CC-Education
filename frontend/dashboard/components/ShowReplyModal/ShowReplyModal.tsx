@@ -1,7 +1,15 @@
 import { X } from "lucide-react";
 import "./ShowReplyModal.css";
 import { useState } from "react";
-
+/**
+ * Modal component for replying to email requests
+ * @param {Object} props - Component props
+ * @param {Function} props.toggleReplyModal - Function to toggle the reply modal visibility
+ * @param {string} [props.email] - Email address of the recipient
+ * @param {Function} props.sendEmail - Function to send the email with provided data
+ * @param {boolean} props.isLoading - Loading state for the send action
+ * @returns {JSX.Element} Reply modal component
+ */
 interface Props {
   toggleReplyModal: () => void;
   email?: string;
