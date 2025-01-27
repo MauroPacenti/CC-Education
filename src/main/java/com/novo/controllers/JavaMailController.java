@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class Mailer {
+public class JavaMailController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
