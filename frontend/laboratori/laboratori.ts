@@ -173,9 +173,7 @@ const content = [
 ];
 
 const modalFactory = function (event) {
-  console.log(event);
   const numberBtn = event.currentTarget.dataset.content;
-  console.log(numberBtn); // Should log the number from the data attribute
 
   const singleContent = content[numberBtn - 1];
   const modal = document.createElement("div");

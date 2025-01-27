@@ -20,7 +20,15 @@ interface KeeperSectionProps {
     isValid: boolean
   ) => void;
 }
-
+/**
+ * KeeperSection component for handling keeper/accompanist information form
+ * @param {Object} props - Component props
+ * @param {ValidationModel} props.validationForm - Validation state for form fields
+ * @param {BookingFormSteps} props.formData - Form data containing keeper information
+ * @param {Function} props.handleChange - Handler for form field changes
+ * @param {Function} props.handleBlur - Handler for form field blur events
+ * @returns {JSX.Element} Keeper section form component
+ */
 const KeeperSection = ({
   validationForm,
   formData,

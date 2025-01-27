@@ -1,7 +1,12 @@
 import "./RichiestePrenotazione.css";
 
 import useRichiestePrenotazioni from "../../hooks/useRichiestePrenotazioni";
-
+/**
+ * Component that displays a table of booking requests.
+ * Shows loading state, error state, and empty state when appropriate.
+ * Renders a table with email, companion, type, start date and end date columns.
+ * @returns {JSX.Element} The rendered component
+ */
 const RichiestePrenotazione = () => {
   const { data, isError, handleClick, isLoading } = useRichiestePrenotazioni();
 

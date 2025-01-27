@@ -1,5 +1,10 @@
 import type { InformationRequest } from "../models/InformationRequest.model";
-
+/**
+ * Retrieves an information request by ID from all available requests
+ * @param {number} [id] - Optional ID of the information request to retrieve
+ * @returns {Promise<InformationRequest|undefined>} The found information request or undefined
+ * @throws {Error} If the HTTP request fails
+ */
 const getRequest = async (id?: number) => {
   const response = await fetch(`/api/auth/getAllInfoRequest`);
   if (!response.ok) {
@@ -13,6 +18,11 @@ const getRequest = async (id?: number) => {
   return informationRequestDetails;
 };
 
+/**
+ * Deletes an information request by ID
+ * @param {number} [id] - ID of the information request to delete
+ * @throws {Error} If the deletion operation fails
+ */
 const deleteRequest = async (id?: number) => {
   const response = await fetch(
     `/api/auth/deleteInfoRequest?infoRequestId=${id}`,
@@ -29,6 +39,15 @@ const deleteRequest = async (id?: number) => {
   }
 };
 
+/**
+ * Sends a reply email for an information request
+ * @param {Object} data - The email data
+ * @param {string} data.to - Recipient email address
+ * @param {string} data.subject - Email subject
+ * @param {string} data.body - Email body content
+ * @returns {Promise<any>} The response data from the server
+ * @throws {Error} If the email sending operation fails
+ */
 const replyRequest = async (data: {
   to: string;
   subject: string;

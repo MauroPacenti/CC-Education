@@ -6,7 +6,10 @@ import "@schedule-x/theme-default/dist/index.css";
 import { NavLink } from "react-router";
 import { CirclePlus } from "lucide-react";
 import usePrenotazioni from "../../hooks/usePrenotazioni";
-
+/**
+ * Prenotazioni component displays a calendar view of bookings/reservations
+ * @returns {JSX.Element} The rendered Prenotazioni component
+ */
 const Prenotazioni = () => {
   const { calendar, isError, isLoading } = usePrenotazioni();
 

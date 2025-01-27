@@ -5,7 +5,21 @@ import { DettagliRichiestaInformazioneService } from "../services/DettagliRichie
 import type { InformationRequest } from "../models/InformationRequest.model";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import ToastContext from "../context/ToastContext";
-
+/**
+ * Custom hook for managing information request details
+ * @returns {Object} An object containing:
+ * @returns {InformationRequest | undefined} requestInformationDetails - The details of the information request
+ * @returns {boolean} isLoading - Loading state of the request
+ * @returns {unknown} error - Error object if request fails
+ * @returns {boolean} showReplyModal - State for reply modal visibility
+ * @returns {boolean} showDeleteModal - State for delete modal visibility
+ * @returns {() => void} toggleReplyModal - Function to toggle reply modal
+ * @returns {() => void} toggleDeleteModal - Function to toggle delete modal
+ * @returns {boolean} isError - Error state of the request
+ * @returns {(requestInformationDetails?: InformationRequest) => void} handleDeleteClick - Function to handle delete action
+ * @returns {string | undefined} idRichiestaInformazione - ID of the information request
+ * @returns {UseMutationResult} sendEmailMutation - Mutation object for sending email replies
+ */
 const useDettagliRichiestaInformazioni = () => {
   const { idRichiestaInformazione } = useParams();
   const navigate = useNavigate();

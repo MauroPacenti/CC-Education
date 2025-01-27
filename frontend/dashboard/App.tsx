@@ -17,6 +17,16 @@ import AddEvent from "./pages/AddEvent/AddEvent";
 
 const queryClient = new QueryClient();
 
+/**
+ * Main App component that sets up routing and query client provider
+ * Handles all main routes for the dashboard including:
+ * - Home page
+ * - Bookings management
+ * - Booking requests
+ * - Information requests
+ * - Settings
+ * @returns {JSX.Element} The rendered App component
+ */
 function App() {
   return (
     <>
@@ -62,5 +72,4 @@ function App() {
     </>
   );
 }
-
 export default App;

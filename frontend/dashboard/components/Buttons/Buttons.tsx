@@ -7,6 +7,12 @@ interface Props {
   title: string;
 }
 
+/**
+ * Button component for delete actions
+ * @param onClick - Function to execute when delete button is clicked
+ * @param children - Child elements to render inside the button
+ * @param title - Title/tooltip text for the button
+ */
 const DeleteButton = ({
   onClick,
   children,
@@ -26,6 +32,9 @@ const DeleteButton = ({
   );
 };
 
+/**
+ * Button component for navigating back to previous page
+ */
 const BackButton = () => {
   const navigate = useNavigate();
 

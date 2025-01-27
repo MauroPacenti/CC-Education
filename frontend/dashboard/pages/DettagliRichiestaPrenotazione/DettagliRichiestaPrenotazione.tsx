@@ -111,7 +111,6 @@ const DettagliRichiestaPrenotazione = () => {
                     }
                     max={bookingRequestDetails?.endAvailabilityDate}
                     onClick={(e) => {
-                      console.log(e.currentTarget.value);
                       e.currentTarget.showPicker();
                     }}
                     name="startDate"

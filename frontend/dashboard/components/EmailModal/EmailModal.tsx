@@ -22,6 +22,11 @@ const EmailModal = ({
   const [isOnBlurEmail, setIsOnBlurEmail] = useState(false);
   const [isOnBlurRepeatEmail, setIsOnBlurRepeatEmail] = useState(false);
 
+  /**
+   * Updates the email address via API call
+   * @returns {Promise<any>} API response
+   * @throws {Error} If email update fails
+   */
   const updateEmail = async () => {
     const response = await fetch(`/api/auth/saveTemp?email=${emails.email}`, {
       method: "PUT",
@@ -32,6 +37,10 @@ const EmailModal = ({
     return response.json();
   };
 
+  /**
+   * Handles form submission for email update
+   * @param {React.FormEvent<HTMLFormElement>} e - Form event
+   */
   const onSubmitEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsOnBlurEmail(true);
@@ -69,11 +78,18 @@ const EmailModal = ({
     },
   });
 
+  /**
+   * Handles email input changes
+   * @param {React.ChangeEvent<HTMLInputElement>} e - Input change event
+   */
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmails((prev) => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Resets all form states to their initial values
+   */
   const resetStates = () => {
     setIsOnBlurEmail(false);
     setIsOnBlurRepeatEmail(false);

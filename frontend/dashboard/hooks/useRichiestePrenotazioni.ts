@@ -4,6 +4,14 @@ import journeyRequestMapper from "../utils/Mapper/journeyRequestMapper";
 import { useNavigate } from "react-router";
 import RichiestePrenotazioneService from "../services/RichiestePrenotazioni.service";
 
+/**
+ * Custom hook for managing booking requests
+ * @returns {Object} Object containing booking requests data and handlers
+ * @returns {BookingRequest[]} data - Array of booking requests
+ * @returns {boolean} isLoading - Loading state of the query
+ * @returns {boolean} isError - Error state of the query
+ * @returns {(id: number) => void} handleClick - Function to navigate to specific booking request
+ */
 const useRichiestePrenotazioni = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["bookingRequests"],

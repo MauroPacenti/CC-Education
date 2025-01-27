@@ -4,7 +4,12 @@ import "./RichiesteInformazioni.css";
 import useRichiesteInformazione from "../../hooks/useRichiesteInformazione";
 import Buttons from "../../components/Buttons/Buttons";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
-
+/**
+ * Component that displays and manages information requests.
+ * Handles loading states, error states, and renders a list of information requests.
+ * Each request can be viewed in detail and deleted.
+ * @returns {JSX.Element} The rendered RichiesteInformazioni component
+ */
 const RichiesteInformazioni = () => {
   const {
     data,

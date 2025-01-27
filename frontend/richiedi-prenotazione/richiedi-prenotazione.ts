@@ -191,8 +191,6 @@ form?.addEventListener("submit", async (e) => {
       modalLoading?.classList.remove("active");
     }, 10000);
 
-    console.log(formData);
-
     if (response.ok) {
       const json = await response.json();
       if (successModal !== null) {

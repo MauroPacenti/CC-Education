@@ -13,6 +13,12 @@ const EmailCodesModal = ({
 
   const { toggleToast } = useContext(ToastContext);
 
+  /**
+   * Handles changes in code input fields
+   * @param {("old"|"new")} type - Type of code being entered (old or new email)
+   * @param {number} index - Index of the input field
+   * @param {string} value - Value entered in the input field
+   */
   const handleCodeChange = (
     type: "old" | "new",
     index: number,
@@ -34,6 +40,12 @@ const EmailCodesModal = ({
     }
   };
 
+  /**
+   * Handles keydown events for code input fields
+   * @param {("old"|"new")} type - Type of code being entered (old or new email)
+   * @param {number} index - Index of the input field
+   * @param {React.KeyboardEvent<HTMLInputElement>} e - Keyboard event
+   */
   const handleKeyDown = (
     type: "old" | "new",
     index: number,
@@ -45,6 +57,11 @@ const EmailCodesModal = ({
     }
   };
 
+  /**
+   * Handles paste events for code input fields
+   * @param {("old"|"new")} type - Type of code being entered (old or new email)
+   * @param {React.ClipboardEvent<HTMLInputElement>} e - Clipboard event
+   */
   const handlePaste = (
     type: "old" | "new",
     e: React.ClipboardEvent<HTMLInputElement>
@@ -60,11 +77,19 @@ const EmailCodesModal = ({
     }
   };
 
+  /**
+   * Resets the code input states to empty values
+   */
   const resetStates = () => {
     setOldCode(["", "", "", "", "", "", "", "", ""]);
     setNewCode(["", "", "", "", "", "", "", "", ""]);
   };
 
+  /**
+   * Sends the verification codes to the server
+   * @returns {Promise<void>}
+   * @throws {Error} If the server response is not ok
+   */
   const saveChanges = async () => {
     const completeOldCode = oldCode.join("");
     const completeNewCode = newCode.join("");

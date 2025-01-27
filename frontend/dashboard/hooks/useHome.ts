@@ -6,7 +6,18 @@ import { useContext, useState } from "react";
 import ToastContext from "../context/ToastContext";
 import RichiestePrenotazioneService from "../services/RichiestePrenotazioni.service";
 import RichiesteInformazioniService from "../services/RichiesteInformazioni.service";
-
+/**
+ * Custom hook for managing home page functionality
+ * @returns {Object} Object containing:
+ * @returns {Array} bookings - List of mapped booking data
+ * @returns {boolean} isLoading - Loading state for bookings query
+ * @returns {boolean} isError - Error state for bookings query
+ * @returns {Array} infoRequest - List of information requests
+ * @returns {Array} journeyRequest - List of journey requests
+ * @returns {boolean} isOpenDeleteModal - State for delete modal visibility
+ * @returns {Function} toggleDeleteModal - Function to toggle delete modal state
+ * @returns {Function} handleDeleteClick - Function to handle booking deletion
+ */
 const useHome = () => {
   const { toggleToast } = useContext(ToastContext);
   const queryClient = useQueryClient();

@@ -5,7 +5,12 @@ import "./DettagliPrenotazione.css";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
 import Details from "../../components/Details/Details";
 import { CheckCheck, Pencil, Trash } from "lucide-react";
-
+/**
+ * DettagliPrenotazione component displays detailed information about a booking
+ * including keeper details, organization details, and booking details.
+ * It provides functionality to edit and delete bookings.
+ * @returns {JSX.Element} The DettagliPrenotazione component
+ */
 const DettagliPrenotazione = () => {
   const {
     bookingDetails,

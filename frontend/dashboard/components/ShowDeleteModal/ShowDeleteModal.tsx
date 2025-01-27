@@ -2,7 +2,14 @@ import { PropsWithChildren } from "react";
 import Modal from "../Modal/Modal";
 import "./ShowDeleteModal.css";
 import { Trash } from "lucide-react";
-
+/**
+ * Modal component for confirming deletion of an item
+ * @param {Object} props - Component props
+ * @param {Function} props.toggleDeleteModal - Function to toggle the delete modal visibility
+ * @param {Function} [props.onClick] - Optional callback function when delete is confirmed
+ * @param {string} [props.subject] - Optional subject text to display what is being deleted
+ * @returns {JSX.Element} Delete confirmation modal
+ */
 interface Props {
   toggleDeleteModal: (arg?: number) => void;
   onClick?: () => void;

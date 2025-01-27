@@ -2,7 +2,12 @@ import { useContext, useState } from "react";
 import ToastContext from "../../context/ToastContext";
 import { useMutation } from "@tanstack/react-query";
 import Modal from "../Modal/Modal";
-
+/**
+ * Modal component for handling password code verification
+ * @param {Object} props - Component props
+ * @param {Function} props.toggleCodePasswordModal - Function to toggle the visibility of the code password modal
+ * @returns {JSX.Element} Password code modal component
+ */
 const PasswordCodeModal = ({
   toggleCodePasswordModal,
 }: {
@@ -11,6 +16,11 @@ const PasswordCodeModal = ({
   const [code, setCode] = useState(["", "", "", "", "", "", "", "", ""]);
   const { toggleToast } = useContext(ToastContext);
 
+  /**
+   * Handles changes to the code input fields
+   * @param {number} index - Index of the code input field
+   * @param {string} value - New value for the code input field
+   */
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1 && /^\d*$/.test(value)) {
       const newCode = [...code];
@@ -25,6 +35,11 @@ const PasswordCodeModal = ({
     }
   };
 
+  /**
+   * Handles keydown events for code input fields
+   * @param {number} index - Index of the code input field
+   * @param {React.KeyboardEvent<HTMLInputElement>} e - Keyboard event
+   */
   const handleKeyDown = (
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>
@@ -35,6 +50,10 @@ const PasswordCodeModal = ({
     }
   };
 
+  /**
+   * Handles paste events for code input fields
+   * @param {React.ClipboardEvent<HTMLInputElement>} e - Clipboard event
+   */
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedCode = e.clipboardData.getData("text").split("");
@@ -43,6 +62,11 @@ const PasswordCodeModal = ({
     }
   };
 
+  /**
+   * Saves changes by sending the verification code to the server
+   * @returns {Promise<void>}
+   * @throws {Error} If the code is invalid
+   */
   const saveChanges = async () => {
     const response = await fetch(
       `/api/auth/saveChanges?oldEmailCode=${code.join("")}`,

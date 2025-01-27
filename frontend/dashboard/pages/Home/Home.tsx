@@ -6,7 +6,11 @@ import useHome from "../../hooks/useHome";
 import { BookingHome } from "../../models/BookingHome.model";
 import Buttons from "../../components/Buttons/Buttons";
 import ShowDeleteModal from "../../components/ShowDeleteModal/ShowDeleteModal";
-
+/**
+ * Home component displays the admin dashboard with accepted bookings and new requests.
+ * Shows loading state, error state, and manages booking deletion through a modal.
+ * @returns {JSX.Element} The rendered Home component
+ */
 const Home = () => {
   const {
     isError,

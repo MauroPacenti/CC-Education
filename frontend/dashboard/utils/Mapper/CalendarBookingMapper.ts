@@ -17,7 +17,17 @@ interface Journey {
   endDate: string;
   duration: number;
 }
-
+/**
+ * Maps a Journey object to a calendar booking format
+ * @param {Journey} booking - The journey booking object to map
+ * @returns {Object} The mapped calendar booking object containing:
+ *  - id: number
+ *  - title: string
+ *  - start: string (formatted date-time)
+ *  - end: string (formatted date-time)
+ *  - description: string (annotations or organization details)
+ *  - people: string[] (array of group size details)
+ */
 export const calendarBookingMapper = (booking: Journey) => {
   return {
     id: booking.id,
