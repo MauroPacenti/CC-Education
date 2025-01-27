@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+// Entity that refers to admin table in DB using Springboot dependencies
 @Entity
 @Table(name = "`admin`")
 public class Admin {

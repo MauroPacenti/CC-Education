@@ -14,6 +14,7 @@ public class JavaMailController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
+    // Allows to manage and send emails
     @PostMapping("/auth/sendMail")
     public ResponseEntity<Boolean> sendMail(@RequestParam String to, @RequestParam String subject, @RequestParam String body){
         try {

@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+// Entity that refers to organizations table in DB using Springboot dependencies
 @Entity
 @Table(name = "`organizations`")
 public class Organization {

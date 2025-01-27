@@ -36,7 +36,7 @@ public class JourneyRequestController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
-    // Returns all Journeys
+    // Returns all journeyRequests, or in case of an empty list, throws an exception
     @GetMapping("/auth/getAllJourneyRequest")
     public ResponseEntity<List<JourneyRequest>> getAllJourneyRequest() {
     	try {
@@ -48,14 +48,16 @@ public class JourneyRequestController {
     	}
     }
 
-    // Creates a new JourneyRequest
+    // Creates a new journeyRequest
     @PostMapping("/pub/createJourneyRequest")
     public ResponseEntity<JourneyRequest> addJourneyRequest(@RequestBody JourneyRequestDto journeyRequestDto) {
 
         try {
+        	// Validate email
             if(adminService.validateEmail(journeyRequestDto.getKeeper().getEmail())){
                 throw new Error("L'email non ha un formato idoneo.");
             }
+            // Validate date 
             if(!journeyRequestService.dateCheck(journeyRequestDto.getJourneyRequest().getStartAvailabilityDate(), journeyRequestDto.getJourneyRequest().getEndAvailabilityDate())) {
                 throw new Error("Le date non sono valide.");
             }
@@ -71,6 +73,7 @@ public class JourneyRequestController {
             }
             JourneyRequest journeyRequest;
             try {
+            	// Result of the JourneyRequest, if error, generates an exception
                 journeyRequest = journeyRequestService.addJourneyRequest(journeyRequestDto.getJourneyRequest());
                 String object= "Richiesta prenotazione: " + journeyRequest.getKeeper().getFirstName() + " " + journeyRequest.getKeeper().getLastName();
                 String body= "La richiesta è stata registrata";
@@ -90,12 +93,13 @@ public class JourneyRequestController {
                                                @RequestParam(required = false) int duration,
                                                @RequestParam(required = false) int keeperId,
                                                @RequestParam int journeyRequestId) {
-
+        // Validate date
         if(!journeyRequestService.dateCheck(startAvailabilityDate, endAvailabilityDate)){
             throw new Error("Le date non sono valide.");
         }
         JourneyRequest updatedJourneyRequest = new JourneyRequest();
         try {
+            // Update the journeyRequest
         	updatedJourneyRequest.setId(journeyRequestId);
         	updatedJourneyRequest.setStartAvailabilityDate(startAvailabilityDate);
         	updatedJourneyRequest.setEndAvailabilityDate(endAvailabilityDate);
@@ -109,7 +113,7 @@ public class JourneyRequestController {
        }
     }
 
-    // Deletes existing JourneyRequest
+    // Deletes existing journeyRequest, if no keeper is found, throws an exception
     @DeleteMapping("/auth/deleteJourneyRequest")
     public ResponseEntity<Boolean> deleteJourneyRequest(@RequestParam int keeperId) {
         try {

@@ -17,25 +17,30 @@ public class InfoRequestServiceImpl implements InfoRequestService {
     @Autowired
     private StatusRepository statusRepo;
 
+    // Returns all infoRequests
     @Override
     public List<InfoRequest> getInfoRequests() {
         return infoRequestRepo.findAll();
     }
 
+	// Returns the id if present otherwise returns false
     @Override
     public Optional<InfoRequest> getInfoRequest(int infoRequestId) {
         return infoRequestRepo.findById(infoRequestId);
     }
 
+    // Adds an infoRequest by requested parameters
     @Override
     public void addInfoRequest(InfoRequest infoRequest) {
+    	
         infoRequest.setStatus(statusRepo.findById(1).get());
         infoRequestRepo.save(infoRequest);
     }
 
+    // Deletes an existing infoRequest, if it doesn't find the infoRequest, it generates an error message
     @Override
     public boolean deleteInfoRequest(int infoRequestId) {
-        try {
+    	try {
             if(infoRequestRepo.findById(infoRequestId).isEmpty()) {
                 throw new Exception("Richiesta non trovata.");
             }
@@ -47,9 +52,10 @@ public class InfoRequestServiceImpl implements InfoRequestService {
         }
     }
 
+    // Updates an existing Group by requested parameters
     @Override
     public void updateInfoRequest(int infoRequestId, int statusId) {
-        InfoRequest edited = infoRequestRepo.findById(infoRequestId).get();
+    	InfoRequest edited = infoRequestRepo.findById(infoRequestId).get();
                 edited.setStatus(statusRepo.findById(statusId).get());
                 infoRequestRepo.save(edited);
     }

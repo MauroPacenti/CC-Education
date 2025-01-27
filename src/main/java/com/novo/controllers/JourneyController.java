@@ -36,7 +36,7 @@ public class JourneyController {
 	@Autowired
 	private JourneyRequestService journeyRequestService;
 
-	// Returns all Journeys
+	// Returns all Journeys, or in case of an empty list, throws an exception
 	@GetMapping("/auth/getAllJourney")
 	public ResponseEntity<List<Journey>> getAllJourney(
 			@RequestParam(required = false) String title,
@@ -62,13 +62,16 @@ public class JourneyController {
 	   
 	    Journey savedJourney = new Journey();
 	    try {
+	    	// Validate email
 	    	if(adminService.validateEmail(keeperService.getKeeper(keeperId).get().getEmail())) {
 	    		throw new Error("L'email nom ha un formato idoneo.");
 	    	}
+	    	// Validate date
 			if(!journeyService.dateTimeCheck(startDate, endDate)) {
 				throw new Error("Le date non sono valide.");
 			}
 				savedJourney = journeyService.addJourney(title, annotations, startDate, endDate, keeperId);
+				// Delete journeyRequest after journey is created
 				JourneyRequest journeyRequest = journeyRequestService.getKeeper(keeperId);
 				if(journeyRequest != null) {
 					journeyRequestService.deleteJourneyRequest(journeyRequest.getId());
@@ -78,6 +81,7 @@ public class JourneyController {
 	    	return ResponseEntity.badRequest().build();
 	    }
 			try {
+				// Sending the journey via email, in case of error, generates an exception
 				String object= "Conferma prenotazione: " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName();
 				String body= "Gentile " + savedJourney.getKeeper().getFirstName() + " " + savedJourney.getKeeper().getLastName()
 						+ ",<br>" +
@@ -91,14 +95,15 @@ public class JourneyController {
         }
 	    return ResponseEntity.ok(savedJourney);
 }
-	
+	// Creates a new Journey from the admin interface
 	@PostMapping("/auth/createJourneyFromAdmin")
-	// Creates a new journey from the admin interface
 	public ResponseEntity<Journey> createJourneyFromAdmin(@RequestBody JourneyDto journeyDto){
 		try {
+			// Validate email
 			if(adminService.validateEmail(journeyDto.getKeeper().getEmail())){
 				throw new Error("L'email non ha un formato idoneo.");
 			}
+			// Validate date
 			if(!journeyService.dateTimeCheck(journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate())) {
 				throw new Error("Le date non sono valide.");
 			}
@@ -113,6 +118,7 @@ public class JourneyController {
 		}
 			Journey journey;
 			try {
+				// Sending the Journey via email, in case of error, generates an exception
 				journey = journeyService.addJourney(journeyDto.getJourney().getTitle(), journeyDto.getJourney().getAnnotations(), journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate(), journeyDto.getJourney().getKeeper().getId());
 				String object= "Richiesta prenotazione: " + journey.getKeeper().getFirstName() + " " + journey.getKeeper().getLastName();
 				String body= "Gentile " + journeyDto.getKeeper().getFirstName() + " " + journeyDto.getKeeper().getLastName()
@@ -128,19 +134,21 @@ public class JourneyController {
 			return ResponseEntity.ok(journey);
 	}
 	
-	// Updates existing Journey
-
-	@PutMapping("/auth/updateJourney")
+	// Updates existing Journey, in case of error, generates an exception
+    @PutMapping("/auth/updateJourney")
 	public ResponseEntity<Journey> updateJourney(@RequestBody JourneyDto journeyDto) {
 		try {
+			// Validate email
 			if (adminService.validateEmail(journeyDto.getKeeper().getEmail())) {
 				throw new Error("L'email non ha un formato idoneo.");
 			}
+			// Validate date
 			if(!journeyService.dateTimeCheck(journeyDto.getJourney().getStartDate(), journeyDto.getJourney().getEndDate())) {
 				throw new Error("Le date non sono valide.");
 			}
 			Journey journey;
 			try {
+				// Update the journey
 				Keeper newKeeper = keeperService.updateKeeper(journeyDto.getKeeper().getId(), journeyDto.getKeeper());
 				Group group = groupService.updateGroup(journeyDto.getGroup().getId(), journeyDto.getGroup().getMinors(), journeyDto.getGroup().getAdults(), newKeeper.getId());
 				Organization organization = organizationService.updateOrganization(journeyDto.getOrganization().getId(), journeyDto.getOrganization().getName(), journeyDto.getOrganization().getType(), journeyDto.getOrganization().getAddress(), journeyDto.getOrganization().getPhone(), journeyDto.getOrganization().getEmail(), newKeeper.getId());
@@ -160,7 +168,7 @@ public class JourneyController {
 		}
 	}
 
-	// Deletes existing Journey
+	// Deletes existing Journey, if no request is found, throws an exception
 	@DeleteMapping("/auth/deleteJourney")
 	public ResponseEntity<Boolean> deleteJourney(@RequestParam int journeyId) {
 	try {

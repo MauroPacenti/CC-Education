@@ -21,9 +21,10 @@ public class JourneyServiceImpl implements JourneyService {
 	@Autowired
 	private KeeperRepository keeperRepo;
 	
+	// Returns all journeys 
 	@Override
 	public List<Journey> findALL() {
-	    return journeyRepo.findAll(); // Returns all journeys 
+	    return journeyRepo.findAll(); 
 	}
 	
 	// Returns journey filters
@@ -32,6 +33,7 @@ public class JourneyServiceImpl implements JourneyService {
 	    return journeyRepo.findAll()
 			.stream()
 			.filter(j -> {
+			     // Ensure both dates are provided
 				if(endDate != null && startDate != null) {
 					return (j.getEndDate().isEqual(endDate)&& j.getStartDate().isEqual(startDate));
 				}
@@ -40,7 +42,7 @@ public class JourneyServiceImpl implements JourneyService {
 				}
 			})
 			.filter(j -> {
-				
+			     // Ensure title is provided
 				if(title != null && !title.isEmpty()) {
 					return j.getTitle().equals(title);
 				}
@@ -51,7 +53,7 @@ public class JourneyServiceImpl implements JourneyService {
 			.toList();
 	}
 	
-    // Returns a journey by its ID
+    // Returns a journey by its ID, if it doesn't find it, it returns null
     @Override
     public Journey findById(int journeyId) {
         return journeyRepo.findById(journeyId).orElse(null);
@@ -60,14 +62,15 @@ public class JourneyServiceImpl implements JourneyService {
     // Saves Journey by requested parameters
     @Override
     public Journey addJourney(String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
-    	
+    	// Validate title
     	if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be null or empty");
         }
+    	// Validate date
         if (startDate == null || endDate == null || startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("Invalid date range: Start date must be before or equal to end date");
         }
-        
+        // If the keeper is not found, it throws an exception.
         Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
     	      new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
     	);
@@ -86,26 +89,31 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public Journey updateJourney(int journeyId, String title, String annotations, LocalDateTime startDate, LocalDateTime endDate, int keeperId) {
     	
+  	    // If the journey is not found, it throws an exception.
     	Journey journey = journeyRepo.findById(journeyId).orElseThrow(() -> 
         	new IllegalArgumentException("Journey with ID " + journeyId + " not found.")
         );
-    	
+  	    // If the keeper is not found, it throws an exception.
     	Keeper keeper = keeperRepo.findById(keeperId).orElseThrow(() -> 
 	        new IllegalArgumentException("Journey with ID " + keeperId + " not found.")
     	);
-
+    	// Ensure title is provided
     	if(title != null && !title.isEmpty()) {
     		journey.setTitle(title);
     	}
+    	 // Ensure annotations is provided
     	if(annotations != null && !annotations.isEmpty()) {
         	journey.setAnnotations(annotations);
         }
+    	 // Ensure startDate is provided
     	if(startDate != null) {
         	journey.setStartDate(startDate);
         }
+    	 // Ensure endDate is provided
     	if(endDate != null) {
         	journey.setEndDate(endDate);
         }
+    	 // Ensure keeper is provided
     	if(keeper != null) {
     		journey.setKeeper(keeper);
     	}
@@ -113,7 +121,7 @@ public class JourneyServiceImpl implements JourneyService {
     	return journeyRepo.save(journey);
     }
     
-    // Delete Journey by its ID
+    // Delete Journey by its ID, if it doesn't find the id, return false
     @Override
     public boolean deleteJourney(int journeyId) {
     	if(journeyRepo.existsById(journeyId)) {

@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+// Entity that refers to security_check table in DB using Springboot dependencies
 @Entity
 @Table(name = "`security_check`")
 public class SecurityCheck {

@@ -17,10 +17,9 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     @Autowired
     private JavaMailSender mailSender;
 
-
-
     @Override
     public void sendMail(String to, String subject, String body) throws MessagingException {
+    	
         MimeMessage message = mailSender.createMimeMessage();
 
         // Use MimeMessageHelper for convenient handling of the MIME message
@@ -48,6 +47,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     // Sends verification email containing security code
     @Override
     public void sendVerificationMail(String code, String email) {
+    	
         SimpleMailMessage message = new SimpleMailMessage();
         try {
             sendMail(email, "Codice di verifica", "Il tuo codice di verifica per la modifica delle informazioni è: " + code);
@@ -59,6 +59,7 @@ public class JavaMailSenderServiceImpl implements JavaMailSenderService {
     // Loads email templates from src/main/resources/email-template.html
     @Override
     public String loadTemplate(Map<String, String> placeholders) throws Exception {
+    	
         String content = new String(Files.readAllBytes(Paths.get("src/main/resources/static/email-template/index.html")));
 
         // Replace placeholders like {{title}} and {{content}}

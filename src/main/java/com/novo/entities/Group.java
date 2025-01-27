@@ -1,11 +1,10 @@
 package com.novo.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
-
+// Entity that refers to groups table in DB using Springboot dependencies
 @Entity
 @Table(name = "`groups`")
 public class Group {

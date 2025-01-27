@@ -4,7 +4,7 @@ import com.novo.Interfaces.Searchable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
-
+// Entity that refers to keepers table in DB using Springboot dependencies
 @Entity
 @Table(name = "`keepers`")
 public class Keeper implements Searchable {

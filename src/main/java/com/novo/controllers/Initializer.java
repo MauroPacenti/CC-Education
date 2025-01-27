@@ -27,6 +27,7 @@ public class Initializer {
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    // Allows to initialize the DB for the first time
     @PostMapping("/pub/initialize")
     String initalize(String email){
         String password = ("123456");

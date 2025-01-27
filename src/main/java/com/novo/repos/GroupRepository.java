@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.novo.entities.Group;
 
+// Repository for the group using jpaRepository
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 }

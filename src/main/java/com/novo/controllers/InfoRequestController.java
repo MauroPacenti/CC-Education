@@ -19,7 +19,7 @@ public class InfoRequestController {
     @Autowired
     private JavaMailSenderService javaMailSenderService;
 
-    // Returns all info requests
+    // Returns all infoRequests or, in case of an empty list, throws an exception
     @GetMapping("/auth/getAllInfoRequest")
     public ResponseEntity<List<InfoRequest>> getAllInfoRequest() {
         try {
@@ -31,7 +31,7 @@ public class InfoRequestController {
         }
     }
 
-    // Creates a new InfoRequest
+    // Creates a new infoRequest
     @PostMapping("/pub/createInfoRequest")
     public ResponseEntity<InfoRequest> createInfoRequest(@RequestParam String email,
                                          @RequestParam String title,
@@ -39,9 +39,11 @@ public class InfoRequestController {
     	
             InfoRequest savedInfoRequest = new InfoRequest();
         try {
+        	// Validate email
             if(adminService.validateEmail(email)){
                 throw new Error("L'email non ha un formato idoneo.");
             }
+            // Set the info request, and if there is an error, throw an exception
             savedInfoRequest.setEmail(email);
             savedInfoRequest.setTitle(title);
             savedInfoRequest.setContent(content);
@@ -51,6 +53,7 @@ public class InfoRequestController {
             return ResponseEntity.badRequest().build();
         }
         try {
+        	// Result of the infoRequest, if error, generates an exception
             String object= "Richiesta informazioni: " + savedInfoRequest.getTitle();
             String body= "La richiesta è stata registrata";
             javaMailSenderService.sendMail(savedInfoRequest.getEmail(),object,body);
@@ -61,7 +64,7 @@ public class InfoRequestController {
             return ResponseEntity.ok(savedInfoRequest);
     }
 
-    // Deletes existing InfoRequest
+    // Deletes existing InfoRequest, if no request is found, throws an exception
     @DeleteMapping("/auth/deleteInfoRequest")
     public ResponseEntity<Boolean> deleteInfoRequest(@RequestParam int infoRequestId) {
         try {
