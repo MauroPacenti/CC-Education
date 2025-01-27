@@ -91,7 +91,10 @@ const DettagliRichiestaInformazione = () => {
       {showDeleteModal && (
         <ShowDeleteModal
           toggleDeleteModal={toggleDeleteModal}
-          onClick={() => handleDeleteClick(requestInformationDetails)}
+          onClick={() => {
+            toggleDeleteModal();
+            handleDeleteClick(requestInformationDetails);
+          }}
           subject="richiesta d'informazione"
         ></ShowDeleteModal>
       )}

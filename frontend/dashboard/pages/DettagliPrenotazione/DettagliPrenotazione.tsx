@@ -66,6 +66,7 @@ const DettagliPrenotazione = () => {
           toggleDeleteModal={toggleDeleteModal}
           onClick={() => {
             if (!bookingDetails) return;
+            toggleDeleteModal();
             mutation.mutate();
           }}
           subject="prenotazione"

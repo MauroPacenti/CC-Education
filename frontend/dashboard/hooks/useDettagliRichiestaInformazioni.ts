@@ -73,7 +73,7 @@ const useDettagliRichiestaInformazioni = () => {
         type: "success",
         message: "Email inviata con successo!",
       });
-      setShowReplyModal(false);
+      toggleReplyModal();
     },
     onError: (error) => {
       toggleToast({

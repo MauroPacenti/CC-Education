@@ -57,14 +57,13 @@ const useHome = () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
       toggleToast({
         type: "success",
-        message: "Richiesta di informazione eliminata con successo",
+        message: "Prenotazione eliminata con successo",
       });
     },
     onError: () => {
       toggleToast({
         type: "error",
-        message:
-          "Errore durante l'eliminazione della richiesta di informazione",
+        message: "Errore durante l'eliminazione della prenotazione",
       });
     },
   });
@@ -83,6 +82,11 @@ const useHome = () => {
       setSelectedBooking(id);
     }
     setIsOpenDeleteModal((prev) => !prev);
+    if (!isOpenDeleteModal) {
+      document.body.classList.add("open-modal");
+    } else {
+      document.body.classList.remove("open-modal");
+    }
   };
 
   return {

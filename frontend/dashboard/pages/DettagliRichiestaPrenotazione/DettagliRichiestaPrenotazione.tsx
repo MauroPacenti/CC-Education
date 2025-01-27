@@ -185,7 +185,10 @@ const DettagliRichiestaPrenotazione = () => {
       {deleteModal && (
         <ShowDeleteModal
           toggleDeleteModal={toggleDeleteModal}
-          onClick={() => deleteMutation.mutate(keeperId)}
+          onClick={() => {
+            toggleDeleteModal();
+            deleteMutation.mutate(keeperId);
+          }}
           subject="richiesta di prenotazione"
         />
       )}
